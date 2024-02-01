@@ -108,18 +108,6 @@
         {%- capture link -%}https://www.linkedin.com/in/{{ site.linkedin_username }}{%- endcapture -%}
         {%- assign sameaslinks = sameaslinks | push: link -%}
     {%- endif -%}
-    {%- if site.twitter_username -%}
-        {%- capture link -%}https://twitter.com/{{ site.twitter_username }}{%- endcapture -%}
-        {%- assign sameaslinks = sameaslinks | push: link -%}
-    {%- endif -%}
-    {%- if site.medium_username -%}
-        {%- capture link -%}https://medium.com/@{{ site.medium_username }}{%- endcapture -%}
-        {%- assign sameaslinks = sameaslinks | push: link -%}
-    {%- endif -%}
-    {%- if site.quora_username -%}
-        {%- capture link -%}https://www.quora.com/profile/{{ site.quora_username }}{%- endcapture -%}
-        {%- assign sameaslinks = sameaslinks | push: link -%}
-    {%- endif -%}
     {%- if site.blogger_url -%}
         {%- capture link -%}{{ site.blogger_url }}{%- endcapture -%}
         {%- assign sameaslinks = sameaslinks | push: link -%}
