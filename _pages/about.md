@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Senior Machine Learning Research Scientist, Technical Project Lead</a>. Ford Autonomy, 3D Perception and Prediction
+subtitle: <a href='#'>Research Intern @ MILA
 
 profile:
   align: right
