@@ -1,75 +1,29 @@
 ---
 ---
 
-@misc{krishnan2023lane,
-      title={LANe: Lighting-Aware Neural Fields for Compositional Scene Synthesis}, 
-      author={Akshay Krishnan and Amit Raj and Xianling Zhang and Alexandra Carlson and Nathan Tseng and Sandhya Sridhar and Nikita Jaipuria and James Hays},
+@misc{song2023honeybee,
+      title={HoneyBee: Progressive Instruction Finetuning of Large Language Models for Materials Science}, 
+      author={Yu Song and Santiago Miret and Huan Zhang and Bang Liu},
       year={2023},
-      eprint={2304.03280},
+      eprint={2310.08511},
       archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      selected = {true},
-      preview = {lanerf.png},
-      abstract = {Neural fields have recently enjoyed great success in representing and rendering 3D scenes. However, most state-of-the-art implicit representations model static or dynamic scenes as a whole, with minor variations. Existing work on learning disentangled world and object neural fields do not consider the problem of composing objects into different world neural fields in a lighting-aware manner. We present Lighting-Aware Neural Field (LANe) for the compositional synthesis of driving scenes in a physically consistent manner. Specifically, we learn a scene representation that disentangles the static background and transient elements into a world-NeRF and class-specific object-NeRFs to allow compositional synthesis of multiple objects in the scene. Furthermore, we explicitly designed both the world and object models to handle lighting variation, which allows us to compose objects into scenes with spatially varying lighting. This is achieved by constructing a light field of the scene and using it in conjunction with a learned shader to modulate the appearance of the object NeRFs. We demonstrate the performance of our model on a synthetic dataset of diverse lighting conditions rendered with the CARLA simulator, as well as a novel real-world dataset of cars collected at different times of the day. Our approach shows that it outperforms state-of-the-art compositional scene synthesis on the challenging dataset setup, via composing object-NeRFs learned from one scene into an entirely different scene whilst still respecting the lighting variations in the novel scene. For more results, please visit our project website https://lane-composition.github.io/.},
-      arxiv= {https://arxiv.org/abs/2304.03280},
-      html = {https://lane-composition.github.io/}
-      
+      primaryClass={cs.CL}
 }
-
-@InProceedings{Zhang_2022_CVPR,
-    author    = {Zhang, Xianling and Tseng, Nathan and Syed, Ameerah and Bhasin, Rohan and Jaipuria, Nikita},
-    title     = {SIMBAR: Single Image-Based Scene Relighting for Effective Data Augmentation for Automated Driving Vision Tasks},
-    journal = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2022},
-    pages     = {3718-3728},
-    selected= {true},
-    preview= {simbar.gif},
-    booktitle = {CVPR},
-    abstract = {Real-world autonomous driving datasets comprise of images aggregated from different drives on the road. The ability to relight captured scenes to unseen lighting conditions, in a controllable manner, presents an opportunity to augment datasets with a richer variety of lighting conditions, similar to what would be encountered in the real-world. This paper presents a novel image-based relighting pipeline, SIMBAR, that can work with a single image as input. To the best of our knowledge, there is no prior work on scene relighting leveraging explicit geometric representations from a single image. We present qualitative comparisons with prior multi-view scene relighting baselines. To further validate and effectively quantify the benefit of leveraging SIMBAR for data augmentation for automated driving vision tasks, object detection and tracking experiments are conducted with a state-of-the-art method, a Multiple Object Tracking Accuracy (MOTA) of 93.3% is achieved with CenterTrack on SIMBAR-augmented KITTI-an impressive 9.0% relative improvement over the baseline MOTA of 85.6% with CenterTrack on original KITTI, both models trained from scratch and tested on Virtual KITTI. For more details and SIMBAR relit datasets, please visit our project website (https://simbarv1.github.io/).},
-    arxiv={https://openaccess.thecvf.com/content/CVPR2022/html/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.html},
-    html ={https://simbarv1.github.io/}
-}
-
-@InProceedings{Jaipuria_2022_CVPR,
-    author    = {Jaipuria, Nikita and Stevo, Katherine and Zhang, Xianling and Gaopande, Meghana L. and Calle, Ian and Jain, Jinesh and Murali, Vidya N.},
-    title     = {deepPIC: Deep Perceptual Image Clustering for Identifying Bias in Vision Datasets},
-    journal = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
-    booktitle = {CVPR},
-    month     = {June},
-    year      = {2022},
-    pages     = {4793-4802},
-    selected = {true},
-    preview = {deeppic.png},
-    arxiv = {https://openaccess.thecvf.com/content/CVPR2022W/VDU/html/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.html},
-    html = {https://alchemz.github.io/unpuzzle_dataset_bias/},
-    abstract = {Dataset bias in manually collected datasets is a known problem in computer vision. In safety-critical applications such as autonomous driving, these biases can lead to catastrophic errors from models trained on such datasets, jeopardizing the safety of users and their surroundings. Being able to unpuzzle the bias in a given dataset, and across datasets, is an essential tool for building safe and responsible AI. In this paper, we present deepPIC: deep Perceptual Image Clustering, a novel hierarchical clustering pipeline that leverages deep perceptual features to visualize and understand bias in unstructured and unlabeled datasets. It does so by effectively highlighting nuanced subcategories of information embedded within the data (such as multiple but repetitive shadow types) that typically are hard and/or expensive to annotate. Through experiments on a variety of image datasets, both open-source and internal, we demonstrate the effectiveness of deepPIC in (i) singling out errors in metadata from open-source datasets such as BDD100K;(ii) automatic nuanced metadata annotation;(iii) mining for edge cases;(iv) visualizing inherent bias both within and across multiple datasets; and (v) capturing synthetic data limitations; thus highlighting the wide variety of applications this pipeline can be applied to. All clustering results included here have been uploaded with image thumbnails on our project website-https://alchemz. github. io/unpuzzle_dataset_bias/. We recommend zooming in for best impact.}
-}
-
-@misc{Litvak_Zhang_Jaipuria_Paudel_2022, 
-      title={Neural network image processing}, 
-      author={Zhang, Xianling and Litvak, Artem and and Jaipuria, Nikita and Paudel, Shreyasha}, 
-      year={2022}, 
-      month={Mar}} 
-
-
-@misc{Mayar_Vidya_Zhang_2022, 
-      title={Enhanced vehicle operation}, 
-      author={Mayar Arafa, Vidya Nariyambut murali, Xianling Zhang, Nikita Jaipuria, Rohan Bhasin}, 
-      year={2021}, 
-      month={Sep}} 
-
-
-@InProceedings{Jaipuria_2020_CVPR_Workshops,
-      author = {Jaipuria, Nikita and Zhang, Xianling and Bhasin, Rohan and Arafa, Mayar and Chakravarty, Punarjay and Shrivastava, Shubham and Manglani, Sagar and Murali, Vidya N.},
-      title = {Deflating Dataset Bias Using Synthetic Data Augmentation},
-      booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
-      month = {June},
-      year = {2020},
-      selected={true},
-      preview={synthetic_aug.gif},
-      arxiv={https://openaccess.thecvf.com/content_CVPRW_2020/html/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.html},
-      abstract = {Deep Learning has seen an unprecedented increase in vision applications since the publication of large-scale object recognition datasets and introduction of scalable compute hardware. State-of-the-art methods for most vision tasks for Autonomous Vehicles (AVs) rely on supervised learning and often fail to generalize to domain shifts and/or outliers. Dataset diversity is thus key to successful real-world deployment. No matter how big the size of the dataset, capturing long tails of the distribution pertaining to task-specific environmental factors is impractical. The goal of this paper is to investigate the use of targeted synthetic data augmentation - combining the benefits of gaming engine simulations and sim2real style transfer techniques - for filling gaps in real datasets for vision tasks. Empirical studies on three different computer vision tasks of practical use to AVs - parking slot detection, lane detection and monocular depth estimation - consistently show that having synthetic data in the training mix provides a significant boost in cross-dataset generalization performance as compared to training on real data only, for the same size of the training set.},
-      html = {https://openaccess.thecvf.com/content_CVPRW_2020/supplemental/Jaipuria_Deflating_Dataset_Bias_CVPRW_2020_supplemental.pdf}
-
+@article{10.1145/3596251,
+author = {Lyu, Yue and An, Pengcheng and Xiao, Yage and Zhang, Zibo and Zhang, Huan and Katsuragawa, Keiko and Zhao, Jian},
+title = {Eggly: Designing Mobile Augmented Reality Neurofeedback Training Games for Children with Autism Spectrum Disorder},
+year = {2023},
+issue_date = {June 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {7},
+number = {2},
+url = {https://doi.org/10.1145/3596251},
+doi = {10.1145/3596251},
+abstract = {Autism Spectrum Disorder (ASD) is a neurodevelopmental disorder that affects how children communicate and relate to other people and the world around them. Emerging studies have shown that neurofeedback training (NFT) games are an effective and playful intervention to enhance social and attentional capabilities for autistic children. However, NFT is primarily available in a clinical setting that is hard to scale. Also, the intervention demands deliberately-designed gamified feedback with fun and enjoyment, where little knowledge has been acquired in the HCI community. Through a ten-month iterative design process with four domain experts, we developed Eggly, a mobile NFT game based on a consumer-grade EEG headband and a tablet. Eggly uses novel augmented reality (AR) techniques to offer engagement and personalization, enhancing their training experience. We conducted two field studies (a single-session study and a three-week multi-session study) with a total of five autistic children to assess Eggly in practice at a special education center. Both quantitative and qualitative results indicate the effectiveness of the approach as well as contribute to the design knowledge of creating mobile AR NFT games.},
+journal = {Proc. ACM Interact. Mob. Wearable Ubiquitous Technol.},
+month = {jun},
+articleno = {67},
+numpages = {29},
+keywords = {Autism spectrum disorder, EEG headband, augmented reality, mobile game, neurofeedback training}
 }
