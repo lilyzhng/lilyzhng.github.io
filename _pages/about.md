@@ -20,7 +20,7 @@ social: true  # includes social icons at the bottom of the page
 ---
 Greeting! 😝
 
-I am a Computer Science student at the University of Waterloo, supervised by [Prof.Bang Liu](https://mila.quebec/en/person/bang-liu/).
+I am a Computer Science student at the University of Waterloo, supervised by [Prof.Bang Liu](https://mila.quebec/en/person/bang-liu/). 
 
 My research interests include 
 - Machine Learning (ML)
