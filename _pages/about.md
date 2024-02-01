@@ -9,9 +9,6 @@ profile:
   image: my_pic.jpg
   image_circular: true # crops the image to make it circular
   address: 
-    <p> Ford111ng b</p>
-    <p>3251 Hillview Ave</p>
-    <p>Palo Alto, CA 94304</p>
 
 news: true  # includes a list of news items
 latest_posts: true  # includes a list of the newest posts
