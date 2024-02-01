@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Research Intern @ [MILA](https://mila.quebec/en/)
+subtitle: Research Intern @ MILA
 
 profile:
   align: right
