@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-At AI Accelerator Institute 2023 , I am going to give a talk on <a href="https://aifestival.aiacceleratorinstitute.com/talks/deep-learningbased-datacentric-solutions-for-vision-tasks/">Data misconceptions, challenges and solutions 
+[One paper accepted by IMWUT 2023](https://aclanthology.org/2023.findings-emnlp.380.pdf)!
