@@ -23,8 +23,8 @@ layout: default
                 {%- assign profile_image_class = "img-fluid z-depth-1 rounded" -%}
               {% endif %}
 
-              {% include figure.html
-              path=profile_image_path
+              {% include figure.html 
+              path=profile_image_path 
               class=profile_image_class
               alt=page.profile.image -%}
             {% endif -%}
@@ -40,40 +40,26 @@ layout: default
             {{ content }}
           </div>
 
+          {% if page.news -%}
           <!-- News -->
-          {% if page.news and site.announcements.enabled -%}
-            <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;"><strong>news</strong></a></h2>
-            {%- include news.html limit=true %}
+          {%- include news.html %}
           {%- endif %}
-
-          <!-- Latest posts -->
-          <!-- {% if page.latest_posts -%}
-            <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
-            {%- include latest_posts.html %}
-          {%- endif %} -->
-
-          <!-- Selected papers -->
           {% if page.selected_papers -%}
-            <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;"><strong>selected publications</strong></a></h2>
+            <!-- Selected papers -->
             {%- include selected_papers.html %}
           {%- endif %}
-
-<!--           <h2 id="service"><strong>service</strong></h2> -->
-<!--           <p>I regularly serve as a reviewer for <a href="https://cvpr2023.thecvf.com/">CVPR</a>, <a href="https://nips.cc">NeurIPS</a>, <a href="https://iccv2023.thecvf.com/">ICCV</a>.</p> -->
-            <body>
-<script type='text/javascript' id='mapmyvisitors' src='https://mapmyvisitors.com/map.js?cl=fc6eb4&w=300&t=tt&d=f_qpnIOaD-IyIu3n77YItgS5uYmUr9t_eCJL0r7o5DI&co=ffffff&ct=a39494&cmo=7a94e8&cmn=c90e75'></script>
-            </body>
-          <!-- Social -->
           {%- if page.social %}
-            <div class="social">
-              <div class="contact-icons">
-                {% include social.html %}
-              </div>
-
-              <div class="contact-note">
-                {{ site.contact_note }}
-              </div>
+          <!-- Social -->
+          <div class="social">
+            <div class="contact-icons">
+            {% include social.html %}
             </div>
+
+            <div class="contact-note">
+              {{ site.contact_note }}
+            </div>
+            
+          </div>
           {%- endif %}
         </article>
 
