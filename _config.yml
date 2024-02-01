@@ -70,11 +70,11 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # Social integration
 # -----------------------------------------------------------------------------
 
-github_username: alchemz # your GitHub user name
+github_username: # your GitHub user name
 gitlab_username: # your GitLab user name
-twitter_username: im_lilyz # your Twitter handle
+twitter_username: # your Twitter handle
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
-linkedin_username: alchemz # your LinkedIn user name
+linkedin_username: Huan Zhang # your LinkedIn user name
 telegram_username: # your Telegram user name
 scholar_userid: la-Mx-UAAAAJ # your Google Scholar ID
 semanticscholar_id: # your Semantic Scholar ID
