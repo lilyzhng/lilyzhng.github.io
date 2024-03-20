@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Research Intern @ MILA
+subtitle: Research Intern @ Mila, Quebec AI Institute 
 
 profile:
   align: right
@@ -15,13 +15,14 @@ latest_posts: true  # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-Greeting! 😝
+Greetings!
 
 I am a Computer Science student at the University of Waterloo, supervised by [Prof.Bang Liu](https://mila.quebec/en/person/bang-liu/). 
 
 My research interests include 
 - Machine Learning (ML)
 - Natural Language Processing (NLP)
+- Human-Computer Interaction (HCI)
 - Explainable AI (XAI)
 
 
