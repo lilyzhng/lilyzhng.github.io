@@ -7,7 +7,7 @@ subtitle: Research Intern @ MILA
 profile:
   align: right
   image: my_pic.jpg
-  image_circular: true # crops the image to make it circular
+  image_circular: false # crops the image to make it circular
   address: 
 
 news: true  # includes a list of news items
