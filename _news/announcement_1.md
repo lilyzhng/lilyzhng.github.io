@@ -4,4 +4,4 @@ date: 2024-04-27
 inline: true
 related_posts: false
 ---
-This fall, I will be joining Udem&Mila as a graduate student!
+Yeah! I will be joining Udem&Mila as a graduate student this fall!
