@@ -16,14 +16,14 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 nested_list: true
 ---
-Greeting! 😝
+Greetings!
 
-I am a Computer Science student at the University of Waterloo, supervised by [Prof.Bang Liu](https://mila.quebec/en/person/bang-liu/). 
+I am Huan Zhang, a Mater student at the [Mila - Quebec AI Institute](https://mila.quebec/en). Currently, I’m working with [Prof.Bang Liu](https://mila.quebec/en/person/bang-liu/) in the domain of Nature Language Processing. Perviously, I obtained Bachelor degree from [University fo Waterloo - Cheriton school of Computer Science](https://cs.uwaterloo.ca/). 
 
-My research interests include 
-- Machine Learning (ML)
-- Natural Language Processing (NLP)
-- Explainable AI (XAI)
+My research interests include:
+- NLP4Sci
+- Human-Centered NLP
+- Explainable AI
 
 
 <!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder. -->
