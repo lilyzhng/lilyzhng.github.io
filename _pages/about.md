@@ -18,7 +18,7 @@ nested_list: true
 ---
 Greetings!
 
-I am Huan Zhang, a Mater student at the [Mila - Quebec AI Institute](https://mila.quebec/en). Currently, I’m working with [Prof.Bang Liu](https://mila.quebec/en/person/bang-liu/) in the domain of Nature Language Processing. Perviously, I obtained Bachelor degree from [University fo Waterloo - Cheriton school of Computer Science](https://cs.uwaterloo.ca/). 
+I am Huan Zhang, a Master’s student at the [Mila - Quebec AI Institute](https://mila.quebec/en). Currently, I’m working with [Prof. Bang Liu](https://mila.quebec/en/person/bang-liu/) in the domain of Natural Language Processing. Previously, I obtained my Bachelor’s degree from [University of Waterloo - Cheriton School of Computer Science](https://cs.uwaterloo.ca/).
 
 My research interests include:
 - NLP4Sci
