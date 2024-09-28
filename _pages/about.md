@@ -21,12 +21,14 @@ Greetings!
 
 I am Huan Zhang(张欢), a Master’s student at the [Mila - Quebec AI Institute](https://mila.quebec/en) and [Université de Montréal](https://www.umontreal.ca/). Currently, I’m working with [Prof. Bang Liu](https://mila.quebec/en/person/bang-liu/) in the domain of Natural Language Processing. Previously, I obtained my Bachelor’s degree from [University of Waterloo - Cheriton School of Computer Science](https://cs.uwaterloo.ca/).
 
-Besides work, I enjoy hiking, filming, reading, and collecting all kinds of adorable Jellycat!! Additionally, I’m an amateur photographer and painter, having studied art since I was eight. Feel free to drop me an email at huan[dot]zhang[at]mila[dot]quebec if you'd like to chat or discuss ideas!!
+Besides work, I enjoy hiking, filming, reading, and collecting all kinds of adorable Jellycat!! Additionally, I’m an amateur photographer and painter, having studied art since I was eight. 
+
+Feel free to drop me an email at huan [dot] zhang [at] mila [dot] quebec if you'd like to chat or discuss any ideas!!
 
 My research interests include:
 - NLP4Sci
-- Human-Centered NLP
-- Explainable AI
+- Human-Centered AI
+- Generative Models
 
 
 <!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder. -->
