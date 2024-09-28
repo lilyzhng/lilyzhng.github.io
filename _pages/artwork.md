@@ -19,9 +19,9 @@ Greetings!
 
 I am Huan Zhang(张欢), a Master’s student at the [Mila - Quebec AI Institute](https://mila.quebec/en) and [Université de Montréal](https://www.umontreal.ca/), working with [Prof. Bang Liu](https://mila.quebec/en/person/bang-liu/). Previously, I obtained my Bachelor’s degree from [University of Waterloo - Cheriton School of Computer Science](https://cs.uwaterloo.ca/).
 
-Currently, my research mainly focused on [AI4Matsci], cooperating with [Intel AI Lab](https://intelailabpage.github.io/team/). My research goal is to understand human communication in social contexts and develop human-centered AI technologies to enhance collaboration between humans and AI, as well as improve human-computer interactions.
+Currently, my research mainly focused on [AI4Matsci](https://www-labs.iro.umontreal.ca/~liubang/project-nlp4matsci.html), cooperating with [Intel AI Lab](https://intelailabpage.github.io/team/). My research goal is to understand human communication in social contexts and develop human-centered AI technologies to enhance collaboration between humans and AI, as well as improve human-computer interactions.
 
-Besides work, I enjoy hiking, filming, reading, and collecting all kinds of adorable Jellycat!! Additionally, I’m an amateur photographer and painter, having studied art since I was eight. Feel free to drop me an email at huan[dot]zhang[at]mila[dot]quebec if you'd like to chat or discuss any ideas!!
+Besides work, I enjoy hiking, filming, reading, and collecting all kinds of adorable Jellycat!! Additionally, I’m an amateur photographer and painter, having studied art since I was eight. Feel free to drop me an email at [huan[dot]zhang[at]mila[dot]quebec](huan.zhang@mila.quebec) if you'd like to chat or discuss any ideas!!
 
 My research interests include:
 - LLM
