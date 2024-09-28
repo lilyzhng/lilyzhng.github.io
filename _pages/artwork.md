@@ -24,7 +24,7 @@ Currently, my research mainly focused on [AI4Matsci](https://www-labs.iro.umontr
 Besides work, I enjoy hiking, filming, reading, and collecting all kinds of adorable Jellycat!! Additionally, I’m an amateur photographer and painter, having studied art since I was eight. Feel free to drop me an email at [huan[dot]zhang[at]mila[dot]quebec](huan.zhang@mila.quebec) if you'd like to chat or discuss any ideas!!
 
 My research interests include:
-- LLM
+- Large Language Model(LLM)
 - AI4Sci
 - Human-Centered NLP
 - Generative Models
