@@ -39,19 +39,40 @@ layout: default
           <div class="clearfix">
             {{ content }}
           </div>
+                    <!-- News -->
+                    {% if page.news and site.announcements.enabled -%}
+                    <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;"><strong>news</strong></a></h2>
+                    {%- include news.html limit=true %}
+                  {%- endif %}
+        
+                  <!-- Latest posts -->
+                  <!-- {% if page.latest_posts -%}
+                    <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
+                    {%- include latest_posts.html %}
+                  {%- endif %} -->
+        
+                  <!-- Selected papers -->
+                  {% if page.selected_papers -%}
+                    <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;"><strong>selected publications</strong></a></h2>
+                    {%- include selected_papers.html %}
+                  {%- endif %}
+        
+                  <h2 id="service"><strong>service</strong></h2>
+                  <p>I regularly serve as a reviewer for <a href="https://cvpr2023.thecvf.com/">CVPR</a>, <a href="https://nips.cc">NeurIPS</a>, <a href="https://iccv2023.thecvf.com/">ICCV</a>.</p>
+        
 
-          {% if page.news -%}
+          <!-- {% if page.news -%} -->
           <!-- News -->
-          {%- include news.html %}
-          {%- endif %}
-          {% if page.selected_papers -%}
+          <!-- {%- include news.html %} -->
+          <!-- {%- endif %}
+          {% if page.selected_papers -%} -->
             <!-- Selected papers -->
-            {%- include selected_papers.html %}
-          {%- endif %}
-                          <body>
+            <!-- {%- include selected_papers.html %}
+          {%- endif %} -->
+                          <!-- <body>
        <script type='text/javascript' id='mapmyvisitors' src='https://mapmyvisitors.com/map.js?cl=f986d4&w=325&t=n&d=f_qpnIOaD-IyIu3n77YItgS5uYmUr9t_eCJL0r7o5DI&co=ffffff&cmo=8c9df2&cmn=ba0eab&ct=808080'></script>
              </body>
-          {%- if page.social %}
+          {%- if page.social %} -->
           <!-- Social -->
           <div class="social">
             <div class="contact-icons">

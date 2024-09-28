@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Research Intern @ Mila, Quebec AI Institute 
+subtitle: Researcher@Mila, Quebec AI Institute 
 
 profile:
   align: right
