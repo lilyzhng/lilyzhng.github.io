@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2023-12-15
+date: 2024-04-27
 inline: true
 related_posts: false
 ---
-I obtained my bachelor’s degree in CS from the University of Waterloo! 🎓✨
+Yeah! I will be joining Udem&Mila as a graduate student this fall!
