@@ -148,6 +148,43 @@ author_profile: true
 </button>
 
 
+---
+
+## Service
+
+<ul id="service-list">
+  <li>
+    <strong>Program Committee Member</strong><br>
+    TPC for NeurIPS (21, 24, 25), CVPR (22, 23, 24, 25), ICRA (23), ICML (23), ICLR (24), ECCV (24),  KDD (24)
+  </li>
+  
+  <li>
+    <strong>Industry Advisory Board</strong><br>
+    Invited to serve on the Industry Advisory Board at Texas A&M University
+  </li>
+  
+  <li>
+    <strong>Guest Editor</strong><br>
+    Invited guest editor for ACM Journal, Transactions on Internet of Things, Special Issue on Autonomous Driving
+  </li>
+
+  
+  <li>
+    <strong>Panel Chair</strong><br>
+    Chaired for The IEEE International Conference on Mobility (MOST) Panel Discussion "Driving Force: Towards Large-Scale Autonomous Driving Commercialization"
+  </li>
+  
+  <li>
+    <strong>Workshop Moderator</strong><br>
+    Moderated a synthetic data workshop at the Auto.AI industry automotive conference
+  </li>
+  
+  <li>
+    <strong>Invited Judge</strong><br>
+    Invited judge for Gen AI Hackathon in San Francisco
+  </li>
+</ul>
+
 <!-- put this at the very end of index.md (or whatever page),            -->
 <!-- right before the closing markdown '---' or before any footer include -->
 {% raw %}
