@@ -37,7 +37,7 @@ body {
 
 /* Profile picture and social buttons positioning */
 .intro-left {
-  margin-top: -100px; /* Move profile picture up */
+  margin-top: 0; /* Remove negative margin for better mobile compatibility */
 }
 
 /* Make profile picture bigger */
@@ -140,15 +140,74 @@ button, input, select, textarea {
   .intro-flex {
     flex-direction: column;
     align-items: center;
+    padding: 0 1rem;
   }
   
   .intro-left {
     margin: 0 auto 2rem auto;
-    margin-top: 0;
   }
   
   .intro-text {
     text-align: left;
     width: 100%;
+    padding: 0 0.5rem;
+  }
+  
+  /* Adjust profile picture size on mobile */
+  .intro-avatar {
+    width: 180px !important;
+    height: 180px !important;
+  }
+  
+  /* Adjust social links container */
+  .intro-left,
+  .social-links {
+    width: 180px !important;
+  }
+  
+  /* Better spacing for intro text on mobile */
+  .page__content .intro-text p,
+  .intro-text p {
+    font-size: 1rem !important;
+    margin-bottom: 1rem;
+  }
+  
+  /* Container adjustments for mobile */
+  .container-fluid {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  
+  /* Navigation font size adjustment */
+  .nav-link {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Small mobile devices (< 400px) */
+@media (max-width: 399px) {
+  /* Further reduce profile picture on very small screens */
+  .intro-avatar {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  
+  .intro-left,
+  .social-links {
+    width: 150px !important;
+  }
+  
+  /* Reduce font sizes */
+  .author-name {
+    font-size: 1.75rem !important;
+  }
+  
+  .nav-link {
+    font-size: 1rem !important;
+  }
+  
+  .page__content .intro-text p,
+  .intro-text p {
+    font-size: 0.95rem !important;
   }
 }

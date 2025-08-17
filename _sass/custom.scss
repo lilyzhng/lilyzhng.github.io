@@ -65,6 +65,22 @@
   .intro-text p { font-size: 1.1rem; }
 }
 
+/* Tablet responsive adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container-fluid {
+    max-width: 900px;
+    padding: 0 2rem;
+  }
+  
+  .video-grid {
+    gap: 1.25rem;
+  }
+  
+  .bibliography {
+    font-size: 0.98rem;
+  }
+}
+
 /* Update all headings to use EB Garamond like Jason Wei */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
@@ -82,13 +98,16 @@ h2 {
 }
 
 /* --- hidden state ----------------------------------------- */
-.video-item.hidden { display: none; }
+.video-item.hidden, 
+.bibliography li.hidden { 
+  display: none; 
+}
 
 
 /* ---------- layout tweaks ---------- */
 
 /* 1. vertically centre the avatar against the text */
-.intro-flex        { align-items: center; }   // was flex-start
+.intro-flex        { align-items: center; }   /* was flex-start */
 
 /* 2. stack photo + icons as a mini column */
 .intro-left        { display: flex; flex-direction: column; align-items: center; width: 180px; }
@@ -268,6 +287,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative;
 }
 @media (min-width:600px){
   /* two items per row: 50 % minus the gap */
@@ -281,22 +301,32 @@ body {
 
 /* iframe and nvidia talk link keep 16:9 and fill their figure */
 .video-grid iframe,
-.video-grid .nvidia-talk-link {
+.video-grid .nvidia-talk-link,
+.video-grid .talk-link {
   width: 100%;
   aspect-ratio: 16/9;
   border: 0;
   display: block;
   flex: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* NVIDIA talk thumbnail styling */
-.nvidia-talk-link {
+/* Talk thumbnail link styling */
+.nvidia-talk-link,
+.talk-link,
+.iros-2025-link,
+.most-2025-link,
+.cv-summit-link {
   position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 16/9;
   overflow: hidden;
   height: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
 .talk-thumbnail {
@@ -307,7 +337,11 @@ body {
   transition: transform 0.3s ease;
 }
 
-.nvidia-talk-link:hover .talk-thumbnail {
+.nvidia-talk-link:hover .talk-thumbnail,
+.talk-link:hover .talk-thumbnail,
+.iros-2025-link:hover .talk-thumbnail,
+.most-2025-link:hover .talk-thumbnail,
+.cv-summit-link:hover .talk-thumbnail {
   transform: scale(1.05);
 }
 
@@ -347,6 +381,7 @@ body {
   min-height: 2.2em;
   text-align: center;
   margin-bottom: 0.6rem;
+  margin-top: 0.8rem;
   font-size: 1rem;
   font-weight: 400;
   color: var(--text-color);
@@ -355,6 +390,7 @@ body {
   width: 100%;
   padding: 0 0.5rem;
   box-sizing: border-box;
+  order: -1; /* Place caption above video */
 }
 
 /* Venue text styling */
@@ -467,18 +503,76 @@ a:hover {
     flex-direction: column;
     gap: 1rem;
     padding: 1.5rem 0;
+    margin-bottom: 1rem;
   }
   
   .navigation-container {
     margin-top: 0.5rem;
+    gap: 1rem;
   }
   
   .author-name {
     font-size: 2rem;
+    text-align: center;
   }
   
   .nav-link {
+    font-size: 1.1rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  /* Improve video grid on mobile */
+  .video-grid {
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .video-grid figure {
+    margin-bottom: 1rem;
+  }
+  
+  .video-grid figcaption {
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+  }
+  
+  .venue-text {
+    font-size: 0.75rem;
+  }
+  
+  /* Optimize buttons for touch */
+  .more-button {
+    padding: 0.8rem 1.5rem;
     font-size: 1rem;
+    min-height: 44px; /* iOS touch target recommendation */
+    margin: 1.5rem auto;
+  }
+  
+  /* Better spacing for sections */
+  h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Improve bibliography on mobile */
+  .bibliography {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+  
+  .bibliography li {
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Service list improvements */
+  #service-list {
+    padding: 0 0.5rem;
+  }
+  
+  #service-list li {
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
   }
 }
 
