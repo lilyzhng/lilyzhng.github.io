@@ -1370,20 +1370,20 @@ h2 { font-size: 2.2rem; margin-top: 3rem; margin-bottom: 1.5rem; font-weight: 40
 
 /* was flex-start */
 /* 2. stack photo + icons as a mini column */
-.intro-left { display: flex; flex-direction: column; align-items: center; width: 180px; }
+.intro-left { display: flex; flex-direction: column; align-items: center; width: 200px; position: relative; padding-right: 20px; }
 
 /* 3. tidy up the icon row */
-.social-links { margin-top: 1rem; display: flex; justify-content: center; align-items: center; text-align: center; width: 180px; gap: 0.75rem; min-height: 1.5rem; margin-left: auto; margin-right: auto; }
+.social-links { margin-top: 1rem; display: flex; justify-content: center; align-items: center; text-align: center; width: 100%; gap: 1rem; min-height: 2rem; }
 
-.social-links a { font-size: 1.5rem; opacity: .85; display: flex; align-items: center; justify-content: center; color: var(--text-color); text-decoration: none; width: 1.5rem; height: 1.5rem; line-height: 1.5rem; text-align: center; border-bottom: none; }
+.social-links a { font-size: 1.5rem; opacity: .85; display: flex; align-items: center; justify-content: center; color: var(--text-color); text-decoration: none; width: 2rem; height: 2rem; line-height: 1; text-align: center; border-bottom: none; }
 
 .social-links a:hover { opacity: 1; color: var(--link-color); border-bottom: none; }
 
 /* remove stray descenders / protrusions in the glyph boxes */
-.social-links i { line-height: 1.5; vertical-align: middle; font-size: 1.5rem; text-align: center; display: inline-block; }
+.social-links i { font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
 
 /* Make Google Scholar icon match others */
-.social-links .ai-google-scholar { font-size: 1.8rem; }
+.social-links .ai-google-scholar { font-size: 1.7rem; }
 
 /* _sass/custom.scss (or your override file) */
 :root { /* Dirt skin accent color */ --accent-teal: #9b8a76; /* Dirt theme accent color */ --text-color: #000000; /* Jason Wei text color - black */ --heading-color: #000000; /* Jason Wei heading color */ --link-color: #043976; /* Jason Wei link color - dark blue */ --link-hover-color: #000000; /* Jason Wei link hover color - light blue */ }
