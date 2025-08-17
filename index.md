@@ -23,10 +23,10 @@ author_profile: true
            class="intro-avatar">
         <!-- social icons -->
         <div class="social-links">
-          <a href="https://www.linkedin.com/in/alchemz/" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/lilyzhng/" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://github.com/alchemz" aria-label="GitHub">
+          <a href="https://github.com/lilyzhng" aria-label="GitHub">
             <i class="fab fa-github"></i>
           </a>
           <a href="https://scholar.google.com/citations?user=la-Mx-UAAAAJ" aria-label="Google Scholar">

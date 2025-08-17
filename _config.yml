@@ -4,8 +4,8 @@ masthead_title: ""   # text shown top-left
 email: alchemxz@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Machine Learning Research Scientist at Ford Autonomy, working on Perception and Prediction for autonomous driving tasks.
-twitter_username: im_lilyz
-github_username: alchemz
+twitter_username: _lilyzhng
+github_username: lilyzhng
 minimal_mistakes_skin: dirt
 search: false
 
@@ -35,13 +35,13 @@ author:
   links:
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/alchemz/"
+      url: "https://www.linkedin.com/in/lilyzhng/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/im_lilyz"
+      url: "https://twitter.com/_lilyzhng"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/alchemz"
+      url: "https://github.com/lilyzhng"
     - label: "Google Scholar"
       icon: "fas fa-fw fa-graduation-cap"
       url: "https://scholar.google.com/citations?user=la-Mx-UAAAAJ"
@@ -50,13 +50,13 @@ footer:
   links:
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/alchemz/"
+      url: "https://www.linkedin.com/in/lilyzhng/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/im_lilyz"
+      url: "https://twitter.com/_lilyzhng"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/alchemz"
+      url: "https://github.com/lilyzhng"
 
 defaults:
   # _posts
