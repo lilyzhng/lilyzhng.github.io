@@ -1,15 +1,16 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
 ---
-@charset "utf-8";
+/* import the full theme */
+@import "minimal-mistakes";
 
-// Dimensions
-$max-content-width: {{ site.max_width }};
+/* Font Awesome */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
 
-@import
-  "variables",
-  "themes",
-  "layout",
-  "base",
-  "distill"
-;
+/* Academicons */
+@import url("https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css");
+
+/* import your overrides */
+@import "custom";
+
+/* Additional overrides */
+@import url("/assets/css/override.css");

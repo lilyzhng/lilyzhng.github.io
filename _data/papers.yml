@@ -1,0 +1,29 @@
+- title: "Scene Relighting for Object Detection in Autonomous Driving"
+  url: "https://example.com/paper1"
+  authors: "Lily X. Zhang, John Smith, Jane Doe"
+  venue: "NVIDIA GTC"
+  year: 2023
+
+- title: "Perceptual Similarity Based Data Clustering for Dataset Meta Labeling"
+  url: "https://example.com/paper2"
+  authors: "Lily X. Zhang, Alex Johnson, Sarah Williams"
+  venue: "Conference on Computer Vision and Pattern Recognition (CVPR)"
+  year: 2022
+
+- title: "Image Synthesis using GANs for Autonomous Driving Tasks"
+  url: "https://example.com/paper3"
+  authors: "Lily X. Zhang, Michael Brown, Emily Davis"
+  venue: "Neural Information Processing Systems (NeurIPS)"
+  year: 2021
+
+- title: "3D Perception and Motion Prediction for Autonomous Vehicles"
+  url: "https://example.com/paper4"
+  authors: "Lily X. Zhang, Robert Wilson, Emma Taylor"
+  venue: "IEEE Transactions on Intelligent Transportation Systems"
+  year: 2021
+
+- title: "Dataset Bias Identification in Autonomous Driving"
+  url: "https://example.com/paper5"
+  authors: "Lily X. Zhang, Thomas Lee, Jennifer Garcia"
+  venue: "IEEE/CVF International Conference on Computer Vision (ICCV)"
+  year: 2020

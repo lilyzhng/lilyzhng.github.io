@@ -1,0 +1,225 @@
+/* assets/css/_custom.scss  (or custom.css) */
+.bibliography {
+  list-style: none;          /* no bullets */
+  margin: 0;                 /* flush left */
+  padding: 0;
+  font-size: 0.7rem;         /* ↓ overall size; tweak as you like */
+  line-height: 1.45;
+}
+
+.bibliography li {
+  text-indent: -1.25rem;     /* hanging indent look */
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;    /* space between items */
+}
+
+.bibliography cite {
+  font-style: italic;        /* ensure italics even if theme overrides <cite> */
+}
+
+
+/* Style the main heading (name) */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* ---------- intro & other rules (unchanged) ---------- */
+.intro-flex      {display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-start;}
+.intro-avatar    {width:180px;height:180px;border-radius:50%;object-fit:cover;}
+.intro-text      {flex:1 1 260px;}
+.social-links a  {margin-right:.75rem;font-size:1.35rem;opacity:.85;}
+.social-links a:hover{opacity:1}
+.page__footer-follow{display:none;}
+
+/* ---------- intro typography tweak ---------- */
+.page__content .intro-text p {
+  font-size: 0.8rem;   /* adjust to taste */
+  line-height: 1.55;
+}
+
+@media (min-width: 768px) {
+  /* let the copy scale up a touch on wider screens */
+  .intro-text p { font-size: 0.9rem; }
+}
+
+/* --- hidden state ----------------------------------------- */
+.video-item.hidden { display: none; }
+
+
+/* ---------- layout tweaks ---------- */
+
+/* 1. vertically centre the avatar against the text */
+.intro-flex        { align-items: center; }   // was flex-start
+
+/* 2. stack photo + icons as a mini column */
+.intro-left        { display: flex; flex-direction: column; align-items: center; }
+
+/* 3. tidy up the icon row */
+.social-links { 
+  margin-top: 1rem; 
+  display: flex; 
+  gap: .75rem; 
+  justify-content: center; 
+  text-align: center;
+  width: 100%;
+  min-height: 1.5rem;
+}
+.social-links a { 
+  font-size: 1.5rem; 
+  opacity: .85; 
+  display: inline-block; 
+  color: #333; 
+  text-decoration: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+.social-links a:hover { 
+  opacity: 1; 
+  color: var(--accent-teal); 
+}
+
+/* remove stray descenders / protrusions in the glyph boxes */
+.social-links i { 
+  line-height: 1.5; 
+  vertical-align: middle; 
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+  display: inline-block;
+}
+
+
+
+
+/* _sass/custom.scss (or your override file) */
+:root {
+  /* Replace the hex with whatever you found in step 1 */
+  --accent-teal: rgb(88, 132, 155);
+}
+
+/* --- button styling --------------------------------------- */
+/* Accent-teal "Show more" button */
+.more-button {
+  margin: 1rem auto .25rem;
+  padding: .6rem 1.2rem;
+  font: inherit;
+  cursor: pointer;
+  border-radius: .25rem;
+
+  /* use the teal everywhere */
+  color:   var(--accent-teal);
+  border:  1px solid var(--accent-teal);
+  background: transparent;
+  transition: background .2s ease, color .2s ease;
+}
+
+.more-button:hover,
+.more-button:focus {
+  background: var(--accent-teal);
+  color: #fff;                /* keeps text readable */
+}
+
+
+/* ---------- shared video helpers ---------- */
+.video-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  justify-content:center;
+  margin:0 auto;
+}
+
+/* 1 col on phones, 2 cols on anything ≥ 600 px */
+.video-grid figure{
+  /* mobile-first: full width */
+  flex:1 1 100%;
+  max-width:100%;
+  margin:0;
+}
+@media (min-width:600px){
+  /* two items per row: 50 % minus the gap */
+  .video-grid figure{
+    flex:1 1 calc(50% - 1rem);
+    max-width:calc(50% - 1rem);
+  }
+}
+
+/* iframe keeps 16:9 and fills its figure */
+.video-grid iframe{
+  width:100%;
+  aspect-ratio:16/9;
+  border:0;
+  display:block;
+}
+
+.video-grid figcaption{
+  min-height:2.2em;
+  text-align:center;
+  font-style:italic;
+  margin-bottom:.4rem;
+}
+
+
+/* Video captions: larger, bolder, darker */
+.video-grid figcaption {
+  font-size: 0.9rem;     /* ≈18 px on the theme's base */
+  font-weight: 600;      /* semi-bold so it pops */
+  color: #333;           /* near-black instead of the light grey */
+  font-style: normal;    /* drop the italics (optional) */
+}
+
+
+/* ---------- header tweaks ---------- */
+
+/* 1. Make the name (site-title) larger */
+.site-title {
+  font-size: 1.8rem;     /* adjust to taste */
+  font-weight: 700;       /* keeps weight consistent after resizing */
+  line-height: 1.1;
+  margin: 0;              /* kill the default left indent */
+}
+
+/* 2 ▸ remove the thin grey line (and any subtle shadow) */
+.site-header,
+.masthead {                 /* both selectors, just in case */
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+
+/* 3 ▸ center the name/title */
+.masthead__inner-wrap {          /* keep this if you like */
+  display: flex;
+  justify-content: center;       /* harmless, but not enough */
+}
+
+/* make the title occupy the whole row */
+.site-title {
+  flex: 1 1 100%;                /* grabs full line */
+  text-align: center;            /* centers the text inside itself */
+  margin: 0;                     /* keep your no-indent tweak */
+}
+
+/* Hide the name in the top right corner */
+.page__header h1,
+.page-title,
+header .title,
+.masthead__inner-wrap .title,
+.greedy-nav .site-title,
+.masthead__menu .site-nav {
+  display: none !important;
+}
+
+/* Hide the menu toggle button, navbar-toggler, and page title in header */
+.greedy-nav__toggle,
+.navbar-toggler,
+.page__title,
+.page-header .page__title,
+.masthead__menu-item {
+  display: none !important;
+}
