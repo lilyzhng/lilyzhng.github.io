@@ -32,7 +32,7 @@ body {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  max-width: 1140px;
+  max-width: 1220px;
 }
 
 /* Update footer to match the background */
@@ -82,17 +82,7 @@ a.site-title,
 
 /* Fix header container to match local */
 .header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #f2f2f2;
-  max-width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  width: 100%;
 }
 
 /* Set EB Garamond as the main font for all text */
