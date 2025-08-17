@@ -5,39 +5,34 @@ permalink: /
 author_profile: true
 ---
 
-# Lily Zhang
+<h1 class="centered-name">Lily Zhang</h1>
+
 
 <!-- ░░░ Bio block with photo and links ░░░ -->
 <div class="intro-flex">
   <div class="intro-left">          <!-- NEW wrapper -->
       <img src="/assets/img/prof_pic.jpg"
-           alt="Lily Zhang"
+           alt="Lily Xianling Zhang"
            class="intro-avatar">
         <!-- social icons -->
         <div class="social-links">
-          <a href="https://twitter.com/im_lilyz" aria-label="Twitter">
-            <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="https://scholar.google.com/citations?user=la-Mx-UAAAAJ"
-             aria-label="Google Scholar">
-            <i class="ai ai-google-scholar"></i>
+          <a href="https://www.linkedin.com/in/alchemz/" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
           </a>
           <a href="https://github.com/alchemz" aria-label="GitHub">
             <i class="fab fa-github"></i>
           </a>
-          <a href="https://www.linkedin.com/in/alchemz/" aria-label="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="mailto:alchemxz@gmail.com" aria-label="Email">
-            <i class="fas fa-envelope"></i>
+          <a href="https://scholar.google.com/citations?user=la-Mx-UAAAAJ" aria-label="Google Scholar">
+            <i class="ai ai-google-scholar"></i>
           </a>
         </div>
   </div>
 
   <div class="intro-text">
     <p>
-      I am a Research Scientist at
-      <a href="https://corporate.ford.com/operations/locations/silicon-valley.html" target="_blank" rel="noopener">Ford Autonomy</a>, Palo Alto, CA.
+      I am a Research Scientist based in San Francisco / Bay Area, CA.
+      <!-- I am a Research Scientist at
+      <a href="https://corporate.ford.com/operations/locations/silicon-valley.html" target="_blank" rel="noopener">Ford Autonomy</a>, Palo Alto, CA. -->
     </p>
 
     <p>
@@ -48,7 +43,7 @@ author_profile: true
       My research interests include scene relighting to improve the performance of SOTA CenterTrack algorithm, dataset bias identification using perceptual similarity based data clustering, and data augmentation via GANs for multiple autonomous driving tasks.
     </p>
     <p>
-      My full name is Xianling Zhang.
+      You can reach me at lilyzhng.ai AT gmail.com
     </p>
   </div>
 </div>
@@ -56,42 +51,53 @@ author_profile: true
 
 
 
-## Invited Talks
+## News
 
 <div id="talks-videos" class="video-grid">
-
 <figure>
-  <figcaption>Scene Relighting for Improved Object Detection</figcaption>
-  <iframe
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ?playsinline=1&rel=0&mute=1"
-    title="NVIDIA GTC 2023"
-  ></iframe>
+  <figcaption>Hosting IROS 2025 RoboGen Workshop on 3D World Generation and Multimodal Reasoning<br><span class="venue-text">IEEE IROS 2025 Conferece</span></figcaption>
+  <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener" class="2025-iros-link">
+    <img src="/assets/img/invited_talks/2025_iros.jpeg" alt="IROS Workshop" class="talk-thumbnail">
+  </a>
 </figure>
 
 <figure>
-  <figcaption>Data Augmentation Techniques for Autonomous Driving</figcaption>
+  <figcaption>Chairing 2025 IEEE MOST Conference Panel Discussion<br><span class="venue-text">IEEE MOST 2025 Conferece</span></figcaption>
+  <a href="https://ieeemobility.org/MOST2025/keynote.php" target="_blank" rel="noopener" class="2025-most-link">
+    <img src="/assets/img/invited_talks/2025_most.png" alt="2025 MOST" class="talk-thumbnail">
+  </a>
+</figure>
+
+<figure>
+  <figcaption>Continuous Learning Loop: Online and Offline Perception<br><span class="venue-text">Presented at IROS Novel Sensor workshop and University of Delaware Seminar</span></figcaption>
   <iframe
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ?playsinline=1&rel=0&mute=1"
-    title="Stanford AI Lab"
+    src="https://www.youtube.com/embed/_xMXiK9wBxE?playsinline=1&rel=0&mute=1"
+    title="University of Delaware Lecture"
   ></iframe>
 </figure>
 
-<figure class="video-item hidden">
-  <figcaption>Addressing Dataset Bias in Machine Learning Models</figcaption>
-  <iframe
-    data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=i3C3vljqV0AsVca6&mute=1"
-    title="UC Berkeley EECS Department"
-  ></iframe>
+<figure>
+  <figcaption>Achieving AV Training Data Diversity Using AI Relighting<br><span class="venue-text">NVIDIA GTC Conference</span></figcaption>
+  <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51407/" target="_blank" rel="noopener" class="nvidia-talk-link">
+    <img src="/assets/img/invited_talks/2023_nvidia_2.png" alt="NVIDIA GTC Talk on Scene Relighting" class="talk-thumbnail">
+    <div class="play-overlay">
+      <i class="fas fa-circle-play"></i>
+    </div>
+  </a>
 </figure>
 
+<figure class="video-item hidden">
+  <figcaption>Deep learning-based data-centric solutions.<br><span class="venue-text">Computer Vision Summit 2023</span></figcaption>
+  <a href="https://computervisionsummit.com/location/cvsanjose/speaker/lilyxianlingzhang" target="_blank" rel="noopener" class="cv-summit-link">
+    <img src="/assets/img/invited_talks/cv_summit_2023.png" alt="Computer Vision Summit 2023" class="talk-thumbnail">
+  </a>
+</figure>
 
 <figure class="video-item hidden">
-  <figcaption>The Future of Perception Systems in Autonomous Vehicles</figcaption>
-  <iframe
-    data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=W7ZUtBpzK9X0xmix&mute=1"
-    title="MIT CSAIL"
-    loading="lazy"
-  ></iframe>
+  <figcaption>Data misconceptions.<br><span class="venue-text">AI Accelerator Summit 2023</span></figcaption>
+  <a href="https://www.researchgate.net/publication/382000139_Data_misconceptions_challenges_and_solutions" target="_blank" rel="noopener" class="cv-summit-link">
+    <img src="/assets/img/invited_talks/ai_institude.png" alt="AI Accelerator Summit 2023" class="talk-thumbnail">
+  </a>
 </figure>
 
 </div>
@@ -140,7 +146,13 @@ author_profile: true
 <script>
 /* unified handler from previous message */
 document.addEventListener("DOMContentLoaded", () => {
+  // Hide 'Show more' buttons if there are no hidden items
   document.querySelectorAll(".more-button").forEach(btn => {
+    const target = document.querySelector(btn.dataset.target);
+    if (target && target.querySelectorAll(".hidden").length === 0) {
+      btn.style.display = 'none';
+    }
+    
     btn.addEventListener("click", () => {
       const target = document.querySelector(btn.dataset.target);
       if (!target) return;

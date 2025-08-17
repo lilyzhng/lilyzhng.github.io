@@ -18,13 +18,20 @@
 }
 
 
-/* Style the main heading (name) */
-h1 {
+/* Style the centered name */
+.centered-name {
   text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
+  margin-top: 0;
   margin-bottom: 1.5rem;
   color: #333;
+  padding-top: 1.5rem;
+}
+
+/* Reset space at the top of the splash layout */
+.layout--splash {
+  padding-top: 0;
 }
 
 /* ---------- intro & other rules (unchanged) ---------- */
@@ -56,17 +63,18 @@ h1 {
 .intro-flex        { align-items: center; }   // was flex-start
 
 /* 2. stack photo + icons as a mini column */
-.intro-left        { display: flex; flex-direction: column; align-items: center; }
+.intro-left        { display: flex; flex-direction: column; align-items: center; width: 180px; }
 
 /* 3. tidy up the icon row */
 .social-links { 
   margin-top: 1rem; 
   display: flex; 
-  gap: .75rem; 
-  justify-content: center; 
+  justify-content: space-between; 
   text-align: center;
-  width: 100%;
+  width: 180px;
   min-height: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 .social-links a { 
   font-size: 1.5rem; 
@@ -74,9 +82,9 @@ h1 {
   display: inline-block; 
   color: #333; 
   text-decoration: none;
-  width: 1.5rem;
   height: 1.5rem;
   line-height: 1.5rem;
+  text-align: center;
 }
 .social-links a:hover { 
   opacity: 1; 
@@ -100,6 +108,11 @@ h1 {
 :root {
   /* Replace the hex with whatever you found in step 1 */
   --accent-teal: rgb(88, 132, 155);
+}
+
+/* Reset top padding on body */
+body {
+  padding-top: 0;
 }
 
 /* --- button styling --------------------------------------- */
@@ -140,6 +153,8 @@ h1 {
   flex:1 1 100%;
   max-width:100%;
   margin:0;
+  display: flex;
+  flex-direction: column;
 }
 @media (min-width:600px){
   /* two items per row: 50 % minus the gap */
@@ -149,12 +164,67 @@ h1 {
   }
 }
 
-/* iframe keeps 16:9 and fills its figure */
-.video-grid iframe{
-  width:100%;
-  aspect-ratio:16/9;
-  border:0;
-  display:block;
+/* iframe and nvidia talk link keep 16:9 and fill their figure */
+.video-grid iframe,
+.video-grid .nvidia-talk-link {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 0;
+  display: block;
+  flex: 1;
+}
+
+/* NVIDIA talk thumbnail styling */
+.nvidia-talk-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  height: 100%;
+}
+
+.talk-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.nvidia-talk-link:hover .talk-thumbnail {
+  transform: scale(1.05);
+}
+
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.play-overlay i {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  opacity: 0.9;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nvidia-talk-link:hover .play-overlay i {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.nvidia-talk-link:hover .play-overlay {
+  opacity: 1;
 }
 
 .video-grid figcaption{
@@ -173,8 +243,22 @@ h1 {
   font-style: normal;    /* drop the italics (optional) */
 }
 
+/* Venue text styling */
+.venue-text {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #666;
+  display: block;
+  margin-top: 0.25rem;
+}
+
 
 /* ---------- header tweaks ---------- */
+
+/* Adjust padding for the page content */
+.page__content {
+  padding-top: 0;
+}
 
 /* 1. Make the name (site-title) larger */
 .site-title {
@@ -205,13 +289,14 @@ h1 {
   margin: 0;                     /* keep your no-indent tweak */
 }
 
-/* Hide the name in the top right corner */
+/* Hide all title instances in the header/navigation */
 .page__header h1,
 .page-title,
 header .title,
 .masthead__inner-wrap .title,
 .greedy-nav .site-title,
-.masthead__menu .site-nav {
+.masthead__menu .site-nav,
+.page__title {
   display: none !important;
 }
 
@@ -222,4 +307,14 @@ header .title,
 .page-header .page__title,
 .masthead__menu-item {
   display: none !important;
+}
+
+/* Add space to the top of the page */
+.page {
+  padding-top: 3rem !important;
+}
+
+/* Reset padding on initial-content container */
+.initial-content {
+  padding-top: 0;
 }
