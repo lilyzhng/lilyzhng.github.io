@@ -1,29 +1,41 @@
-- title: "Scene Relighting for Object Detection in Autonomous Driving"
-  url: "https://example.com/paper1"
-  authors: "Lily X. Zhang, John Smith, Jane Doe"
-  venue: "NVIDIA GTC"
+- title: "Lihi-GS: Lidar-supervised gaussian splatting for highway driving scene reconstruction"
+  url: "https://arxiv.org/abs/2412.15447"
+  authors: "PC Kung, <b>X Zhang</b>, KA Skinner, N Jaipuria"
+  venue: "Under Review"
+  year: 2025
+
+- title: "Unveiling the Ambiguity in Neural Inverse Rendering: A Parameter Compensation Analysis"
+  url: "https://openaccess.thecvf.com/content/CVPR2024W/NRI/papers/Kouros_Unveiling_the_Ambiguity_in_Neural_Inverse_Rendering_A_Parameter_Compensation_CVPRW_2024_paper.pdf"
+  authors: "G Kouros, M Wu, S Nagesh, <b>X Zhang</b>, T Tuytelaars"
+  venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
+  year: 2024
+
+- title: "LANe: Lighting-Aware Neural Fields for Compositional Scene Synthesis"
+  url: "https://openaccess.thecvf.com/content/WACV2024W/3D4Science/html/de_Chanlatte_Proceedings_of_the_Workshop_on_3D_Geometry_Generation_for_Scientific_WACVW_2024_paper.html"
+  authors: "A Krishnan, A Raj, <b>X Zhang</b>, A Carlson, N Tseng, S Sridhar, N Jaipuria, James Hays,"
+  venue: "Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision Workshop"
+  year: 2024
+
+- title: "DatasetEquity: Are All Samples Created Equal? In The Quest For Equity Within Datasets"
+  url: "https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf"
+  authors: "S Shrivastava, <b>X Zhang</b>, S Nagesh, A Parchami"
+  venue: "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)"
   year: 2023
 
-- title: "Perceptual Similarity Based Data Clustering for Dataset Meta Labeling"
-  url: "https://example.com/paper2"
-  authors: "Lily X. Zhang, Alex Johnson, Sarah Williams"
-  venue: "Conference on Computer Vision and Pattern Recognition (CVPR)"
+- title: "SIMBAR: Single Image-Based Scene Relighting for Effective Data Augmentation for Automated Driving Vision Tasks"
+  url: "https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf"
+  authors: "<b>X Zhang</b>, N Tseng, A Syed, R Bhasin, N Jaipuria"
+  venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2022
 
-- title: "Image Synthesis using GANs for Autonomous Driving Tasks"
-  url: "https://example.com/paper3"
-  authors: "Lily X. Zhang, Michael Brown, Emily Davis"
-  venue: "Neural Information Processing Systems (NeurIPS)"
-  year: 2021
+- title: "deepPIC: Deep perceptual image clustering for identifying bias in vision datasets"
+  url: "https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf"
+  authors: "N Jaipuria, K Stevo, <b>X Zhang</b>, ML Gaopande, I Calle, J Jain, VN Murali"
+  venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
+  year: 2022
 
-- title: "3D Perception and Motion Prediction for Autonomous Vehicles"
-  url: "https://example.com/paper4"
-  authors: "Lily X. Zhang, Robert Wilson, Emma Taylor"
-  venue: "IEEE Transactions on Intelligent Transportation Systems"
-  year: 2021
-
-- title: "Dataset Bias Identification in Autonomous Driving"
-  url: "https://example.com/paper5"
-  authors: "Lily X. Zhang, Thomas Lee, Jennifer Garcia"
-  venue: "IEEE/CVF International Conference on Computer Vision (ICCV)"
+- title: "Deflating dataset bias using synthetic data augmentation"
+  url: "https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf"
+  authors: "N Jaipuria, <b>X Zhang</b>, R Bhasin, M Arafa, P Chakravarty, S Shrivastava, S Manglani, VN Murali"
+  venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2020

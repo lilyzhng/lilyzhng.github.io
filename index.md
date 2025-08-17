@@ -69,14 +69,6 @@ author_profile: true
 </figure>
 
 <figure>
-  <figcaption>Continuous Learning Loop: Online and Offline Perception<br><span class="venue-text">Presented at IROS Novel Sensor workshop and University of Delaware Seminar</span></figcaption>
-  <iframe
-    src="https://www.youtube.com/embed/_xMXiK9wBxE?playsinline=1&rel=0&mute=1"
-    title="University of Delaware Lecture"
-  ></iframe>
-</figure>
-
-<figure>
   <figcaption>Achieving AV Training Data Diversity Using AI Relighting<br><span class="venue-text">NVIDIA GTC Conference</span></figcaption>
   <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51407/" target="_blank" rel="noopener" class="nvidia-talk-link">
     <img src="/assets/img/invited_talks/2023_nvidia_2.png" alt="NVIDIA GTC Talk on Scene Relighting" class="talk-thumbnail">
@@ -85,6 +77,16 @@ author_profile: true
     </div>
   </a>
 </figure>
+
+<figure>
+  <figcaption>Continuous Learning Loop: Online and Offline Perception<br><span class="venue-text">Presented at IROS Novel Sensor workshop and University of Delaware Seminar</span></figcaption>
+  <iframe
+    src="https://www.youtube.com/embed/_xMXiK9wBxE?playsinline=1&rel=0&mute=1"
+    title="University of Delaware Lecture"
+  ></iframe>
+</figure>
+
+
 
 <figure class="video-item hidden">
   <figcaption>Deep learning-based data-centric solutions.<br><span class="venue-text">Computer Vision Summit 2023</span></figcaption>
