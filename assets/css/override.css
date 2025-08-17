@@ -8,6 +8,10 @@
 /* Apply Jason Wei's background color */
 body {
   background-color: #F9F9F9;
+  font-family: 'EB Garamond', serif !important;
+  color: var(--text-color);
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 /* Ensure content areas match the background */
@@ -19,6 +23,16 @@ body {
 .layout--single,
 .layout--splash {
   background-color: #F9F9F9;
+}
+
+/* Fix container width for splash layout */
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1140px;
 }
 
 /* Update footer to match the background */
@@ -36,7 +50,8 @@ body {
 .masthead__inner-wrap .title,
 .greedy-nav .site-title,
 a.site-title,
-.masthead .site-title {
+.masthead .site-title,
+.navbar-brand.title {
   display: none !important;
   visibility: hidden !important;
 }
@@ -44,6 +59,70 @@ a.site-title,
 /* Hide any other navigation elements in the header */
 .greedy-nav__toggle,
 .masthead__menu-item,
-.visible-links {
+.visible-links,
+.navbar-toggler {
   display: none !important;
+}
+
+/* Fix layout consistency between local and remote */
+.mt-5 {
+  margin-top: 0 !important;
+}
+
+/* Fix container padding for consistent layout */
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Ensure header layout is consistent */
+.navbar {
+  display: none !important;
+}
+
+/* Fix header container to match local */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #f2f2f2;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Set EB Garamond as the main font for all text */
+p, li, span, div, a, figcaption {
+  font-family: 'EB Garamond', serif !important;
+}
+
+/* Make navigation links larger and use EB Garamond */
+.nav-link {
+  font-size: 1.5rem !important;
+  font-family: 'EB Garamond', serif !important;
+  font-weight: 400 !important;
+}
+
+/* Ensure intro text uses EB Garamond */
+.page__content .intro-text p,
+.intro-text p {
+  font-family: 'EB Garamond', serif !important;
+  font-size: 1.1rem !important;
+  line-height: 1.5 !important;
+  color: var(--text-color) !important;
+}
+
+/* Ensure all headings use EB Garamond */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif !important;
+  font-weight: 400 !important;
+}
+
+/* Style buttons with EB Garamond */
+button, input, select, textarea {
+  font-family: 'EB Garamond', serif !important;
 }
