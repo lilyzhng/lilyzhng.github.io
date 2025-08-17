@@ -1,0 +1,15 @@
+/* Override to hide the name in top right corner */
+.masthead__inner-wrap .title,
+.greedy-nav .site-title,
+a.site-title,
+.masthead .site-title {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide any other navigation elements in the header */
+.greedy-nav__toggle,
+.masthead__menu-item,
+.visible-links {
+  display: none !important;
+}
