@@ -35,6 +35,27 @@ body {
   max-width: 1220px;
 }
 
+/* Profile picture and social buttons positioning */
+.intro-left {
+  margin-top: -100px; /* Move profile picture up */
+}
+
+/* Make profile picture bigger */
+.intro-avatar {
+  width: 220px !important;
+  height: 220px !important;
+}
+
+/* Update container width to match new profile picture size */
+.intro-left {
+  width: 220px !important;
+}
+
+/* Update social links width to match new profile picture size */
+.social-links {
+  width: 220px !important;
+}
+
 /* Footer styles */
 .page__footer {
   background-color: var(--background-color);

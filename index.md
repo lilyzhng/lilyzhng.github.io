@@ -41,8 +41,6 @@ author_profile: true
     </p>
     <p>
       I currently work at <a href="https://lat.ai/" target="_blank" rel="noopener">Latitude AI</a> on synthetic data and vision language models.
-    </p>
-    <p>
       From 2019 to 2024, I was at Ford Greenfield Labs, focusing on AI algorithms for <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D">building offboard models as data engine</a>. Before that, I was a Machine Learning Engineer at BMW working on perception.
     </p>
     <p>
