@@ -180,7 +180,7 @@ author_profile: true
   </li>
   
   <li>
-    <strong>Invited Judge</strong><br>
+    <strong>Hackathon Judge</strong><br>
     Invited judge for Gen AI Hackathon in San Francisco
   </li>
 </ul>
