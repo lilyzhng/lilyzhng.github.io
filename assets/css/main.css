@@ -37,6 +37,7 @@
 /* Magnific Popup CSS */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
 @import url("https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("/assets/css/override.css");
 .mfp-counter { font-family: Georgia, Times, serif; }
 
@@ -1318,11 +1319,13 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 /* Academicons */
 /* import your overrides */
 /* assets/css/_custom.scss  (or custom.css) */
-.bibliography { list-style: none; /* no bullets */ margin: 0; /* flush left */ padding: 0; font-size: 0.7rem; /* ↓ overall size; tweak as you like */ line-height: 1.45; }
+.bibliography { list-style: none; /* no bullets */ margin: 0; /* flush left */ padding: 0; font-size: 1rem; /* match Jason Wei's paper list */ line-height: 1.6; font-family: 'EB Garamond', serif; color: var(--text-color); }
 
-.bibliography li { text-indent: -1.25rem; /* hanging indent look */ padding-left: 1.25rem; margin-bottom: 0.75rem; /* space between items */ }
+.bibliography li { text-indent: -1.25rem; /* hanging indent look */ padding-left: 1.25rem; margin-bottom: 1rem; /* more space between items like Jason Wei */ }
 
-.bibliography cite { font-style: italic; /* ensure italics even if theme overrides <cite> */ }
+.bibliography cite { font-style: italic; /* ensure italics even if theme overrides <cite> */ color: var(--text-color); font-family: 'EB Garamond', serif; }
+
+.bibliography strong { font-weight: 500; /* slightly less bold for paper titles */ font-family: 'EB Garamond', serif; }
 
 /* Style the centered name */
 .centered-name { text-align: center; font-size: 2.5rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem; color: #3d3d3d; padding-top: 1.5rem; }
@@ -1335,7 +1338,7 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 
 .intro-avatar { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; }
 
-.intro-text { flex: 1 1 260px; }
+.intro-text { flex: 1 1 260px; max-width: 900px; }
 
 .social-links a { margin-right: .75rem; font-size: 1.35rem; opacity: .85; }
 
@@ -1344,10 +1347,16 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 .page__footer-follow { display: none; }
 
 /* ---------- intro typography tweak ---------- */
-.page__content .intro-text p { font-size: 0.8rem; /* adjust to taste */ line-height: 1.55; }
+.page__content .intro-text p { font-size: 1rem; /* reduced from 1.2rem */ line-height: 1.5; font-family: 'EB Garamond', serif; color: var(--text-color); margin-bottom: 0.8rem; /* reduced from 1.5rem */ }
 
 @media (min-width: 768px) { /* let the copy scale up a touch on wider screens */
-  .intro-text p { font-size: 0.9rem; } }
+  .intro-text p { font-size: 1.1rem; } }
+/* Update all headings to use EB Garamond like Jason Wei */
+h1, h2, h3, h4, h5, h6 { font-family: 'EB Garamond', serif; color: var(--heading-color); font-weight: 400; }
+
+/* Style section headings like Jason Wei */
+h2 { font-size: 2.2rem; margin-top: 3rem; margin-bottom: 1.5rem; font-weight: 400; color: var(--heading-color); }
+
 /* --- hidden state ----------------------------------------- */
 .video-item.hidden { display: none; }
 
@@ -1361,33 +1370,54 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 /* 3. tidy up the icon row */
 .social-links { margin-top: 1rem; display: flex; justify-content: space-between; text-align: center; width: 180px; min-height: 1.5rem; margin-left: auto; margin-right: auto; }
 
-.social-links a { font-size: 1.5rem; opacity: .85; display: inline-block; color: #3d3d3d; text-decoration: none; height: 1.5rem; line-height: 1.5rem; text-align: center; }
+.social-links a { font-size: 1.5rem; opacity: .85; display: inline-block; color: var(--text-color); text-decoration: none; height: 1.5rem; line-height: 1.5rem; text-align: center; border-bottom: none; }
 
-.social-links a:hover { opacity: 1; color: var(--accent-teal); }
+.social-links a:hover { opacity: 1; color: var(--link-color); border-bottom: none; }
 
 /* remove stray descenders / protrusions in the glyph boxes */
 .social-links i { line-height: 1.5; vertical-align: middle; width: 1.5em; height: 1.5em; text-align: center; display: inline-block; }
 
 /* _sass/custom.scss (or your override file) */
-:root { /* Dirt skin accent color */ --accent-teal: #9b8a76; /* Dirt theme accent color */ }
+:root { /* Dirt skin accent color */ --accent-teal: #9b8a76; /* Dirt theme accent color */ --text-color: #000000; /* Jason Wei text color - black */ --heading-color: #000000; /* Jason Wei heading color */ --link-color: #043976; /* Jason Wei link color - dark blue */ --link-hover-color: #000000; /* Jason Wei link hover color - light blue */ }
 
+/* Import Google Fonts - similar to Jason Wei's site */
 /* Reset top padding on body */
-body { padding-top: 0; }
+body { padding-top: 0; font-family: 'Inter', sans-serif; color: var(--text-color); font-weight: 400; line-height: 1.6; }
+
+/* Jason Wei style header layout */
+.header-container { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-bottom: 2rem; border-bottom: 1px solid #f2f2f2; }
+
+.name-container { flex: 0 0 auto; }
+
+.author-name { font-size: 2.5rem; font-weight: 400; margin: 0; padding: 0; color: var(--heading-color); font-family: 'EB Garamond', serif; }
+
+.navigation-container { display: flex; gap: 1.5rem; }
+
+.nav-link { font-size: 1.2rem; color: var(--heading-color); text-decoration: none; font-weight: 400; position: relative; font-family: 'EB Garamond', serif; }
+
+.nav-link:hover { text-decoration: none; }
+
+.nav-link:after { content: ""; position: absolute; width: 100%; height: 1px; bottom: -2px; left: 0; background-color: var(--link-color); visibility: hidden; transform: scaleX(0); transition: all 0.2s ease-in-out; }
+
+.nav-link:hover:after { visibility: visible; transform: scaleX(1); }
+
+/* Cooking placeholder styling */
+.cooking-placeholder { font-family: 'EB Garamond', serif; font-size: 1.5rem; color: var(--text-color); text-align: center; margin-top: 4rem; font-style: italic; }
 
 /* --- button styling --------------------------------------- */
-/* Accent-teal "Show more" button */
-.more-button { margin: 1rem auto .25rem; padding: .6rem 1.2rem; font: inherit; cursor: pointer; border-radius: .25rem; /* use the teal everywhere */ color: var(--accent-teal); border: 1px solid var(--accent-teal); background: transparent; transition: background .2s ease, color .2s ease; }
+/* "Show more" button styled like Jason Wei's site */
+.more-button { margin: 1rem auto .25rem; padding: .6rem 1.2rem; font-family: 'Inter', sans-serif; font-size: 0.9rem; cursor: pointer; border-radius: .25rem; /* Use link color for buttons */ color: var(--link-color); border: 1px solid var(--link-color); background: transparent; transition: all .2s ease; }
 
-.more-button:hover, .more-button:focus { background: var(--accent-teal); color: #fff; /* keeps text readable */ }
+.more-button:hover, .more-button:focus { background: var(--link-color); color: #fff; }
 
 /* ---------- shared video helpers ---------- */
 .video-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 0 auto; }
 
 /* 1 col on phones, 2 cols on anything ≥ 600 px */
-.video-grid figure { /* mobile-first: full width */ flex: 1 1 100%; max-width: 100%; margin: 0; display: flex; flex-direction: column; }
+.video-grid figure { /* mobile-first: full width */ flex: 1 1 100%; max-width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
 
 @media (min-width: 600px) { /* two items per row: 50 % minus the gap */
-  .video-grid figure { flex: 1 1 calc(50% - 1rem); max-width: calc(50% - 1rem); } }
+  .video-grid figure { flex: 1 1 calc(50% - 1rem); max-width: calc(50% - 1rem); align-items: center; text-align: center; } }
 /* iframe and nvidia talk link keep 16:9 and fill their figure */
 .video-grid iframe, .video-grid .nvidia-talk-link { width: 100%; aspect-ratio: 16/9; border: 0; display: block; flex: 1; }
 
@@ -1406,13 +1436,11 @@ body { padding-top: 0; }
 
 .nvidia-talk-link:hover .play-overlay { opacity: 1; }
 
-.video-grid figcaption { min-height: 2.2em; text-align: center; font-style: italic; margin-bottom: .4rem; }
-
-/* Video captions: larger, bolder, darker */
-.video-grid figcaption { font-size: 0.9rem; /* ≈18 px on the theme's base */ font-weight: 600; /* semi-bold so it pops */ color: #3d3d3d; /* match the dirt theme text color */ font-style: normal; /* drop the italics (optional) */ }
+/* Video captions: match Jason Wei's style */
+.video-grid figcaption { min-height: 2.2em; text-align: center; margin-bottom: 0.6rem; font-size: 1rem; font-weight: 400; color: var(--text-color); font-style: normal; font-family: 'EB Garamond', serif; width: 100%; padding: 0 0.5rem; box-sizing: border-box; }
 
 /* Venue text styling */
-.venue-text { font-size: 0.75rem; font-weight: 400; color: #666; display: block; margin-top: 0.25rem; }
+.venue-text { font-size: 0.8rem; font-weight: 400; color: rgba(0, 0, 0, 0.6); display: block; margin-top: 0.25rem; font-family: 'EB Garamond', serif; font-style: italic; text-align: center; width: 100%; }
 
 /* ---------- header tweaks ---------- */
 /* Adjust padding for the page content */
@@ -1434,12 +1462,33 @@ body { padding-top: 0; }
 .page__header h1, .page-title, header .title, .masthead__inner-wrap .title, .greedy-nav .site-title, .masthead__menu .site-nav, .page__title { display: none !important; }
 
 /* Hide the menu toggle button, navbar-toggler, and page title in header */
-.greedy-nav__toggle, .navbar-toggler, .page__title, .page-header .page__title, .masthead__menu-item { display: none !important; }
+.greedy-nav__toggle, .navbar-toggler, .page__title, .page-header .page__title, .masthead__menu-item, .masthead { display: none !important; }
 
-/* Add space to the top of the page */
-.page { padding-top: 3rem !important; }
+/* Reset page padding since we have our own header */
+.page { padding-top: 0 !important; }
 
 /* Reset padding on initial-content container */
 .initial-content { padding-top: 0; }
+
+/* Style links like Jason Wei's site */
+a { color: var(--link-color); text-decoration: none; border-bottom: 1px solid rgba(4, 57, 118, 0.2); transition: all 0.2s ease; }
+
+a:hover { text-decoration: none; color: var(--link-hover-color); border-bottom-color: var(--link-hover-color); }
+
+.nav-link { border-bottom: none; color: var(--text-color); }
+
+.nav-link:hover { color: var(--link-color); }
+
+/* Responsive adjustments for Jason Wei style header */
+@media (max-width: 768px) { .header-container { flex-direction: column; gap: 1rem; padding: 1.5rem 0; }
+  .navigation-container { margin-top: 0.5rem; }
+  .author-name { font-size: 2rem; }
+  .nav-link { font-size: 1rem; } }
+/* Override all other styles for navigation links */
+.header-container .navigation-container .nav-link { color: var(--link-hover-color) !important; /* Light blue for default state */ border-bottom: none !important; }
+
+.header-container .navigation-container .nav-link:hover { color: var(--link-color) !important; /* Dark blue for hover state */ }
+
+.header-container .navigation-container .nav-link:after { background-color: var(--link-color) !important; /* Dark blue underline on hover */ }
 
 /* Additional overrides */
