@@ -45,7 +45,12 @@
 
 /* ---------- intro & other rules (unchanged) ---------- */
 .intro-flex      {display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-start;}
-.intro-avatar    {width:180px;height:180px;border-radius:50%;object-fit:cover;}
+.intro-avatar    {
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  object-fit:cover;
+}
 .intro-text      {flex:1 1 260px; max-width: 900px;}
 .social-links a  {margin-right:.75rem;font-size:1.35rem;opacity:.85;}
 .social-links a:hover{opacity:1}
@@ -111,7 +116,14 @@ h2 {
 .intro-flex        { align-items: center; }   /* was flex-start */
 
 /* 2. stack photo + icons as a mini column */
-.intro-left        { display: flex; flex-direction: column; align-items: center; width: 180px; }
+.intro-left        { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  width: 200px; 
+  position: relative;
+  padding-right: 20px;
+}
 
 /* 3. tidy up the icon row */
 .social-links { 
@@ -120,11 +132,9 @@ h2 {
   justify-content: center; 
   align-items: center;
   text-align: center;
-  width: 180px;
-  gap: 0.75rem;
-  min-height: 1.5rem;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  gap: 1rem;
+  min-height: 2rem;
 }
 .social-links a { 
   font-size: 1.5rem; 
@@ -134,9 +144,9 @@ h2 {
   justify-content: center;
   color: var(--text-color); 
   text-decoration: none;
-  width: 1.5rem;
-  height: 1.5rem;
-  line-height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  line-height: 1;
   text-align: center;
   border-bottom: none;
 }
@@ -148,16 +158,15 @@ h2 {
 
 /* remove stray descenders / protrusions in the glyph boxes */
 .social-links i { 
-  line-height: 1.5; 
-  vertical-align: middle; 
   font-size: 1.5rem;
-  text-align: center;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Make Google Scholar icon match others */
 .social-links .ai-google-scholar { 
-  font-size: 1.8rem; 
+  font-size: 1.7rem; 
 }
 
 
