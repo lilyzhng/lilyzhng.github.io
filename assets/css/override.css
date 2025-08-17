@@ -1,20 +1,20 @@
-/* Dirt skin color overrides with Jason Wei's background color */
+/* Color theme variables */
 :root {
   --primary-color: #9b8a76;
   --link-color: #9b8a76;
   --background-color: #F9F9F9;
 }
 
-/* Apply Jason Wei's background color */
+/* Base body styles */
 body {
-  background-color: #F9F9F9;
+  background-color: var(--background-color);
   font-family: 'EB Garamond', serif !important;
   color: var(--text-color);
   font-weight: 400;
   line-height: 1.6;
 }
 
-/* Ensure content areas match the background */
+/* Content area styles */
 .page__content,
 .initial-content,
 .page,
@@ -22,10 +22,10 @@ body {
 .layout--home,
 .layout--single,
 .layout--splash {
-  background-color: #F9F9F9;
+  background-color: var(--background-color);
 }
 
-/* Fix container width for splash layout */
+/* Container layout */
 .container-fluid {
   width: 100%;
   padding-right: 15px;
@@ -35,18 +35,18 @@ body {
   max-width: 1220px;
 }
 
-/* Update footer to match the background */
+/* Footer styles */
 .page__footer {
-  background-color: #F9F9F9;
+  background-color: var(--background-color);
   color: #3d3d3d;
 }
 
 .page__footer footer {
-  background-color: #F9F9F9;
+  background-color: var(--background-color);
   color: #3d3d3d;
 }
 
-/* Override to hide the name in top right corner */
+/* Header visibility overrides */
 .masthead__inner-wrap .title,
 .greedy-nav .site-title,
 a.site-title,
@@ -56,7 +56,6 @@ a.site-title,
   visibility: hidden !important;
 }
 
-/* Hide any other navigation elements in the header */
 .greedy-nav__toggle,
 .masthead__menu-item,
 .visible-links,
@@ -64,40 +63,37 @@ a.site-title,
   display: none !important;
 }
 
-/* Fix layout consistency between local and remote */
+/* Layout adjustments */
 .mt-5 {
   margin-top: 0 !important;
 }
 
-/* Fix container padding for consistent layout */
 .container {
   padding-left: 0;
   padding-right: 0;
 }
 
-/* Ensure header layout is consistent */
 .navbar {
   display: none !important;
 }
 
-/* Fix header container to match local */
 .header-container {
   width: 100%;
 }
 
-/* Set EB Garamond as the main font for all text */
+/* Typography settings */
 p, li, span, div, a, figcaption {
   font-family: 'EB Garamond', serif !important;
 }
 
-/* Make navigation links larger and use EB Garamond */
+/* Navigation styling */
 .nav-link {
   font-size: 1.5rem !important;
   font-family: 'EB Garamond', serif !important;
   font-weight: 400 !important;
 }
 
-/* Ensure intro text uses EB Garamond */
+/* Intro text styling */
 .page__content .intro-text p,
 .intro-text p {
   font-family: 'EB Garamond', serif !important;
@@ -106,13 +102,13 @@ p, li, span, div, a, figcaption {
   color: var(--text-color) !important;
 }
 
-/* Ensure all headings use EB Garamond */
+/* Heading styles */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif !important;
   font-weight: 400 !important;
 }
 
-/* Style buttons with EB Garamond */
+/* Form element styles */
 button, input, select, textarea {
   font-family: 'EB Garamond', serif !important;
 }

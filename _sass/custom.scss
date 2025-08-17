@@ -1,9 +1,9 @@
-/* assets/css/_custom.scss  (or custom.css) */
+/* Custom styles */
 .bibliography {
   list-style: none;          /* no bullets */
   margin: 0;                 /* flush left */
   padding: 0;
-  font-size: 1rem;           /* match Jason Wei's paper list */
+  font-size: 1rem;           /* standard size for paper list */
   line-height: 1.6;
   font-family: 'EB Garamond', serif;
   color: var(--text-color);
@@ -12,7 +12,7 @@
 .bibliography li {
   text-indent: -1.25rem;     /* hanging indent look */
   padding-left: 1.25rem;
-  margin-bottom: 1rem;       /* more space between items like Jason Wei */
+  margin-bottom: 1rem;       /* more space between items */
 }
 
 .bibliography cite {
