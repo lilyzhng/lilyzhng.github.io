@@ -152,7 +152,7 @@ author_profile: true
 
 .blog-title {
   font-size: 1.1rem;
-  color: #333;
+  color: #1e3a8a;
   text-decoration: none !important;
   display: inline-block;
   margin-top: 0.2rem;
@@ -168,7 +168,7 @@ author_profile: true
   height: 1px;
   bottom: -2px;
   left: 0;
-  background-color: #333;
+  background-color: #1e3a8a;
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.3s ease-in-out;
@@ -187,5 +187,15 @@ author_profile: true
   text-decoration: none !important;
   border-bottom: none !important;
   outline: none !important;
+  color: #1e3a8a !important;
+}
+
+/* Ensure dark blue color in all states */
+a.blog-title {
+  color: #1e3a8a !important;
+}
+
+.blog-title:hover {
+  color: #1e3a8a !important;
 }
 </style>
