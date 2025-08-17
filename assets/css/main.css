@@ -1318,10 +1318,10 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 /* Font Awesome */
 /* Academicons */
 /* import your overrides */
-/* assets/css/_custom.scss  (or custom.css) */
-.bibliography { list-style: none; /* no bullets */ margin: 0; /* flush left */ padding: 0; font-size: 1rem; /* match Jason Wei's paper list */ line-height: 1.6; font-family: 'EB Garamond', serif; color: var(--text-color); }
+/* Custom styles */
+.bibliography { list-style: none; /* no bullets */ margin: 0; /* flush left */ padding: 0; font-size: 1rem; /* standard size for paper list */ line-height: 1.6; font-family: 'EB Garamond', serif; color: var(--text-color); }
 
-.bibliography li { text-indent: -1.25rem; /* hanging indent look */ padding-left: 1.25rem; margin-bottom: 1rem; /* more space between items like Jason Wei */ }
+.bibliography li { text-indent: -1.25rem; /* hanging indent look */ padding-left: 1.25rem; margin-bottom: 1rem; /* more space between items */ }
 
 .bibliography cite { font-style: italic; /* ensure italics even if theme overrides <cite> */ color: var(--text-color); font-family: 'EB Garamond', serif; }
 
