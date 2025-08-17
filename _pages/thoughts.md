@@ -29,8 +29,8 @@ author_profile: true
 
 <div class="blog-list">
   <div class="blog-entry">
-    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/5/25</span><br>
-    <a href="/thoughts/ieee-most-panel" class="blog-title">Reflections on IEEE MOST Panel: Driving Force Towards AV Commercialization</a>
+    <a href="/thoughts/ieee-most-panel" class="blog-title">Reflections on IEEE MOST Panel: Driving Force Towards AV Commercialization</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/5/25</span>
   </div>
 </div>
 
@@ -153,12 +153,39 @@ author_profile: true
 .blog-title {
   font-size: 1.1rem;
   color: #333;
-  text-decoration: none;
+  text-decoration: none !important;
   display: inline-block;
   margin-top: 0.2rem;
+  position: relative;
+  border-bottom: none !important;
+  outline: none !important;
 }
 
-.blog-title:hover {
-  text-decoration: underline;
+.blog-title::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #333;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.blog-title:hover::after {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+/* Remove underline from all link states */
+.blog-title:link,
+.blog-title:visited,
+.blog-title:focus,
+.blog-title:active {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  outline: none !important;
 }
 </style>
