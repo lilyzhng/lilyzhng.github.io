@@ -133,3 +133,21 @@ h1, h2, h3, h4, h5, h6 {
 button, input, select, textarea {
   font-family: 'EB Garamond', serif !important;
 }
+
+/* Mobile responsive fixes */
+@media (max-width: 767px) {
+  /* Fix profile photo centering on mobile */
+  .intro-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .intro-left {
+    margin: 0 auto 2rem auto;
+    margin-top: 0;
+  }
+  
+  .intro-text {
+    text-align: center;
+  }
+}
