@@ -1,3 +1,37 @@
+/* Dirt skin color overrides with Jason Wei's background color */
+:root {
+  --primary-color: #9b8a76;
+  --link-color: #9b8a76;
+  --background-color: #F9F9F9;
+}
+
+/* Apply Jason Wei's background color */
+body {
+  background-color: #F9F9F9;
+}
+
+/* Ensure content areas match the background */
+.page__content,
+.initial-content,
+.page,
+.archive,
+.layout--home,
+.layout--single,
+.layout--splash {
+  background-color: #F9F9F9;
+}
+
+/* Update footer to match the background */
+.page__footer {
+  background-color: #F9F9F9;
+  color: #3d3d3d;
+}
+
+.page__footer footer {
+  background-color: #F9F9F9;
+  color: #3d3d3d;
+}
+
 /* Override to hide the name in top right corner */
 .masthead__inner-wrap .title,
 .greedy-nav .site-title,

@@ -1325,7 +1325,7 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 .bibliography cite { font-style: italic; /* ensure italics even if theme overrides <cite> */ }
 
 /* Style the centered name */
-.centered-name { text-align: center; font-size: 2.5rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem; color: #333; padding-top: 1.5rem; }
+.centered-name { text-align: center; font-size: 2.5rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem; color: #3d3d3d; padding-top: 1.5rem; }
 
 /* Reset space at the top of the splash layout */
 .layout--splash { padding-top: 0; }
@@ -1361,7 +1361,7 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 /* 3. tidy up the icon row */
 .social-links { margin-top: 1rem; display: flex; justify-content: space-between; text-align: center; width: 180px; min-height: 1.5rem; margin-left: auto; margin-right: auto; }
 
-.social-links a { font-size: 1.5rem; opacity: .85; display: inline-block; color: #333; text-decoration: none; height: 1.5rem; line-height: 1.5rem; text-align: center; }
+.social-links a { font-size: 1.5rem; opacity: .85; display: inline-block; color: #3d3d3d; text-decoration: none; height: 1.5rem; line-height: 1.5rem; text-align: center; }
 
 .social-links a:hover { opacity: 1; color: var(--accent-teal); }
 
@@ -1369,7 +1369,7 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 .social-links i { line-height: 1.5; vertical-align: middle; width: 1.5em; height: 1.5em; text-align: center; display: inline-block; }
 
 /* _sass/custom.scss (or your override file) */
-:root { /* Replace the hex with whatever you found in step 1 */ --accent-teal: rgb(88, 132, 155); }
+:root { /* Dirt skin accent color */ --accent-teal: #9b8a76; /* Dirt theme accent color */ }
 
 /* Reset top padding on body */
 body { padding-top: 0; }
@@ -1409,7 +1409,7 @@ body { padding-top: 0; }
 .video-grid figcaption { min-height: 2.2em; text-align: center; font-style: italic; margin-bottom: .4rem; }
 
 /* Video captions: larger, bolder, darker */
-.video-grid figcaption { font-size: 0.9rem; /* ≈18 px on the theme's base */ font-weight: 600; /* semi-bold so it pops */ color: #333; /* near-black instead of the light grey */ font-style: normal; /* drop the italics (optional) */ }
+.video-grid figcaption { font-size: 0.9rem; /* ≈18 px on the theme's base */ font-weight: 600; /* semi-bold so it pops */ color: #3d3d3d; /* match the dirt theme text color */ font-style: normal; /* drop the italics (optional) */ }
 
 /* Venue text styling */
 .venue-text { font-size: 0.75rem; font-weight: 400; color: #666; display: block; margin-top: 0.25rem; }
