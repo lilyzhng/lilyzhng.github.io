@@ -170,7 +170,7 @@ author_profile: true
 <ul id="service-list">
   <li>
     <strong>Program Committee Member</strong><br>
-    TPC for NeurIPS ('21, '24, '25), CVPR ('22, '23, '24, '25), ICRA ('23), IROS ('23), ICML ('23), ICLR ('24), ECCV ('24), KDD ('24), ICCV ('25)
+    TPC for NeurIPS (21, 24, 25), CVPR (22, 23, 24, 25), ICRA (23), IROS (23), ICML (23), ICLR (24), ECCV (24),  KDD (24), ICCV (25)
   </li>
   
   <li>
@@ -185,13 +185,13 @@ author_profile: true
 
   
   <li>
-    <strong>Conference Chair</strong><br>
-    Chairing for The IEEE International Conference on Mobility (MOST) Panel Discussion "Driving Force: Towards Large-Scale Autonomous Driving Commercialization". (<a href="https://ieeemobility.org/MOST2025/keynote.php">Keynote & Panel</a>)
+    <strong>Panel Chair</strong><br>
+    Chairing for The IEEE International Conference on Mobility (MOST) Panel Discussion "Driving Force: Towards Large-Scale Autonomous Driving Commercialization"
   </li>
   
   <li>
     <strong>Workshop Moderator</strong><br>
-    Hosting "Generative AI: A New World Simulator to Transform Synthetic Data Generation" workshop at the Auto.AI conference (<a href="https://conferenceconnect.com/events/autoai-usa">Conference</a>, <a href="https://docs.google.com/presentation/d/14DZHYAGGlMef_6-32tMYBB9T2nk9ErQdM73DEhPcNZo/edit?slide=id.g2df2219c119_0_194#slide=id.g2df2219c119_0_194">Workshop Slides</a>)
+    Moderated a synthetic data workshop at the Auto.AI industry automotive conference
   </li>
   
   <li>

@@ -45,12 +45,7 @@
 
 /* ---------- intro & other rules (unchanged) ---------- */
 .intro-flex      {display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-start;}
-.intro-avatar    {
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  object-fit:cover;
-}
+.intro-avatar    {width:180px;height:180px;border-radius:50%;object-fit:cover;margin-right:0.8rem;}
 .intro-text      {flex:1 1 260px; max-width: 900px;}
 .social-links a  {margin-right:.75rem;font-size:1.35rem;opacity:.85;}
 .social-links a:hover{opacity:1}
@@ -116,14 +111,7 @@ h2 {
 .intro-flex        { align-items: center; }   /* was flex-start */
 
 /* 2. stack photo + icons as a mini column */
-.intro-left        { 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  width: 200px; 
-  position: relative;
-  padding-right: 20px;
-}
+.intro-left        { display: flex; flex-direction: column; align-items: center; width: 180px; }
 
 /* 3. tidy up the icon row */
 .social-links { 
