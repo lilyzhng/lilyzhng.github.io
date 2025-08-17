@@ -23,7 +23,7 @@
   year: 2023
 
 - title: "SIMBAR: Single Image-Based Scene Relighting for Effective Data Augmentation for Automated Driving Vision Tasks"
-  url: "https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf"
+  url: "https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf"
   authors: "<b>X Zhang</b>, N Tseng, A Syed, R Bhasin, N Jaipuria"
   venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2022

@@ -25,7 +25,7 @@
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #3d3d3d;
   padding-top: 1.5rem;
 }
 
@@ -80,7 +80,7 @@
   font-size: 1.5rem; 
   opacity: .85; 
   display: inline-block; 
-  color: #333; 
+  color: #3d3d3d; 
   text-decoration: none;
   height: 1.5rem;
   line-height: 1.5rem;
@@ -106,8 +106,8 @@
 
 /* _sass/custom.scss (or your override file) */
 :root {
-  /* Replace the hex with whatever you found in step 1 */
-  --accent-teal: rgb(88, 132, 155);
+  /* Dirt skin accent color */
+  --accent-teal: #9b8a76; /* Dirt theme accent color */
 }
 
 /* Reset top padding on body */
@@ -239,7 +239,7 @@ body {
 .video-grid figcaption {
   font-size: 0.9rem;     /* ≈18 px on the theme's base */
   font-weight: 600;      /* semi-bold so it pops */
-  color: #333;           /* near-black instead of the light grey */
+  color: #3d3d3d;        /* match the dirt theme text color */
   font-style: normal;    /* drop the italics (optional) */
 }
 
