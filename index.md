@@ -114,10 +114,10 @@ author_profile: true
 
 ---
 
-## Papers
+## Publications
 
 <ul id="papers-list" class="bibliography">
-{% assign show_limit = 12 %}
+{% assign show_limit = 6 %}
 {% for paper in site.data.papers %}
   <li{% if forloop.index0 >= show_limit %} class="hidden"{% endif %}>
     {% if paper.url %}

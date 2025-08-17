@@ -39,3 +39,44 @@
   authors: "N Jaipuria, <b>X Zhang</b>, R Bhasin, M Arafa, P Chakravarty, S Shrivastava, S Manglani, VN Murali"
   venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2020
+
+- title: "Operating a device such as a vehicle with machine learning"
+  url: "https://patents.google.com/patent/US20240362793A1/en"
+  authors: "A Raj, A Krishnan, J Hays, <b>X Zhang</b>, A Carlson, N Jaipuria, S Sridhar, N Tseng"
+  venue: "Granted US/CN/DE Patent"
+  year: 2023
+
+- title: "Debiasing Datasets for Machine Learning"
+  url: "https://patents.google.com/patent/US20240046625A1/en"
+  authors: "N Jaipuria, <b>X Zhang</b>, K Stevo, J Jain, VN Murali, M Gaopande"
+  venue: "Granted US/CN/DE Patent"
+  year: 2022
+
+- title: "Systems And Methods For Improved Training Data Acquisition"
+  url: "https://patents.google.com/patent/US20230196740A1/en"
+  authors: "VN Murali, N Jaipuria, <b>X Zhang</b>"
+  venue: "Granted US/CN/DE Patent"
+  year: 2021
+
+- title: "Single-perspective image relighting"
+  url: "https://patents.google.com/patent/US11756261B2/en"
+  authors: "<b>X Zhang</b>, N Tseng, N Jaipuria, R Bhasin"
+  venue: "Granted US/CN/DE Patent"
+  year: 2021
+
+- title: "Image relighting"
+  url: "https://patents.google.com/patent/US11776200B2/en"
+  authors: "<b>X Zhang</b>, N Tseng, N Jaipuria, R Bhasin"
+  venue: "Granted US/CN/DE Patent"
+  year: 2021
+
+- title: "Neural network image processing"
+  url: "https://patents.google.com/patent/US11645360B2/en"
+  authors: "<b>X Zhang</b>, A Litvak, N Jaipuria, S Paudel"
+  year: 2020
+
+- title: "Enhanced vehicle operation"
+  url: "https://patents.google.com/patent/US11176823B2/en"
+  authors: "M Arafa, VN murali, <b>X Zhang</b>, N Jaipuria, R Bhasin"
+  venue: "Granted US/CN/DE Patent"
+  year: 2020
