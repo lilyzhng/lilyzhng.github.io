@@ -1,28 +1,33 @@
-### Hi there 👋
+# Lily Zhang
 
-<!--
-**alchemz/alchemz** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-Here are some ideas to get you started:
+I am a Technical Lead and Research Scientist, based in Bay Area, California.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+I currently work at [Latitude AI](https://lat.ai/) on synthetic data and vision language models.
 
-Lily (Xianling) Zhang is a Machine Learning Research Scientist at Ford Autonomy, Palo Alto, CA, located at [Ford Greenfield Labs, Stanford Research Park](https://corporate.ford.com/operations/locations/silicon-valley.html). She is working on Perception and Prediction for autonomous driving tasks. 
+From 2019 to 2024, I was at Ford Greenfield Labs, focusing on AI algorithms for [building offboard models as data engine](https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D). Before that, I was a Machine Learning Engineer at BMW working on perception.
 
-## 🔭 Research projects:
-- 3D perception and motion prediction
-- Geometric scene understanding based data manipulation(scene relighting) to significantly improve the performance of SOTA CenterTrack algorithm.
-- Dataset bias identification using perceptual similarity based data clustering for large scale dataset meta labeling, similar data searching, balanced data selection for training set curation.
-- Image synthesize using Generative Adversarial Networks(GANs) and 3D game engines that achieves consistent improvement over multple autonomous driving task: parking slot detection, highway lane segmentation, and monodepth estimation.
+## 🔬 Research Focus
 
-## 💬 Recent News:
-- One of her recent 2022 CVPR publication on scene relighting has been accepted to NVIDIA GTC 2023. She is looking forward to sharing the work with the community. Feel free to bring some tough questions in the session.😄
+My research has involved:
+- [Dynamic scene generation](https://arxiv.org/abs/2412.15447)
+- [Data diversification](https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf)
+- [Data clustering](https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf)
+- [Data equity](https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf)
+- [Deflating data bias](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf)
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/alchemz/) 
+As a side open-source project, I built [Deep-Seek](https://github.com/dzhng/deep-seek), an LLM-powered retrieval engine that became GitHub's #1 rated data retrieval repository.
+
+## News
+
+- Hosting IROS 2025 RoboGen Workshop on 3D World Understanding and Generation
+- Chairing 2025 IEEE MOST Conference Panel Discussion
+- Presented "Achieving AV Training Data Diversity Using AI Relighting" at NVIDIA GTC Conference
+- Presented "Continuous Learning Loop: Online and Offline Perception" at IROS Novel Sensor workshop and University of Delaware Seminar
+
+## Contact
+
+You can reach me at lilyzhng.ai AT gmail.com
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/alchemz/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/alchemz)
+[![Google Scholar](https://img.shields.io/badge/Google_Scholar-4285F4?style=for-the-badge&logo=google-scholar&logoColor=white)](https://scholar.google.com/citations?user=la-Mx-UAAAAJ)
