@@ -26,6 +26,9 @@ author_profile: true
           <a href="https://www.linkedin.com/in/lilyzhng/" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
           </a>
+          <a href="https://x.com/_lilyzhng" aria-label="X (Twitter)">
+            <i class="fab fa-twitter"></i>
+          </a>
           <a href="https://github.com/lilyzhng" aria-label="GitHub">
             <i class="fab fa-github"></i>
           </a>
@@ -57,17 +60,18 @@ author_profile: true
 
 ## News
 
+<div class="news-section">
 <div id="talks-videos" class="video-grid">
 <figure>
   <figcaption>Hosting IROS 2025 RoboGen Workshop on 3D World Understanding and Generation (<a href="https://robogen-iros.github.io">Call for Papers</a>)<br><span class="venue-text">IEEE IROS 2025 Conference</span></figcaption>
-  <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener" class="2025-iros-link">
+  <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener" class="iros-link">
     <img src="/assets/img/invited_talks/2025_iros.jpeg" alt="IROS Workshop" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
   <figcaption>Chairing 2025 IEEE MOST Conference Panel Discussion<br><span class="venue-text">IEEE MOST 2025 Conference</span></figcaption>
-  <a href="https://ieeemobility.org/MOST2025/keynote.php" target="_blank" rel="noopener" class="2025-most-link">
+  <a href="https://ieeemobility.org/MOST2025/keynote.php" target="_blank" rel="noopener" class="most-link">
     <img src="/assets/img/invited_talks/2025_most.png" alt="2025 MOST" class="talk-thumbnail">
   </a>
 </figure>
@@ -109,6 +113,7 @@ author_profile: true
 </div>
 
 <button id="talks-more-button" class="more-button" data-target="#talks-videos">Show&nbsp;more</button>
+</div>
 
 
 
@@ -121,9 +126,21 @@ author_profile: true
 {% for paper in site.data.papers %}
   <li{% if forloop.index0 >= show_limit %} class="hidden"{% endif %}>
     {% if paper.url %}
-      <strong><a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a></strong><br>
+      <strong><a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a></strong>
+      {% if paper.project_url %}
+        <a href="{{ paper.project_url }}" target="_blank" rel="noopener" class="project-link">[Project Page]</a>
+      {% endif %}
+      {% if paper.code_url %}
+        <a href="{{ paper.code_url }}" target="_blank" rel="noopener" class="code-link">[Code]</a>
+      {% endif %}<br>
     {% else %}
-      <strong>{{ paper.title }}</strong><br>
+      <strong>{{ paper.title }}</strong>
+      {% if paper.project_url %}
+        <a href="{{ paper.project_url }}" target="_blank" rel="noopener" class="project-link">[Project Page]</a>
+      {% endif %}
+      {% if paper.code_url %}
+        <a href="{{ paper.code_url }}" target="_blank" rel="noopener" class="code-link">[Code]</a>
+      {% endif %}<br>
     {% endif %}
     {{ paper.authors }}.<br>
 
@@ -162,7 +179,7 @@ author_profile: true
   </li>
   
   <li>
-    <strong>Guest Editor</strong><br>
+    <strong>Journal Editor</strong><br>
     Invited guest editor for ACM Journal, Transactions on Internet of Things, Special Issue on Autonomous Driving (<a href="https://dl.acm.org/journal/tiot/calls-for-papers">Call for Papers</a>)
   </li>
 

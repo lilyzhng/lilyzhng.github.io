@@ -99,7 +99,8 @@ h2 {
 
 /* --- hidden state ----------------------------------------- */
 .video-item.hidden, 
-.bibliography li.hidden { 
+.bibliography li.hidden,
+.video-grid figure.hidden { 
   display: none; 
 }
 
@@ -116,9 +117,11 @@ h2 {
 .social-links { 
   margin-top: 1rem; 
   display: flex; 
-  justify-content: space-between; 
+  justify-content: center; 
+  align-items: center;
   text-align: center;
   width: 180px;
+  gap: 0.75rem;
   min-height: 1.5rem;
   margin-left: auto;
   margin-right: auto;
@@ -126,9 +129,12 @@ h2 {
 .social-links a { 
   font-size: 1.5rem; 
   opacity: .85; 
-  display: inline-block; 
+  display: flex; 
+  align-items: center;
+  justify-content: center;
   color: var(--text-color); 
   text-decoration: none;
+  width: 1.5rem;
   height: 1.5rem;
   line-height: 1.5rem;
   text-align: center;
@@ -144,10 +150,14 @@ h2 {
 .social-links i { 
   line-height: 1.5; 
   vertical-align: middle; 
-  width: 1.5em;
-  height: 1.5em;
+  font-size: 1.5rem;
   text-align: center;
   display: inline-block;
+}
+
+/* Make Google Scholar icon match others */
+.social-links .ai-google-scholar { 
+  font-size: 1.8rem; 
 }
 
 
@@ -247,12 +257,15 @@ body {
 /* --- button styling --------------------------------------- */
 /* "Show more" button styled like Jason Wei's site */
 .more-button {
-  margin: 1rem auto .25rem;
+  display: block;
+  margin: 2rem auto 1rem;
   padding: .6rem 1.2rem;
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   cursor: pointer;
   border-radius: .25rem;
+  text-align: center;
+  width: fit-content;
 
   /* Use link color for buttons */
   color: var(--link-color);
@@ -268,6 +281,15 @@ body {
 }
 
 
+/* ---------- News section layout ---------- */
+.news-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
 /* ---------- shared video helpers ---------- */
 .video-grid{
   display:flex;
@@ -275,6 +297,7 @@ body {
   gap:1rem;
   justify-content:center;
   margin:0 auto;
+  width: 100%;
 }
 
 /* 1 col on phones, 2 cols on anything ≥ 600 px */
@@ -289,6 +312,12 @@ body {
   text-align: center;
   position: relative;
 }
+
+/* Ensure figures maintain layout when shown */
+.video-grid figure:not(.hidden) {
+  display: flex;
+}
+
 @media (min-width:600px){
   /* two items per row: 50 % minus the gap */
   .video-grid figure{
@@ -316,15 +345,14 @@ body {
 /* Talk thumbnail link styling */
 .nvidia-talk-link,
 .talk-link,
-.iros-2025-link,
-.most-2025-link,
+.iros-link,
+.most-link,
 .cv-summit-link {
   position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 16/9;
   overflow: hidden;
-  height: 100%;
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
@@ -339,8 +367,8 @@ body {
 
 .nvidia-talk-link:hover .talk-thumbnail,
 .talk-link:hover .talk-thumbnail,
-.iros-2025-link:hover .talk-thumbnail,
-.most-2025-link:hover .talk-thumbnail,
+.iros-link:hover .talk-thumbnail,
+.most-link:hover .talk-thumbnail,
 .cv-summit-link:hover .talk-thumbnail {
   transform: scale(1.05);
 }

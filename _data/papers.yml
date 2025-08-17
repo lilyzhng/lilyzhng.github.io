@@ -1,5 +1,6 @@
 - title: "Lihi-GS: Lidar-supervised gaussian splatting for highway driving scene reconstruction"
   url: "https://arxiv.org/abs/2412.15447"
+  project_url: "https://umautobots.github.io/lihi_gs"
   authors: "PC Kung, <b>X Zhang</b>, KA Skinner, N Jaipuria"
   venue: "Under Review"
   year: 2025
@@ -12,24 +13,28 @@
 
 - title: "LANe: Lighting-Aware Neural Fields for Compositional Scene Synthesis"
   url: "https://openaccess.thecvf.com/content/WACV2024W/3D4Science/html/de_Chanlatte_Proceedings_of_the_Workshop_on_3D_Geometry_Generation_for_Scientific_WACVW_2024_paper.html"
+  project_url: "https://lane-composition.github.io/"
   authors: "A Krishnan, A Raj, <b>X Zhang</b>, A Carlson, N Tseng, S Sridhar, N Jaipuria, James Hays,"
   venue: "Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision Workshop"
   year: 2024
 
 - title: "DatasetEquity: Are All Samples Created Equal? In The Quest For Equity Within Datasets"
   url: "https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf"
+  code_url: "https://github.com/towardsautonomy/DatasetEquity/"
   authors: "S Shrivastava, <b>X Zhang</b>, S Nagesh, A Parchami"
   venue: "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)"
   year: 2023
 
 - title: "SIMBAR: Single Image-Based Scene Relighting for Effective Data Augmentation for Automated Driving Vision Tasks"
   url: "https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf"
+  project_url: "https://lilyzhng.github.io/simbar/"
   authors: "<b>X Zhang</b>, N Tseng, A Syed, R Bhasin, N Jaipuria"
   venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2022
 
 - title: "deepPIC: Deep perceptual image clustering for identifying bias in vision datasets"
   url: "https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf"
+  project_url: "https://lilyzhng.github.io/unpuzzle_dataset_bias/"
   authors: "N Jaipuria, K Stevo, <b>X Zhang</b>, ML Gaopande, I Calle, J Jain, VN Murali"
   venue: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2022
