@@ -29,7 +29,7 @@ author_profile: true
 
 <div class="blog-list">
   <div class="blog-entry">
-    <a href="/thoughts/ieee-most-panel" class="blog-title">Reflections on IEEE MOST Panel: Driving Force Towards AV Commercialization</a><br>
+    <a href="/thoughts/ieee-most-panel" class="blog-title">Reflections on IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/10/25</span>
   </div>
 </div>
