@@ -32,6 +32,16 @@ author_profile: true
     <a href="/thoughts/ieee-most-panel" class="blog-title">Reflections on IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/10/25</span>
   </div>
+  
+  <div class="blog-entry">
+    <a href="/thoughts/test-time-scaling" class="blog-title">Test Time Scaling</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">Coming Soon</span>
+  </div>
+  
+  <div class="blog-entry">
+    <a href="/thoughts/contrastive-vs-generative-alignment" class="blog-title">Contrastive Alignment vs Generative Alignment</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">Coming Soon</span>
+  </div>
 </div>
 
 <style>
