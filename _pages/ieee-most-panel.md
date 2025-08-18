@@ -19,7 +19,7 @@ author_profile: false
   <div class="post-header">
     <h1 class="post-title">Reflections on IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</h1>
     <div class="post-meta">
-      <span class="post-date">May 5th</span>
+      <span class="post-date">May 10th</span>
       <span class="post-author">Written By Lily Zhang</span>
     </div>
   </div>
