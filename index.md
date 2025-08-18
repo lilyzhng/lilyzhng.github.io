@@ -94,8 +94,6 @@ author_profile: true
   ></iframe>
 </figure>
 
-
-
 <figure class="video-item hidden">
   <figcaption>Deep learning-based data-centric solutions.<br><span class="venue-text">Computer Vision Summit 2023</span></figcaption>
   <a href="https://computervisionsummit.com/location/cvsanjose/speaker/lilyxianlingzhang" target="_blank" rel="noopener" class="cv-summit-link">
@@ -170,7 +168,7 @@ author_profile: true
 <ul id="service-list">
   <li>
     <strong>Program Committee Member</strong><br>
-    TPC for NeurIPS (21, 24, 25), CVPR (22, 23, 24, 25), ICRA (23), IROS (23), ICML (23), ICLR (24), ECCV (24),  KDD (24), ICCV (25)
+    TPC for NeurIPS ('21, '24, '25), CVPR ('22, '23, '24, '25), ICRA ('23), IROS ('23), ICML ('23), ICLR ('24), ECCV ('24),  KDD ('24), ICCV ('25)
   </li>
   
   <li>
