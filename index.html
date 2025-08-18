@@ -127,7 +127,7 @@
       My past research has involved <a href="https://arxiv.org/abs/2412.15447">3D generation</a>, <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf">data diversification</a>, <a href="https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf">data balancing</a>,  <a href="https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf">embedding analysis</a>, <a href="https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf">synthetic data augmentation</a> and data retrieval using VLM. As a side open-source project, I built <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">Deep-Seek</a>, an LLM-powered retrieval engine that became GitHub's #1 rated data retrieval repository.
     </p>
     <p>
-      My full legal name is Xianling Zhang, and my publications appear under that name, though I go by Lily Zhang professionally. You can reach me at lilyzhng.ai AT gmail.com
+      You can reach me at lilyzhng.ai AT gmail.com. My full legal name is Xianling Zhang, and my publications appear under that name, though I go by Lily Zhang professionally. 
     </p>
   </div>
 </div>
@@ -534,8 +534,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
-        
-      </div>
+        <div class="visitor-count-container">
+          <span class="goatcounter-visitors">Loading visitors...</span>
+        </div></div>
     </footer>
 
     <!-- JavaScripts -->
@@ -562,6 +563,19 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     
+    <!-- GoatCounter Analytics - Privacy-friendly website analytics -->
+<script data-goatcounter="https://lilyzhng.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script><!-- Display visitor count -->
+<script>
+  window.goatcounter = window.goatcounter || {};
+  window.goatcounter.visit_count = function(counts) {
+    var elements = document.querySelectorAll('.goatcounter-visitors');
+    elements.forEach(function(elem) {
+      var count = counts.count.toLocaleString();
+      elem.innerHTML = '👁️ ' + count + ' visitor' + (counts.count !== 1 ? 's' : '');
+    });
+  };
+</script>
     
 
   </body>

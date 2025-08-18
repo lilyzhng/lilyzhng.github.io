@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>/analytics-demo/</loc>
+</url>
+<url>
 <loc>/thoughts/ieee-most-panel/</loc>
 </url>
 <url>
@@ -14,10 +17,10 @@
 </url>
 <url>
 <loc>/assets/pdf/example_pdf.pdf</loc>
-<lastmod>2025-08-17T17:37:47-07:00</lastmod>
+<lastmod>2025-08-17T17:53:24-07:00</lastmod>
 </url>
 <url>
 <loc>/assets/plotly/demo.html</loc>
-<lastmod>2025-08-17T17:37:47-07:00</lastmod>
+<lastmod>2025-08-17T17:53:24-07:00</lastmod>
 </url>
 </urlset>

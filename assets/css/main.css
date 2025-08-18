@@ -1520,4 +1520,14 @@ a:hover { text-decoration: none; color: var(--link-hover-color); border-bottom-c
 
 .header-container .navigation-container .nav-link:after { background-color: var(--link-color) !important; /* Dark blue underline on hover */ }
 
+/* Visitor counter styles */
+.visitor-count-container { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 0, 0, 0.1); text-align: center; font-size: 0.875rem; color: #666; }
+.visitor-count-container .goatcounter-visitors { display: inline-block; padding: 0.25rem 0.75rem; background-color: rgba(0, 0, 0, 0.05); border-radius: 20px; transition: all 0.3s ease; }
+.visitor-count-container .goatcounter-visitors:hover { background-color: rgba(0, 0, 0, 0.1); transform: translateY(-1px); }
+
+.dark .visitor-count-container { border-top-color: rgba(255, 255, 255, 0.1); color: #aaa; }
+.dark .visitor-count-container .goatcounter-visitors { background-color: rgba(255, 255, 255, 0.1); }
+.dark .visitor-count-container .goatcounter-visitors:hover { background-color: rgba(255, 255, 255, 0.15); }
+
+@media (max-width: 768px) { .visitor-count-container { font-size: 0.813rem; } }
 /* Additional overrides */

@@ -104,8 +104,9 @@
 
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
-        
-      </div>
+        <div class="visitor-count-container">
+          <span class="goatcounter-visitors">Loading visitors...</span>
+        </div></div>
     </footer>
 
     <!-- JavaScripts -->
@@ -132,6 +133,19 @@
     
 
     
+    <!-- GoatCounter Analytics - Privacy-friendly website analytics -->
+<script data-goatcounter="https://lilyzhng.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script><!-- Display visitor count -->
+<script>
+  window.goatcounter = window.goatcounter || {};
+  window.goatcounter.visit_count = function(counts) {
+    var elements = document.querySelectorAll('.goatcounter-visitors');
+    elements.forEach(function(elem) {
+      var count = counts.count.toLocaleString();
+      elem.innerHTML = '👁️ ' + count + ' visitor' + (counts.count !== 1 ? 's' : '');
+    });
+  };
+</script>
     
 
   </body>
