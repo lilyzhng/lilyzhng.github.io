@@ -247,9 +247,8 @@
 
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
-        <div class="visitor-count-container">
-          <span class="goatcounter-visitors">Loading visitors...</span>
-        </div></div>
+        
+      </div>
     </footer>
 
     <!-- JavaScripts -->
@@ -280,14 +279,79 @@
 <script data-goatcounter="https://lilyzhng.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script><!-- Display visitor count -->
 <script>
-  window.goatcounter = window.goatcounter || {};
-  window.goatcounter.visit_count = function(counts) {
-    var elements = document.querySelectorAll('.goatcounter-visitors');
-    elements.forEach(function(elem) {
-      var count = counts.count.toLocaleString();
-      elem.innerHTML = '👁️ ' + count + ' visitor' + (counts.count !== 1 ? 's' : '');
-    });
-  };
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to update all visitor counters on the page
+  function updateVisitorCount() {
+    // Create a temporary element for GoatCounter to inject the count
+    var tempDiv = document.createElement('div');
+    tempDiv.style.display = 'none';
+    tempDiv.id = 'gc-counter';
+    document.body.appendChild(tempDiv);
+    
+    // Wait for GoatCounter to load
+    var checkInterval = setInterval(function() {
+      if (typeof window.goatcounter !== 'undefined' && window.goatcounter.count) {
+        clearInterval(checkInterval);
+        
+        // Use GoatCounter's visit_count method
+        if (window.goatcounter.visit_count) {
+          window.goatcounter.visit_count({
+            append: '#gc-counter',
+            path: window.location.pathname
+          });
+          
+          // Wait a bit for the count to be injected
+          setTimeout(function() {
+            var countElement = document.querySelector('#gc-counter');
+            if (countElement && countElement.textContent) {
+              // Extract the number from GoatCounter's output
+              var match = countElement.textContent.match(/(\d+)/);
+              if (match) {
+                var count = parseInt(match[1]);
+                // Update all visitor counter elements
+                document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+                  elem.innerHTML = 'page view: ' + count.toLocaleString();
+                });
+              }
+            }
+            // Clean up
+            if (countElement) {
+              countElement.remove();
+            }
+          }, 500);
+        }
+      }
+    }, 100);
+    
+    // Timeout fallback
+    setTimeout(function() {
+      clearInterval(checkInterval);
+      // If still loading, try direct API call
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://lilyzhng.goatcounter.com/counter/' + encodeURIComponent(window.location.pathname) + '.json');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            var count = data.count || data.count_unique || 0;
+            document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+              elem.innerHTML = 'page view: ' + count.toLocaleString();
+            });
+          } catch (e) {
+            // If JSON fails, show a simple message
+            document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+              elem.innerHTML = 'page view: -';
+            });
+          }
+        }
+      };
+      xhr.send();
+    }, 3000);
+  }
+  
+  // Run the update
+  updateVisitorCount();
+});
 </script>
     
 
