@@ -199,3 +199,6 @@ a.blog-title {
   color: #1e3a8a !important;
 }
 </style>
+
+<!-- Visitor Counter -->
+{% include visitor_counter_inline.html %}

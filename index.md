@@ -227,3 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 {% endraw %}
+
+<!-- Visitor Counter -->
+{% include visitor_counter_inline.html %}

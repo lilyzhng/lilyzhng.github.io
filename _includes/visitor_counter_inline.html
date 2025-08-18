@@ -1,0 +1,86 @@
+{%- if site.goatcounter.site_id and site.goatcounter.site_id != "" -%}
+<div class="visitor-counter-wrapper">
+  <div class="visitor-counter-inline">
+    <span class="goatcounter-visitors" data-path="{{ page.url | default: '/' }}">Loading...</span>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the current page path
+  var path = document.querySelector('.goatcounter-visitors').dataset.path || window.location.pathname;
+  
+  // Fetch visitor count from GoatCounter API
+  fetch('https://{{ site.goatcounter.site_id }}.goatcounter.com/counter/' + encodeURIComponent(path) + '.json')
+    .then(function(response) {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('API request failed');
+    })
+    .then(function(data) {
+      var count = parseInt(data.count_unique || data.count || 0);
+      document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+        elem.innerHTML = 'page view: ' + count.toLocaleString();
+      });
+    })
+    .catch(function(error) {
+      console.log('GoatCounter API error:', error);
+      // Fallback to showing a generic message
+      document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+        elem.innerHTML = 'page view: -';
+      });
+    });
+});
+</script>
+
+<style>
+.visitor-counter-wrapper {
+  margin-top: 80px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.visitor-counter-inline {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.visitor-counter-inline:hover {
+  background-color: #eeeeee;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .visitor-counter-inline {
+    background-color: #2a2a2a;
+    color: #aaa;
+  }
+  
+  .visitor-counter-inline:hover {
+    background-color: #333;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .visitor-counter-wrapper {
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
+  
+  .visitor-counter-inline {
+    font-size: 13px;
+    padding: 6px 16px;
+  }
+}
+</style>
+{%- endif -%}
