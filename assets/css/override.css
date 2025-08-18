@@ -219,10 +219,25 @@ button, input, select, textarea {
 }
 
 .service-title a {
-  color: #1e3a8a;
-  text-decoration: none;
+  color: #1e3a8a !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .service-title a:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
+  border-bottom: none !important;
+}
+
+/* Remove bullet points from service list and match publications format */
+#service-list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#service-list li {
+  text-indent: -1.25rem;     /* hanging indent like publications */
+  padding-left: 1.25rem;     /* match publications indent */
+  margin-bottom: 1.5rem;
 }
