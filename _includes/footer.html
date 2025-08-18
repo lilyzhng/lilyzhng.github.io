@@ -8,6 +8,11 @@
         {%- if site.last_updated -%}
         Last updated: {{ "now" | date: '%B %d, %Y' }}.
         {%- endif %}
+        {%- if site.goatcounter.site_id and site.goatcounter.site_id != "" -%}
+        <div class="visitor-count-container">
+          <span class="goatcounter-visitors">Loading visitors...</span>
+        </div>
+        {%- endif -%}
       </div>
     </footer>
     {%- else -%}
@@ -20,6 +25,11 @@
         {%- if site.last_updated -%}
         Last updated: {{ "now" | date: '%B %d, %Y' }}.
         {%- endif %}
+        {%- if site.goatcounter.site_id and site.goatcounter.site_id != "" -%}
+        <div class="visitor-count-container">
+          <span class="goatcounter-visitors">Loading visitors...</span>
+        </div>
+        {%- endif -%}
       </div>
     </footer>
     {%- endif %}

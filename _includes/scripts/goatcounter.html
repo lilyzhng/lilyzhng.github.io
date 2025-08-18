@@ -1,0 +1,19 @@
+{%- if site.goatcounter.site_id -%}
+<!-- GoatCounter Analytics - Privacy-friendly website analytics -->
+<script data-goatcounter="https://{{ site.goatcounter.site_id }}.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+{%- if site.goatcounter.show_count -%}
+<!-- Display visitor count -->
+<script>
+  window.goatcounter = window.goatcounter || {};
+  window.goatcounter.visit_count = function(counts) {
+    var elements = document.querySelectorAll('.goatcounter-visitors');
+    elements.forEach(function(elem) {
+      var count = counts.count.toLocaleString();
+      elem.innerHTML = '👁️ ' + count + ' visitor' + (counts.count !== 1 ? 's' : '');
+    });
+  };
+</script>
+{%- endif -%}
+{%- endif -%}

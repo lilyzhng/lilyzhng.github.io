@@ -86,3 +86,25 @@ defaults:
     values:
       page_js:
         - /assets/js/video-toggle.js
+
+# -----------------------------------------------------------------------------
+# Analytics
+# -----------------------------------------------------------------------------
+
+# Google Analytics (uncomment and add your tracking ID to enable)
+# enable_google_analytics: false
+# google_analytics: "UA-XXXXXXXXX-X"
+
+# GoatCounter Analytics (privacy-friendly, recommended)
+# Sign up for free at https://goatcounter.com
+goatcounter:
+  site_id: "lilyzhng"  # your-site-name (without .goatcounter.com)
+  show_count: true  # Display visitor count on pages
+
+# Plausible Analytics (privacy-friendly, paid)
+# plausible:
+#   domain: "lilyzhng.github.io"
+#   script_url: "https://plausible.io/js/script.js"
+
+# Simple hit counter (no signup required)
+enable_hit_counter: true  # Shows a simple visitor badge
