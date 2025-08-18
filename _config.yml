@@ -1,9 +1,9 @@
 # Site settings
 title: ""
 masthead_title: ""   # text shown top-left
-email: alchemxz@gmail.com
+email: lilyzhng.ai@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Machine Learning Research Scientist at Ford Autonomy, working on Perception and Prediction for autonomous driving tasks.
+  Technical Lead and Research Scientist, working on 3D generation and vision language models.
 twitter_username: _lilyzhng
 github_username: lilyzhng
 minimal_mistakes_skin: dirt
@@ -30,7 +30,7 @@ plugins:
 author:
   name   : ""
   avatar : "/assets/img/prof_pic.jpg"
-  bio    : "Senior Machine Learning Research Scientist, Technical Project Lead at Ford Autonomy"
+  bio    : "Technical Lead and Research Scientist"
   location: "Palo Alto, CA"
   links:
     - label: "LinkedIn"
