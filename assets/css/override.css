@@ -211,3 +211,18 @@ button, input, select, textarea {
     font-size: 0.95rem !important;
   }
 }
+
+/* Service section styling */
+.service-title {
+  color: #1e3a8a;
+  font-weight: 400;
+}
+
+.service-title a {
+  color: #1e3a8a;
+  text-decoration: none;
+}
+
+.service-title a:hover {
+  text-decoration: underline;
+}
