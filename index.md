@@ -183,7 +183,7 @@ author_profile: true
 
   
   <li>
-    <strong>Panel Chair</strong><br>
+    <strong>Conference Chair</strong><br>
     Chairing for The IEEE International Conference on Mobility (MOST) Panel Discussion "Driving Force: Towards Large-Scale Autonomous Driving Commercialization"
   </li>
   
