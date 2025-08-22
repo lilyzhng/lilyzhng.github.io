@@ -1,7 +1,7 @@
 ---
 layout: splash
-title: "Reflections on IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization"
-permalink: /thoughts/ieee-most-panel/
+title: "IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization"
+permalink: /posts/ieee-most-panel/
 author_profile: false
 ---
 
@@ -11,13 +11,13 @@ author_profile: false
   </div>
   <div class="navigation-container">
     <a href="/" class="nav-link">Home</a>
-    <a href="/thoughts" class="nav-link">Thoughts</a>
+    <a href="/posts" class="nav-link">Posts</a>
   </div>
 </div>
 
 <div class="post-container">
   <div class="post-header">
-    <h1 class="post-title">Reflections on IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</h1>
+    <h1 class="post-title">IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</h1>
     <div class="post-meta">
       <span class="post-date">May 10th</span>
       <span class="post-author">Written By Lily Zhang</span>
@@ -52,8 +52,25 @@ author_profile: false
 
   </div>
 
+  <div class="post-citation">
+    <h2>Citation</h2>
+    <p>Please cite this work as:</p>
+    <div class="citation-text">
+      <p>Zhang, Xianling. "IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization". lilyzhng.github.io (May 2025). https://lilyzhng.github.io/posts/ieee-most-panel/</p>
+    </div>
+    <p>Or use the BibTex citation:</p>
+    <pre><code>@article{zhang2025most,
+  title = {IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization},
+  author = {Zhang, Xianling},
+  journal = {lilyzhng.github.io},
+  year = {2025},
+  month = {May},
+  url = "https://lilyzhng.github.io/posts/ieee-most-panel/"
+}</code></pre>
+  </div>
+
   <div class="post-footer">
-    <a href="/thoughts" class="back-link">← Back to Thoughts</a>
+    <a href="/posts" class="back-link">← Back to Posts</a>
   </div>
 </div>
 
@@ -126,5 +143,49 @@ author_profile: false
 
 .back-link:hover {
   color: #333;
+}
+
+.post-citation {
+  margin-top: 0rem;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.post-citation h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.post-citation pre {
+  background-color: #f1f1f1;
+  padding: 0.7rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 1.05rem;
+  font-family: inherit;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.post-citation code {
+  font-family: inherit;
+}
+
+.citation-text {
+  background-color: #f1f1f1;
+  padding: 0.7rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.citation-text p {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 </style>

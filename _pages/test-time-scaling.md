@@ -1,7 +1,7 @@
 ---
 layout: splash
 title: "Test Time Scaling"
-permalink: /thoughts/test-time-scaling/
+permalink: /posts/test-time-scaling/
 author_profile: false
 ---
 
@@ -11,7 +11,7 @@ author_profile: false
   </div>
   <div class="navigation-container">
     <a href="/" class="nav-link">Home</a>
-    <a href="/thoughts" class="nav-link">Thoughts</a>
+    <a href="/posts" class="nav-link">Posts</a>
   </div>
 </div>
 
@@ -29,7 +29,7 @@ author_profile: false
   </div>
 
   <div class="post-footer">
-    <a href="/thoughts" class="back-link">← Back to Thoughts</a>
+    <a href="/posts" class="back-link">← Back to Posts</a>
   </div>
 </div>
 

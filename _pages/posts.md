@@ -1,7 +1,7 @@
 ---
 layout: splash
-title: "Thoughts"
-permalink: /thoughts/
+title: "Posts"
+permalink: /posts/
 author_profile: true
 ---
 
@@ -11,7 +11,7 @@ author_profile: true
   </div>
   <div class="navigation-container">
     <a href="/" class="nav-link">Home</a>
-    <a href="/thoughts" class="nav-link">Thoughts</a>
+    <a href="/posts" class="nav-link">Posts</a>
   </div>
 </div>
 
@@ -29,17 +29,17 @@ author_profile: true
 
 <div class="blog-list">
   <div class="blog-entry">
-    <a href="/thoughts/ieee-most-panel" class="blog-title">Reflections on IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a><br>
+    <a href="/posts/ieee-most-panel" class="blog-title">IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/10/25</span>
   </div>
   
   <div class="blog-entry">
-    <a href="/thoughts/test-time-scaling" class="blog-title">Test Time Scaling</a><br>
+    <a href="/posts/test-time-scaling" class="blog-title">Test Time Scaling</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">Coming Soon</span>
   </div>
   
   <div class="blog-entry">
-    <a href="/thoughts/contrastive-vs-generative-alignment" class="blog-title">Contrastive Alignment vs Generative Alignment</a><br>
+    <a href="/posts/contrastive-vs-generative-alignment" class="blog-title">Contrastive Alignment vs Generative Alignment</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">Coming Soon</span>
   </div>
 </div>
