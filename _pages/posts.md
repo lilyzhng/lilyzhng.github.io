@@ -1,6 +1,6 @@
 ---
 layout: splash
-title: "Posts"
+title: "Lily Zhang | Posts"
 permalink: /posts/
 author_profile: true
 ---
