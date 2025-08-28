@@ -29,7 +29,7 @@ plugins:
 
 author:
   name   : ""
-  avatar : "/assets/img/prof_pic.jpg"
+  avatar : "/assets/img/prof_pic.jpeg"
   bio    : "Technical Lead and Research Scientist"
   location: "Palo Alto, CA"
   links:

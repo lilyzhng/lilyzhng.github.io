@@ -18,7 +18,7 @@ author_profile: true
 <!-- ░░░ Bio block with photo and links ░░░ -->
 <div class="intro-flex">
   <div class="intro-left">          <!-- NEW wrapper -->
-      <img src="/assets/img/prof_pic.jpg"
+      <img src="/assets/img/prof_pic.jpeg"
            alt="Lily Zhang"
            class="intro-avatar">
         <!-- social icons -->
