@@ -63,14 +63,14 @@ author_profile: true
 <div class="news-section">
 <div id="talks-videos" class="video-grid">
 <figure>
-  <figcaption>Hosting IROS 2025 RoboGen Workshop on 3D World Understanding and Generation <a href="https://robogen-iros.github.io">[Call for Papers]</a><br><span class="venue-text">IEEE IROS 2025 Conference</span></figcaption>
+  <figcaption>General Chair for IROS 2025 RoboGen Workshop on 3D World Understanding and Generation <a href="https://robogen-iros.github.io">[Call for Papers]</a><br><span class="venue-text">IEEE IROS 2025 Conference</span></figcaption>
   <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener" class="iros-link">
     <img src="/assets/img/invited_talks/2025_iros.png" alt="IROS Workshop" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
-  <figcaption>Chairing 2025 IEEE MOST Conference Panel Discussion<br><span class="venue-text">IEEE MOST 2025 Conference</span></figcaption>
+  <figcaption>Panel Chair for 2025 IEEE MOST Conference<br><span class="venue-text">IEEE MOST 2025 Conference</span></figcaption>
   <a href="https://ieeemobility.org/MOST2025/keynote.php" target="_blank" rel="noopener" class="most-link">
     <img src="/assets/img/invited_talks/2025_most.png" alt="2025 MOST" class="talk-thumbnail">
   </a>
