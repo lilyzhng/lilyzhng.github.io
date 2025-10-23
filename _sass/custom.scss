@@ -362,6 +362,12 @@ body {
   transition: transform 0.3s ease;
 }
 
+/* Special case for IROS image to show top part */
+.iros-link .talk-thumbnail {
+  object-fit: cover;
+  object-position: top;
+}
+
 .nvidia-talk-link:hover .talk-thumbnail,
 .talk-link:hover .talk-thumbnail,
 .iros-link:hover .talk-thumbnail,
