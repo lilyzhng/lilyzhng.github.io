@@ -1440,6 +1440,9 @@ body { padding-top: 0; font-family: 'Inter', sans-serif; color: var(--text-color
 
 .talk-thumbnail { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
 
+/* Special case for IROS image to show top part */
+.iros-link .talk-thumbnail { object-fit: cover; object-position: top; }
+
 .nvidia-talk-link:hover .talk-thumbnail, .talk-link:hover .talk-thumbnail, .iros-link:hover .talk-thumbnail, .most-link:hover .talk-thumbnail, .cv-summit-link:hover .talk-thumbnail { transform: scale(1.05); }
 
 .play-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.2); opacity: 0.8; transition: opacity 0.3s ease; }
