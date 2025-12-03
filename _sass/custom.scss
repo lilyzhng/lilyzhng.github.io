@@ -297,7 +297,7 @@ body {
   width: 100%;
 }
 
-/* 1 col on phones, 2 cols on anything ≥ 600 px */
+/* 1 col on phones, 2 cols on anything >= 600 px */
 .video-grid figure{
   /* mobile-first: full width */
   flex: 1 1 100%;
@@ -453,7 +453,7 @@ body {
   margin: 0;              /* kill the default left indent */
 }
 
-/* 2 ▸ remove the thin grey line (and any subtle shadow) */
+/* 2 > remove the thin grey line (and any subtle shadow) */
 .site-header,
 .masthead {                 /* both selectors, just in case */
   border-bottom: none !important;
@@ -461,7 +461,7 @@ body {
 }
 
 
-/* 3 ▸ center the name/title */
+/* 3 > center the name/title */
 .masthead__inner-wrap {          /* keep this if you like */
   display: flex;
   justify-content: center;       /* harmless, but not enough */

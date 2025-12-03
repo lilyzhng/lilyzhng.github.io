@@ -1,3 +1,10 @@
+- title: "Eureka: Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction"
+  url: "https://openreview.net/forum?id=zeTzKZezXY"
+  project_url: "http://eureka.swam.top/eureka/home.html"
+  authors: "H Li, R Jia, X Wu, Z Zheng, Y Qian, <b>X Zhang</b>"
+  venue: "NeurIPS 2025"
+  year: 2025
+
 - title: "Lihi-GS: Lidar-supervised gaussian splatting for highway driving scene reconstruction"
   url: "https://arxiv.org/abs/2412.15447"
   project_url: "https://umautobots.github.io/lihi_gs"
