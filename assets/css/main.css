@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* import the full theme */
 /* Copyright comment */
 /*!
@@ -1424,7 +1423,7 @@ body { padding-top: 0; font-family: 'Inter', sans-serif; color: var(--text-color
 /* ---------- shared video helpers ---------- */
 .video-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 0 auto; width: 100%; }
 
-/* 1 col on phones, 2 cols on anything ≥ 600 px */
+/* 1 col on phones, 2 cols on anything >= 600 px */
 .video-grid figure { /* mobile-first: full width */ flex: 1 1 100%; max-width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
 
 /* Ensure figures maintain layout when shown */
@@ -1466,10 +1465,10 @@ body { padding-top: 0; font-family: 'Inter', sans-serif; color: var(--text-color
 /* 1. Make the name (site-title) larger */
 .site-title { font-size: 1.8rem; /* adjust to taste */ font-weight: 700; /* keeps weight consistent after resizing */ line-height: 1.1; margin: 0; /* kill the default left indent */ }
 
-/* 2 ▸ remove the thin grey line (and any subtle shadow) */
+/* 2 > remove the thin grey line (and any subtle shadow) */
 .site-header, .masthead { /* both selectors, just in case */ border-bottom: none !important; box-shadow: none !important; }
 
-/* 3 ▸ center the name/title */
+/* 3 > center the name/title */
 .masthead__inner-wrap { /* keep this if you like */ display: flex; justify-content: center; /* harmless, but not enough */ }
 
 /* make the title occupy the whole row */
