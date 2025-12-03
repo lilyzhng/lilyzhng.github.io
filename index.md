@@ -63,9 +63,9 @@ author_profile: true
 <div class="news-section">
 <div id="talks-videos" class="video-grid">
 <figure>
-  <figcaption>New Paper: Eureka - Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction <a href="https://openreview.net/forum?id=zeTzKZezXY">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a><br><span class="venue-text">NeurIPS 2025</span></figcaption>
+  <figcaption>Eureka: Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction <a href="https://openreview.net/forum?id=zeTzKZezXY">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a><br><span class="venue-text">NeurIPS 2025 Vision Language Models: Challenges of RealWorld Deployment</span></figcaption>
   <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
-    <img src="/assets/pdf/eureka_poster_neurips.pdf" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
+    <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
   </a>
 </figure>
 

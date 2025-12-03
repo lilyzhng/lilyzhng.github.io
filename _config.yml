@@ -12,6 +12,10 @@ search: false
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
+encoding: utf-8
+sass:
+  sass_dir: _sass
+  style: compressed
 # Outputting
 permalink: /:categories/:title/
 timezone: America/Los_Angeles # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones

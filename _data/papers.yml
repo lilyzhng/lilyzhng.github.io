@@ -2,14 +2,14 @@
   url: "https://openreview.net/forum?id=zeTzKZezXY"
   project_url: "http://eureka.swam.top/eureka/home.html"
   authors: "H Li, R Jia, X Wu, Z Zheng, Y Qian, <b>X Zhang</b>"
-  venue: "NeurIPS 2025"
+  venue: "NeurIPS - Vision Language Models: Challenges of RealWorld Deployment"
   year: 2025
 
 - title: "Lihi-GS: Lidar-supervised gaussian splatting for highway driving scene reconstruction"
   url: "https://arxiv.org/abs/2412.15447"
   project_url: "https://umautobots.github.io/lihi_gs"
   authors: "PC Kung, <b>X Zhang</b>, KA Skinner, N Jaipuria"
-  venue: "Under Review"
+  venue: "RAL / CVPRW"
   year: 2025
 
 - title: "Unveiling the Ambiguity in Neural Inverse Rendering: A Parameter Compensation Analysis"
