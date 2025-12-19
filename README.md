@@ -1,13 +1,10 @@
 # Lily Zhang
 
-I am a Technical Lead and Research Scientist, based in Bay Area, California.
+I'm Lily Zhang (publishing as Xianling Zhang), a Technical Lead / Applied Research Scientist in the Bay Area, California.
 
-I currently work at [Latitude AI](https://lat.ai/) on synthetic data and vision language models.
+At [Latitude AI](https://lat.ai/) I am building the data flywheel for autonomy: turning raw messy data to a continous learning system that drives needles on downstream model performance. Previously, I led applied R&D at Ford Greenfield Labs (2019–2023) [on training generative models, controllable scene generation](https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D). Before that, I was a Machine Learning Engineer at BMW working on perception.
 
-From 2019 to 2024, I was at Ford Greenfield Labs, focusing on AI algorithms for [building offboard models as data engine](https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D). Before that, I was a Machine Learning Engineer at BMW working on perception.
-
-My research has involved, [LLM post-training](https://neurips.cc/virtual/2025/workshop/127831), [Dynamic scene generation](https://arxiv.org/abs/2412.15447), [Data diversification](https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf)
-, [Data clustering](https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf), [Data equity](https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf), [Deflating data bias](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf). As a side open-source project, I built [Deep-Seek](https://github.com/dzhng/deep-seek), an LLM-powered retrieval engine that became GitHub's #1 rated data retrieval repository.
+My past research has involved [Post Training](https://neurips.cc/virtual/2025/workshop/127831), Deep Learning for Data [[1]](https://arxiv.org/abs/2412.15447) [[2]](https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf) [[3]](https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf) [[4]](https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf) [[5]](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf). As a side open-source project, I built [Deep-Seek](https://github.com/dzhng/deep-seek), an LLM-powered retrieval engine that became GitHub's #1 rated data retrieval repository (This is before another DeepSeek went viral).
 
 ## News
 
