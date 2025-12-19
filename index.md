@@ -47,7 +47,7 @@ author_profile: true
       Previously, I led applied R&D at Ford Greenfield Labs (2019–2023) <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D">on training perception models, controllable scene generation</a>. Before that, I was a Machine Learning Engineer at BMW working on perception.
     </p>
     <p>
-      My past research has involved <a href="https://neurips.cc/virtual/2025/workshop/127831">post-training</a>, data-centric deep learning <a href="https://arxiv.org/abs/2412.15447">[1]</a> <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf">[2]</a> <a href="https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf">[3]</a> <a href="https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf">[4]</a> <a href="https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf">[5]</a>. 
+      My past research has involved <a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">post-training</a>, data-centric deep learning <a href="https://arxiv.org/abs/2412.15447">[1]</a> <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf">[2]</a> <a href="https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf">[3]</a> <a href="https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf">[4]</a> <a href="https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf">[5]</a>. 
       As a side open-source project, I built <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">Deep-Seek</a>, an LLM-powered retrieval engine that became GitHub's #1 rated data retrieval repository.
     </p>
     <p>
@@ -64,7 +64,7 @@ author_profile: true
 <div class="news-section">
 <div id="talks-videos" class="video-grid">
 <figure>
-  <figcaption>Eureka: Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction <a href="https://openreview.net/forum?id=zeTzKZezXY">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a><br><span class="venue-text">NeurIPS 2025 Vision Language Models: Challenges of RealWorld Deployment</span></figcaption>
+  <figcaption>Eureka: Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction <a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a><br><span class="venue-text">NeurIPS 2025 Vision Language Models: Challenges of RealWorld Deployment</span></figcaption>
   <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
     <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
   </a>
