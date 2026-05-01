@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Harness — Why the Same Model Feels Different</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Design System — same warm cream + nobel-gold palette
+   ============================================================ */
+:root {
+  --bg-primary: #F9F8F4;
+  --bg-secondary: #F5F4F0;
+  --bg-white: #FFFFFF;
+  --gold: #C5A059;
+  --gold-light: rgba(197,160,89,0.15);
+  --gold-hover: rgba(197,160,89,0.35);
+  --stone-900: #1c1917;
+  --stone-800: #292524;
+  --stone-700: #44403c;
+  --stone-600: #57534e;
+  --stone-500: #78716c;
+  --stone-400: #a8a29e;
+  --stone-300: #d6d3d1;
+  --stone-200: #e7e5e3;
+  --stone-100: #f5f5f4;
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --red: #ef4444;
+  --purple: #8b5cf6;
+  --orange: #f97316;
+  --teal: #14b8a6;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg-primary);
+  color: var(--stone-700);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.badge {
+  display: inline-block; padding: 4px 12px;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; border-radius: 999px;
+}
+.section { padding: 80px 0; }
+.section-title {
+  font-family: var(--serif); font-size: 32px; font-weight: 700;
+  color: var(--stone-900); margin-bottom: 8px;
+}
+.section-sub { color: var(--stone-500); font-size: 15px; margin-bottom: 40px; }
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-in {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(249,248,244,0.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--stone-200);
+}
+nav .inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+nav .logo { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--stone-900); text-decoration: none; }
+nav .logo span { color: var(--gold); }
+nav .links { display: flex; gap: 24px; }
+nav .links a {
+  font-size: 13px; color: var(--stone-500); text-decoration: none;
+  font-weight: 500; transition: color 0.2s;
+}
+nav .links a:hover { color: var(--gold); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  padding: 140px 0 80px; text-align: center;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+.hero .badge { margin-bottom: 24px; }
+.hero h1 {
+  font-family: var(--serif); font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700; color: var(--stone-900); line-height: 1.2;
+  margin-bottom: 16px;
+}
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero .subtitle {
+  font-size: 17px; color: var(--stone-500); max-width: 640px;
+  margin: 0 auto 32px; line-height: 1.8;
+}
+.hero .scroll-hint {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--stone-400);
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================================
+   ARCHITECTURE LAYERS (clickable stack)
+   ============================================================ */
+.arch-section { background: var(--bg-secondary); }
+.arch-layer {
+  background: var(--bg-white);
+  border: 1px solid var(--stone-200);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.arch-layer:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(197,160,89,0.4);
+  transform: translateX(4px);
+}
+.arch-layer.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold-light), var(--shadow-md);
+}
+.arch-layer-header {
+  display: flex; align-items: center; gap: 14px;
+}
+.arch-layer-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.arch-layer-title {
+  font-weight: 600; font-size: 15px; color: var(--stone-900);
+}
+.arch-layer-subtitle {
+  font-size: 13px; color: var(--stone-500); margin-top: 2px;
+}
+.arch-layer-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 0 0 58px;
+}
+.arch-layer.active .arch-layer-detail {
+  max-height: 500px; padding: 12px 0 4px 58px;
+}
+.arch-layer-detail p {
+  font-size: 14px; color: var(--stone-600); line-height: 1.8;
+}
+.arch-layer-detail .analogy {
+  display: inline-block; background: var(--gold-light);
+  padding: 2px 8px; border-radius: 4px; font-size: 13px;
+  color: var(--stone-700); margin-top: 8px;
+}
+.arch-connector {
+  display: flex; justify-content: center; padding: 4px 0;
+  color: var(--stone-300);
+}
+.arch-connector svg { width: 20px; height: 20px; }
+
+/* ============================================================
+   COMPARISON DEMO (3-column)
+   ============================================================ */
+.compare-section { background: var(--bg-primary); }
+.compare-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.compare-card {
+  background: var(--bg-white); border: 1px solid var(--stone-200);
+  border-radius: var(--radius-lg); padding: 24px;
+  transition: all 0.3s ease; position: relative; overflow: hidden;
+}
+.compare-card:hover {
+  box-shadow: var(--shadow-md); border-color: rgba(197,160,89,0.4);
+}
+.compare-card .tier-badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 999px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
+}
+.compare-card.naive { border-top: 3px solid var(--red); }
+.compare-card.naive .tier-badge { background: #fef2f2; color: var(--red); }
+.compare-card.basic { border-top: 3px solid var(--orange); }
+.compare-card.basic .tier-badge { background: #fff7ed; color: var(--orange); }
+.compare-card.full { border-top: 3px solid var(--green); }
+.compare-card.full .tier-badge { background: #f0fdf4; color: var(--green); }
+.compare-card h4 {
+  font-family: var(--serif); font-size: 18px; font-weight: 700;
+  color: var(--stone-900); margin-bottom: 6px;
+}
+.compare-card .tier-sub {
+  font-size: 13px; color: var(--stone-500); margin-bottom: 14px; font-style: italic;
+}
+.compare-card .tier-body {
+  font-size: 14px; color: var(--stone-600); line-height: 1.8;
+}
+
+/* ============================================================
+   CHAT FLOW
+   ============================================================ */
+.flow-section { background: var(--bg-primary); }
+.chat-flow {
+  max-width: 680px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.chat-msg {
+  display: flex; gap: 10px; align-items: flex-start;
+  opacity: 0; transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+.chat-msg.visible { opacity: 1; transform: translateY(0); }
+.chat-msg.right { flex-direction: row-reverse; }
+.chat-avatar {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0; box-shadow: var(--shadow-sm);
+}
+.chat-bubble {
+  max-width: 480px; padding: 12px 16px;
+  border-radius: 14px; font-size: 14px; line-height: 1.7;
+}
+.chat-bubble .sender {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.1em; margin-bottom: 4px; opacity: 0.6;
+}
+.chat-bubble code {
+  font-family: var(--mono); font-size: 12px;
+  background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 3px;
+}
+.chat-user .chat-avatar { background: var(--stone-800); color: white; }
+.chat-user .chat-bubble { background: var(--stone-800); color: var(--stone-100); }
+.chat-harness .chat-avatar { background: var(--gold); color: white; }
+.chat-harness .chat-bubble { background: var(--gold-light); color: var(--stone-800); border: 1px solid rgba(197,160,89,0.3); }
+.chat-model .chat-avatar { background: var(--purple); color: white; }
+.chat-model .chat-bubble { background: #f5f3ff; color: #3b0764; border: 1px solid #ddd6fe; }
+.chat-tool .chat-avatar { background: var(--teal); color: white; }
+.chat-tool .chat-bubble { background: #f0fdfa; color: #134e4a; border: 1px solid #99f6e4; }
+.chat-card .chat-avatar { background: var(--blue); color: white; }
+.chat-card .chat-bubble { background: #eff6ff; color: #1e3a5f; border: 1px solid #bfdbfe; }
+.chat-divider {
+  text-align: center; font-size: 12px; color: var(--stone-400);
+  padding: 8px 0; font-weight: 500;
+}
+
+/* ============================================================
+   DEEP DIVE BLOCKS
+   ============================================================ */
+.design-section { background: var(--bg-secondary); }
+.design-block {
+  background: var(--bg-white);
+  border: 1px solid var(--stone-200);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 28px;
+  transition: box-shadow 0.3s ease;
+}
+.design-block:hover { box-shadow: var(--shadow-md); }
+.design-block-number {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--gold); color: white;
+  font-size: 13px; font-weight: 700; margin-bottom: 12px;
+}
+.design-block h3 {
+  font-family: var(--serif); font-size: 20px; font-weight: 700;
+  color: var(--stone-900); margin-bottom: 6px;
+}
+.design-block h3 code {
+  font-family: var(--mono); font-size: 16px; font-weight: 600;
+  background: var(--gold-light); color: var(--stone-800);
+  padding: 2px 8px; border-radius: 4px;
+}
+.design-block-sub {
+  font-size: 14px; color: var(--stone-500); margin-bottom: 16px; font-style: italic;
+}
+
+/* Code block */
+.code-block {
+  background: var(--stone-900); color: #e0e0e0;
+  border-radius: var(--radius); padding: 20px 24px;
+  font-family: var(--mono); font-size: 13px; line-height: 1.8;
+  overflow-x: auto; margin: 16px 0;
+}
+.code-block .comment { color: #6a9955; }
+.code-block .key { color: #9cdcfe; }
+.code-block .string { color: #ce9178; }
+.code-block .bracket { color: #ffd700; }
+.code-block .keyword { color: #c586c0; }
+.code-block .fn { color: #dcdcaa; }
+
+/* Method compare cards */
+.method-compare {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  margin: 20px 0;
+}
+.method-card {
+  background: var(--bg-secondary); border-radius: var(--radius);
+  padding: 20px; border: 1px solid var(--stone-200);
+}
+.method-card.generic { border-top: 3px solid var(--red); }
+.method-card.tuned { border-top: 3px solid var(--green); }
+.method-card h4 {
+  font-weight: 700; font-size: 15px; margin-bottom: 8px; color: var(--stone-900);
+}
+.method-card h4 span { font-weight: 400; font-size: 13px; color: var(--stone-500); }
+.method-card ul {
+  list-style: none; padding: 0; font-size: 14px; color: var(--stone-600); line-height: 1.9;
+}
+.method-card li::before { content: '\2192  '; color: var(--stone-400); }
+
+/* Pipeline flow */
+.pipeline-flow {
+  display: flex; align-items: stretch; gap: 0; margin: 24px 0; flex-wrap: wrap;
+}
+.pipeline-step {
+  flex: 1; min-width: 140px;
+  padding: 16px; text-align: center;
+  background: var(--bg-white); border: 1px solid var(--stone-200);
+  position: relative;
+}
+.pipeline-step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.pipeline-step:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+.pipeline-step:not(:last-child)::after {
+  content: '\2192'; position: absolute; right: -12px; top: 50%;
+  transform: translateY(-50%); font-size: 18px; color: var(--gold);
+  z-index: 1; background: var(--bg-secondary); padding: 2px 4px;
+}
+.pipeline-step .step-icon { font-size: 24px; margin-bottom: 6px; }
+.pipeline-step .step-label {
+  font-size: 12px; font-weight: 700; color: var(--stone-900);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.pipeline-step .step-desc { font-size: 12px; color: var(--stone-500); margin-top: 4px; }
+
+/* Glossary */
+.glossary-section { background: var(--bg-secondary); }
+.glossary-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.glossary-item {
+  background: var(--bg-white); border: 1px solid var(--stone-200);
+  border-radius: var(--radius); padding: 18px 20px;
+  transition: all 0.2s ease;
+}
+.glossary-item:hover { border-color: rgba(197,160,89,0.4); }
+.glossary-term {
+  font-family: var(--mono); font-weight: 600; font-size: 14px;
+  color: var(--stone-900); margin-bottom: 6px;
+}
+.glossary-def { font-size: 13px; color: var(--stone-600); line-height: 1.7; }
+.glossary-analogy {
+  margin-top: 6px; padding: 6px 10px; border-radius: 6px;
+  background: var(--gold-light); font-size: 12px; color: var(--stone-700);
+  display: inline-block;
+}
+.glossary-group-label {
+  grid-column: 1 / -1;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold); margin: 8px 0 0;
+  display: flex; align-items: center; gap: 10px;
+}
+.glossary-group-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--stone-200);
+}
+
+/* SofaGenius section */
+.sofa-section { background: var(--bg-primary); }
+.sofa-mapping-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+}
+.sofa-map-item {
+  background: var(--bg-secondary); border-radius: var(--radius);
+  padding: 14px 16px; font-size: 13px; color: var(--stone-600);
+  border-left: 3px solid var(--gold);
+}
+.sofa-map-item strong { color: var(--stone-900); display: block; margin-bottom: 2px; }
+.sofa-map-item code {
+  font-family: var(--mono); font-size: 11px;
+  background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 3px;
+}
+
+/* MCP section */
+.mcp-section { background: var(--bg-primary); }
+
+.two-paths {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0;
+}
+.path-card {
+  background: var(--bg-white); border: 1px solid var(--stone-200);
+  border-radius: var(--radius-lg); padding: 28px;
+  transition: all 0.3s ease; position: relative;
+}
+.path-card:hover { box-shadow: var(--shadow-md); }
+.path-card.path-a { border-top: 3px solid var(--blue); }
+.path-card.path-b { border-top: 3px solid var(--purple); }
+.path-card .path-badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 999px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
+}
+.path-card.path-a .path-badge { background: #eff6ff; color: var(--blue); }
+.path-card.path-b .path-badge { background: #f5f3ff; color: var(--purple); }
+.path-card h4 {
+  font-family: var(--serif); font-size: 18px; font-weight: 700;
+  color: var(--stone-900); margin-bottom: 6px;
+}
+.path-card .path-sub {
+  font-size: 13px; color: var(--stone-500); margin-bottom: 14px; font-style: italic;
+}
+.path-card .path-body {
+  font-size: 14px; color: var(--stone-600); line-height: 1.8;
+}
+.path-card ul {
+  list-style: none; padding: 0; font-size: 14px; color: var(--stone-600); line-height: 1.9;
+}
+.path-card li::before { content: '\2192  '; color: var(--stone-400); }
+
+.trace-timeline {
+  display: flex; flex-direction: column; gap: 0;
+  margin: 20px 0; border-left: 3px solid var(--purple);
+  padding-left: 20px;
+}
+.trace-step {
+  padding: 10px 0; position: relative;
+}
+.trace-step::before {
+  content: ''; position: absolute; left: -26px; top: 16px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--purple); border: 2px solid var(--bg-white);
+}
+.trace-step .trace-role {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; margin-bottom: 2px;
+}
+.trace-step .trace-content {
+  font-size: 13px; color: var(--stone-600); line-height: 1.6;
+}
+.trace-step .trace-content code {
+  font-family: var(--mono); font-size: 12px;
+  background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 3px;
+}
+
+.compare-table {
+  width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 13px;
+}
+.compare-table th {
+  text-align: left; padding: 10px 14px;
+  background: var(--bg-secondary); color: var(--stone-900);
+  font-weight: 600; border-bottom: 2px solid var(--stone-200);
+}
+.compare-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--stone-100);
+  color: var(--stone-600); line-height: 1.6;
+}
+.compare-table tr:hover td { background: rgba(197,160,89,0.05); }
+
+@media (max-width: 768px) {
+  .two-paths { grid-template-columns: 1fr; }
+}
+
+/* Deployment section */
+.deploy-section { background: var(--bg-secondary); }
+
+.arch-diagram {
+  background: var(--stone-900); border-radius: var(--radius-lg);
+  padding: 28px 32px; margin: 24px 0; overflow-x: auto;
+}
+.arch-diagram pre {
+  font-family: var(--mono); font-size: 13px; line-height: 1.7;
+  color: var(--stone-300); margin: 0; white-space: pre;
+}
+.arch-diagram .hl-file { color: var(--gold); }
+.arch-diagram .hl-model { color: #93c5fd; }
+.arch-diagram .hl-arrow { color: var(--stone-500); }
+.arch-diagram .hl-label { color: #a5b4fc; font-weight: 600; }
+.arch-diagram .hl-new { color: #86efac; font-weight: 700; }
+.arch-diagram .hl-dim { color: var(--stone-600); }
+
+.deploy-options {
+  display: grid; grid-template-columns: 1fr; gap: 24px; margin: 28px 0;
+}
+.deploy-card {
+  background: var(--bg-white); border: 1px solid var(--stone-200);
+  border-radius: var(--radius-lg); padding: 0; overflow: hidden;
+  transition: all 0.3s ease;
+}
+.deploy-card:hover { box-shadow: var(--shadow-md); }
+.deploy-card-header {
+  padding: 24px 28px 16px; border-bottom: 1px solid var(--stone-100);
+}
+.deploy-card-header .option-badge {
+  display: inline-block; padding: 4px 12px;
+  border-radius: 999px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;
+}
+.deploy-card.option-a .option-badge { background: #dbeafe; color: var(--blue); }
+.deploy-card.option-b .option-badge { background: #f5f3ff; color: var(--purple); }
+.deploy-card.option-c .option-badge { background: #fef3c7; color: #92400e; }
+.deploy-card-header h4 {
+  font-family: var(--serif); font-size: 18px; font-weight: 700;
+  color: var(--stone-900); margin-bottom: 4px;
+}
+.deploy-card-header .option-sub {
+  font-size: 13px; color: var(--stone-500); font-style: italic;
+}
+.deploy-card-body {
+  padding: 20px 28px 24px; font-size: 14px; color: var(--stone-600); line-height: 1.8;
+}
+.deploy-card-body .code-diff {
+  background: var(--stone-900); border-radius: var(--radius);
+  padding: 16px 20px; margin: 14px 0; font-family: var(--mono);
+  font-size: 12px; line-height: 1.7; overflow-x: auto;
+}
+.deploy-card-body .code-diff .diff-file {
+  color: var(--stone-400); font-size: 11px; margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;
+}
+.deploy-card-body .code-diff .diff-old { color: #fca5a5; }
+.deploy-card-body .code-diff .diff-new { color: #86efac; }
+.deploy-card-body .code-diff .diff-comment { color: var(--stone-500); }
+.deploy-card-body .learn-list {
+  list-style: none; padding: 0; margin: 12px 0 0;
+}
+.deploy-card-body .learn-list li {
+  padding: 4px 0; font-size: 13px; color: var(--stone-600);
+}
+.deploy-card-body .learn-list li::before {
+  content: '\2713  '; color: var(--green); font-weight: 700;
+}
+
+.deploy-card .impact-bar {
+  display: flex; align-items: center; gap: 10px; margin-top: 14px;
+  padding-top: 14px; border-top: 1px solid var(--stone-100);
+}
+.deploy-card .impact-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--stone-400); min-width: 50px;
+}
+.deploy-card .impact-dots {
+  display: flex; gap: 4px;
+}
+.deploy-card .impact-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--stone-200);
+}
+.deploy-card .impact-dot.filled { background: var(--gold); }
+
+.deploy-summary-table {
+  width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px;
+}
+.deploy-summary-table th {
+  text-align: left; padding: 10px 14px;
+  background: var(--bg-white); color: var(--stone-900);
+  font-weight: 600; border-bottom: 2px solid var(--stone-200);
+}
+.deploy-summary-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--stone-100);
+  color: var(--stone-600); line-height: 1.6;
+}
+.deploy-summary-table tr:hover td { background: rgba(197,160,89,0.05); }
+
+@media (max-width: 768px) {
+  .arch-diagram { padding: 16px; }
+  .arch-diagram pre { font-size: 11px; }
+  .deploy-card-header, .deploy-card-body { padding-left: 20px; padding-right: 20px; }
+}
+
+/* Footer */
+footer {
+  background: var(--stone-900); color: var(--stone-400);
+  padding: 48px 0; text-align: center; font-size: 13px;
+}
+footer .logo { font-family: var(--serif); font-size: 20px; color: white; margin-bottom: 8px; }
+footer .logo span { color: var(--gold); }
+footer p { max-width: 500px; margin: 0 auto; line-height: 1.7; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section { padding: 56px 0; }
+  .section-title { font-size: 26px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .method-compare { grid-template-columns: 1fr; }
+  .pipeline-flow { flex-direction: column; }
+  .pipeline-step { border-radius: var(--radius) !important; }
+  .pipeline-step:not(:last-child)::after { display: none; }
+  .sofa-mapping-grid { grid-template-columns: 1fr; }
+  nav .links { gap: 14px; }
+  nav .links a { font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .glossary-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+  <div class="inner">
+    <a href="#" class="logo">Agent<span>Harness</span></a>
+    <div class="links">
+      <a href="#anatomy">Anatomy</a>
+      <a href="#demo">Live Demo</a>
+      <a href="#compare">3 Levels</a>
+      <a href="#deepdive">Deep Dive</a>
+      <a href="#sofagenius">SofaGenius</a>
+      <a href="#mcp">MCP & Training</a>
+      <a href="#deployment">Deployment</a>
+      <a href="#glossary">Glossary</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="container">
+    <div class="badge">INTERACTIVE GUIDE</div>
+    <h1>Why the Same Model <em>Feels Different</em></h1>
+    <p class="subtitle">
+      Opus 4.6 under Cursor vs. Claude Code &mdash; same weights, wildly different results.
+      The secret is the <strong>agent harness</strong>: the software layer between you and the LLM
+      that decides what the model sees, what it can do, and how it recovers from mistakes.
+    </p>
+    <div class="scroll-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Scroll down to explore
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ANATOMY — 6 layers of an agent harness
+     ============================================================ -->
+<section class="arch-section section" id="anatomy">
+  <div class="container">
+    <div class="badge">ANATOMY</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">Six Layers of an Agent Harness</h2>
+    <p class="section-sub">From your keyboard to the model's response, your message passes through six layers. Click any layer to see what it does.</p>
+
+    <div style="display:flex;flex-direction:column;gap:0" id="archStack">
+
+      <!-- Layer 1: System Prompt -->
+      <div class="arch-layer" data-layer="system">
+        <div class="arch-layer-header">
+          <div class="arch-layer-icon" style="background:var(--gold-light);color:#92702e">&#128220;</div>
+          <div>
+            <div class="arch-layer-title">System Prompt &mdash; The DNA</div>
+            <div class="arch-layer-subtitle">Thousands of tokens that define personality, rules, and capabilities</div>
+          </div>
+        </div>
+        <div class="arch-layer-detail">
+          <p>Before the model sees your message, it reads a long system prompt that tells it who it is, how to behave, and what rules to follow. Claude Code's system prompt is 3000+ tokens, heavily structured with markdown headers and explicit do/don't rules. A generic harness might use 10 words: "You are a helpful coding assistant."</p>
+          <p>This is the single highest-leverage text in the entire system. A vague prompt produces vague behavior. A precise prompt produces precise behavior.</p>
+          <div class="analogy">The system prompt is like a job description &mdash; a detailed one produces a focused employee, a vague one produces someone who guesses</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <!-- Layer 2: Context Injection -->
+      <div class="arch-layer" data-layer="context">
+        <div class="arch-layer-header">
+          <div class="arch-layer-icon" style="background:#dbeafe;color:#1d4ed8">&#128218;</div>
+          <div>
+            <div class="arch-layer-title">Context Injection &mdash; What the Model Knows About You</div>
+            <div class="arch-layer-subtitle">CLAUDE.md, auto-memory, git status, credentials, session state</div>
+          </div>
+        </div>
+        <div class="arch-layer-detail">
+          <p>Claude Code loads your <code>CLAUDE.md</code> files (project rules like "never push to main"), auto-memory (cross-session learning), git status (current branch, recent commits), and project structure. All of this is injected into the system prompt before the model sees your message.</p>
+          <p>This is why your instruction "never push to main" works in Claude Code but not in Cursor &mdash; it's injected directly where the model reads it on every turn.</p>
+          <div class="analogy">Like a briefing packet given to a consultant before they start work &mdash; the more context, the less time wasted asking basic questions</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <!-- Layer 3: Tool Registry -->
+      <div class="arch-layer" data-layer="tools">
+        <div class="arch-layer-header">
+          <div class="arch-layer-icon" style="background:#f0fdf4;color:#16a34a">&#128295;</div>
+          <div>
+            <div class="arch-layer-title">Tool Registry &mdash; What the Model Can Do</div>
+            <div class="arch-layer-subtitle">Read, Edit, Glob, Grep, Bash, WebSearch, sub-agents</div>
+          </div>
+        </div>
+        <div class="arch-layer-detail">
+          <p>Tools are functions the model can call. The quality of tool <em>descriptions</em> matters enormously &mdash; they tell the model <strong>when</strong> to use each tool, not just what it does. Claude Code has ~12 specialized tools, each with a careful description. A generic harness might give the model just <code>run_command</code> and hope for the best.</p>
+          <p>Key design choice: Claude Code's <strong>Edit</strong> tool does surgical string replacement (specify only what changed). Some harnesses use whole-file rewrites, which waste tokens and introduce errors.</p>
+          <div class="analogy">A surgeon with a scalpel vs. a surgeon with a chainsaw &mdash; both can "edit" tissue, but precision tools produce better outcomes</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <!-- Layer 4: Agentic Loop -->
+      <div class="arch-layer" data-layer="loop">
+        <div class="arch-layer-header">
+          <div class="arch-layer-icon" style="background:#f3e8ff;color:#7c3aed">&#128260;</div>
+          <div>
+            <div class="arch-layer-title">Agentic Loop &mdash; The Engine</div>
+            <div class="arch-layer-subtitle">Multi-turn cycle: model thinks &rarr; calls tools &rarr; sees results &rarr; repeats</div>
+          </div>
+        </div>
+        <div class="arch-layer-detail">
+          <p>This is the heart of the harness. When you send a message: (1) the model decides what tool to call, (2) the harness executes it, (3) the result is fed back, (4) the model decides the next action. This loop continues until the model has enough information to give you a final answer.</p>
+          <p>A good harness lets the model loop 10-20 times autonomously &mdash; reading files, running tests, fixing errors, re-running. A limited harness might cut off after 2-3 turns.</p>
+          <div class="analogy">Like a chef tasting as they cook &mdash; taste, adjust, taste again. Cutting them off after one taste means undercooked food</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <!-- Layer 5: Context Management -->
+      <div class="arch-layer" data-layer="compression">
+        <div class="arch-layer-header">
+          <div class="arch-layer-icon" style="background:#fef9c3;color:#a16207">&#128451;</div>
+          <div>
+            <div class="arch-layer-title">Context Management &mdash; Long-Term Memory</div>
+            <div class="arch-layer-subtitle">Compression, summarization, priority ordering</div>
+          </div>
+        </div>
+        <div class="arch-layer-detail">
+          <p>Every model has a finite context window. After dozens of file reads and tool calls, the conversation history fills up. A naive harness crashes or silently drops old messages. A good harness <strong>compresses</strong> old turns &mdash; asking a fast model to summarize them &mdash; while keeping recent context intact.</p>
+          <p>Claude Code also orders context by priority: system prompt and user instructions first, then recent tool results, then older history. This ensures the model always sees the most important information.</p>
+          <div class="analogy">Like meeting notes &mdash; you don't re-read every email from 3 months ago, you keep a summary and focus on this week's updates</div>
+        </div>
+      </div>
+
+      <div class="arch-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <!-- Layer 6: Permissions -->
+      <div class="arch-layer" data-layer="permissions">
+        <div class="arch-layer-header">
+          <div class="arch-layer-icon" style="background:#fce7f3;color:#be185d">&#128274;</div>
+          <div>
+            <div class="arch-layer-title">Permissions &amp; Error Recovery</div>
+            <div class="arch-layer-subtitle">Safe tools auto-run, dangerous tools need approval, errors feed back to the model</div>
+          </div>
+        </div>
+        <div class="arch-layer-detail">
+          <p>Claude Code categorizes tools by risk: read-only tools (Read, Grep, Glob) run automatically, while modification tools (Edit, Bash, Write) prompt the user. When a user <strong>denies</strong> a tool call, the denial is fed back to the model as a result, so it can adjust its approach instead of getting stuck.</p>
+          <p>Similarly, when a tool throws an error (file not found, test failed), the error message is fed back. The model reads it and self-corrects on the next turn. A naive harness would just crash.</p>
+          <div class="analogy">Like a new hire who checks with their manager before making big decisions, and learns from mistakes instead of freezing</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LIVE DEMO — same request, different harnesses
+     ============================================================ -->
+<section class="flow-section section" id="demo">
+  <div class="container">
+    <div class="badge">LIVE DEMO</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">Same Request, Full Harness</h2>
+    <p class="section-sub">Watch what happens when you say "Fix the bug in utils.py" to Claude Code's harness. Every SSE event is shown.</p>
+
+    <div class="chat-flow" id="chatFlow">
+
+      <div class="chat-msg chat-user" data-delay="0">
+        <div class="chat-avatar">&#128100;</div>
+        <div class="chat-bubble">
+          <div class="sender">You</div>
+          Fix the bug in utils.py &mdash; the parse_date function returns None for ISO formats.
+        </div>
+      </div>
+
+      <div class="chat-divider">&darr; Harness prepares the API call</div>
+
+      <div class="chat-msg chat-harness right" data-delay="200">
+        <div class="chat-avatar">&#9881;</div>
+        <div class="chat-bubble">
+          <div class="sender">Harness (before API call)</div>
+          Assembling context: system prompt (3200 tokens) + CLAUDE.md ("use pytest", "never push to main") + git status (branch: feature/date-fix) + 12 tool definitions. Sending to model...
+        </div>
+      </div>
+
+      <div class="chat-divider">&darr; Turn 1: Model decides to read the file first</div>
+
+      <div class="chat-msg chat-model" data-delay="400">
+        <div class="chat-avatar">&#129504;</div>
+        <div class="chat-bubble">
+          <div class="sender">Claude (tool_use)</div>
+          <code>Read("utils.py")</code><br>
+          <em>I need to see the current implementation before editing.</em>
+        </div>
+      </div>
+
+      <div class="chat-msg chat-tool right" data-delay="600">
+        <div class="chat-avatar">&#128196;</div>
+        <div class="chat-bubble">
+          <div class="sender">Tool Result (auto-allowed: Read is safe)</div>
+          <code>&nbsp; 1 &nbsp; import re<br>
+          &nbsp; 2 &nbsp; from datetime import datetime<br>
+          &nbsp; 3<br>
+          &nbsp; 4 &nbsp; def parse_date(s: str):<br>
+          &nbsp; 5 &nbsp; &nbsp;&nbsp; for fmt in ["%Y-%m-%d", "%m/%d/%Y"]:<br>
+          &nbsp; 6 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; try:<br>
+          &nbsp; 7 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return datetime.strptime(s, fmt)<br>
+          &nbsp; 8 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; except ValueError:<br>
+          &nbsp; 9 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pass<br>
+          &nbsp;10 &nbsp; &nbsp;&nbsp; return None</code>
+        </div>
+      </div>
+
+      <div class="chat-divider">&darr; Turn 2: Model sees the bug &mdash; ISO format missing &mdash; uses surgical Edit</div>
+
+      <div class="chat-msg chat-model" data-delay="800">
+        <div class="chat-avatar">&#129504;</div>
+        <div class="chat-bubble">
+          <div class="sender">Claude (tool_use)</div>
+          <code>Edit("utils.py",<br>
+          &nbsp; old: 'for fmt in ["%Y-%m-%d", "%m/%d/%Y"]:'<br>
+          &nbsp; new: 'for fmt in ["%Y-%m-%dT%H:%M:%S", "%Y-%m-%d", "%m/%d/%Y"]:'<br>
+          )</code><br>
+          <em>Only 1 line changed. File unchanged otherwise.</em>
+        </div>
+      </div>
+
+      <div class="chat-msg chat-harness right" data-delay="900">
+        <div class="chat-avatar">&#9881;</div>
+        <div class="chat-bubble">
+          <div class="sender">Harness (permission check)</div>
+          Edit requires approval. &rarr; <strong>User approved.</strong><br>
+          Uniqueness check: old_string found exactly once. &check; Executing.
+        </div>
+      </div>
+
+      <div class="chat-divider">&darr; Turn 3: Model runs the tests (from CLAUDE.md: "run pytest before done")</div>
+
+      <div class="chat-msg chat-model" data-delay="1100">
+        <div class="chat-avatar">&#129504;</div>
+        <div class="chat-bubble">
+          <div class="sender">Claude (tool_use)</div>
+          <code>Bash("python -m pytest tests/test_utils.py -v")</code>
+        </div>
+      </div>
+
+      <div class="chat-msg chat-tool right" data-delay="1300">
+        <div class="chat-avatar">&#9889;</div>
+        <div class="chat-bubble">
+          <div class="sender">Tool Result</div>
+          <code>tests/test_utils.py::test_parse_iso PASSED<br>
+          tests/test_utils.py::test_parse_us PASSED<br>
+          tests/test_utils.py::test_parse_dash PASSED<br>
+          3 passed in 0.12s</code>
+        </div>
+      </div>
+
+      <div class="chat-divider">&darr; Turn 4: No more tool calls &rarr; loop ends &rarr; final response</div>
+
+      <div class="chat-msg chat-model" data-delay="1500">
+        <div class="chat-avatar">&#129504;</div>
+        <div class="chat-bubble">
+          <div class="sender">Claude (final response)</div>
+          Fixed. The <code>parse_date</code> function was missing the ISO 8601 format (<code>%Y-%m-%dT%H:%M:%S</code>). Added it as the first format to try. All 3 tests pass.
+        </div>
+      </div>
+
+    </div>
+
+    <div style="max-width:680px;margin:32px auto 0;background:var(--bg-white);border:1px solid var(--stone-200);border-radius:var(--radius);padding:20px 24px">
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8">
+        <strong style="color:var(--stone-900)">What just happened:</strong>
+        4 turns, 3 tool calls. The model read the file before editing (system prompt rule), used a surgical 1-line edit (Edit tool design),
+        ran tests because CLAUDE.md said to (context injection), and the harness checked permissions on the Edit call (permission layer).
+        A naive harness would have skipped all of this &mdash; no file read, whole-file rewrite, no tests, no permission check.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THREE LEVELS COMPARISON
+     ============================================================ -->
+<section class="compare-section section" id="compare">
+  <div class="container">
+    <div class="badge">THREE LEVELS</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">Three Harness Levels, Same Model</h2>
+    <p class="section-sub">The same Opus 4.6, asked "Add a logout button to the nav." Watch how the harness quality changes everything.</p>
+
+    <div class="compare-grid">
+
+      <div class="compare-card naive animate-in">
+        <div class="tier-badge">LEVEL 1</div>
+        <h4>Naive Harness</h4>
+        <div class="tier-sub">No tools, no context, one shot</div>
+        <div class="tier-body">
+          <p>System prompt: <em>"You are a helpful coding assistant."</em></p>
+          <p style="margin-top:10px">Model's response:</p>
+          <p style="background:var(--stone-100);padding:10px 12px;border-radius:8px;font-size:13px;margin-top:6px;font-family:var(--mono)">
+            "Here's a generic React logout button component you could add to your nav..."
+          </p>
+          <p style="margin-top:12px;font-size:13px;color:var(--stone-500)">
+            <strong>Problems:</strong> Doesn't know your framework, your file structure, your design system, or where the nav component is. Just guesses.
+          </p>
+          <div style="margin-top:12px;padding:8px 12px;background:#fef2f2;border-radius:8px;font-size:12px;color:var(--red)">
+            Tool calls: 0 &middot; Files read: 0 &middot; Tests run: 0
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-card basic animate-in">
+        <div class="tier-badge">LEVEL 2</div>
+        <h4>Basic Agent</h4>
+        <div class="tier-sub">Tools + loop, but no context</div>
+        <div class="tier-body">
+          <p>Has <code>read_file</code>, <code>edit_file</code> (whole-file), <code>run_command</code>.</p>
+          <p style="margin-top:10px">Model's behavior:</p>
+          <p style="background:var(--stone-100);padding:10px 12px;border-radius:8px;font-size:13px;margin-top:6px;font-family:var(--mono)">
+            1. Glob **/*nav* &rarr; finds TopNav.tsx<br>
+            2. Read TopNav.tsx (890 lines)<br>
+            3. Rewrite entire file with button added<br>
+            4. (no tests &mdash; doesn't know your conventions)
+          </p>
+          <p style="margin-top:12px;font-size:13px;color:var(--stone-500)">
+            <strong>Problems:</strong> Whole-file rewrite risks deleting code. No tests run. No permission check. Styling might not match.
+          </p>
+          <div style="margin-top:12px;padding:8px 12px;background:#fff7ed;border-radius:8px;font-size:12px;color:var(--orange)">
+            Tool calls: 3 &middot; Tokens wasted on full rewrite: ~2000
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-card full animate-in">
+        <div class="tier-badge">LEVEL 3</div>
+        <h4>Full Harness</h4>
+        <div class="tier-sub">Context + smart tools + permissions</div>
+        <div class="tier-body">
+          <p>System prompt + CLAUDE.md (design system, conventions) + surgical Edit + permission layer.</p>
+          <p style="margin-top:10px">Model's behavior:</p>
+          <p style="background:var(--stone-100);padding:10px 12px;border-radius:8px;font-size:13px;margin-top:6px;font-family:var(--mono)">
+            1. Glob **/*Nav* &rarr; TopNav.tsx<br>
+            2. Read TopNav.tsx<br>
+            3. Edit: add 4-line button (matches design system)<br>
+            4. Bash: npm run test<br>
+            5. "Done. Added logout button with stone-900 styling."
+          </p>
+          <p style="margin-top:12px;font-size:13px;color:var(--stone-500)">
+            <strong>Result:</strong> 4-line surgical edit. Matches your design system. Tests pass. Permission check on Edit.
+          </p>
+          <div style="margin-top:12px;padding:8px 12px;background:#f0fdf4;border-radius:8px;font-size:12px;color:var(--green)">
+            Tool calls: 4 &middot; Lines changed: 4 &middot; Tests: passing
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DEEP DIVE — key differences explained
+     ============================================================ -->
+<section class="design-section section" id="deepdive">
+  <div class="container">
+    <div class="badge">DEEP DIVE</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">The Five Key Differences</h2>
+    <p class="section-sub">Each of these layers independently improves the model's behavior. Together, they compound.</p>
+
+    <!-- Block 1: System Prompt -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">1</div>
+      <h3>System Prompt: Generic vs. Model-Specific</h3>
+      <div class="design-block-sub">The highest-leverage text in the entire system</div>
+
+      <div class="method-compare">
+        <div class="method-card generic">
+          <h4>Generic <span>(Cursor-like)</span></h4>
+          <ul>
+            <li>"You are a helpful coding assistant"</li>
+            <li>Must work for GPT-4, Claude, Gemini</li>
+            <li>No model-specific phrasing</li>
+            <li>~10-50 tokens</li>
+            <li>No behavioral rules or examples</li>
+          </ul>
+        </div>
+        <div class="method-card tuned">
+          <h4>Model-Specific <span>(Claude Code)</span></h4>
+          <ul>
+            <li>3000+ tokens of structured instructions</li>
+            <li>Co-evolved with Opus &mdash; tested for which phrasings it responds to best</li>
+            <li>Explicit do/don't rules with examples</li>
+            <li>Tool-specific guidance ("use Read, not cat")</li>
+            <li>Behavior calibration ("don't over-engineer")</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <span class="comment"># Generic harness:</span><br>
+        <span class="key">system</span> = <span class="string">"You are a helpful coding assistant."</span><br><br>
+        <span class="comment"># Claude Code (simplified excerpt):</span><br>
+        <span class="key">system</span> = <span class="string">"""You are Claude Code, Anthropic's official CLI.<br>
+        <br>
+        # Tools<br>
+        - Use Read instead of cat/head/tail<br>
+        - Use Edit for surgical string replacement<br>
+        - Use Grep instead of grep or rg<br>
+        <br>
+        # Behavior<br>
+        - Read files before editing them<br>
+        - Don't over-engineer or add features beyond what was asked<br>
+        - If a tool call fails, try a different approach<br>
+        - If the user denies a tool, don't re-attempt it<br>
+        ..."""</span>
+      </div>
+    </div>
+
+    <!-- Block 2: Surgical Edit -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">2</div>
+      <h3>Surgical Edit vs. Whole-File Rewrite</h3>
+      <div class="design-block-sub">The tool design that saves thousands of tokens per edit</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        Some harnesses give the model an <code>edit_file(path, new_content)</code> tool &mdash; the model must output the <strong>entire file</strong> even if only one line changed. Claude Code's Edit tool takes <code>old_string</code> and <code>new_string</code> &mdash; the model only specifies the diff.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0">
+        <div style="padding:16px;background:#fef2f2;border-radius:var(--radius);border:1px solid #fecaca">
+          <div style="font-weight:700;font-size:14px;color:var(--red);margin-bottom:8px">Whole-File Rewrite</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.7">
+            Model outputs: <strong>890 lines</strong> (entire file)<br>
+            Lines actually changed: <strong>1</strong><br>
+            Risk: could accidentally delete other code<br>
+            No uniqueness check<br>
+            Tokens wasted: ~2000
+          </div>
+        </div>
+        <div style="padding:16px;background:#f0fdf4;border-radius:var(--radius);border:1px solid #bbf7d0">
+          <div style="font-weight:700;font-size:14px;color:var(--green);margin-bottom:8px">Surgical Replacement</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.7">
+            Model outputs: <strong>2 strings</strong> (old &rarr; new)<br>
+            Lines actually changed: <strong>1</strong><br>
+            Uniqueness check: old_string must appear exactly once<br>
+            Precise diff visible to user<br>
+            Tokens used: ~50
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <span class="comment"># Whole-file rewrite (what some harnesses do):</span><br>
+        <span class="keyword">def</span> <span class="fn">edit_file</span>(path: str, new_content: str):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span> <span class="fn">open</span>(path, <span class="string">"w"</span>) <span class="keyword">as</span> f:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.write(new_content) &nbsp;<span class="comment"># entire file rewritten</span><br><br>
+        <span class="comment"># Surgical replacement (what Claude Code does):</span><br>
+        <span class="keyword">def</span> <span class="fn">edit_file</span>(path: str, old_string: str, new_string: str):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;content = <span class="fn">open</span>(path).<span class="fn">read</span>()<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span> content.<span class="fn">count</span>(old_string) == <span class="key">1</span> &nbsp;<span class="comment"># uniqueness check!</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;content = content.<span class="fn">replace</span>(old_string, new_string, <span class="key">1</span>)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span> <span class="fn">open</span>(path, <span class="string">"w"</span>) <span class="keyword">as</span> f:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.write(content)
+      </div>
+    </div>
+
+    <!-- Block 3: Context Injection -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">3</div>
+      <h3>Context Injection &mdash; <code>CLAUDE.md</code></h3>
+      <div class="design-block-sub">How your rules become part of the model's "memory" on every turn</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        Claude Code loads three layers of context and injects them into the system prompt:
+      </p>
+
+      <div class="pipeline-flow">
+        <div class="pipeline-step">
+          <div class="step-icon">&#127760;</div>
+          <div class="step-label">Global Rules</div>
+          <div class="step-desc">~/.claude/CLAUDE.md<br>"Never push to main"</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#128194;</div>
+          <div class="step-label">Project Rules</div>
+          <div class="step-desc">./CLAUDE.md<br>"Use Tailwind, no emojis"</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#129504;</div>
+          <div class="step-label">Auto-Memory</div>
+          <div class="step-desc">.claude/memory/<br>Cross-session learning</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#128736;</div>
+          <div class="step-label">Git State</div>
+          <div class="step-desc">Branch, status, diffs<br>Recent commits</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <span class="comment"># What Claude Code does before every API call:</span><br>
+        <span class="key">claude_md</span> = <span class="fn">load_file</span>(<span class="string">"~/.claude/CLAUDE.md"</span>)<br>
+        <span class="key">project_md</span> = <span class="fn">load_file</span>(<span class="string">"./CLAUDE.md"</span>)<br>
+        <span class="key">memory</span> = <span class="fn">load_file</span>(<span class="string">"~/.claude/memory/MEMORY.md"</span>)<br><br>
+        <span class="key">system_prompt</span> += <span class="string">f"""<br>
+        &lt;user-instructions&gt;{<span class="key">claude_md</span>}&lt;/user-instructions&gt;<br>
+        &lt;project-instructions&gt;{<span class="key">project_md</span>}&lt;/project-instructions&gt;<br>
+        """</span><br><br>
+        <span class="comment"># This is WHY "never push to main" works in Claude Code</span><br>
+        <span class="comment"># but not in Cursor &mdash; the rule is injected into the</span><br>
+        <span class="comment"># system prompt where the model reads it on EVERY turn.</span>
+      </div>
+    </div>
+
+    <!-- Block 4: Permission System -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">4</div>
+      <h3>Permission System &amp; Error Recovery</h3>
+      <div class="design-block-sub">The safety net that also makes the model smarter</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        When a user <strong>denies</strong> a tool call or a tool <strong>fails</strong>, a naive harness crashes or gets stuck.
+        Claude Code feeds the denial/error back to the model as a tool result. The model reads it and adjusts.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0">
+        <div style="padding:16px;background:var(--bg-secondary);border-radius:var(--radius);border:1px solid var(--stone-200)">
+          <div style="font-weight:700;font-size:13px;color:var(--stone-900);margin-bottom:8px">Auto-Allowed (safe)</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.8">
+            <code>Read</code> &middot; <code>Glob</code> &middot; <code>Grep</code> &middot; <code>WebSearch</code><br>
+            Read-only operations. No confirmation needed.
+          </div>
+        </div>
+        <div style="padding:16px;background:var(--bg-secondary);border-radius:var(--radius);border:1px solid var(--stone-200)">
+          <div style="font-weight:700;font-size:13px;color:var(--stone-900);margin-bottom:8px">Needs Approval (risky)</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.8">
+            <code>Edit</code> &middot; <code>Write</code> &middot; <code>Bash</code><br>
+            Modifies files or runs commands. User must approve.
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <span class="comment"># When user denies a tool call:</span><br>
+        <span class="key">tool_result</span> = <span class="bracket">{</span><br>
+        &nbsp;&nbsp;<span class="string">"type"</span>: <span class="string">"tool_result"</span>,<br>
+        &nbsp;&nbsp;<span class="string">"content"</span>: <span class="string">"Error: User denied this action. Try a different approach."</span>,<br>
+        &nbsp;&nbsp;<span class="string">"is_error"</span>: <span class="key">True</span><br>
+        <span class="bracket">}</span><br>
+        <span class="comment"># Model sees this and adapts &mdash; maybe asks a question</span><br>
+        <span class="comment"># or tries a less invasive alternative.</span><br><br>
+        <span class="comment"># When a tool throws an exception:</span><br>
+        <span class="keyword">try</span>:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">result</span> = <span class="fn">execute_tool</span>(name, args)<br>
+        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">result</span> = <span class="string">f"Error: {e}"</span><br>
+        <span class="comment"># Model reads the error and self-corrects on the next turn.</span>
+      </div>
+    </div>
+
+    <!-- Block 5: Context Compression -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">5</div>
+      <h3>Context Compression &mdash; Why Long Sessions Don't Break</h3>
+      <div class="design-block-sub">Old turns get summarized so the model never loses track</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        After 20+ file reads and tool calls, the conversation history exceeds the context window.
+        A naive harness either crashes (<code>context_length_exceeded</code>) or silently drops old messages &mdash; losing important context.
+      </p>
+
+      <div class="pipeline-flow">
+        <div class="pipeline-step">
+          <div class="step-icon">&#128221;</div>
+          <div class="step-label">Messages Grow</div>
+          <div class="step-desc">Each tool call adds to history</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#9888;&#65039;</div>
+          <div class="step-label">Near Limit</div>
+          <div class="step-desc">Approaching context window</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#128220;</div>
+          <div class="step-label">Compress</div>
+          <div class="step-desc">Summarize old turns via Haiku</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#9989;</div>
+          <div class="step-label">Continue</div>
+          <div class="step-desc">Recent context intact + summary</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <span class="comment"># Naive harness &mdash; messages grow until crash:</span><br>
+        <span class="key">messages</span>.<span class="fn">append</span>(response)<br>
+        <span class="key">messages</span>.<span class="fn">append</span>(tool_result)<br>
+        <span class="comment"># Eventually: ERROR context_length_exceeded</span><br><br>
+        <span class="comment"># Full harness &mdash; old messages get compressed:</span><br>
+        <span class="keyword">if</span> <span class="fn">total_tokens</span>(<span class="key">messages</span>) > <span class="key">THRESHOLD</span>:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">old</span> = <span class="key">messages</span>[:-<span class="key">KEEP_RECENT</span>]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">summary</span> = <span class="fn">summarize_via_haiku</span>(<span class="key">old</span>)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">messages</span> = [<span class="key">summary</span>] + <span class="key">messages</span>[-<span class="key">KEEP_RECENT</span>:]
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SOFAGENIUS IS A HARNESS
+     ============================================================ -->
+<section class="sofa-section section" id="sofagenius">
+  <div class="container">
+    <div class="badge">REAL-WORLD EXAMPLE</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">SofaGenius IS an Agent Harness</h2>
+    <p class="section-sub">The same architecture that makes Claude Code smart is what makes SofaGenius smart. You already built one.</p>
+
+    <div class="design-block animate-in" style="margin-bottom:28px">
+      <p style="font-size:14px;color:var(--stone-600);line-height:2">
+        <strong style="color:var(--stone-900)">The punchline:</strong>
+        SofaGenius wraps Claude with tools (W&B monitor, SQL analyst, HF scout), system prompts (per-agent instructions),
+        context injection (pre-resolved W&B identity, session state, run aliases), and an agentic loop (base.py) &mdash;
+        the exact same pattern that makes Claude Code outperform Cursor.
+      </p>
+    </div>
+
+    <div class="design-block animate-in">
+      <h3>Same Question, Three Harness Levels in SofaGenius</h3>
+      <div class="design-block-sub">User: "How's my training going?"</div>
+
+      <div style="display:flex;gap:12px;margin:20px 0;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px;background:var(--bg-secondary);border-radius:var(--radius);padding:16px;border-top:3px solid var(--red)">
+          <div style="font-weight:700;font-size:14px;color:var(--stone-900);margin-bottom:6px">Naive (01)</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.7">
+            "What platform are you using? What metrics are you tracking?"<br>
+            <strong>Tool calls: 0</strong>. Useless.
+          </div>
+        </div>
+        <div style="flex:1;min-width:200px;background:var(--bg-secondary);border-radius:var(--radius);padding:16px;border-top:3px solid var(--orange)">
+          <div style="font-weight:700;font-size:14px;color:var(--stone-900);margin-bottom:6px">Basic (02)</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.7">
+            get_wandb_info &rarr; list_runs &rarr; analyze_health<br>
+            <strong>Tool calls: 3</strong>. Works, but slow.
+          </div>
+        </div>
+        <div style="flex:1;min-width:200px;background:var(--bg-secondary);border-radius:var(--radius);padding:16px;border-top:3px solid var(--green)">
+          <div style="font-weight:700;font-size:14px;color:var(--stone-900);margin-bottom:6px">Full Harness (03)</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.7">
+            analyze_run_health (with pre-resolved context)<br>
+            <strong>Tool calls: 1</strong>. Instant + card rendered.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="design-block animate-in">
+      <h3>How SofaGenius Maps to the Six Layers</h3>
+
+      <div class="sofa-mapping-grid">
+        <div class="sofa-map-item">
+          <strong>1. System Prompt</strong>
+          Each subagent has its own prompt (<code>training.SYSTEM_PROMPT</code>) with tool selection rules, behavior guidelines, and domain-specific instructions.
+        </div>
+        <div class="sofa-map-item">
+          <strong>2. Context Injection</strong>
+          <code>_build_wandb_context()</code> pre-resolves your W&B entity + projects.
+          <code>_build_launch_context()</code> injects the last-launched run ID.
+          <code>_build_alias_context()</code> maps friendly names to run IDs.
+        </div>
+        <div class="sofa-map-item">
+          <strong>3. Tool Registry</strong>
+          5 subagents &times; 3-8 tools each. Rich descriptions tell the model WHEN to use each tool. <code>CARD_TOOL_MAPPING</code> maps tools to visual card types.
+        </div>
+        <div class="sofa-map-item">
+          <strong>4. Agentic Loop</strong>
+          <code>base.run_subagent()</code> loops up to 10 turns. Emits SSE events (text, tool_call, tool_result, card, done) for real-time streaming.
+        </div>
+        <div class="sofa-map-item">
+          <strong>5. Context Management</strong>
+          Session state (<code>_session_contexts</code>) persists across messages.
+          <code>_extract_event_context()</code> captures launch/health card data for future reference.
+        </div>
+        <div class="sofa-map-item">
+          <strong>6. Error Recovery</strong>
+          <code>_execute_tool()</code> wraps every tool call in try/except. Errors are JSON-encoded and fed back to Claude as tool results.
+        </div>
+      </div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-top:16px">
+        <strong style="color:var(--stone-900)">Plus two layers Claude Code doesn't need:</strong>
+      </p>
+
+      <div class="sofa-mapping-grid" style="margin-top:12px">
+        <div class="sofa-map-item" style="border-left-color:var(--purple)">
+          <strong>Intent Routing</strong>
+          <code>_classify_intent()</code> uses Haiku to route to 6 specialized subagents.
+          Claude Code doesn't need this &mdash; it's one agent for all coding tasks.
+        </div>
+        <div class="sofa-map-item" style="border-left-color:var(--purple)">
+          <strong>Credential Isolation</strong>
+          <code>_inject_credentials()</code> temporarily injects user's W&B/HF tokens into env vars during tool execution, then restores. Multi-user safety.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     MCP & TRAINING — Two Paths to a Better Agent
+     ============================================================ -->
+<section class="mcp-section section" id="mcp">
+  <div class="container">
+    <div class="badge">MCP &amp; TRAINING</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">Two Paths to a Better Agent</h2>
+    <p class="section-sub">Improving the software around the model vs. improving the model itself &mdash; they're complementary, not alternatives.</p>
+
+    <!-- The core distinction -->
+    <div class="design-block animate-in" style="margin-bottom:28px">
+      <p style="font-size:14px;color:var(--stone-600);line-height:2">
+        <strong style="color:var(--stone-900)">The key confusion:</strong>
+        When people say "training an agent," they might mean two very different things.
+        <strong>Harness engineering</strong> improves the code that wraps the model (system prompts, tool descriptions, loop logic) &mdash;
+        no gradients involved. <strong>MCP trace fine-tuning</strong> trains the model's actual weights to be better at
+        tool calling &mdash; real training with GPUs and loss functions. Both make agents better, but through completely different mechanisms.
+      </p>
+    </div>
+
+    <!-- Two-path cards -->
+    <div class="two-paths">
+      <div class="path-card path-a animate-in">
+        <div class="path-badge">PATH A</div>
+        <h4>Harness Engineering</h4>
+        <div class="path-sub">Improve the software around the model (no gradients)</div>
+        <div class="path-body">
+          <ul>
+            <li><strong>What changes:</strong> Code &mdash; system prompts, tool descriptions, loop logic, context injection</li>
+            <li><strong>Method:</strong> Manual iteration + optional automated prompt optimization (DSPy)</li>
+            <li><strong>Uses GPUs:</strong> No</li>
+            <li><strong>Benefits all models:</strong> Yes &mdash; swap in any model and it benefits from the improved harness</li>
+            <li><strong>Maturity:</strong> Production-ready. This is how Claude Code, SofaGenius, and most agent systems are improved today</li>
+          </ul>
+          <div style="margin-top:14px;padding:10px 14px;background:#eff6ff;border-radius:8px;font-size:12px;color:#1e3a5f">
+            This is everything we covered in the sections above &mdash; system prompt engineering, surgical Edit tool design, CLAUDE.md injection, permissions, context compression.
+          </div>
+        </div>
+      </div>
+
+      <div class="path-card path-b animate-in">
+        <div class="path-badge">PATH B</div>
+        <h4>MCP Trace Fine-Tuning</h4>
+        <div class="path-sub">Train the model's weights to be better at tool calling</div>
+        <div class="path-body">
+          <ul>
+            <li><strong>What changes:</strong> Model weights &mdash; the neural network parameters themselves</li>
+            <li><strong>Method:</strong> SFT or GRPO with gradient descent on tool-calling traces</li>
+            <li><strong>Uses GPUs:</strong> Yes</li>
+            <li><strong>Benefits all harnesses:</strong> Yes &mdash; the model itself becomes better at tools, regardless of which harness runs it</li>
+            <li><strong>Maturity:</strong> Early research / emerging. Backend.AI's MCP Sidecar is one of the first concrete examples</li>
+          </ul>
+          <div style="margin-top:14px;padding:10px 14px;background:#f5f3ff;border-radius:8px;font-size:12px;color:#3b0764">
+            This is real training &mdash; collecting agent traces, creating datasets, running SFT or GRPO on GPUs to improve the model's tool-calling ability.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Where MCP fits -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">1</div>
+      <h3>Where MCP Fits In the Picture</h3>
+      <div class="design-block-sub">MCP is a protocol inside the harness's tool layer &mdash; it enables both paths</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        MCP (Model Context Protocol) is a <strong>standard format</strong> for tools to advertise their capabilities to LLMs.
+        It lives inside the harness's tool layer &mdash; it's not the whole harness, and it's not model training.
+        But it enables both paths:
+      </p>
+
+      <div class="code-block">
+        <span class="comment"># MCP's place in the architecture:</span><br><br>
+        <span class="key">HARNESS</span><br>
+        &nbsp;&nbsp;<span class="key">├──</span> System Prompt<br>
+        &nbsp;&nbsp;<span class="key">├──</span> Agentic Loop<br>
+        &nbsp;&nbsp;<span class="key">├──</span> Context Injection<br>
+        &nbsp;&nbsp;<span class="key">├──</span> Permissions<br>
+        &nbsp;&nbsp;<span class="key">└──</span> <span class="string">Tool Layer</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">├──</span> Native tools <span class="comment">(defined in your code)</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">│</span>&nbsp;&nbsp; e.g., SofaGenius's <span class="fn">analyze_run_health</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">│</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">└──</span> <span class="string">MCP servers</span> <span class="comment">(standard protocol) ◄── THIS</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.g., GitHub MCP server, Slack MCP server<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tools advertised via JSON-RPC schemas
+      </div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-top:16px">
+        MCP standardizes how tools describe themselves. This is useful for
+        <strong>harness engineering</strong> (one format to support instead of per-tool custom code),
+        <strong>model training</strong> (consistent format means more uniform training data), and
+        <strong>interoperability</strong> (tools built for Claude Code work in any MCP-compatible harness).
+      </p>
+    </div>
+
+    <!-- What MCP trace fine-tuning actually is -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">2</div>
+      <h3>How MCP Trace Fine-Tuning Works</h3>
+      <div class="design-block-sub">Collect real agent sessions, use them to train the model's tool-calling ability</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        A <strong>trace</strong> is a recording of a complete agent session: what the user asked, which tools the model called,
+        what results came back, and whether the final outcome was good. Here's what a trace looks like:
+      </p>
+
+      <div class="trace-timeline">
+        <div class="trace-step">
+          <div class="trace-role" style="color:var(--stone-900)">User</div>
+          <div class="trace-content">"What's the weather in Tokyo and book me a flight there"</div>
+        </div>
+        <div class="trace-step">
+          <div class="trace-role" style="color:var(--purple)">Model &rarr; Tool Call</div>
+          <div class="trace-content"><code>weather_tool("Tokyo")</code> &larr; correct tool selection</div>
+        </div>
+        <div class="trace-step">
+          <div class="trace-role" style="color:var(--teal)">Tool Result</div>
+          <div class="trace-content"><code>{"temp": 15, "condition": "cloudy"}</code></div>
+        </div>
+        <div class="trace-step">
+          <div class="trace-role" style="color:var(--purple)">Model &rarr; Tool Call</div>
+          <div class="trace-content"><code>flight_search("SFO", "TYO")</code> &larr; correct next step</div>
+        </div>
+        <div class="trace-step">
+          <div class="trace-role" style="color:var(--teal)">Tool Result</div>
+          <div class="trace-content"><code>[{price: 850, airline: "JAL"}, ...]</code></div>
+        </div>
+        <div class="trace-step">
+          <div class="trace-role" style="color:var(--stone-900)">Model &rarr; Final Response</div>
+          <div class="trace-content">"It's 15&deg;C and cloudy in Tokyo. I found flights from $850 on JAL." &larr; knows when to stop</div>
+        </div>
+      </div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-top:16px">
+        The training process uses these traces as (input, output) pairs:
+      </p>
+
+      <div class="pipeline-flow">
+        <div class="pipeline-step">
+          <div class="step-icon">&#128221;</div>
+          <div class="step-label">Collect Traces</div>
+          <div class="step-desc">Record real agent sessions with tool calls and results</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#128290;</div>
+          <div class="step-label">Filter &amp; Label</div>
+          <div class="step-desc">Keep successful traces; discard failures</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#128295;</div>
+          <div class="step-label">Fine-Tune</div>
+          <div class="step-desc">SFT or GRPO on the traces &mdash; real GPU training</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#9989;</div>
+          <div class="step-label">Better Model</div>
+          <div class="step-desc">Model learns: which tool, what args, when to stop</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backend.AI case study -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">3</div>
+      <h3>Case Study: Backend.AI's MCP Sidecar Model</h3>
+      <div class="design-block-sub">SFT failed, GRPO worked &mdash; a real example of MCP trace fine-tuning</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        <a href="https://www.backend.ai/blog/2025-11-MCPSidecar" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600">Backend.AI</a>
+        built a small "sidecar" model that helps open-source LLMs (Llama, Gemma) comply with MCP format.
+        The problem: these models were never trained on MCP tool schemas, so they format tool calls incorrectly.
+        The sidecar sits beside the main LLM and "fixes" its output into proper MCP format.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0">
+        <div style="padding:16px;background:#fef2f2;border-radius:var(--radius);border:1px solid #fecaca">
+          <div style="font-weight:700;font-size:14px;color:var(--red);margin-bottom:8px">Attempt 1: SFT &mdash; Failed</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.7">
+            Used GPT-5 to correct imperfect JSON, then trained the sidecar via SFT to mimic the corrections.<br><br>
+            <strong>Problem:</strong> Since modern LLMs already produce 90%+ valid JSON, the model learned to <strong>copy</strong> the input, not correct it.
+            The token overlap was too high for SFT to find the signal.
+          </div>
+        </div>
+        <div style="padding:16px;background:#f0fdf4;border-radius:var(--radius);border:1px solid #bbf7d0">
+          <div style="font-weight:700;font-size:14px;color:var(--green);margin-bottom:8px">Attempt 2: GRPO &mdash; Worked</div>
+          <div style="font-size:13px;color:var(--stone-600);line-height:1.7">
+            Switched to reinforcement learning using GRPO (same algorithm SofaGenius uses for training). Used MCP-Bench metrics as reward signals.<br><br>
+            <strong>Result:</strong> Significant improvements in JSON formatting, tool selection, schema adherence, and parameter validity. The model learned to <strong>fix</strong>, not just copy.
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-top:12px">
+        They evaluated on <strong>MCP-Bench</strong> &mdash; a benchmark with 28 MCP servers (Google Maps, Wikipedia, Steam).
+        Open-source models scored poorly because they were never trained on MCP tool-calling formats. The sidecar patches this gap
+        at minimal cost, without modifying the main LLM.
+      </p>
+    </div>
+
+    <!-- Tool description smells -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">4</div>
+      <h3>97% of MCP Tool Descriptions Have "Smells"</h3>
+      <div class="design-block-sub">Fixing tool descriptions is a low-hanging fruit that improves both paths</div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8;margin-bottom:16px">
+        <a href="https://arxiv.org/html/2602.14878v1" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600">Recent research</a>
+        analyzed 856 MCP tools and found that <strong>97.1%</strong> have at least one quality defect ("smell")
+        in their descriptions. Just like code smells, these aren't technically broken but degrade the model's ability to use the tool correctly.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0">
+        <div style="background:var(--bg-secondary);border-radius:var(--radius);padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:700;color:var(--red);font-family:var(--serif)">56%</div>
+          <div style="font-size:12px;color:var(--stone-600);margin-top:4px">Unclear Purpose<br><span style="font-size:11px;color:var(--stone-400)">Tool doesn't explain what it does</span></div>
+        </div>
+        <div style="background:var(--bg-secondary);border-radius:var(--radius);padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:700;color:var(--orange);font-family:var(--serif)">97%</div>
+          <div style="font-size:12px;color:var(--stone-600);margin-top:4px">At Least One Smell<br><span style="font-size:11px;color:var(--stone-400)">Missing guidelines, limits, or examples</span></div>
+        </div>
+        <div style="background:var(--bg-secondary);border-radius:var(--radius);padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--serif)">+6%</div>
+          <div style="font-size:12px;color:var(--stone-600);margin-top:4px">Success Improvement<br><span style="font-size:11px;color:var(--stone-400)">After augmenting descriptions</span></div>
+        </div>
+      </div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8">
+        The six quality components: <strong>Purpose</strong> (what does it do?), <strong>Guidelines</strong> (when should you use it?),
+        <strong>Limitations</strong> (what can't it do?), <strong>Parameter Explanation</strong> (what do the inputs mean?),
+        <strong>Length/Completeness</strong> (enough detail?), and <strong>Examples</strong> (show me a call).
+        Enriching descriptions with these components improved task success by ~6% &mdash; a free improvement that requires no model training.
+      </p>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">5</div>
+      <h3>Side-by-Side: How the Two Paths Compare</h3>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:30%"></th>
+            <th style="width:35%;color:var(--blue)">Path A: Harness Engineering</th>
+            <th style="width:35%;color:var(--purple)">Path B: MCP Trace Fine-Tuning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>What changes</strong></td>
+            <td>Code (system prompt, tool descriptions, loop logic)</td>
+            <td>Model weights (neural network parameters)</td>
+          </tr>
+          <tr>
+            <td><strong>Training method</strong></td>
+            <td>Manual iteration + optional prompt optimization (DSPy)</td>
+            <td>SFT or GRPO with gradient descent</td>
+          </tr>
+          <tr>
+            <td><strong>Uses GPUs</strong></td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><strong>Benefits all users of the model</strong></td>
+            <td>No &mdash; only users of your harness</td>
+            <td>Yes &mdash; the model itself improves</td>
+          </tr>
+          <tr>
+            <td><strong>Benefits all models in your harness</strong></td>
+            <td>Yes &mdash; swap in any model and it benefits</td>
+            <td>No &mdash; only the fine-tuned model</td>
+          </tr>
+          <tr>
+            <td><strong>Current maturity</strong></td>
+            <td>Production-ready</td>
+            <td>Early research / emerging</td>
+          </tr>
+          <tr>
+            <td><strong>Example</strong></td>
+            <td>Claude Code's system prompt, SofaGenius's orchestrator</td>
+            <td>Backend.AI's MCP Sidecar (GRPO on MCP-Bench)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:20px;padding:16px 20px;background:var(--gold-light);border-radius:var(--radius);font-size:14px;color:var(--stone-700);line-height:1.8">
+        <strong style="color:var(--stone-900)">The bottom line:</strong>
+        These two paths are <strong>complementary</strong>. A better harness helps any model perform better (Path A).
+        A fine-tuned model is better at tool calling regardless of which harness runs it (Path B).
+        The best agent systems will use both &mdash; a well-engineered harness running a model that's been fine-tuned for tool use.
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="design-block animate-in" style="background:var(--bg-secondary);border:none">
+      <h3 style="font-size:16px">References</h3>
+      <ul style="list-style:none;padding:0;font-size:13px;color:var(--stone-600);line-height:2.2">
+        <li>&rarr; <a href="https://www.backend.ai/blog/2025-11-MCPSidecar" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500">Backend.AI: MCP Sidecar Model</a> &mdash; Training an MCP-compliant sidecar via GRPO</li>
+        <li>&rarr; <a href="https://arxiv.org/html/2602.14878v1" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500">MCP Tool Descriptions Are Smelly</a> &mdash; 97% of MCP tools have quality issues; augmentation improves success</li>
+        <li>&rarr; <a href="https://modelcontextprotocol.io/specification/2025-11-25" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500">MCP Specification (2025-11-25)</a> &mdash; The official protocol spec</li>
+        <li>&rarr; <a href="https://langfuse.com/docs/observability/features/mcp-tracing" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500">Langfuse: MCP Tracing</a> &mdash; Observability for MCP tool calls in agent traces</li>
+        <li>&rarr; <a href="https://arxiv.org/html/2510.10197v1" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500">Don't Just Fine-tune the Agent, Tune the Environment</a> &mdash; Research on improving harness alongside model</li>
+        <li>&rarr; <a href="https://github.com/stanfordnlp/dspy" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500">DSPy (Stanford)</a> &mdash; Automated prompt optimization framework</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     DEPLOYMENT — Where does a fine-tuned model go?
+     ============================================================ -->
+<section class="deploy-section section" id="deployment">
+  <div class="container">
+    <div class="badge">DEPLOYMENT</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">Where Does the Fine-Tuned Model Go?</h2>
+    <p class="section-sub">
+      You've trained a better model on MCP traces. Now where does it plug into the system?
+      Three options &mdash; each touching a different part of the architecture.
+    </p>
+
+    <!-- Current architecture diagram -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">1</div>
+      <h3>Current Architecture: 3 Model Call Sites</h3>
+      <div class="design-block-sub">Every box with a model name is a potential deployment target</div>
+
+      <div class="arch-diagram">
+<pre>
+<span class="hl-dim">User Message</span>
+<span class="hl-arrow">     │</span>
+<span class="hl-arrow">     ▼</span>
+<span class="hl-dim">┌─────────────────────────────────────────────────────┐</span>
+<span class="hl-dim">│</span>  <span class="hl-label">ORCHESTRATOR</span>  <span class="hl-file">orchestrator.py</span>                       <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                     <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>  <span class="hl-dim">1.</span> Intent Classification ──▶ <span class="hl-model">claude-haiku-4-5</span>      <span class="hl-dim">│</span>  <span class="hl-dim">← line 414</span>
+<span class="hl-dim">│</span>     <span class="hl-dim">"training" | "data" | "scout" | ...</span>              <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                     <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>  <span class="hl-dim">2.</span> General Responses ────▶ <span class="hl-model">claude-sonnet-4-5</span>       <span class="hl-dim">│</span>  <span class="hl-dim">← line 469</span>
+<span class="hl-dim">│</span>     <span class="hl-dim">(no tools, direct answer)</span>                       <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                     <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>  Context Injection:                                  <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>     <span class="hl-file">_build_wandb_context()</span>                         <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>     <span class="hl-file">_build_launch_context()</span>                        <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>     <span class="hl-file">_build_alias_context()</span>                         <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                     <span class="hl-dim">│</span>
+<span class="hl-dim">└──────────────────────┬──────────────────────────────┘</span>
+<span class="hl-arrow">                       │</span>
+<span class="hl-arrow">                       ▼</span>
+<span class="hl-dim">┌─────────────────────────────────────────────────────┐</span>
+<span class="hl-dim">│</span>  <span class="hl-label">SUBAGENT LOOP</span>  <span class="hl-file">base.py</span>                              <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                     <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>  <span class="hl-dim">3.</span> Tool-calling Agent ──▶ <span class="hl-model">claude-sonnet-4-5</span>        <span class="hl-dim">│</span>  <span class="hl-dim">← line 168</span>
+<span class="hl-dim">│</span>     <span class="hl-dim">+ tools (analyze_run_health, list_runs, ...)</span>    <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>     <span class="hl-dim">+ agentic loop (up to 10 turns)</span>                 <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>     <span class="hl-dim">+ card emission via CARD_TOOL_MAPPING</span>           <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                     <span class="hl-dim">│</span>
+<span class="hl-dim">└─────────────────────────────────────────────────────┘</span>
+</pre>
+      </div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8">
+        The <strong>harness code</strong> (context injection, alias resolution, card emission, permissions)
+        stays <strong>completely unchanged</strong> in all three deployment options below.
+        You're only swapping <em>which model</em> the harness calls &mdash; the architecture is the same.
+      </p>
+    </div>
+
+    <!-- Option A -->
+    <div class="deploy-options">
+
+      <div class="deploy-card option-a animate-in">
+        <div class="deploy-card-header">
+          <div class="option-badge">Option A</div>
+          <h4>Replace the Subagent Model</h4>
+          <div class="option-sub">Highest impact &mdash; this is where all tool calling happens</div>
+        </div>
+        <div class="deploy-card-body">
+          <p>
+            The fine-tuned model <strong>replaces Sonnet</strong> in the subagent loop.
+            This is the highest-value target because the subagent makes every tool-calling decision:
+            which tool to pick, what arguments to pass, when to stop looping.
+          </p>
+
+          <div class="code-diff">
+            <div class="diff-file">backend/agents/base.py:168-169</div>
+            <div class="diff-comment"># Before</div>
+            <div class="diff-old">- model="claude-sonnet-4-5-20250929",</div>
+            <div style="height:8px"></div>
+            <div class="diff-comment"># After</div>
+            <div class="diff-new">+ model="ft:your-org/sofa-genius-tool-agent",</div>
+          </div>
+
+          <p><strong>What the model learned from traces:</strong></p>
+          <ul class="learn-list">
+            <li>Call <code>analyze_run_health</code> directly when context has the run ID (skip <code>list_runs</code>)</li>
+            <li>Format <code>entity_project</code> as <code>"entity/project"</code> consistently</li>
+            <li>Stop after 1 tool call for simple health checks (not 2&ndash;3)</li>
+            <li>Never leak JSON into text responses</li>
+          </ul>
+
+          <div class="impact-bar">
+            <div class="impact-label">Impact</div>
+            <div class="impact-dots">
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot filled"></div>
+            </div>
+            <span style="font-size:12px;color:var(--stone-500);margin-left:6px">Very High</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option A diagram -->
+      <div class="arch-diagram animate-in" style="margin-top:-12px">
+<pre>
+<span class="hl-label">Option A: Replace Subagent Model</span>
+
+<span class="hl-dim">               BEFORE                                 AFTER</span>
+<span class="hl-dim">               ──────                                 ─────</span>
+<span class="hl-dim">  base.py:168</span>                              <span class="hl-dim">base.py:168</span>
+  <span class="hl-model">claude-sonnet-4-5</span>                        <span class="hl-new">fine-tuned-model</span>
+<span class="hl-arrow">       │</span>                                  <span class="hl-arrow">       │</span>
+<span class="hl-arrow">       ▼</span>                                  <span class="hl-arrow">       ▼</span>
+  <span class="hl-dim">┌──────────┐</span>                            <span class="hl-dim">┌──────────────────┐</span>
+  <span class="hl-dim">│</span> <span class="hl-model">Sonnet</span>    <span class="hl-dim">│</span> → tool calls → tools      <span class="hl-dim">│</span> <span class="hl-new">Fine-tuned</span>        <span class="hl-dim">│</span> → tool calls → tools
+  <span class="hl-dim">│</span> <span class="hl-dim">(generic)</span> <span class="hl-dim">│</span> ← results   ←            <span class="hl-dim">│</span> <span class="hl-new">(learned W&amp;B</span>      <span class="hl-dim">│</span> ← results   ←
+  <span class="hl-dim">└──────────┘</span>                            <span class="hl-dim">│</span>  <span class="hl-new">tool patterns)</span>   <span class="hl-dim">│</span>
+                                          <span class="hl-dim">└──────────────────┘</span>
+</pre>
+      </div>
+
+      <!-- Option B -->
+      <div class="deploy-card option-b animate-in">
+        <div class="deploy-card-header">
+          <div class="option-badge">Option B</div>
+          <h4>Sidecar Model (Intercept + Correct)</h4>
+          <div class="option-sub">When you can't fine-tune the primary model (e.g., it's a closed API)</div>
+        </div>
+        <div class="deploy-card-body">
+          <p>
+            The primary model stays Sonnet. A <strong>small fine-tuned model</strong> (e.g., Llama 8B)
+            sits between Sonnet's tool-call output and the actual tool execution, correcting malformed
+            calls. This is exactly what <strong>Backend.AI</strong> did with their MCP Sidecar.
+          </p>
+
+          <div class="code-diff">
+            <div class="diff-file">backend/agents/base.py:224-225</div>
+            <div class="diff-comment"># Current</div>
+            <div class="diff-old">- for tool_use in tool_uses:</div>
+            <div class="diff-old">-     result = _execute_tool(tool_use["name"], tool_use["input"], tool_dispatch)</div>
+            <div style="height:8px"></div>
+            <div class="diff-comment"># With sidecar</div>
+            <div class="diff-new">+ for tool_use in tool_uses:</div>
+            <div class="diff-new">+     name, args = _sidecar_correct(tool_use["name"], tool_use["input"])</div>
+            <div class="diff-new">+     result = _execute_tool(name, args, tool_dispatch)</div>
+          </div>
+
+          <p><strong>What the sidecar corrects:</strong></p>
+          <ul class="learn-list">
+            <li>Malformed JSON arguments (missing quotes, wrong types)</li>
+            <li>Wrong parameter names (<code>project</code> &rarr; <code>entity_project</code>)</li>
+            <li>Schema mismatches between what the model outputs and what MCP expects</li>
+          </ul>
+
+          <div class="impact-bar">
+            <div class="impact-label">Impact</div>
+            <div class="impact-dots">
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot"></div>
+              <div class="impact-dot"></div>
+            </div>
+            <span style="font-size:12px;color:var(--stone-500);margin-left:6px">Medium</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option B diagram -->
+      <div class="arch-diagram animate-in" style="margin-top:-12px">
+<pre>
+<span class="hl-label">Option B: Sidecar Model (Intercept &amp; Correct)</span>
+
+<span class="hl-dim">┌───────────────────────────────────────────────────────────────┐</span>
+<span class="hl-dim">│</span>  <span class="hl-label">SUBAGENT LOOP</span>  <span class="hl-file">base.py</span>                                     <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                              <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>  <span class="hl-model">Sonnet</span> ──▶ tool_use block ──▶ <span class="hl-new">SIDECAR</span> ──▶ _execute_tool   <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>              <span class="hl-dim">(may be wrong)</span>      <span class="hl-new">(fixes it)</span>    <span class="hl-dim">(correct)</span>      <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                              <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>  New code needed:                                            <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>    <span class="hl-new">_sidecar_correct(name, args) → (name, args)</span>               <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>    <span class="hl-dim">Uses fine-tuned Llama 8B to validate/fix</span>                  <span class="hl-dim">│</span>
+<span class="hl-dim">│</span>                                                              <span class="hl-dim">│</span>
+<span class="hl-dim">└───────────────────────────────────────────────────────────────┘</span>
+</pre>
+      </div>
+
+      <!-- Option C -->
+      <div class="deploy-card option-c animate-in">
+        <div class="deploy-card-header">
+          <div class="option-badge">Option C</div>
+          <h4>Replace the Intent Classifier</h4>
+          <div class="option-sub">Lower impact, but useful if classification is the bottleneck</div>
+        </div>
+        <div class="deploy-card-body">
+          <p>
+            Fine-tune a small model to replace Haiku for intent routing. The current classifier
+            uses a general-purpose model to categorize messages into 6 categories. A specialized
+            model could be faster, cheaper, and more accurate for your specific domain.
+          </p>
+
+          <div class="code-diff">
+            <div class="diff-file">backend/orchestrator.py:414-418</div>
+            <div class="diff-comment"># Before</div>
+            <div class="diff-old">- model="claude-haiku-4-5-20251001",</div>
+            <div style="height:8px"></div>
+            <div class="diff-comment"># After</div>
+            <div class="diff-new">+ model="ft:your-org/sofa-intent-classifier",</div>
+          </div>
+
+          <p><strong>Training data:</strong></p>
+          <ul class="learn-list">
+            <li>Simple (message, category) pairs from real user sessions</li>
+            <li>"check my training" &rarr; training</li>
+            <li>"find a dataset for sentiment analysis" &rarr; scout</li>
+            <li>"launch a GRPO run" &rarr; launch</li>
+          </ul>
+
+          <div class="impact-bar">
+            <div class="impact-label">Impact</div>
+            <div class="impact-dots">
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot filled"></div>
+              <div class="impact-dot"></div>
+              <div class="impact-dot"></div>
+              <div class="impact-dot"></div>
+            </div>
+            <span style="font-size:12px;color:var(--stone-500);margin-left:6px">Low</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Summary comparison table -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">2</div>
+      <h3>Comparison: Which Option Matters Most?</h3>
+
+      <table class="deploy-summary-table">
+        <thead>
+          <tr>
+            <th style="width:22%">Option</th>
+            <th style="width:22%">File Changed</th>
+            <th style="width:14%">Impact</th>
+            <th style="width:42%">Training Data Needed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--blue)">A: Replace subagent</strong></td>
+            <td><code style="font-size:12px">base.py:168</code></td>
+            <td><strong style="color:var(--green)">High</strong></td>
+            <td>Full agent traces (message &rarr; tools &rarr; result &rarr; answer)</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--purple)">B: Sidecar</strong></td>
+            <td><code style="font-size:12px">base.py:224</code> <span style="font-size:11px;color:var(--stone-400)">(new fn)</span></td>
+            <td><strong style="color:var(--orange)">Medium</strong></td>
+            <td>(wrong tool call, corrected tool call) pairs</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#92400e">C: Replace classifier</strong></td>
+            <td><code style="font-size:12px">orchestrator.py:414</code></td>
+            <td><strong style="color:var(--stone-400)">Low</strong></td>
+            <td>(message, category) pairs</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:20px;padding:16px 20px;background:var(--gold-light);border-radius:var(--radius);font-size:14px;color:var(--stone-700);line-height:1.8">
+        <strong style="color:var(--stone-900)">Key insight:</strong>
+        <strong>Option A is where most value is.</strong> The subagent model makes all tool-calling decisions &mdash;
+        which tool to pick, what arguments to pass, when to stop looping.
+        That's exactly what MCP trace fine-tuning teaches. Options B and C address narrower problems
+        (format correction and routing), while Option A improves the core reasoning.
+      </div>
+    </div>
+
+    <!-- What stays the same -->
+    <div class="design-block animate-in">
+      <div class="design-block-number">3</div>
+      <h3>What Stays the Same?</h3>
+      <div class="design-block-sub">The harness architecture is unchanged &mdash; only the model inside changes</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0">
+        <div style="background:var(--bg-secondary);border-radius:var(--radius);padding:16px;border-left:3px solid var(--green)">
+          <div style="font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Unchanged (Harness)</div>
+          <ul style="list-style:none;padding:0;font-size:13px;color:var(--stone-600);line-height:1.9">
+            <li>&bull; Context injection (W&amp;B identity, session, aliases)</li>
+            <li>&bull; Intent routing architecture</li>
+            <li>&bull; Tool definitions and dispatch</li>
+            <li>&bull; Card emission via CARD_TOOL_MAPPING</li>
+            <li>&bull; SSE streaming to frontend</li>
+            <li>&bull; Permission model and error recovery</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg-secondary);border-radius:var(--radius);padding:16px;border-left:3px solid var(--blue)">
+          <div style="font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Changed (Model)</div>
+          <ul style="list-style:none;padding:0;font-size:13px;color:var(--stone-600);line-height:1.9">
+            <li>&bull; Which tool to call and when</li>
+            <li>&bull; Argument formatting accuracy</li>
+            <li>&bull; Number of loop iterations needed</li>
+            <li>&bull; When to stop and give a final answer</li>
+            <li>&bull; JSON formatting compliance</li>
+            <li>&bull; Domain-specific reasoning</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="font-size:14px;color:var(--stone-600);line-height:1.8">
+        This is why the <strong>harness vs. model distinction matters</strong>. The harness is the frame.
+        The model is the engine. You can upgrade the engine without redesigning the frame &mdash;
+        and you can improve the frame to make any engine perform better. The best systems do both.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     GLOSSARY
+     ============================================================ -->
+<section class="glossary-section section" id="glossary">
+  <div class="container">
+    <div class="badge">GLOSSARY</div>
+    <div style="height:8px"></div>
+    <h2 class="section-title">Key Terms</h2>
+    <p class="section-sub">The vocabulary of agent harnesses, explained in plain English.</p>
+
+    <div class="glossary-grid">
+
+      <div class="glossary-group-label">Core Concepts</div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Agent Harness</div>
+        <div class="glossary-def">The complete software layer between you and the LLM. Includes system prompt, tool definitions, agentic loop, context management, and permission system. The same model inside different harnesses produces different behavior &mdash; this is why Opus feels better in Claude Code than in Cursor.</div>
+        <div class="glossary-analogy">The operating system that a CPU runs inside &mdash; same chip, different OS, different experience</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">System Prompt</div>
+        <div class="glossary-def">A block of text sent to the model before your message, on every turn. Defines personality, rules, capabilities, and behavioral constraints. Claude Code's is 3000+ tokens. A generic harness might use 10 words.</div>
+        <div class="glossary-analogy">A job description that the employee re-reads every morning before starting work</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Tool Definition</div>
+        <div class="glossary-def">A JSON schema describing a function the model can call. Includes name, description (tells model WHEN to use it), and input parameters. The quality of descriptions directly affects model behavior &mdash; a vague description produces random tool usage.</div>
+        <div class="glossary-analogy">A labeled toolbox &mdash; clear labels ("Phillips head screwdriver, use for small screws") vs. unlabeled drawers</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Agentic Loop</div>
+        <div class="glossary-def">The multi-turn cycle where the model calls a tool, sees the result, decides the next action, calls another tool, and repeats until it has enough information to give a final answer. The number of allowed turns determines how much autonomous work the model can do.</div>
+        <div class="glossary-analogy">A chef tasting soup repeatedly &mdash; taste, adjust salt, taste again, add pepper, taste again, serve</div>
+      </div>
+
+      <div class="glossary-group-label">Context &amp; Memory</div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">CLAUDE.md</div>
+        <div class="glossary-def">A markdown file in your project root that contains persistent instructions for Claude Code. Rules written here are injected into the system prompt on every turn. Examples: "never push to main", "use pytest for tests", "follow our design system." Also supports a global version at ~/.claude/CLAUDE.md.</div>
+        <div class="glossary-analogy">A team wiki that every new hire reads on day one &mdash; and re-reads every morning</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Context Window</div>
+        <div class="glossary-def">The maximum amount of text a model can "see" at once (input + output). When the conversation history exceeds this limit, something must be dropped or compressed. Claude's context window is ~200K tokens.</div>
+        <div class="glossary-analogy">The size of your desk &mdash; you can only spread out so many papers before you have to file some away</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Context Compression</div>
+        <div class="glossary-def">When the conversation history nears the context window limit, old turns are summarized by a fast model (Haiku) and replaced with a compact summary. Recent turns are kept verbatim. This prevents crashes and information loss.</div>
+        <div class="glossary-analogy">Meeting minutes &mdash; you don't re-read every word from last month's meetings, you keep a summary</div>
+      </div>
+
+      <div class="glossary-group-label">Tool Design</div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Surgical Edit</div>
+        <div class="glossary-def">An edit tool that takes (old_string, new_string) and replaces only the exact match. Enforces uniqueness (old_string must appear exactly once). This is how Claude Code's Edit tool works &mdash; dramatically fewer tokens and errors than whole-file rewrites.</div>
+        <div class="glossary-analogy">Find-and-replace in a text editor, but with a safety check that prevents ambiguous replacements</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">SSE (Server-Sent Events)</div>
+        <div class="glossary-def">A protocol for streaming data from server to browser. Agent harnesses use SSE to stream the model's response in real-time: text chunks, tool call notifications, card data, and completion signals. This creates the "typing" effect you see in Claude Code and SofaGenius.</div>
+        <div class="glossary-analogy">A live sports ticker &mdash; updates appear as they happen, you don't have to refresh</div>
+      </div>
+
+      <div class="glossary-group-label">Safety &amp; Control</div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Permission Model</div>
+        <div class="glossary-def">A system that categorizes tools by risk level. Read-only tools (Read, Grep) run automatically. Modification tools (Edit, Bash) require user approval. When the user denies a call, the denial is fed back to the model so it can adjust its approach.</div>
+        <div class="glossary-analogy">A new employee who checks with their manager before making purchases over $100</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Error Recovery</div>
+        <div class="glossary-def">When a tool call fails (file not found, test failed, permission denied), the error is fed back to the model as a tool result. The model reads the error and self-corrects on the next turn. A naive harness would crash or get stuck.</div>
+        <div class="glossary-analogy">A GPS that reroutes when you miss a turn, instead of saying "route calculation failed"</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Intent Routing</div>
+        <div class="glossary-def">Using a fast, cheap model (Haiku) to classify the user's intent and route to a specialized subagent. SofaGenius uses this: "check my training" &rarr; Training Agent, "find a dataset" &rarr; Scout Agent. This keeps each agent focused with a small, relevant tool set.</div>
+        <div class="glossary-analogy">A hospital triage desk &mdash; quick assessment of your symptoms, then you're sent to the right specialist</div>
+      </div>
+
+      <div class="glossary-group-label">MCP &amp; Model Training</div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">MCP (Model Context Protocol)</div>
+        <div class="glossary-def">A standard protocol for tools to advertise their capabilities to LLMs via JSON-RPC schemas. MCP lives inside the harness's tool layer. It standardizes how tools describe themselves, enabling interop &mdash; a tool built for Claude Code works in any MCP-compatible harness.</div>
+        <div class="glossary-analogy">USB-C for AI tools &mdash; one standard plug so any device works with any port</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">MCP Trace Fine-Tuning</div>
+        <div class="glossary-def">Training a model's weights on recorded agent sessions (user request &rarr; tool calls &rarr; results &rarr; final answer). The model learns which tool to pick, how to format arguments, and when to stop. This is Path B &mdash; improving the model itself, not the harness code.</div>
+        <div class="glossary-analogy">A new doctor studying case files from experienced doctors &mdash; learning diagnosis patterns from real patient interactions</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">SFT (Supervised Fine-Tuning)</div>
+        <div class="glossary-def">Training a model to imitate correct examples by minimizing the difference between its output and the reference output. Simple but can fail for tool calling &mdash; the model may learn to copy surface patterns (90% token overlap) rather than learning the underlying correction logic.</div>
+        <div class="glossary-analogy">Copying an expert's homework &mdash; you reproduce the answers but don't learn the reasoning</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">GRPO (Group Relative Policy Optimization)</div>
+        <div class="glossary-def">A reinforcement learning method that scores multiple model outputs and pushes the model toward better ones. Unlike SFT, the model explores different strategies and is rewarded for correctness, not imitation. Backend.AI found GRPO succeeded where SFT failed for MCP compliance.</div>
+        <div class="glossary-analogy">Learning to cook by trying variations and keeping the recipes that taste best, rather than memorizing one cookbook</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Sidecar Model</div>
+        <div class="glossary-def">A small, specialized model deployed alongside the primary LLM. It intercepts and corrects the primary model's tool calls to comply with MCP format. Useful when you can't fine-tune the primary model (e.g., it's a closed API like Claude or GPT).</div>
+        <div class="glossary-analogy">A translator sitting next to a foreign diplomat &mdash; the diplomat speaks, the translator fixes the grammar for the audience</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">MCP-Bench</div>
+        <div class="glossary-def">A benchmark suite with 28 real MCP servers (Google Maps, Wikipedia, Steam, etc.) for evaluating how well a model handles tool calling. Open-source models score poorly because they were never trained on MCP formats &mdash; this is the gap sidecar models aim to fill.</div>
+        <div class="glossary-analogy">A driving test with 28 different road scenarios &mdash; measures whether you can actually drive, not just recite the manual</div>
+      </div>
+
+      <div class="glossary-item animate-in">
+        <div class="glossary-term">Tool Description Smells</div>
+        <div class="glossary-def">Quality defects in MCP tool descriptions: missing parameter explanations, vague descriptions, no usage examples, inconsistent formatting. Research shows 97% of MCP tools have at least one smell. Augmenting descriptions with examples and constraints improves task success by ~6%.</div>
+        <div class="glossary-analogy">Poorly labeled medicine bottles &mdash; "take as needed" vs. "take 2 tablets with food every 8 hours for pain"</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="logo">Agent<span>Harness</span></div>
+    <p style="margin-bottom:12px">Why the same model feels different &mdash; an interactive guide to the software layer between you and the LLM.</p>
+    <p>Part of the <a href="#" style="color:var(--gold);text-decoration:none">SofaGenius</a> learning materials. Built with Claude Code.</p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+// Chat flow staggered animation
+const chatObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.chat-msg').forEach((msg, i) => {
+        setTimeout(() => msg.classList.add('visible'), i * 200);
+      });
+      chatObserver.disconnect();
+    }
+  });
+}, { threshold: 0.1 });
+
+const chatFlow = document.getElementById('chatFlow');
+if (chatFlow) chatObserver.observe(chatFlow);
+
+// Architecture layer toggle
+document.querySelectorAll('.arch-layer').forEach(layer => {
+  layer.addEventListener('click', () => {
+    const wasActive = layer.classList.contains('active');
+    document.querySelectorAll('.arch-layer').forEach(l => l.classList.remove('active'));
+    if (!wasActive) layer.classList.add('active');
+  });
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      const offset = 72;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
