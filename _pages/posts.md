@@ -29,6 +29,26 @@ author_profile: true
 
 <div class="blog-list">
   <div class="blog-entry">
+    <a href="https://github.com/zarazhangrui/frontend-slides" class="blog-title" target="_blank">Frontend Slides: AI-Native Presentation Generation</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">4/2026</span>
+  </div>
+
+  <div class="blog-entry">
+    <a href="https://skill-claw.vercel.app/" class="blog-title" target="_blank">Skill Claw: Self-Debugging Robot Skill Agent</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">3/2026</span>
+  </div>
+
+  <div class="blog-entry">
+    <a href="https://supergeneral.vercel.app/" class="blog-title" target="_blank">SuperGeneral: Compositional Tool Environments for Agent Training</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">3/2026</span>
+  </div>
+
+  <div class="blog-entry">
+    <a href="https://sofagenius.ai/" class="blog-title" target="_blank">SofaGenius: Multi-Agent ML Research Assistant</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">2/2026</span>
+  </div>
+
+  <div class="blog-entry">
     <a href="/posts/ieee-most-panel" class="blog-title">IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/10/25</span>
   </div>
