@@ -1,8 +1,7 @@
 ---
-layout: splash
+layout: bare
 title: "Lily Zhang | Posts"
 permalink: /posts/
-author_profile: true
 ---
 
 <div class="header-container">
@@ -235,5 +234,3 @@ a.blog-title {
 }
 </style>
 
-<!-- Visitor Counter -->
-{% include visitor_counter_inline.html %}
