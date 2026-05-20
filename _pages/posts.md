@@ -29,6 +29,11 @@ author_profile: true
 
 <div class="blog-list">
   <div class="blog-entry">
+    <a href="/posts/interaction-model/" class="blog-title">Thoughts on Thinking Machine's Interaction Model</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/2026</span>
+  </div>
+
+  <div class="blog-entry">
     <a href="https://github.com/zarazhangrui/frontend-slides" class="blog-title" target="_blank">Frontend Slides: AI-Native Presentation Generation</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">4/2026</span>
   </div>
