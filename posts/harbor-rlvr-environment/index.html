@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Designing RLVR Environment for Terminal-Bench 2 | Lily Zhang</title>
+  <title>Designing an RLVR Environment for Terminal-Bench 2 | Lily Zhang</title>
   <meta name="description" content="RLVR environment design for Terminal-Bench 2: Harbor rollouts, failure taxonomy, and GRPO reward functions on gpt-oss-20b." />
-  <meta property="og:title" content="Designing RLVR Environment for Terminal-Bench 2" />
+  <meta property="og:title" content="Designing an RLVR Environment for Terminal-Bench 2" />
   <meta property="og:description" content="RLVR environment design for Terminal-Bench 2: Harbor rollouts, failure taxonomy, and GRPO reward functions." />
   <meta property="og:url" content="https://lilyzhng.github.io/posts/harbor-rlvr-environment/" />
   <meta property="og:type" content="article" />
@@ -331,28 +331,26 @@
   <aside class="toc" aria-label="Table of contents">
     <div class="toc-title">Table of Contents</div>
     <ul>
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#framework">1. Framework</a></li>
-      <li><a href="#benchmark">2. Benchmark</a></li>
+      <li><a href="#benchmark">1. Benchmark</a></li>
+      <li><a href="#taxonomy">2. Failure taxonomy</a></li>
       <li><a href="#environment">3. Environment</a></li>
       <li class="sub"><a href="#observation">3.1 Observation</a></li>
       <li class="sub"><a href="#action">3.2 Action</a></li>
       <li class="sub"><a href="#rewards">3.3 Reward functions</a></li>
-      <li class="sub2"><a href="#taxonomy">3.3.1 Failure taxonomy</a></li>
-      <li class="sub2"><a href="#reward-design">3.3.2 Reward design</a></li>
       <li><a href="#training">4. Model &amp; training plan</a></li>
       <li class="sub"><a href="#base-model">4.1 Base model</a></li>
       <li class="sub"><a href="#grpo">4.2 RL algorithm</a></li>
       <li class="sub"><a href="#data">4.3 Data &amp; curriculum</a></li>
       <li class="sub"><a href="#hyperparams">4.4 Hyperparameters</a></li>
       <li class="sub"><a href="#metrics">4.5 Metrics</a></li>
+      <li><a href="#framework">5. Framework &amp; stack</a></li>
       <li><a href="#appendix">Appendix</a></li>
       <li><a href="#references">References</a></li>
     </ul>
   </aside>
 
   <article>
-    <h1>Designing RLVR Environment for Terminal-Bench 2</h1>
+    <h1>Designing an RLVR Environment for Terminal-Bench 2</h1>
     <div class="authors">
       <span class="avatar">LZ</span>
       <span class="who">Lily Zhang</span>
@@ -364,88 +362,90 @@
       the RLVR environment.
     </p>
 
-    <section id="overview">
-      <h2>Overview</h2>
+    <p class="lede">
+      What follows is the whole environment that came out of that: the observation and action spaces, the failure
+      taxonomy, the reward functions it motivated, and the training plan around them, on Terminal-Bench 2 with
+      <code>gpt-oss-20b</code>. The specifics are TB2-shaped, but the method is not: decompose the environment,
+      measure how it actually fails, reward against that, and train where the signal is. That is the part I would
+      carry to any RL environment.
+    </p>
+
+    <section id="benchmark">
+      <h2>1. Benchmark selection</h2>
       <p>
-        This write-up documents how I designed an RLVR (Reinforcement Learning from Verifiable Reward)
-        environment for Terminal-Bench 2: framework choice, observation and action spaces, reward
-        functions grounded in a failure taxonomy, and a concrete training plan on <code>gpt-oss-20b</code>.
+        I chose Terminal-Bench 2. Every task ships a deterministic <code>tests/test.sh</code> verifier, so the reward
+        is a real pass/fail signal with no learned judge, and Harbor records full terminus-2 ATIF traces, which is what
+        makes the failure taxonomy in §2 possible. Harbor also gives a clean skeleton for an RL environment, sandboxed
+        tasks, an agent loop, and verifiers, so I am wiring rewards onto solid scaffolding instead of building the
+        harness from scratch.
       </p>
     </section>
 
-    <section id="framework">
-      <h2>1. Framework selection</h2>
-      <p>Decision: TRL + Harbor · Algorithm: GRPO [4] (group-relative advantages on verifiable rewards)</p>
-
+    <section id="taxonomy">
+      <h2>2. Failure taxonomy</h2>
       <p>
-        Why GRPO. This is the same post-training recipe I have already shipped in production.
-        In Eureka [3], we frame enterprise feature engineering as <em>agentic code generation</em>:
-        SFT cold-start on domain plans, then GRPO on a composed reward.
-        Terminal-Bench 2 is the same shape at a different domain, but the loop is identical: sample
-        rollouts, score with verifiers, normalize advantages within a group, update the policy.
+        This is the part that grounds everything downstream, so it comes first. I ran a verifiable failure taxonomy on
+        a Terminal-Bench 2 baseline: 444 trials in Harbor (the sandboxed TB2 runner, driving a terminus-2 agent loop),
+        each scored by rule-based ATIF detectors rather than an LLM judge. Framing inspired by Atreja et al. [1].
+        Summary: 372 <code>verifier_fail</code> at Harbor L1 · 334 trace-visible diagnoses · 38 silent.
       </p>
 
-      <h3>Considerations</h3>
-      <div class="consideration">
-        <strong>SkyRL</strong>
-        Strong agentic coding integration; I would use it for production post-training on coding
-        agents. When building Sofa Genius (sofagenius.ai), SkyRL train was powerful but operationally heavy with long
-        debugging loops. When the focus is environment and reward design, I want to mitigate infra risk.
-      </div>
-      <div class="consideration">
-        <strong>veRL</strong>
-        Great for large-scale multi-node training and first-class on-policy distillation (OPD) [2]:
-        the student samples rollouts from its own policy, and the teacher provides next-token log-probabilities on
-        those student-visited states. Compared with RLVR, OPD provides dense, token-level supervision. For a single-node setup I doubt we need multi-node training, so veRL's setup cost isn't worth it.
-      </div>
-      <div class="consideration">
-        <strong>SLIME</strong>
-        Relatively new, backed by Z.AI and the GLM family, hackable for custom pipelines. Environment glue is not
-        first-class.
-      </div>
-      <div class="consideration">
-        <strong>TRL (chosen)</strong>
-        Hugging Face ecosystem; mature SFT + GRPO; decouples cleanly from Harbor as the environment layer. Keeps the
-        design (observation, action, reward, and training plan) legible and reproducible. I chose Terminal-Bench 2 with Harbor using TRL.
+      <div class="fig-row fig-row--l1-funnel">
+        <figure>
+          <img src="figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" width="680" />
+          <figcaption>Figure 1: Harbor L1 outcomes. Mostly <code>verifier_fail</code> (~84%), not timeout. The learning problem is <em>how</em> the agent fails the verifier.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/tb2-taxonomy-fig-2.svg" alt="Analysis funnel" width="680" />
+          <figcaption>Figure 2: Analysis funnel. 38 silent trials: verifier failed but no ATIF signal for a mode penalty. Design rule: only penalize computed trace evidence.</figcaption>
+        </figure>
       </div>
 
       <div class="table-wrap">
-        <div class="table-caption">Stack</div>
         <table>
-          <thead><tr><th>Layer</th><th>Choice</th></tr></thead>
+          <thead><tr><th>Failure mode</th><th>Detector</th><th>Computed signal</th></tr></thead>
           <tbody>
-            <tr><td>Environment</td><td>Harbor (Modal/Docker sandboxes, terminus-2 agent, test.sh verifiers)</td></tr>
-            <tr><td>SFT</td><td>TRL <code>SFTTrainer</code></td></tr>
-            <tr><td>RL</td><td>TRL <code>GRPOTrainer</code></td></tr>
-            <tr><td>Reward</td><td>Custom module on verifier output (composed shaping terms)</td></tr>
+            <tr><td>Misreflection</td><td><code>error_unaddressed</code></td><td>Prior step had errors; next step did not address them</td></tr>
+            <tr><td>Early submit</td><td><code>premature_complete</code></td><td><code>mark_task_complete</code> while errors still present</td></tr>
+            <tr><td>Infinite loop</td><td><code>repeat_command_loop</code></td><td>Same bash keystrokes repeated ≥3×</td></tr>
+            <tr><td>Non-converging</td><td><code>high_wasted_commands</code></td><td>≥50% agent steps carry error observations</td></tr>
+            <tr><td>Environment dependency</td><td><code>missing_env</code></td><td>command not found / ModuleNotFoundError</td></tr>
+            <tr><td>Context pressure</td><td><code>context_pressure</code></td><td><code>prompt_tokens</code> ≥ 25K/step or total ≥100K</td></tr>
+            <tr><td>Malformed JSON</td><td><code>json_parse_warning</code></td><td>JSON parse errors in observation or message</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="stack-pills">
-        <span class="pill">Harbor</span>
-        <span class="pill">TRL</span>
-        <span class="pill">GRPO</span>
-        <span class="pill">terminus-2</span>
-        <span class="pill">gpt-oss-20b</span>
+      <div class="fig-row fig-row--modes-steps">
+        <figure>
+          <img src="figures/tb2-taxonomy-fig-3.svg" alt="Executable failure modes" width="680" />
+          <figcaption>Figure 3: Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (<code>premature_complete</code> + <code>error_unaddressed</code>) fires 434+ times across multi-label trials.</figcaption>
+        </figure>
+        <figure>
+          <img src="figures/tb2-taxonomy-fig-4.svg" alt="Failure step distribution" width="680" />
+          <figcaption>Figure 4: Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.</figcaption>
+        </figure>
       </div>
-    </section>
 
-    <section id="benchmark">
-      <h2>2. Benchmark selection</h2>
-      <p>Candidates: terminalbench2 or tau2 bench.</p>
       <p>
-        I chose Terminal-Bench 2. If there is bandwidth, I would explore τ²-bench.
-        TB2 fits this setup because every task ships a deterministic <code>tests/test.sh</code> verifier and
-        Harbor records full terminus-2 ATIF traces, which motivate a failure-taxonomy-driven reward design (§3.3.1).
+        Two findings drive the reward design. The agent mostly fails by submitting too early: the missing-reflection
+        family (premature complete plus unaddressed errors) dominates Figure 3. And those failures land at steps 2–3,
+        not at the turn cap (Figure 4), so the bottleneck is wasted early actions, not horizon length. §3.3 maps each
+        of these to a concrete reward.
       </p>
     </section>
 
     <section id="environment">
       <h2>3. Environment creation</h2>
       <p>
-        Using TRL + Harbor, each task episode ends with a verifier reward. For training, TRL GRPO samples
-        G rollouts per task and computes advantages within each group.
+        I build every RL environment in the same order: what the agent sees, what it can do, and what it gets
+        rewarded for. Get those three right and the training code mostly writes itself; get the reward wrong and no
+        amount of training fixes it. The next three subsections are that decomposition for Terminal-Bench 2.
+      </p>
+      <p>
+        Mechanically, with TRL + Harbor each task episode runs in a sandbox and ends with a verifier reward. During
+        training GRPO samples G rollouts per task and normalizes advantages within the group, so the reward only has
+        to be right in a relative sense across rollouts of the same task, not calibrated on an absolute scale.
       </p>
 
       <section id="observation">
@@ -498,54 +498,14 @@
 
       <section id="rewards">
         <h3>3.3 Reward functions</h3>
-
-        <h4 id="taxonomy">3.3.1 Failure taxonomy as motivation</h4>
+        <p>§2 tells me <em>what fails</em>; this is <em>what I optimize</em>. P0 is the core set; P1 are refinements I add if there is bandwidth.</p>
         <p>
-          Before picking reward functions, I ran a verifiable failure taxonomy on a TB2 baseline:
-          444 Harbor trials via rule-based ATIF detectors (no LLM labels). Framing inspired by
-          Atreja et al. [1]. Summary: 372 <code>verifier_fail</code> at Harbor L1 ·
-          334 trace-visible diagnoses · 38 silent.
+          The mapping is deliberately boring, and that is the point: every reward term traces back to a row in the
+          taxonomy, and anything the taxonomy did not show me, I do not reward. The dominant failure, most trials miss
+          the verifier, calls for dense partial credit so the GRPO groups are not all zeros. The early-submit and loop
+          failures get explicit penalties, but only on top of partial credit, not in place of it. The 38 silent trials
+          get nothing extra, because I cannot see why they failed and I will not penalize what I cannot measure.
         </p>
-
-        <div class="fig-row fig-row--l1-funnel">
-          <figure>
-            <img src="figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" width="680" />
-            <figcaption>Figure 1: Harbor L1 outcomes. Mostly <code>verifier_fail</code> (~84%), not timeout. The learning problem is <em>how</em> the agent fails the verifier.</figcaption>
-          </figure>
-          <figure>
-            <img src="figures/tb2-taxonomy-fig-2.svg" alt="Analysis funnel" width="680" />
-            <figcaption>Figure 2: Analysis funnel. 38 silent trials: verifier failed but no ATIF signal for a mode penalty. Design rule: only penalize computed trace evidence.</figcaption>
-          </figure>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Failure mode</th><th>Detector</th><th>Computed signal</th></tr></thead>
-            <tbody>
-              <tr><td>Misreflection</td><td><code>error_unaddressed</code></td><td>Prior step had errors; next step did not address them</td></tr>
-              <tr><td>Early submit</td><td><code>premature_complete</code></td><td><code>mark_task_complete</code> while errors still present</td></tr>
-              <tr><td>Infinite loop</td><td><code>repeat_command_loop</code></td><td>Same bash keystrokes repeated ≥3×</td></tr>
-              <tr><td>Non-converging</td><td><code>high_wasted_commands</code></td><td>≥50% agent steps carry error observations</td></tr>
-              <tr><td>Environment dependency</td><td><code>missing_env</code></td><td>command not found / ModuleNotFoundError</td></tr>
-              <tr><td>Context pressure</td><td><code>context_pressure</code></td><td><code>prompt_tokens</code> ≥ 25K/step or total ≥100K</td></tr>
-              <tr><td>Malformed JSON</td><td><code>json_parse_warning</code></td><td>JSON parse errors in observation or message</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="fig-row fig-row--modes-steps">
-          <figure>
-            <img src="figures/tb2-taxonomy-fig-3.svg" alt="Executable failure modes" width="680" />
-            <figcaption>Figure 3: Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (<code>premature_complete</code> + <code>error_unaddressed</code>) fires 434+ times across multi-label trials.</figcaption>
-          </figure>
-          <figure>
-            <img src="figures/tb2-taxonomy-fig-4.svg" alt="Failure step distribution" width="680" />
-            <figcaption>Figure 4: Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.</figcaption>
-          </figure>
-        </div>
-
-        <h4 id="reward-design">3.3.2 Reward design (data-motivated)</h4>
-        <p>§3.3.1 tells me <em>what fails</em>; here is <em>what I optimize</em>. P0 = core terms · P1 = refinements if bandwidth allows.</p>
 
         <div class="table-wrap">
           <div class="table-caption">Failure → reward mapping</div>
@@ -564,7 +524,7 @@
         </div>
 
         <p><code>R_outcome</code>: <code>passed_tests / total_tests ∈ [0, 1]</code>. No LLM rubric.</p>
-        <p><code>R_agency</code>: Among rollouts with <code>R_outcome = 1.0</code>, rank by <code>turns</code> + <code>wasted_commands</code>; bonus ∈ [0, λ]. Tiebreaker only; needs ≥2 successes in the group. Because it only fires with ≥2 successes per group, under the ~84%-fail baseline it is near-inert early and is a deliberate late-stage (P1) refinement: it sharpens efficiency as the pass rate climbs and more groups produce multiple successes.</p>
+        <p><code>R_agency</code>: Among rollouts with <code>R_outcome = 1.0</code>, rank by <code>turns</code> + <code>wasted_commands</code>; bonus ∈ [0, λ]. It is only a tiebreaker, and it needs at least two successes in a group to fire at all. Early in training, when ~84% of trials fail, it almost never triggers. That is on purpose: efficiency only becomes worth rewarding once the model passes often enough to choose between a clean solution and a messy one.</p>
         <p><code>R_integrity</code>: Void trajectory on test/verifier tampering, hardcoded answers, or exfiltration (<code>total ≤ 0</code>).</p>
 
         <pre><code>total_i = R_outcome_i + λ · agency_bonus_i − integrity_penalty_i − lam_pc · 1[premature_complete]</code></pre>
@@ -589,6 +549,11 @@
 
     <section id="training">
       <h2>4. Model selection and training plan</h2>
+      <p>
+        With the environment fixed, the training plan is mostly downstream of it. Two choices still carry weight:
+        which model I start from, and how I stop GRPO from burning rollouts on tasks it cannot learn from. The rest of
+        this section is those two decisions and the knobs around them.
+      </p>
 
       <section id="base-model">
         <h3>4.1 Base model</h3>
@@ -608,7 +573,7 @@
       <section id="grpo">
         <h3>4.2 RL algorithm</h3>
         <p>Decision: GRPO via TRL <code>GRPOTrainer</code> on Harbor rollouts.</p>
-        <p>For each task prompt, sample G independent terminus-2 rollouts, score with §3.3.2 rewards, normalize advantages within the group:</p>
+        <p>For each task prompt, sample G independent terminus-2 rollouts, score with §3.3 rewards, normalize advantages within the group:</p>
         <pre><code>Â_i = (R_i − mean(R_{1..G})) / (std(R_{1..G}) + ε)</code></pre>
 
         <div class="table-wrap">
@@ -722,6 +687,67 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
       </section>
     </section>
 
+    <section id="framework">
+      <h2>5. Framework &amp; stack</h2>
+      <p>
+        The design above does not lean much on which trainer I use; this section is the reproducibility detail. I run
+        GRPO [4] (group-relative advantages on verifiable rewards) in TRL, with Harbor as the environment layer.
+      </p>
+
+      <p>
+        Why GRPO. This is the same post-training recipe I have already shipped in production.
+        In Eureka [3], we frame enterprise feature engineering as <em>agentic code generation</em>:
+        SFT cold-start on domain plans, then GRPO on a composed reward.
+        Terminal-Bench 2 is the same shape at a different domain, but the loop is identical: sample
+        rollouts, score with verifiers, normalize advantages within a group, update the policy.
+      </p>
+
+      <h3>Considerations</h3>
+      <div class="consideration">
+        <strong>SkyRL</strong>
+        Strong agentic coding integration; I would use it for production post-training on coding
+        agents. When building Sofa Genius (sofagenius.ai), SkyRL train was powerful but operationally heavy with long
+        debugging loops. When the focus is environment and reward design, I want to mitigate infra risk.
+      </div>
+      <div class="consideration">
+        <strong>veRL</strong>
+        Great for large-scale multi-node training and first-class on-policy distillation (OPD) [2]:
+        the student samples rollouts from its own policy, and the teacher provides next-token log-probabilities on
+        those student-visited states. Compared with RLVR, OPD provides dense, token-level supervision. For a single-node setup I doubt we need multi-node training, so veRL's setup cost isn't worth it.
+      </div>
+      <div class="consideration">
+        <strong>SLIME</strong>
+        Relatively new, backed by Z.AI and the GLM family, hackable for custom pipelines. Environment glue is not
+        first-class.
+      </div>
+      <div class="consideration">
+        <strong>TRL (chosen)</strong>
+        Hugging Face ecosystem; mature SFT + GRPO; decouples cleanly from Harbor as the environment layer. Keeps the
+        design (observation, action, reward, and training plan) legible and reproducible. I chose Terminal-Bench 2 with Harbor using TRL.
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-caption">Stack</div>
+        <table>
+          <thead><tr><th>Layer</th><th>Choice</th></tr></thead>
+          <tbody>
+            <tr><td>Environment</td><td>Harbor (Modal/Docker sandboxes, terminus-2 agent, test.sh verifiers)</td></tr>
+            <tr><td>SFT</td><td>TRL <code>SFTTrainer</code></td></tr>
+            <tr><td>RL</td><td>TRL <code>GRPOTrainer</code></td></tr>
+            <tr><td>Reward</td><td>Custom module on verifier output (composed shaping terms)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="stack-pills">
+        <span class="pill">Harbor</span>
+        <span class="pill">TRL</span>
+        <span class="pill">GRPO</span>
+        <span class="pill">terminus-2</span>
+        <span class="pill">gpt-oss-20b</span>
+      </div>
+    </section>
+
     <section id="appendix">
       <h2>Appendix A: Failure taxonomy × TB2 detectability</h2>
       <p>Optional mapping from Atreja et al. [1] to terminus-2 + Harbor ATIF.</p>
@@ -756,7 +782,7 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
 </div>
 
 <footer>
-  <p>RLVR environment design for Terminal-Bench 2 — Harbor + TRL GRPO on <code>gpt-oss-20b</code>.</p>
+  <p>RLVR environment design for Terminal-Bench 2. Harbor + TRL GRPO on <code>gpt-oss-20b</code>.</p>
   <p><a href="/posts/">← All posts</a> · Layout inspired by the <a href="https://www.afterquery.com/blog/on-policy-distillation-gdpval" target="_blank" rel="noopener">AfterQuery research blog</a>.</p>
 </footer>
 
