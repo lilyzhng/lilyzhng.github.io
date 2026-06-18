@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     :root {
-      /* AfterQuery palette */
+      /* warm cream palette */
       --bg: #f8f8f3;            /* warm cream */
       --surface: #fffffb;
       --ink: rgba(0,0,0,0.86);  /* near-black headings */
@@ -331,7 +331,7 @@
   <aside class="toc" aria-label="Table of contents">
     <div class="toc-title">Table of Contents</div>
     <ul>
-      <li><a href="#task">The task</a></li>
+      <li><a href="#overview">Overview</a></li>
       <li><a href="#framework">1. Framework</a></li>
       <li><a href="#benchmark">2. Benchmark</a></li>
       <li><a href="#environment">3. Environment</a></li>
@@ -364,13 +364,12 @@
       the RLVR environment.
     </p>
 
-    <section id="task">
-      <h2>The task</h2>
+    <section id="overview">
+      <h2>Overview</h2>
       <p>
-        Select a popular, open-source reinforcement learning framework and use it to create an
-        RLVR (Reinforcement Learning from Verifiable Reward) environment designed to improve
-        model performance on a specific benchmark. The graded deliverable is environment design (observation,
-        action, reward) plus a detailed training plan, not a full multi-day training run.
+        This write-up documents how I designed an RLVR (Reinforcement Learning from Verifiable Reward)
+        environment for Terminal-Bench 2: framework choice, observation and action spaces, reward
+        functions grounded in a failure taxonomy, and a concrete training plan on <code>gpt-oss-20b</code>.
       </p>
     </section>
 
@@ -391,13 +390,13 @@
         <strong>SkyRL</strong>
         Strong agentic coding integration; I would use it for production post-training on coding
         agents. When building Sofa Genius (sofagenius.ai), SkyRL train was powerful but operationally heavy with long
-        debugging loops. For this take-home, scoped on environment and reward design, I would want to mitigate any infra risk.
+        debugging loops. When the focus is environment and reward design, I want to mitigate infra risk.
       </div>
       <div class="consideration">
         <strong>veRL</strong>
         Great for large-scale multi-node training and first-class on-policy distillation (OPD) [2]:
         the student samples rollouts from its own policy, and the teacher provides next-token log-probabilities on
-        those student-visited states. Compared with RLVR, OPD provides dense, token-level supervision. For this take-home I doubt we need multi-node training, so veRL's setup cost isn't worth it.
+        those student-visited states. Compared with RLVR, OPD provides dense, token-level supervision. For a single-node setup I doubt we need multi-node training, so veRL's setup cost isn't worth it.
       </div>
       <div class="consideration">
         <strong>SLIME</strong>
@@ -407,7 +406,7 @@
       <div class="consideration">
         <strong>TRL (chosen)</strong>
         Hugging Face ecosystem; mature SFT + GRPO; decouples cleanly from Harbor as the environment layer. Keeps the
-        deliverable (obs / action / reward + training plan) legible and reproducible. I chose Terminal-Bench 2 with Harbor using TRL.
+        design (observation, action, reward, and training plan) legible and reproducible. I chose Terminal-Bench 2 with Harbor using TRL.
       </div>
 
       <div class="table-wrap">
@@ -418,7 +417,7 @@
             <tr><td>Environment</td><td>Harbor (Modal/Docker sandboxes, terminus-2 agent, test.sh verifiers)</td></tr>
             <tr><td>SFT</td><td>TRL <code>SFTTrainer</code></td></tr>
             <tr><td>RL</td><td>TRL <code>GRPOTrainer</code></td></tr>
-            <tr><td>Reward</td><td>Custom module on verifier output (≥2 virtual rewards)</td></tr>
+            <tr><td>Reward</td><td>Custom module on verifier output (composed shaping terms)</td></tr>
           </tbody>
         </table>
       </div>
@@ -437,16 +436,13 @@
       <p>Candidates: terminalbench2 or tau2 bench.</p>
       <p>
         I chose Terminal-Bench 2. If there is bandwidth, I would explore τ²-bench.
-        TB2 fits this take-home because every task ships a deterministic <code>tests/test.sh</code> verifier and
+        TB2 fits this setup because every task ships a deterministic <code>tests/test.sh</code> verifier and
         Harbor records full terminus-2 ATIF traces, which motivate a failure-taxonomy-driven reward design (§3.3.1).
       </p>
     </section>
 
     <section id="environment">
       <h2>3. Environment creation</h2>
-      <blockquote>
-        Using the chosen RL framework, outline the design and implementation of the RLVR environment.
-      </blockquote>
       <p>
         Using TRL + Harbor, each task episode ends with a verifier reward. For training, TRL GRPO samples
         G rollouts per task and computes advantages within each group.
@@ -454,9 +450,6 @@
 
       <section id="observation">
         <h3>3.1 State / observation space</h3>
-        <blockquote>
-          Clearly define the observation space the RL agent receives from the environment.
-        </blockquote>
         <p>
           One Terminal-Bench 2 task = one multi-turn episode in a persistent Harbor sandbox. The policy uses the
           terminus-2 format to interact with the sandbox.
@@ -485,9 +478,6 @@
 
       <section id="action">
         <h3>3.2 Action space</h3>
-        <blockquote>
-          Clearly define the set of actions the RL agent can take.
-        </blockquote>
         <p>At each step, the policy emits one terminus-2 message. The meaningful action is what happens in the sandbox.</p>
         <div class="table-wrap">
           <table>
@@ -508,9 +498,6 @@
 
       <section id="rewards">
         <h3>3.3 Reward functions</h3>
-        <blockquote>
-          Detail the virtual reward functions (minimum 2). Critical for the RLVR approach.
-        </blockquote>
 
         <h4 id="taxonomy">3.3.1 Failure taxonomy as motivation</h4>
         <p>
@@ -558,7 +545,7 @@
         </div>
 
         <h4 id="reward-design">3.3.2 Reward design (data-motivated)</h4>
-        <p>§3.3.1 tells me <em>what fails</em>; here is <em>what I optimize</em>. P0 = MVP · P1 = add if bandwidth.</p>
+        <p>§3.3.1 tells me <em>what fails</em>; here is <em>what I optimize</em>. P0 = core terms · P1 = refinements if bandwidth allows.</p>
 
         <div class="table-wrap">
           <div class="table-caption">Failure → reward mapping</div>
@@ -640,7 +627,7 @@
         <div class="table-wrap">
           <div class="table-caption">Training stack</div>
           <table>
-            <thead><tr><th>Stage</th><th>Role</th><th>In MVP</th></tr></thead>
+            <thead><tr><th>Stage</th><th>Role</th><th>Planned</th></tr></thead>
             <tbody>
               <tr><td>SFT</td><td>Cold-start terminus-2 + occasional verifier passes</td><td>Yes</td></tr>
               <tr><td>OPD (optional)</td><td>gpt-oss-120b teacher, reverse-KL on student trajectories</td><td>Stretch</td></tr>
@@ -727,9 +714,9 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
         </div>
 
         <p>
-          Validation plan (if executed): Harbor trajectories + CTRF rewards on Nemotron tasks →
-          ≥1 GRPO step with <code>reward_std &gt; 0</code> → eval rep-10 shows monotonic base → SFT → GRPO trend.
-          This write-up delivers the environment + plan; training runs are out of scope for the 4–8h graded task.
+          End-to-end validation would run Harbor trajectories with CTRF rewards on Nemotron tasks, confirm
+          ≥1 GRPO step with <code>reward_std &gt; 0</code>, and check that a rep-10 eval shows monotonic
+          base → SFT → GRPO lift. The sections above are the design; full training runs are future work.
         </p>
         <p>Primary ablation: P0 (<code>R_outcome</code> + <code>R_integrity</code>) vs P1 (+ <code>R_agency</code> + <code>premature_complete</code>).</p>
       </section>
