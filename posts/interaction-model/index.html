@@ -334,6 +334,7 @@
       display: block; width: 100%; max-width: 100%;
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
     }
+    figure.diagram.bare img { border: none; background: transparent; }
     figure.diagram figcaption { font: 400 0.8125rem/1.55 var(--sans); color: var(--muted); margin-top: 0.7rem; }
 
     .video-pair { display: flex; gap: 1rem; margin: 1.5rem 0 0.4rem; align-items: flex-start; height: 504px; }
@@ -415,7 +416,7 @@
       <p>There are two types of LLM products now. Full-duplex models, where the model is live and can listen and speak simultaneously. Examples include Moshi, GPT voice, and the TML interaction model. These models are optimized for seamless AI and human interaction. Then there are turn-based models, where the bot, agent, or model responds only after the user sends a request. Examples include ChatGPT, Claude, and Gemini, which use a chat format. Coding agents also fall into this category.</p>
       <p>These two types are not the same. They have different model architectures, training data, and training targets. Turn-based optimization focuses on completing specific tasks, whereas full-duplex models are designed for real-time interaction. But there is no such good product as a mix of the two, where we get the good interaction from the full-duplex model while also getting the powerful tools from this turn-based model.</p>
 
-      <figure class="diagram">
+      <figure class="diagram bare">
         <img src="diagram_venn.svg" alt="Venn diagram: full-duplex vs turn-based">
       </figure>
 
