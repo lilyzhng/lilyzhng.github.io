@@ -28,6 +28,11 @@ permalink: /posts/
 
 <div class="blog-list">
   <div class="blog-entry">
+    <a href="/posts/harbor-rlvr-environment/" class="blog-title">Post-Train Harbor RLVR Environment</a><br>
+    <span class="blog-author">Lily Zhang</span> - <span class="blog-date">6/2026</span>
+  </div>
+
+  <div class="blog-entry">
     <a href="/posts/interaction-model/" class="blog-title">Thoughts on Thinking Machine's Interaction Model</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">5/2026</span>
   </div>
