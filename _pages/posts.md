@@ -28,7 +28,7 @@ permalink: /posts/
 
 <div class="blog-list">
   <div class="blog-entry">
-    <a href="/posts/harbor-rlvr-environment/" class="blog-title">Post-Train Harbor RLVR Environment</a><br>
+    <a href="/posts/harbor-rlvr-environment/" class="blog-title">Designing RLVR Environment for Terminal-Bench 2</a><br>
     <span class="blog-author">Lily Zhang</span> - <span class="blog-date">6/2026</span>
   </div>
 
