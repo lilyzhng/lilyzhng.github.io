@@ -343,9 +343,10 @@
       <li class="sub"><a href="#data">4.3 Data &amp; curriculum</a></li>
       <li class="sub"><a href="#hyperparams">4.4 Hyperparameters</a></li>
       <li class="sub"><a href="#metrics">4.5 Metrics</a></li>
-      <li><a href="#framework">5. Framework &amp; stack</a></li>
-      <li><a href="#appendix">Appendix</a></li>
       <li><a href="#references">References</a></li>
+      <li><a href="#appendix">Appendix</a></li>
+      <li class="sub"><a href="#appendix-a">A. Detectability</a></li>
+      <li class="sub"><a href="#appendix-b">B. Framework &amp; stack</a></li>
     </ul>
   </aside>
 
@@ -687,22 +688,59 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
       </section>
     </section>
 
-    <section id="framework">
-      <h2>5. Framework &amp; stack</h2>
-      <p>
-        The design above does not lean much on which trainer I use; this section is the reproducibility detail. I run
-        GRPO [4] (group-relative advantages on verifiable rewards) in TRL, with Harbor as the environment layer.
-      </p>
+    
 
-      <p>
-        Why GRPO. This is the same post-training recipe I have already shipped in production.
-        In Eureka [3], we frame enterprise feature engineering as <em>agentic code generation</em>:
-        SFT cold-start on domain plans, then GRPO on a composed reward.
-        Terminal-Bench 2 is the same shape at a different domain, but the loop is identical: sample
-        rollouts, score with verifiers, normalize advantages within a group, update the policy.
-      </p>
+    
+<section id="references">
+      <h2>References</h2>
+      <ol class="refs">
+        <li>Dhruv Atreja. 2026. Pathfinder: Self-Improving Agent Trace Analysis via Adversarial Self-Play and Code Execution. <em>ACM Conference on AI and Agentic Systems</em>, 1336–1339. <a href="https://doi.org/10.1145/3786335.3813199" target="_blank" rel="noopener">doi:10.1145/3786335.3813199</a></li>
+        <li>Jacob Helwig. 2026. On-Policy Distillation (OPD). verl documentation. <a href="https://verl.readthedocs.io/en/latest/algo/opd.html" target="_blank" rel="noopener">verl.readthedocs.io</a></li>
+        <li>Li, Hangxuan, et al. 2026. Eureka: Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction. <em>DASFAA 2026</em>.</li>
+        <li>Shao, Zhihong, et al. 2024. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models. <em>arXiv preprint</em> arXiv:2402.03300. <a href="https://arxiv.org/abs/2402.03300" target="_blank" rel="noopener">arxiv.org/abs/2402.03300</a></li>
+      </ol>
+    </section>
 
-      <h3>Considerations</h3>
+    <section id="appendix">
+      <h2>Appendix</h2>
+
+      <section id="appendix-a">
+        <h3>A. Failure taxonomy × TB2 detectability</h3>
+        <p>Optional mapping from Atreja et al. [1] to terminus-2 + Harbor ATIF.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Paper family</th><th>Subtype</th><th>TB2</th><th>How / count</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture</td><td>Missing reflection</td><td>yes</td><td><code>premature_complete</code>, <code>error_unaddressed</code> · 434+</td></tr>
+              <tr><td>Architecture</td><td>Infinite loop</td><td>yes</td><td><code>repeat_command_loop</code> · 73</td></tr>
+              <tr><td>Architecture</td><td>Non-converging planner</td><td>yes</td><td><code>high_wasted_commands</code> · 123</td></tr>
+              <tr><td>Context</td><td>Window overflow</td><td>yes</td><td><code>context_pressure</code> · 51</td></tr>
+              <tr><td>Parsing/config</td><td>Malformed JSON</td><td>yes</td><td><code>json_parse_warning</code> · 25</td></tr>
+              <tr><td>Parsing/config</td><td>Missing env</td><td>yes</td><td><code>missing_env</code> · 131</td></tr>
+              <tr><td>Prompt</td><td>Contradictory instructions</td><td>no</td><td>Prompt not in ATIF spans</td></tr>
+              <tr><td>Tool misuse</td><td>Malformed tool schema</td><td>no</td><td>Only bash + mark_task_complete</td></tr>
+              <tr><td>Streaming/API</td><td>Tool-call breaks</td><td>no</td><td>No streaming spans</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="appendix-b">
+        <h3>B. Framework &amp; stack</h3>
+        <p>
+          The design above does not lean much on which trainer I use; this section is the reproducibility detail. I run
+          GRPO [4] (group-relative advantages on verifiable rewards) in TRL, with Harbor as the environment layer.
+        </p>
+
+        <p>
+          Why GRPO. This is the same post-training recipe I have already shipped in production.
+          In Eureka [3], we frame enterprise feature engineering as <em>agentic code generation</em>:
+          SFT cold-start on domain plans, then GRPO on a composed reward.
+          Terminal-Bench 2 is the same shape at a different domain, but the loop is identical: sample
+          rollouts, score with verifiers, normalize advantages within a group, update the policy.
+        </p>
+
+      <h4>Considerations</h4>
       <div class="consideration">
         <strong>SkyRL</strong>
         Strong agentic coding integration; I would use it for production post-training on coding
@@ -746,44 +784,13 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
         <span class="pill">terminus-2</span>
         <span class="pill">gpt-oss-20b</span>
       </div>
-    </section>
-
-    <section id="appendix">
-      <h2>Appendix A: Failure taxonomy × TB2 detectability</h2>
-      <p>Optional mapping from Atreja et al. [1] to terminus-2 + Harbor ATIF.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Paper family</th><th>Subtype</th><th>TB2</th><th>How / count</th></tr></thead>
-          <tbody>
-            <tr><td>Architecture</td><td>Missing reflection</td><td>yes</td><td><code>premature_complete</code>, <code>error_unaddressed</code> · 434+</td></tr>
-            <tr><td>Architecture</td><td>Infinite loop</td><td>yes</td><td><code>repeat_command_loop</code> · 73</td></tr>
-            <tr><td>Architecture</td><td>Non-converging planner</td><td>yes</td><td><code>high_wasted_commands</code> · 123</td></tr>
-            <tr><td>Context</td><td>Window overflow</td><td>yes</td><td><code>context_pressure</code> · 51</td></tr>
-            <tr><td>Parsing/config</td><td>Malformed JSON</td><td>yes</td><td><code>json_parse_warning</code> · 25</td></tr>
-            <tr><td>Parsing/config</td><td>Missing env</td><td>yes</td><td><code>missing_env</code> · 131</td></tr>
-            <tr><td>Prompt</td><td>Contradictory instructions</td><td>no</td><td>Prompt not in ATIF spans</td></tr>
-            <tr><td>Tool misuse</td><td>Malformed tool schema</td><td>no</td><td>Only bash + mark_task_complete</td></tr>
-            <tr><td>Streaming/API</td><td>Tool-call breaks</td><td>no</td><td>No streaming spans</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="references">
-      <h2>References</h2>
-      <ol class="refs">
-        <li>Dhruv Atreja. 2026. Pathfinder: Self-Improving Agent Trace Analysis via Adversarial Self-Play and Code Execution. <em>ACM Conference on AI and Agentic Systems</em>, 1336–1339. <a href="https://doi.org/10.1145/3786335.3813199" target="_blank" rel="noopener">doi:10.1145/3786335.3813199</a></li>
-        <li>Jacob Helwig. 2026. On-Policy Distillation (OPD). verl documentation. <a href="https://verl.readthedocs.io/en/latest/algo/opd.html" target="_blank" rel="noopener">verl.readthedocs.io</a></li>
-        <li>Li, Hangxuan, et al. 2026. Eureka: Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction. <em>DASFAA 2026</em>.</li>
-        <li>Shao, Zhihong, et al. 2024. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models. <em>arXiv preprint</em> arXiv:2402.03300. <a href="https://arxiv.org/abs/2402.03300" target="_blank" rel="noopener">arxiv.org/abs/2402.03300</a></li>
-      </ol>
+      </section>
     </section>
   </article>
 </div>
 
 <footer>
   <p>RLVR environment design for Terminal-Bench 2. Harbor + TRL GRPO on <code>gpt-oss-20b</code>.</p>
-  <p><a href="/posts/">← All posts</a> · Layout inspired by the <a href="https://www.afterquery.com/blog/on-policy-distillation-gdpval" target="_blank" rel="noopener">AfterQuery research blog</a>.</p>
 </footer>
 
 <script>
