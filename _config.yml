@@ -10,6 +10,8 @@ minimal_mistakes_skin: dirt
 search: false
 
 # Build settings
+url: "https://lilyzh.ng"
+baseurl: ""
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
 encoding: utf-8
