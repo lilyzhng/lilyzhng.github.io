@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" font-family="ui-sans-serif,system-ui,-apple-system,sans-serif" text-rendering="geometricPrecision">
   <rect width="640" height="320" fill="#FAF9F5"/>
-  <text x="28" y="36" font-family="ui-serif,Georgia,serif" font-size="18" fill="#141413" font-weight="600">风暴前的安静</text>
-  <text x="28" y="58" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#87867F" letter-spacing="0.4">CPU / 存储涨 · GPU 平 · 准备期 signal</text>
+  <text x="28" y="36" font-family="ui-serif,Georgia,serif" font-size="18" fill="#141413" font-weight="600">The calm before the storm</text>
+  <text x="28" y="58" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#87867F" letter-spacing="0.4">CPU / storage up · GPU flat · prep-phase signal</text>
   <rect x="28" y="76" width="584" height="200" rx="10" fill="#FFFFFF" stroke="#D1CFC5"/>
   <line x1="56" y1="248" x2="596" y2="248" stroke="#D1CFC5"/>
   <line x1="56" y1="100" x2="56" y2="248" stroke="#D1CFC5"/>
   <path d="M 80 198 L 140 196 L 200 197 L 260 198 L 320 197 L 380 198 L 440 197 L 500 198 L 560 197" fill="none" stroke="#87867F" stroke-width="2" stroke-dasharray="6 4"/>
-  <text x="568" y="200" font-size="11" fill="#87867F">GPU (平)</text>
+  <text x="568" y="200" font-size="11" fill="#87867F">GPU (flat)</text>
   <path d="M 80 220 L 140 210 L 200 198 L 260 186 L 320 172 L 380 158 L 440 148 L 500 138 L 560 128" fill="none" stroke="#788C5D" stroke-width="2.5"/>
-  <text x="568" y="132" font-size="11" fill="#788C5D">CPU+存储</text>
+  <text x="568" y="132" font-size="11" fill="#788C5D">CPU+storage</text>
   <path d="M 80 240 L 140 228 L 200 210 L 260 188 L 320 162 L 380 140 L 440 122 L 500 112 L 560 108" fill="none" stroke="#D97757" stroke-width="3"/>
   <text x="568" y="112" font-size="11" fill="#D97757" font-weight="600">volatility ratio</text>
   <line x1="500" y1="100" x2="500" y2="248" stroke="#D97757" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
-  <text x="508" y="118" font-size="10" fill="#D97757">GPU 冲上来</text>
-  <text x="28" y="296" font-size="11.5" fill="#3D3D3A">传统 ML 看不出 · signal 提前好几天</text>
+  <text x="508" y="118" font-size="10" fill="#D97757">GPU surges</text>
+  <text x="28" y="296" font-size="11.5" fill="#3D3D3A">Traditional ML is blind · signal leads by days</text>
 </svg>
