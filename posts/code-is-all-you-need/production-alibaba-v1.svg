@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280" font-family="ui-sans-serif,system-ui,-apple-system,sans-serif" text-rendering="geometricPrecision">
   <rect width="520" height="280" fill="#FAF9F5"/>
-  <text x="24" y="36" font-family="ui-serif,Georgia,serif" font-size="18" fill="#141413" font-weight="600">阿里云 production pipeline</text>
-  <text x="24" y="58" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#87867F">proof · 不是开篇前提</text>
+  <text x="24" y="36" font-family="ui-serif,Georgia,serif" font-size="18" fill="#141413" font-weight="600">Alibaba Cloud production pipeline</text>
+  <text x="24" y="58" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#87867F">proof · not an opening premise</text>
   <rect x="24" y="80" width="472" height="170" rx="12" fill="#FFFFFF" stroke="#D1CFC5"/>
   <text x="44" y="118" font-size="13" fill="#141413">fulfillment</text>
   <rect x="160" y="102" width="200" height="22" rx="5" fill="#F0EDE2"/>
@@ -11,9 +11,9 @@
   <rect x="160" y="146" width="200" height="22" rx="5" fill="#F0EDE2"/>
   <rect x="160" y="146" width="66" height="22" rx="5" fill="#D97757"/>
   <text x="372" y="162" font-size="13" fill="#D97757" font-weight="600">-33%</text>
-  <text x="44" y="206" font-size="13" fill="#141413">ops 采用</text>
+  <text x="44" y="206" font-size="13" fill="#141413">ops adoption</text>
   <rect x="160" y="190" width="200" height="22" rx="5" fill="#F0EDE2"/>
   <rect x="160" y="190" width="182" height="22" rx="5" fill="#141413"/>
   <text x="372" y="206" font-size="13" fill="#141413" font-weight="600">91%</text>
-  <text x="24" y="262" font-size="11" fill="#87867F">真实、脏的 forecasting · 不是 lab demo</text>
+  <text x="24" y="262" font-size="11" fill="#87867F">real, messy forecasting · not a lab demo</text>
 </svg>
