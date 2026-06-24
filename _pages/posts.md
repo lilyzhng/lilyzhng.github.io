@@ -28,6 +28,11 @@ permalink: /posts/
 
 <div class="blog-list">
   <div class="blog-entry">
+    <a href="/posts/code-is-all-you-need/" class="blog-title">Code Is All You Need: Reframing Feature Engineering as Code</a>
+    <span class="blog-date">Jun 2026</span>
+  </div>
+
+  <div class="blog-entry">
     <a href="/posts/harbor-rlvr-environment/" class="blog-title">Designing RLVR Environment for Terminal-Bench 2</a>
     <span class="blog-date">Jun 2026</span>
   </div>
