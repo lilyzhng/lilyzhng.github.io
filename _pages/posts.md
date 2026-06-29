@@ -174,16 +174,12 @@ permalink: /posts/
 }
 
 .blog-list {
-  max-width: 720px;
+  max-width: 600px;
   margin: 2rem auto 5rem;
   padding: 0 1rem;
 }
 
 .blog-entry {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1.5rem;
   padding: 0.95rem 0;
   border-bottom: 1px solid #eef0f3;
 }
@@ -193,11 +189,10 @@ permalink: /posts/
 }
 
 .blog-date {
+  display: block;
+  margin-top: 0.3rem;
   font-size: 0.85rem;
   color: #9aa4b2;
-  white-space: nowrap;
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
   letter-spacing: 0.01em;
 }
 
