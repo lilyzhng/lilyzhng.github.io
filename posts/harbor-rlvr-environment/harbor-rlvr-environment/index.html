@@ -178,7 +178,7 @@ for result_json in jobs/&lt;shard&gt;/*/result.json:
 <ul>
   <li>This bucket has 84% of the L1 outcomes, with complete traces and clean failure semantics, which makes it the highest-ROI bucket to tackle first.</li>
   <li>334 of the 372 get a trace-visible diagnosis; the other 38 are silent (the verifier failed but no detector fired), so these are skipped.</li>
-  <li>Timeouts are deprioritized at the baseline: 10% of trials against 84% verifier_fail. This routing choice follows the failure distribution, so it has to be re-derived after every training stage; it is a measurement, not a fixed rule.</li>
+  <li>Timeouts are deprioritized at the baseline because there is only a very small amount of it (10% of trials, vs 84% verifier_fail). But this routing choice should follow the failure distribution: you will have to re-derive it after each training stage, because the failure taxonomy can change given the model weight change.</li>
 </ul>
 
 <p>After excluding the 38 silent trials, we have 334 trials with trace evidence. Figures 3 and 4 are computed over these.</p>
