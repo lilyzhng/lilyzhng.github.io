@@ -64,6 +64,8 @@ We categorize each agent trial into four categories (`pass` 21 · `verifier_fail
 
 L1 is a rule-based function over two fields of Harbor's `result.json`, deterministic. We don't use an LLM judge here.
 
+<details><summary>Show the L1 pseudocode</summary>
+
 ```
 # one Harbor trial = one result.json + one ATIF trace
 for result_json in jobs/<shard>/*/result.json:
@@ -77,6 +79,8 @@ for result_json in jobs/<shard>/*/result.json:
     #   else (tests ran and failed)    -> verifier_fail
     upsert(supabase.tb2_trials, row)  # one row per trial, keyed by trial_name
 ```
+
+</details>
 
 ### 2.2 L2 diagnosis
 
@@ -108,6 +112,8 @@ After excluding the 38 silent trials, we have 334 trials with trace evidence. Fi
 
 Each L2 detector is a rule-based function too, deterministic (regex, counters, thresholds over the trace). We don't use an LLM judge here.
 
+<details><summary>Show the L2 pseudocode</summary>
+
 ```
 # L2: verifier_fail rows only
 # (routing chosen from the baseline distribution; re-derive per stage)
@@ -118,6 +124,8 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
     update row set l2_failure_class = hit.code,   # null -> silent
                    evidence_step    = hit.step
 ```
+
+</details>
 
 ### 2.3 Findings
 
