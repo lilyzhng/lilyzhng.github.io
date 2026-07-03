@@ -10,6 +10,10 @@ Designing an RLVR Environment from a Failure Taxonomy (Terminal-Bench 2)
 
 Without looking at the data and the failure modes, the reward designs are not well grounded. I ran a verifiable failure taxonomy on `gpt-oss-20b` before writing reward terms, then designed the RLVR environment.
 
+![Method pipeline teaser](figures/tb2-teaser-v7.svg)
+
+*The pipeline: classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.*
+
 /TODO: add data distribution analysis, 2 lens: one len from data, one len from model
 
 /TODO: set up a trace viewer
@@ -30,7 +34,7 @@ Without looking at the data and the failure modes, the reward designs are not we
 >
 > /TODO 7 (low): **Build a trace viewer for the 38 silent trials.** 38 trials failed the verifier but triggered no ATIF detector — no visible failure mode. Current design rule: only penalize computed trace evidence, so these get R_outcome only. Without a trace viewer, cannot determine whether these are data quality issues (broken tasks/verifiers) or taxonomy gaps (uncovered model behaviors). Candidate tool: Raindrop MCP to ingest Harbor ATIF traces and surface patterns in the silent bucket. For Friday, current framing is defensible: "38 trials had no detectable failure mode; I chose not to penalize what I cannot measure."
 
-What follows is the whole environment that came out of that: the observation and action spaces, the failure taxonomy, the reward functions it motivated, and the training plan around them, on Terminal-Bench 2 with `gpt-oss-20b`. The specifics are TB2-shaped, but the method is not: decompose the environment, measure how it actually fails, reward against that, and train where the signal is. That is the part I would carry to any RL environment.
+The method carries to any RL environment: decompose it, measure how it actually fails, reward against that.
 
 ## 1. Benchmark selection
 
@@ -38,13 +42,55 @@ I chose Terminal-Bench 2. Every task ships a deterministic `tests/test.sh` verif
 
 ## 2. Failure taxonomy
 
-This is the part that grounds everything downstream, so it comes first. I ran a verifiable failure taxonomy on a Terminal-Bench 2 baseline: 444 trials in Harbor (the sandboxed TB2 runner, driving a terminus-2 agent loop), each scored by rule-based ATIF detectors rather than an LLM judge. Framing inspired by Atreja et al. [1]. Summary: 372 `verifier_fail` at Harbor L1 · 334 trace-visible diagnosk![Harbor L1 outcomes](figures/tb2-taxonomy-fig-1.svg)
+This is the part that grounds everything downstream, so it comes first. I ran a verifiable failure taxonomy on a Terminal-Bench 2 baseline: 444 trials in Harbor (the sandboxed TB2 runner, driving a terminus-2 agent loop), each scored by rule-based ATIF detectors rather than an LLM judge. The taxonomy is inspired by [Atreja et al. [1]](https://dl.acm.org/doi/epdf/10.1145/3786335.3813199), who used failure detection for debugging and trace analysis; here I take it one step further and use the failure detections as reward signals.
+
+The taxonomy has two layers: L1 classifies what happened, L2 diagnoses why. This is my own implementation based on the paper; the original Pathfinder code is not open-sourced.
+
+### 2.1 L1 classification
+
+We categorize each agent trial into four categories (`pass` 48 · `verifier_fail` 372 · `agent_timeout` 22 · infra 2, of 444 trials), so that we don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.
+
+![Harbor L1 outcomes](figures/tb2-taxonomy-fig-1.svg)
 
 *Figure 1: Harbor L1 outcomes. Mostly `verifier_fail` (~84%), not timeout. The learning problem is **how** the agent fails the verifier.*
 
 ![Analysis funnel](figures/tb2-taxonomy-fig-2.svg)
 
 *Figure 2: Analysis funnel. 38 silent trials: verifier failed but no ATIF signal for a mode penalty. Design rule: only penalize computed trace evidence.*
+
+L1 is a rule-based function over two fields of Harbor's `result.json`, deterministic. We don't use an LLM judge here.
+
+```
+# one Harbor trial = one result.json + one ATIF trace
+for result_json in jobs/<shard>/*/result.json:
+    row = normalize(result_json)      # flatten to: task, trial_name, reward
+                                      # (= verifier_result.rewards.reward),
+                                      # exception_type, exception_message
+    row.l1 = classify_l1(row)         # L1 is a rule-based function, no LLM
+    #   reward >= 1.0                  -> pass
+    #   AgentTimeoutError              -> agent_timeout
+    #   vLLM / API / image-build error -> infra_*
+    #   else (tests ran and failed)    -> verifier_fail
+    upsert(supabase.tb2_trials, row)  # one row per trial, keyed by trial_name
+```
+
+### 2.2 L2 diagnosis
+
+For only the verifier-fail trials, we run executable detectors over the agent trace to diagnose how the agent failed.
+
+- This bucket has 84% of the L1 outcomes, with complete traces and clean failure semantics, which makes it the highest-ROI bucket to tackle first.
+- 334 of the 372 get a trace-visible diagnosis; the other 38 are silent (the verifier failed but no detector fired), so these are skipped.
+- Timeouts are deprioritized: very small volume, incomplete evidence, hard to reason about.
+
+After excluding the 38 silent trials, we have 334 trials with trace evidence. Figures 3 and 4 are computed over these.
+
+![Executable failure modes](figures/tb2-taxonomy-fig-3.svg)
+
+*Figure 3: Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (`premature_complete` + `error_unaddressed`) fires 434+ times across multi-label trials.*
+
+![Failure step distribution](figures/tb2-taxonomy-fig-4.svg)
+
+*Figure 4: Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.*
 
 | Failure mode           | Detector                 | Computed signal                                       |
 | ---------------------- | ------------------------ | ----------------------------------------------------- |
@@ -56,19 +102,34 @@ This is the part that grounds everything downstream, so it comes first. I ran a 
 | Context pressure       | `context_pressure`     | `prompt_tokens` ≥ 25K/step or total ≥100K         |
 | Malformed JSON         | `json_parse_warning`   | JSON parse errors in observation or message           |
 
-![Executable failure modes](figures/tb2-taxonomy-fig-3.svg)
+Each L2 detector is a rule-based function too, deterministic (regex, counters, thresholds over the trace). We don't use an LLM judge here.
 
-*Figure 3: Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (`premature_complete` + `error_unaddressed`) fires 434+ times across multi-label trials.*
+```
+# L2: verifier_fail rows only
+for row in supabase.tb2_trials where l1 == "verifier_fail":
+    hit = first_hit(ordered_detectors, atif_trace(row))
+    #   each detector = regex/counter rules over the trace, no LLM
+    #   error_unaddressed, premature_complete, repeat_command_loop, ...
+    update row set l2_failure_class = hit.code,   # null -> silent
+                   evidence_step    = hit.step
+```
 
-![Failure step distribution](figures/tb2-taxonomy-fig-4.svg)
+### 2.3 Findings
 
-*Figure 4: Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.*
+Two findings drive the reward design. The agent mostly fails by submitting too early: the missing-reflection family (premature complete plus unaddressed errors) dominates Figure 3. And those failures land at steps 2–3, not at the turn cap (Figure 4), so the bottleneck is wasted early actions, not horizon length.
 
-Two findings drive the reward design. The agent mostly fails by submitting too early: the missing-reflection family (premature complete plus unaddressed errors) dominates Figure 3. And those failures land at steps 2–3, not at the turn cap (Figure 4), so the bottleneck is wasted early actions, not horizon length. §3.3 maps each of these to a concrete reward.
+The failure modes also decide what goes to SFT and what goes to RL:
+
+| Failure type | Modes | Fix |
+| --- | --- | --- |
+| Doesn't know the move | `missing_env` · `json_parse` | SFT cold start (§4.3) |
+| Knows the move, decides badly | `premature_complete` · `error_unaddressed` · loops | Reward penalties (§3.3) |
+
+The logic: demonstrations teach moves, rewards teach decisions. You can imitate how to install a dependency; you can't imitate when to stop. §3.3 gives every detector its disposition.
 
 ## 3. Environment creation
 
-I build every RL environment in the same order: what the agent sees, what it can do, and what it gets rewarded for. Get those three right and the training code mostly writes itself; get the reward wrong and no amount of training fixes it. The next three subsections are that decomposition for Terminal-Bench 2.
+An RL environment is three design decisions: what the agent sees (observation), what it can do (actions), and what it gets rewarded for. For Terminal-Bench 2, the first two mostly follow Harbor's terminus-2 setup; the real design work is in the reward, and that is where the failure taxonomy from §2 comes in.
 
 Mechanically, with TRL + Harbor each task episode runs in a sandbox and ends with a verifier reward. During training GRPO samples G rollouts per task and normalizes advantages within the group, so the reward only has to be right in a relative sense across rollouts of the same task, not calibrated on an absolute scale.
 
@@ -123,7 +184,11 @@ The mapping is deliberately boring, and that is the point: every reward term tra
 | Repeat loops / wasted bash             | `R_agency` tiebreaker among successes                                                                                                                                          | P1       |
 | Failures at steps 2–3, not turn cap   | No horizon bonus or per-step shaping (/TODO what does this mean?[genius-kanban.vercel.app/#project=afterquery-gptoss](https://genius-kanban.vercel.app/#project=afterquery-gptoss)) | P0       |
 | Silent trials (38)                     | `R_outcome` only                                                                                                                                                               | P0       |
-| `missing_env` / `context_pressure` | None (ablate)                                                                                                                                                                    | P2       |
+| `error_unaddressed`                    | No separate term; same family as premature complete, penalized at the submit step                                                                                              | P1       |
+| `missing_env` / `json_parse`           | No reward term; targeted by the SFT cold start (§4.3)                                                                                                                          | P2       |
+| `context_pressure`                     | No reward term; handled by env design, `MAX_TURNS` + truncated observations (§3.1)                                                                                             | P2       |
+
+With these rows, all 7 detectors have an explicit disposition: imitation (SFT), reward pressure (RL), environment design, or deliberately nothing. This is the proposed plan; the P1/P2 terms are implemented but not all ablated yet.
 
 `R_outcome`: `passed_tests / total_tests ∈ [0, 1]`. No LLM rubric.
 
@@ -139,13 +204,13 @@ P0: outcome + integrity (`λ = 0`, `lam_pc = 0`). P1: agency and premature-compl
 
 **Implemented in code (42 tests)**
 
-| Term                     | Module                        | Default mode               |
-| ------------------------ | ----------------------------- | -------------------------- |
-| R_outcome                | `r_outcome`                 | P0 on                      |
-| R_integrity              | `r_integrity`               | P0 on                      |
-| R_agency                 | `r_agency` + group tiebreak | P1 (`lam=0.1`)           |
-| premature_complete       | `r_premature_complete`      | P1 (`lam_pc=0.1`)        |
-| Other Figure 3 detectors | -                             | Not rewarded (design only) |
+| Term | What it does | Module | Default mode |
+| --- | --- | --- | --- |
+| R_outcome | `passed_tests / total_tests` from the CTRF report; dense partial credit so GRPO groups don't go all-zero when most rollouts fail | `r_outcome` | P0 on |
+| R_integrity | Voids the trajectory (total ≤ 0) on test tampering, hardcoded answers, or exfiltration; the anti-reward-hacking fuse | `r_integrity` | P0 on |
+| R_agency | Efficiency tiebreaker among rollouts that fully pass, ranked by turns + wasted commands; needs ≥2 successes in a group to fire | `r_agency` + group tiebreak | P1 (`lam=0.1`) |
+| premature_complete | Penalty for `mark_task_complete` while errors are still visible in the trace; the taxonomy's top failure | `r_premature_complete` | P1 (`lam_pc=0.1`) |
+| Other Figure 3 detectors | Routed to SFT (§4.3) or env design (§3.1), not to reward | - | Not rewarded (design only) |
 
 ## 4. Model selection and training plan
 
@@ -268,6 +333,16 @@ End-to-end validation would run Harbor trajectories with CTRF rewards on Nemotro
 
 Primary ablation: P0 (`R_outcome` + `R_integrity`) vs P1 (+ `R_agency` + `premature_complete`).
 
+## 5. Limitations and future steps
+
+The honest caveats, ranked by how much they worry me:
+
+1. **The detectors are gameable once they enter the reward.** During the taxonomy they are diagnostic tools with no adversary; inside the reward, the policy optimizes against them. `error_unaddressed` looks for fix-words in the next message, so the model can say "let me fix this" and do nothing; `premature_complete` looks for error text before submit, so the model can clear the screen before submitting. This is why `R_outcome` dominates and the mode penalties stay small (0.1): gaming a detector does not move the verifier score.
+2. **The taxonomy is a snapshot; the policy moves.** The 444 trials measured the baseline's failure distribution. After training the distribution shifts and the penalties can go stale. Next step is a living taxonomy: recompute the detector distribution on current rollouts every N steps, retire penalties whose modes disappear, add new ones the same way.
+3. **No causal evidence per reward term yet.** The run so far used `R_outcome` only (P0). Until the P0-vs-P1 ablation runs, "taxonomy terms beat plain partial credit" is a hypothesis, not a finding.
+4. **The detectors themselves are unvalidated.** No human labels, so I do not know each detector's precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead of grepping for error text).
+5. **How TB2-shaped is this?** The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether "reflect before submitting" generalizes or is just TB2-shaped caution.
+
 ## References
 
 1. Dhruv Atreja. 2026. Pathfinder: Self-Improving Agent Trace Analysis via Adversarial Self-Play and Code Execution. *ACM Conference on AI and Agentic Systems*, 1336–1339. [doi:10.1145/3786335.3813199](https://doi.org/10.1145/3786335.3813199)
@@ -279,6 +354,10 @@ Primary ablation: P0 (`R_outcome` + `R_integrity`) vs P1 (+ `R_agency` + `premat
 ## Appendix
 
 ### A. Failure taxonomy × TB2 detectability
+
+**L1: Classification.** L1 answers "what happened to this trial": the tests passed, the tests ran and failed, the agent ran out of time, or the infra broke before the agent got a fair shot. It is a pure if/else over two fields of Harbor's `result.json` (verifier reward + exception type), no LLM.
+
+**L2: Diagnose.** L2 answers "why did the agent fail the tests": for each verifier-fail trial, a set of small rules (regex, counters, thresholds) scan the trace and name the failure mode, each hit pinned to a specific step with the evidence attached.
 
 Optional mapping from Atreja et al. [1] to terminus-2 + Harbor ATIF.
 
