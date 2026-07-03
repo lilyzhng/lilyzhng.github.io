@@ -80,7 +80,7 @@ For only the verifier-fail trials, we run executable detectors over the agent tr
 
 - This bucket has 84% of the L1 outcomes, with complete traces and clean failure semantics, which makes it the highest-ROI bucket to tackle first.
 - 334 of the 372 get a trace-visible diagnosis; the other 38 are silent (the verifier failed but no detector fired), so these are skipped.
-- Timeouts are deprioritized: very small volume, incomplete evidence, hard to reason about.
+- Timeouts are deprioritized at the baseline: 10% of trials against 84% verifier_fail. This routing choice follows the failure distribution, so it has to be re-derived after every training stage; it is a measurement, not a fixed rule.
 
 After excluding the 38 silent trials, we have 334 trials with trace evidence. Figures 3 and 4 are computed over these.
 
@@ -342,6 +342,7 @@ The honest caveats, ranked by how much they worry me:
 3. **No causal evidence per reward term yet.** The run so far used `R_outcome` only (P0). Until the P0-vs-P1 ablation runs, "taxonomy terms beat plain partial credit" is a hypothesis, not a finding.
 4. **The detectors themselves are unvalidated.** No human labels, so I do not know each detector's precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead of grepping for error text).
 5. **How TB2-shaped is this?** The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether "reflect before submitting" generalizes or is just TB2-shaped caution.
+6. **This is environment design without the data lens.** The failure taxonomy is the model lens: what the agent does wrong. The data side is missing: a distribution profile of the SFT set against the 89 eval tasks, a difficulty profile of the RL task pool (per-task reward mean and variance), and a data viewer to inspect both. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested. The two-lens version, data lens plus model lens, is the next iteration.
 
 ![Taxonomy v2 design](figures/tb2-taxonomy-v2-design.svg)
 
