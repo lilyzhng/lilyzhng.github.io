@@ -178,7 +178,7 @@ for result_json in jobs/&lt;shard&gt;/*/result.json:
 <ul>
   <li>This bucket has 84% of the L1 outcomes, with complete traces and clean failure semantics, which makes it the highest-ROI bucket to tackle first.</li>
   <li>334 of the 372 get a trace-visible diagnosis; the other 38 are silent (the verifier failed but no detector fired), so these are skipped.</li>
-  <li>Timeouts are deprioritized: very small volume, incomplete evidence, hard to reason about.</li>
+  <li>Timeouts are deprioritized at the baseline: 10% of trials against 84% verifier_fail. This routing choice follows the failure distribution, so it has to be re-derived after every training stage; it is a measurement, not a fixed rule.</li>
 </ul>
 
 <p>After excluding the 38 silent trials, we have 334 trials with trace evidence. Figures 3 and 4 are computed over these.</p>
@@ -845,6 +845,7 @@ std(R_{1..G}) &gt; 0  for at least one task group
   <li><strong>No causal evidence per reward term yet.</strong> The run so far used <code class="language-plaintext highlighter-rouge">R_outcome</code> only (P0). Until the P0-vs-P1 ablation runs, “taxonomy terms beat plain partial credit” is a hypothesis, not a finding.</li>
   <li><strong>The detectors themselves are unvalidated.</strong> No human labels, so I do not know each detector’s precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead of grepping for error text).</li>
   <li><strong>How TB2-shaped is this?</strong> The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether “reflect before submitting” generalizes or is just TB2-shaped caution.</li>
+  <li><strong>This is environment design without the data lens.</strong> The failure taxonomy is the model lens: what the agent does wrong. The data side is missing: a distribution profile of the SFT set against the 89 eval tasks, a difficulty profile of the RL task pool (per-task reward mean and variance), and a data viewer to inspect both. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested. The two-lens version, data lens plus model lens, is the next iteration.</li>
 </ol>
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="Taxonomy v2 design" /></p>
