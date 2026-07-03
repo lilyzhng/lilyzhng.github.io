@@ -48,7 +48,7 @@ The taxonomy has two layers: L1 classifies what happened, L2 diagnoses why. This
 
 ### 2.1 L1 classification
 
-We categorize each agent trial into four categories (`pass` 21 · `verifier_fail` 372 · `agent_timeout` 46 · infra 5, of 444 trials), so that we don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.
+We categorize each agent trial into four categories (`pass` 21 · `verifier_fail` 372 · `agent_timeout` 46 · infra 5, of 444 trials), so that we don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed (a baseline shortcut; in the next iteration passes also run through L2, as the control group for the failure modes).
 
 ![Harbor L1 outcomes](figures/tb2-taxonomy-fig-1.svg)
 
@@ -106,6 +106,7 @@ Each L2 detector is a rule-based function too, deterministic (regex, counters, t
 
 ```
 # L2: verifier_fail rows only
+# (routing chosen from the baseline distribution; re-derive per stage)
 for row in supabase.tb2_trials where l1 == "verifier_fail":
     hit = first_hit(ordered_detectors, atif_trace(row))
     #   each detector = regex/counter rules over the trace, no LLM
