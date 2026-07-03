@@ -401,7 +401,9 @@
       <p>
         We categorize each agent trial into four categories (<code>pass</code> 21 ·
         <code>verifier_fail</code> 372 · <code>agent_timeout</code> 46 · infra 5, of 444 trials), so that we
-        don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.
+        don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed
+        (a baseline shortcut; in the next iteration passes also run through L2, as the control group for the
+        failure modes).
       </p>
 
       <div class="fig-row fig-row--l1-funnel">
@@ -476,6 +478,7 @@ for result_json in jobs/&lt;shard&gt;/*/result.json:
       <p>Each L2 detector is a rule-based function too, deterministic (regex, counters, thresholds over the trace).
         We don't use an LLM judge here.</p>
       <pre><code># L2: verifier_fail rows only
+# (routing chosen from the baseline distribution; re-derive per stage)
 for row in supabase.tb2_trials where l1 == "verifier_fail":
     hit = first_hit(ordered_detectors, atif_trace(row))
     #   each detector = regex/counter rules over the trace, no LLM
