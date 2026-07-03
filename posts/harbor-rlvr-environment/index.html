@@ -548,38 +548,38 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
       <h3>2.4 Data lens: preparing the SFT and RL data</h3>
       <p>
         §2.3 decided which failure modes go to SFT and which go to RL. The data lens is the other half of that
-        decision: what data actually teaches them. The test set comes with its own structure: every TB2 task ships
-        <code>category</code> and <code>difficulty</code> in <code>task.toml</code>. Across the 89 tasks:
-        software-engineering 26 · system-administration 9 · scientific-computing 8 · security 8 · data-science 8 ·
-        debugging 5 · file-operations 5 · model-training 4 · mathematics 4 · data-processing 4 · machine-learning 3
-        · six singletons. Difficulty: medium 55 · hard 30 · easy 4. This distribution is the anchor; the training
-        data and any dev subset get compared against it.
+        decision: what data actually teaches them. Every TB2 task ships <code>category</code> and
+        <code>difficulty</code> in <code>task.toml</code>: 89 tasks across 16 categories, dominated by
+        software-engineering (26 tasks), with difficulty medium 55 · hard 30 · easy 4. That distribution is something we need to be aware of.
       </p>
       <p>
-        The SFT source is NVIDIA's <a href="https://huggingface.co/datasets/nvidia/Nemotron-Terminal-Corpus" target="_blank" rel="noopener">Nemotron-Terminal-Corpus</a>: 500 terminus-2 trajectories subsampled from a
-        ~140k-row pool, so there is plenty of room to select rather than just sample. The selection should be
-        made against that anchor, not just cleaned: same agent format (terminus-2), a
-        category mix matched to the eval distribution above, mode-targeted upweighting (dependency-install
-        recoveries for <code>missing_env</code>, clean tool calls for <code>json_parse</code>), and a turn/token
-        budget aligned with <code>MAX_TURNS</code> so imitation does not teach verbosity. Three analyses make this
-        checkable, all computable from existing artifacts, no GPU:
+        My chosen SFT data is NVIDIA's <a href="https://huggingface.co/datasets/nvidia/Nemotron-Terminal-Corpus" target="_blank" rel="noopener">Nemotron-Terminal-Corpus</a>: terminus-2 trajectories subsampled from a
+        ~140k-row pool. Balanced data selection is made against TB2: same agent format, explicit category balance, and a turn/token budget aligned
+        with <code>MAX_TURNS</code> so imitation does not teach verbosity.
       </p>
-      <div class="table-wrap">
-        <div class="table-caption">Table 3: The three data-lens analyses</div>
-        <table>
-          <thead><tr><th>Analysis</th><th>Question it answers</th><th>Data it needs</th></tr></thead>
-          <tbody>
-            <tr><td>D1 · SFT set profile</td><td>Does the training distribution match the eval distribution? Category, difficulty, turns, tokens of the 500 trajectories vs the 89 tasks</td><td>SFT dataset + task.toml metadata</td></tr>
-            <tr><td>D2 · task pool difficulty</td><td>Which tasks can GRPO learn from? Per-task reward mean and variance; keep <code>reward_std &gt; 0</code></td><td>Probe rollouts</td></tr>
-            <tr><td>D3 · proxy representativeness</td><td>Can a small dev subset stand in for the full test set? Category and difficulty coverage</td><td>Task metadata</td></tr>
-          </tbody>
-        </table>
+      <p>
+        The corpus's own mix is fairly even:
+        an equal share of every category. 2,000 rows, 11 categories, about 200 each. Rows come out in category
+        round-robin order, so any prefix of the file is balanced too; the first 500 are the cold-start set.
+      </p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; margin: 2rem 0;">
+        <figure style="margin: 0;">
+          <img src="figures/tb2-data-fig-corpus-vs-sample.svg" alt="Nemotron corpus category distribution (6 to 14 percent per category) next to the balanced sample (10.1 percent per category)" style="width: 100%; height: auto;" />
+          <figcaption>Figure 7: Source corpus vs the first-round sample: each of the 11 categories gets an equal share.</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <img src="figures/tb2-data-fig-sample-vs-eval.svg" alt="SFT sample category shares vs the 89-task eval anchor; six anchor categories are marked not in corpus" style="width: 100%; height: auto;" />
+          <figcaption>Figure 8: The same sample vs the eval anchor. Six eval categories do not exist in the corpus at all; model-training survives the quality gates with only 3 rows.</figcaption>
+        </figure>
       </div>
       <p>
-        Two rules come with the lens. Every training row carries provenance (source, domain, score), so a blind
-        slice of a sorted file cannot hide. And the distribution profile is a pre-flight gate: it gets reviewed
-        before a training run launches, not after one fails. The delivery artifact is a data viewer over both sets:
-        filterable rows with provenance columns, plus train-vs-eval distribution diffs.
+        Why equal shares instead of copying the eval mix? At n=89 the anchor's percentages are noise: 29%
+        software-engineering is 26 tasks. And SFT cold start teaches format and terminal habits, which transfer
+        across categories; what it needs is coverage and variety, not ratio matching. We can adjust the data sampling based on the first iteration of the eval result.
+      </p>
+      <p>
+        Both datasets are browsable row by row, with provenance on every row, in the
+        <a href="data-viewer.html">data viewer</a>.
       </p>
       </section>
     </section>
@@ -608,7 +608,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <pre><code>[ system prompt | instruction.md | (assistant_turn, env_feedback)_1 … (assistant_turn, env_feedback)_{t-1} ]</code></pre>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 4: Observation space</div>
+          <div class="table-caption">Table 3: Observation space</div>
           <table>
             <thead><tr><th>Component</th><th>Content</th></tr></thead>
             <tbody>
@@ -630,7 +630,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <h3>3.2 Action space</h3>
         <p>At each step, the policy emits one terminus-2 message. The meaningful action is what happens in the sandbox.</p>
         <div class="table-wrap">
-          <div class="table-caption">Table 5: Action space</div>
+          <div class="table-caption">Table 4: Action space</div>
           <table>
             <thead><tr><th>Dimension</th><th>Definition</th></tr></thead>
             <tbody>
@@ -659,7 +659,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         </p>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 6: Failure → reward mapping</div>
+          <div class="table-caption">Table 5: Failure → reward mapping</div>
           <table>
             <thead><tr><th>Failure</th><th>Reward</th><th>Priority</th></tr></thead>
             <tbody>
@@ -690,7 +690,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <p>P0: outcome + integrity (<code>λ = 0</code>, <code>lam_pc = 0</code>). P1: agency and premature-complete penalty.</p>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 7: Implemented in code (42 tests)</div>
+          <div class="table-caption">Table 6: Implemented in code (42 tests)</div>
           <table>
             <thead><tr><th>Term</th><th>What it does</th><th>Module</th><th>Default mode</th></tr></thead>
             <tbody>
@@ -735,7 +735,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <pre><code>Â_i = (R_i − mean(R_{1..G})) / (std(R_{1..G}) + ε)</code></pre>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 8: Why GRPO fits this environment</div>
+          <div class="table-caption">Table 7: Why GRPO fits this environment</div>
           <table>
             <thead><tr><th>Property</th><th>Fit</th></tr></thead>
             <tbody>
@@ -748,7 +748,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         </div>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 9: Training stack</div>
+          <div class="table-caption">Table 8: Training stack</div>
           <table>
             <thead><tr><th>Stage</th><th>Role</th><th>Planned</th></tr></thead>
             <tbody>
@@ -763,7 +763,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
       <section id="data">
         <h3>4.3 Data splits and curriculum</h3>
         <div class="table-wrap">
-          <div class="table-caption">Table 10: Data splits</div>
+          <div class="table-caption">Table 9: Data splits</div>
           <table>
             <thead><tr><th>Split</th><th>Source</th><th>Size</th><th>Use</th></tr></thead>
             <tbody>
@@ -786,7 +786,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <p>Single-node LoRA on gpt-oss-20b (16GB-class MoE with mxfp4). Anchored to the AfterQuery blog band.</p>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 11: LoRA SFT + GRPO configuration</div>
+          <div class="table-caption">Table 10: LoRA SFT + GRPO configuration</div>
           <table>
             <thead><tr><th>Parameter</th><th>SFT</th><th>GRPO rollouts</th><th>GRPO update</th></tr></thead>
             <tbody>
@@ -823,7 +823,7 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
       <section id="metrics">
         <h3>4.5 Metrics</h3>
         <div class="table-wrap">
-          <div class="table-caption">Table 12: Metrics</div>
+          <div class="table-caption">Table 11: Metrics</div>
           <table>
             <thead><tr><th>Phase</th><th>Metric</th><th>Purpose</th></tr></thead>
             <tbody>
