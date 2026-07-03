@@ -17,7 +17,7 @@
   <rect x="0" y="0" width="960" height="560" fill="#1e2a1c"/>
 
   <!-- rollouts -->
-  <rect x="370" y="36" width="220" height="36" rx="7" fill="#d1cfc5"/>
+  <rect x="370" y="36" width="220" height="36" rx="7" fill="#ECEAE2"/>
   <text class="t" x="480" y="59" text-anchor="middle" style="fill:#1e2a1c">Harbor rollouts</text>
   <line class="edge" x1="480" y1="72" x2="480" y2="94"/>
   <line class="edge" x1="135" y1="94" x2="795" y2="94"/>
@@ -40,13 +40,13 @@
   <text class="t" x="555" y="145" style="fill:#1e2a1c" text-anchor="middle">timeout</text>
   <text class="s" x="555" y="161" style="fill:rgba(30,42,28,0.8)" text-anchor="middle">unfinished · deferred</text>
 
-  <rect x="670" y="126" width="250" height="44" rx="7" fill="#a8a69c"/>
+  <rect x="670" y="126" width="250" height="44" rx="7" fill="#D9D7CE"/>
   <text class="t" x="795" y="145" text-anchor="middle" style="fill:#1e2a1c">infra · unscored</text>
   <text class="s" x="795" y="161" text-anchor="middle" style="fill:rgba(30,42,28,0.8)">external · not attributable</text>
 
   <!-- quarantine -->
   <line class="edge" x1="795" y1="170" x2="795" y2="196" marker-end="url(#tx11-arr)"/>
-  <rect x="670" y="200" width="250" height="42" rx="7" fill="#a8a69c"/>
+  <rect x="670" y="200" width="250" height="42" rx="7" fill="#D9D7CE"/>
   <text class="t" x="795" y="218" text-anchor="middle" style="fill:#1e2a1c">quarantine</text>
   <text class="s" x="795" y="234" text-anchor="middle" style="fill:rgba(30,42,28,0.8)">count &amp; report · don't chase</text>
 
@@ -58,7 +58,7 @@
 
   <!-- L2 -->
   <text class="eyebrow" x="40" y="256">L2 · FINE DIAGNOSIS</text>
-  <rect x="40" y="268" width="610" height="52" rx="7" fill="rgba(237,243,238,0.18)" stroke="#8cc07a" stroke-width="1.6"/>
+  <rect x="40" y="268" width="610" height="52" rx="7" fill="rgba(237,243,238,0.32)" stroke="#8cc07a" stroke-width="1.6"/>
   <text class="t" x="345" y="290" text-anchor="middle">executable detectors over every trace</text>
   <text class="s" x="345" y="308" text-anchor="middle">multi-label · N/A ≠ 0 · $0</text>
 
@@ -66,7 +66,7 @@
   <line class="edge" x1="200" y1="320" x2="200" y2="348" marker-end="url(#tx11-arr)"/>
   <line class="edge" x1="500" y1="320" x2="500" y2="348" marker-end="url(#tx11-arr)"/>
 
-  <rect x="40" y="352" width="320" height="60" rx="7" fill="rgba(237,243,238,0.18)" stroke="#8cc07a" stroke-width="1.2"/>
+  <rect x="40" y="352" width="320" height="60" rx="7" fill="rgba(237,243,238,0.32)" stroke="#8cc07a" stroke-width="1.2"/>
   <text class="t" x="200" y="376" text-anchor="middle">diagnosed · a detector fired</text>
   <text class="s" x="200" y="394" text-anchor="middle">lethal modes → reward · rest → env / data</text>
 
@@ -78,7 +78,7 @@
   <line class="edge" x1="525" y1="412" x2="525" y2="440" marker-end="url(#tx11-arr)"/>
   <rect class="box" x="290" y="444" width="470" height="78" rx="7"/>
   <text class="t" x="525" y="466" text-anchor="middle">improvement queue</text>
-  <rect x="308" y="480" width="196" height="26" rx="6" fill="rgba(237,243,238,0.18)" stroke="#8cc07a"/>
+  <rect x="308" y="480" width="196" height="26" rx="6" fill="rgba(237,243,238,0.32)" stroke="#8cc07a"/>
   <text class="chip-t" x="406" y="497" text-anchor="middle">A · new detector → L2</text>
   <rect x="520" y="480" width="222" height="26" rx="6" fill="rgba(244,244,240,0.12)" stroke="rgba(255,255,255,0.5)" stroke-dasharray="4 3"/>
   <text class="chip-t" x="631" y="497" text-anchor="middle">B · new quarantine rule → L1</text>
