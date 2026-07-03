@@ -106,7 +106,7 @@
 
 <p>Without looking at the data and the failure modes, the reward designs are not well grounded. I ran a verifiable failure taxonomy on <code class="language-plaintext highlighter-rouge">gpt-oss-20b</code> before writing reward terms, then designed the RLVR environment.</p>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-teaser-v7.svg" alt="Method pipeline teaser" /></p>
+<p><img src="/posts/harbor-rlvr-environment/figures/tb2-teaser-v8.svg" alt="Method pipeline teaser" /></p>
 
 <p><em>The pipeline: classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.</em></p>
 
@@ -146,7 +146,7 @@
 
 <h3 id="21-l1-classification">2.1 L1 classification</h3>
 
-<p>We categorize each agent trial into four categories (<code class="language-plaintext highlighter-rouge">pass</code> 48 · <code class="language-plaintext highlighter-rouge">verifier_fail</code> 372 · <code class="language-plaintext highlighter-rouge">agent_timeout</code> 22 · infra 2, of 444 trials), so that we don’t count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.</p>
+<p>We categorize each agent trial into four categories (<code class="language-plaintext highlighter-rouge">pass</code> 21 · <code class="language-plaintext highlighter-rouge">verifier_fail</code> 372 · <code class="language-plaintext highlighter-rouge">agent_timeout</code> 46 · infra 5, of 444 trials), so that we don’t count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.</p>
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" /></p>
 
