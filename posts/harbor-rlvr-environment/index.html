@@ -782,9 +782,9 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
           failure distribution. After training the distribution shifts and the penalties can go stale. Next step is
           a living taxonomy: recompute the detector distribution on current rollouts every N steps, retire penalties
           whose modes disappear, add new ones the same way.</li>
-        <li><strong>No causal evidence per reward term yet.</strong> The run so far used <code>R_outcome</code> only
-          (P0). Until the P0-vs-P1 ablation runs, "taxonomy terms beat plain partial credit" is a hypothesis, not a
-          finding.</li>
+        <li><strong>No causal evidence per reward term yet.</strong> The P1 terms are implemented and unit-tested
+          but unproven; the first experiment this design calls for is the P0-vs-P1 ablation. Until it runs,
+          "taxonomy terms beat plain partial credit" is a hypothesis, not a finding.</li>
         <li><strong>The detectors themselves are unvalidated.</strong> No human labels, so I do not know each
           detector's precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per
           detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead
