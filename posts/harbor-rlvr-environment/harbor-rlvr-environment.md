@@ -115,6 +115,10 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
                    evidence_step    = hit.step
 ```
 
+![The taxonomy as a system](figures/tb2-taxonomy-v2-design.svg)
+
+*The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can't be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.*
+
 ### 2.3 Findings
 
 Two findings drive the reward design. The agent mostly fails by submitting too early: the missing-reflection family (premature complete plus unaddressed errors) dominates Figure 3. And those failures land at steps 2–3, not at the turn cap (Figure 4), so the bottleneck is wasted early actions, not horizon length.
@@ -344,10 +348,6 @@ The honest caveats, ranked by how much they worry me:
 4. **The detectors themselves are unvalidated.** No human labels, so I do not know each detector's precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead of grepping for error text).
 5. **How TB2-shaped is this?** The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether "reflect before submitting" generalizes or is just TB2-shaped caution.
 6. **This is environment design without the data lens.** The failure taxonomy is the model lens: what the agent does wrong. The data side is missing: a distribution profile of the SFT set against the 89 eval tasks, a difficulty profile of the RL task pool (per-task reward mean and variance), and a data viewer to inspect both. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested. The two-lens version, data lens plus model lens, is the next iteration.
-
-![Taxonomy v2 design](figures/tb2-taxonomy-v2-design.svg)
-
-*The taxonomy v2 design these limitations point to. L1 does coarse attribution (who is responsible) and quarantines what can't be attributed; L2 runs every detector on every attributable trace, pass included (passes are the control group for lethality checks). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.*
 
 ## References
 
