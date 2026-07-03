@@ -368,7 +368,7 @@
     </p>
 
     <figure style="margin: 2.5rem 0 3rem;">
-      <img src="figures/tb2-teaser-v7.svg" alt="444 trials classified at L1, the 372 verifier failures diagnosed at L2 by 7 detectors, then split into SFT for knowledge gaps and reward terms plus GRPO for decision failures" width="960" style="width: 100%; height: auto;" />
+      <img src="figures/tb2-teaser-v8.svg" alt="444 trials classified at L1, the 372 verifier failures diagnosed at L2 by 7 detectors, then split into SFT for knowledge gaps and reward terms plus GRPO for decision failures" width="960" style="width: 100%; height: auto;" />
       <figcaption>The pipeline: classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.</figcaption>
     </figure>
 
@@ -399,8 +399,8 @@
       <section id="taxonomy-layers">
       <h3>2.1 L1 classification</h3>
       <p>
-        We categorize each agent trial into four categories (<code>pass</code> 48 ·
-        <code>verifier_fail</code> 372 · <code>agent_timeout</code> 22 · infra 2, of 444 trials), so that we
+        We categorize each agent trial into four categories (<code>pass</code> 21 ·
+        <code>verifier_fail</code> 372 · <code>agent_timeout</code> 46 · infra 5, of 444 trials), so that we
         don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.
       </p>
 

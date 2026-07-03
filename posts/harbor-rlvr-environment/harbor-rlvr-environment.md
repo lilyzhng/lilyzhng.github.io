@@ -10,7 +10,7 @@ Designing an RLVR Environment from a Failure Taxonomy (Terminal-Bench 2)
 
 Without looking at the data and the failure modes, the reward designs are not well grounded. I ran a verifiable failure taxonomy on `gpt-oss-20b` before writing reward terms, then designed the RLVR environment.
 
-![Method pipeline teaser](figures/tb2-teaser-v7.svg)
+![Method pipeline teaser](figures/tb2-teaser-v8.svg)
 
 *The pipeline: classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.*
 
@@ -48,7 +48,7 @@ The taxonomy has two layers: L1 classifies what happened, L2 diagnoses why. This
 
 ### 2.1 L1 classification
 
-We categorize each agent trial into four categories (`pass` 48 · `verifier_fail` 372 · `agent_timeout` 22 · infra 2, of 444 trials), so that we don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.
+We categorize each agent trial into four categories (`pass` 21 · `verifier_fail` 372 · `agent_timeout` 46 · infra 5, of 444 trials), so that we don't count infra crashes as agent behavior, and we can bypass the tasks the agent already passed.
 
 ![Harbor L1 outcomes](figures/tb2-taxonomy-fig-1.svg)
 
