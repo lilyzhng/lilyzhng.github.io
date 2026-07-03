@@ -108,7 +108,7 @@
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-teaser-v8.svg" alt="Method pipeline teaser" /></p>
 
-<p><em>The pipeline: classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.</em></p>
+<p><em>Figure 1: The pipeline. Classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.</em></p>
 
 <p>/TODO: add data distribution analysis, 2 lens: one len from data, one len from model</p>
 
@@ -144,17 +144,21 @@
 
 <p>The taxonomy has two layers: L1 classifies what happened, L2 diagnoses why. This is my own implementation based on the paper; the original Pathfinder code is not open-sourced.</p>
 
+<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system" /></p>
+
+<p><em>Figure 2: The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can’t be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</em></p>
+
 <h3 id="21-l1-classification">2.1 L1 classification</h3>
 
 <p>We categorize each agent trial into four categories (<code class="language-plaintext highlighter-rouge">pass</code> 21 · <code class="language-plaintext highlighter-rouge">verifier_fail</code> 372 · <code class="language-plaintext highlighter-rouge">agent_timeout</code> 46 · infra 5, of 444 trials), so that we don’t count infra crashes as agent behavior, and we can bypass the tasks the agent already passed (a baseline shortcut; in the next iteration passes also run through L2, as the control group for the failure modes).</p>
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" /></p>
 
-<p><em>Figure 1: Harbor L1 outcomes. Mostly <code class="language-plaintext highlighter-rouge">verifier_fail</code> (~84%), not timeout. The learning problem is <strong>how</strong> the agent fails the verifier.</em></p>
+<p><em>Figure 3: Harbor L1 outcomes. Mostly <code class="language-plaintext highlighter-rouge">verifier_fail</code> (~84%), not timeout. The learning problem is <strong>how</strong> the agent fails the verifier.</em></p>
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-2.svg" alt="Analysis funnel" /></p>
 
-<p><em>Figure 2: Analysis funnel. 38 silent trials: verifier failed but no ATIF signal for a mode penalty. Design rule: only penalize computed trace evidence.</em></p>
+<p><em>Figure 4: Analysis funnel. 38 silent trials: verifier failed but no ATIF signal for a mode penalty. Design rule: only penalize computed trace evidence.</em></p>
 
 <p>L1 is a rule-based function over two fields of Harbor’s <code class="language-plaintext highlighter-rouge">result.json</code>, deterministic. We don’t use an LLM judge here.</p>
 
@@ -181,15 +185,15 @@ for result_json in jobs/&lt;shard&gt;/*/result.json:
   <li>Timeouts are deprioritized at the baseline because there is only a very small amount of it (10% of trials, vs 84% verifier_fail). But this routing choice should follow the failure distribution: you will have to re-derive it after each training stage, because the failure taxonomy can change given the model weight change.</li>
 </ul>
 
-<p>After excluding the 38 silent trials, we have 334 trials with trace evidence. Figures 3 and 4 are computed over these.</p>
+<p>After excluding the 38 silent trials, we have 334 trials with trace evidence. Figures 5 and 6 are computed over these.</p>
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-3.svg" alt="Executable failure modes" /></p>
 
-<p><em>Figure 3: Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (<code class="language-plaintext highlighter-rouge">premature_complete</code> + <code class="language-plaintext highlighter-rouge">error_unaddressed</code>) fires 434+ times across multi-label trials.</em></p>
+<p><em>Figure 5: Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (<code class="language-plaintext highlighter-rouge">premature_complete</code> + <code class="language-plaintext highlighter-rouge">error_unaddressed</code>) fires 434+ times across multi-label trials.</em></p>
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-4.svg" alt="Failure step distribution" /></p>
 
-<p><em>Figure 4: Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.</em></p>
+<p><em>Figure 6: Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.</em></p>
 
 <table>
   <thead>
@@ -250,13 +254,9 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
                    evidence_step    = hit.step
 </code></pre></div></div>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system" /></p>
-
-<p><em>The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can’t be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</em></p>
-
 <h3 id="23-findings">2.3 Findings</h3>
 
-<p>Two findings drive the reward design. The agent mostly fails by submitting too early: the missing-reflection family (premature complete plus unaddressed errors) dominates Figure 3. And those failures land at steps 2–3, not at the turn cap (Figure 4), so the bottleneck is wasted early actions, not horizon length.</p>
+<p>Two findings drive the reward design. The agent mostly fails by submitting too early: the missing-reflection family (premature complete plus unaddressed errors) dominates Figure 5. And those failures land at steps 2–3, not at the turn cap (Figure 6), so the bottleneck is wasted early actions, not horizon length.</p>
 
 <p>The failure modes also decide what goes to SFT and what goes to RL:</p>
 
@@ -363,7 +363,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
   </tbody>
 </table>
 
-<p>Horizon is capped at 6 in training since first failures cluster at steps 2–3 (Figure 4); eval keeps 20 for long-horizon recovery, a deliberate train/eval gap.</p>
+<p>Horizon is capped at 6 in training since first failures cluster at steps 2–3 (Figure 6); eval keeps 20 for long-horizon recovery, a deliberate train/eval gap.</p>
 
 <blockquote>
   <p>/TODO: <strong>Analyze success-trajectory turn distribution before locking <code class="language-plaintext highlighter-rouge">MAX_TURNS</code>.</strong> The current cap of 6 is justified by the <em>failure</em> distribution (first failures at steps 2–3), but the <em>success</em> distribution was never measured. If successful trajectories need 8–10 turns, training at 6 truncates the very behavior we want to reward — the model never sees a complete long-horizon solution. There is also a risk that capping at 6 amplifies the dominant failure mode (early submission): the model learns to submit by turn 6 because it has never experienced turns 7+. Before finalizing the training config: (1) pull all successful trajectories from the probe rollouts and the 444-trial baseline, (2) plot turn count for successes vs. failures, (3) set <code class="language-plaintext highlighter-rouge">MAX_TURNS</code> to cover the 90th percentile of successful trajectories. If that percentile exceeds 6, raise the cap.</p>
@@ -375,7 +375,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
 
 <p>The mapping is deliberately boring, and that is the point: every reward term traces back to a row in the taxonomy, and anything the taxonomy did not show me, I do not reward. The dominant failure, most trials miss the verifier, calls for dense partial credit so the GRPO groups are not all zeros. The early-submit and loop failures get explicit penalties, but only on top of partial credit, not in place of it. The 38 silent trials get nothing extra, because I cannot see why they failed and I will not penalize what I cannot measure.</p>
 
-<p><strong>Failure → reward mapping</strong></p>
+<p><strong>Table 5: Failure → reward mapping</strong></p>
 
 <table>
   <thead>
@@ -447,7 +447,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
 
 <p>P0: outcome + integrity (<code class="language-plaintext highlighter-rouge">λ = 0</code>, <code class="language-plaintext highlighter-rouge">lam_pc = 0</code>). P1: agency and premature-complete penalty.</p>
 
-<p><strong>Implemented in code (42 tests)</strong></p>
+<p><strong>Table 6: Implemented in code (42 tests)</strong></p>
 
 <table>
   <thead>
@@ -484,7 +484,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
       <td>P1 (<code class="language-plaintext highlighter-rouge">lam_pc=0.1</code>)</td>
     </tr>
     <tr>
-      <td>Other Figure 3 detectors</td>
+      <td>Other Figure 5 detectors</td>
       <td>Routed to SFT (§4.3) or env design (§3.1), not to reward</td>
       <td>-</td>
       <td>Not rewarded (design only)</td>
@@ -502,7 +502,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
 
 <p>Aligns with the Terminal-Bench 2 blog stack: Harbor + terminus-2 + gpt-oss-20b + verifiable rewards + GRPO. The baseline is verifier-dominated (~84% <code class="language-plaintext highlighter-rouge">verifier_fail</code>), not timeout-limited; dense partial credit produces non-degenerate GRPO groups instead of all-zero advantages.</p>
 
-<p><code class="language-plaintext highlighter-rouge">gpt-oss-120b</code> is the natural teacher for a later on-policy distillation (OPD) stretch: dense per-token signal when rollouts end at zero verifier reward or truncate early (Figure 2 silent bucket, Figure 4 early-step cluster).</p>
+<p><code class="language-plaintext highlighter-rouge">gpt-oss-120b</code> is the natural teacher for a later on-policy distillation (OPD) stretch: dense per-token signal when rollouts end at zero verifier reward or truncate early (Figure 4 silent bucket, Figure 6 early-step cluster).</p>
 
 <h3 id="42-rl-algorithm">4.2 RL algorithm</h3>
 
@@ -840,7 +840,40 @@ std(R_{1..G}) &gt; 0  for at least one task group
 
 <p>Primary ablation: P0 (<code class="language-plaintext highlighter-rouge">R_outcome</code> + <code class="language-plaintext highlighter-rouge">R_integrity</code>) vs P1 (+ <code class="language-plaintext highlighter-rouge">R_agency</code> + <code class="language-plaintext highlighter-rouge">premature_complete</code>).</p>
 
-<h2 id="5-limitations-and-future-steps">5. Limitations and future steps</h2>
+<h2 id="5-data-lens-test-and-training-set-analysis">5. Data lens: test and training set analysis</h2>
+
+<p>The failure taxonomy is the model lens: what the agent does wrong. The other half is the data lens: what we train on, what we evaluate on, and whether the two match. Three analyses cover it, all computable from existing artifacts, no GPU:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Analysis</th>
+      <th>Question it answers</th>
+      <th>Data it needs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>D1 · SFT set profile</td>
+      <td>Does the training distribution match the eval distribution? Category, level, turns, tokens of the 500 trajectories vs the 89 tasks</td>
+      <td>SFT dataset + task index</td>
+    </tr>
+    <tr>
+      <td>D2 · task pool difficulty</td>
+      <td>Which tasks can GRPO learn from? Per-task reward mean and variance; keep <code class="language-plaintext highlighter-rouge">reward_std &gt; 0</code></td>
+      <td>Probe rollouts</td>
+    </tr>
+    <tr>
+      <td>D3 · proxy representativeness</td>
+      <td>Can a small dev subset stand in for the full test set? Category and difficulty coverage</td>
+      <td>Task metadata</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two rules come with the lens. Every training row carries provenance (source, domain, score), so a blind slice of a sorted file cannot hide. And the distribution profile is a pre-flight gate: it gets reviewed before a training run launches, not after one fails. The delivery artifact is a data viewer over both sets: filterable rows with provenance columns, plus train-vs-eval distribution diffs.</p>
+
+<h2 id="6-limitations-and-future-steps">6. Limitations and future steps</h2>
 
 <p>The honest caveats, ranked by how much they worry me:</p>
 
@@ -850,7 +883,7 @@ std(R_{1..G}) &gt; 0  for at least one task group
   <li><strong>No causal evidence per reward term yet.</strong> The P1 terms are implemented and unit-tested but unproven; the first experiment this design calls for is the P0-vs-P1 ablation. Until it runs, “taxonomy terms beat plain partial credit” is a hypothesis, not a finding.</li>
   <li><strong>The detectors themselves are unvalidated.</strong> No human labels, so I do not know each detector’s precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead of grepping for error text).</li>
   <li><strong>How TB2-shaped is this?</strong> The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether “reflect before submitting” generalizes or is just TB2-shaped caution.</li>
-  <li><strong>This is environment design without the data lens.</strong> The failure taxonomy is the model lens: what the agent does wrong. The data side is missing: a distribution profile of the SFT set against the 89 eval tasks, a difficulty profile of the RL task pool (per-task reward mean and variance), and a data viewer to inspect both. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested. The two-lens version, data lens plus model lens, is the next iteration.</li>
+  <li><strong>The data lens is specced, not run.</strong> §5 defines the three analyses; until they run, the training set is trusted on hygiene alone. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested.</li>
 </ol>
 
 <h2 id="references">References</h2>
