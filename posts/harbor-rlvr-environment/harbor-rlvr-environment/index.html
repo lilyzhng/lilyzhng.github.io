@@ -847,6 +847,10 @@ std(R_{1..G}) &gt; 0  for at least one task group
   <li><strong>How TB2-shaped is this?</strong> The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether “reflect before submitting” generalizes or is just TB2-shaped caution.</li>
 </ol>
 
+<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="Taxonomy v2 design" /></p>
+
+<p><em>The taxonomy v2 design these limitations point to. L1 does coarse attribution (who is responsible) and quarantines what can’t be attributed; L2 runs every detector on every attributable trace, pass included (passes are the control group for lethality checks). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</em></p>
+
 <h2 id="references">References</h2>
 
 <ol>
