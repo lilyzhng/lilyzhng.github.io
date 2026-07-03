@@ -556,7 +556,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         data and any dev subset get compared against it.
       </p>
       <p>
-        The SFT source is NVIDIA's Nemotron-Terminal-Corpus: 500 terminus-2 trajectories subsampled from a
+        The SFT source is NVIDIA's <a href="https://huggingface.co/datasets/nvidia/Nemotron-Terminal-Corpus" target="_blank" rel="noopener">Nemotron-Terminal-Corpus</a>: 500 terminus-2 trajectories subsampled from a
         ~140k-row pool, so there is plenty of room to select rather than just sample. The selection should be
         made against that anchor, not just cleaned: same agent format (terminus-2), a
         category mix matched to the eval distribution above, mode-targeted upweighting (dependency-install
