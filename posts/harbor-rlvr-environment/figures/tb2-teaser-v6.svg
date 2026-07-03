@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 312" width="100%" role="img" aria-label="444 trials classified at L1, the 372 verifier failures diagnosed at L2 by 7 detectors, then split into SFT for knowledge gaps and reward terms plus GRPO for decision failures">
+  <defs>
+    <marker id="t6-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#87867F"/>
+    </marker>
+    <marker id="t6-arr-forest" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#2D5A3D"/>
+    </marker>
+  </defs>
+
+  <style>
+    .eyebrow { font: 700 11px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #17450C; letter-spacing: 0.12em; }
+    .lbl     { font: 500 11px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #6b6a63; }
+    .lbl-blue { font: 600 12px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #1e3a5c; }
+    .lbl-forest { font: 600 11px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #17450C; }
+    .chip-t  { font: 500 10px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #2a3a28; }
+    .box-t   { font: 600 12px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #2a3a28; }
+    .box-t-forest { font: 600 12.5px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #17450C; }
+    .chip    { fill: #FFFFFF; stroke: #D1CFC5; stroke-width: 1; }
+    .zoom    { stroke: #B9B7AD; stroke-width: 1; stroke-dasharray: 4 4; fill: none; }
+    .edge    { stroke: #87867F; stroke-width: 1.2; fill: none; }
+    .edge-forest { stroke: #2D5A3D; stroke-width: 1.6; fill: none; }
+  </style>
+
+  <!-- panel background: white card so the figure works on any page background -->
+  <rect x="0.5" y="0.5" width="959" height="311" rx="14" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1"/>
+
+  <!-- ===== L1: macro bar, 444 trials ===== -->
+  <text class="eyebrow" x="40" y="28">L1 CLASSIFICATION</text>
+
+  <rect x="40"    y="42" width="95.1"  height="34" fill="#2D5A3D"/>
+  <rect x="135.1" y="42" width="737.3" height="34" fill="#7ba7e3"/>
+  <rect x="872.4" y="42" width="43.6"  height="34" fill="#D1CFC5"/>
+  <rect x="916"   y="42" width="4"     height="34" fill="#A8A69C"/>
+
+  <text class="lbl-blue" x="503" y="64" text-anchor="middle">verifier_fail · 372</text>
+  <text class="lbl" x="40" y="94">pass 48</text>
+  <text class="lbl" x="920" y="94" text-anchor="end">timeout 22 · infra 2</text>
+
+  <!-- zoom leaders into the 372 -->
+  <line class="zoom" x1="135.1" y1="76" x2="40"  y2="142"/>
+  <line class="zoom" x1="872.4" y1="76" x2="920" y2="142"/>
+
+  <!-- ===== L2: micro bar, 372 verifier failures ===== -->
+  <text class="eyebrow" x="40" y="132">L2 DIAGNOSIS</text>
+
+  <rect x="40" y="142" width="790.2" height="38" fill="#EAF1FB" stroke="#7ba7e3" stroke-width="1"/>
+  <rect x="830.2" y="142" width="89.8" height="38" fill="none" stroke="#B9B7AD" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <rect class="chip" x="52"  y="151" width="116" height="20" rx="5"/>
+  <rect class="chip" x="177" y="151" width="122" height="20" rx="5"/>
+  <rect class="chip" x="308" y="151" width="80"  height="20" rx="5"/>
+  <rect class="chip" x="397" y="151" width="80"  height="20" rx="5"/>
+  <rect class="chip" x="486" y="151" width="80"  height="20" rx="5"/>
+  <rect class="chip" x="575" y="151" width="110" height="20" rx="5"/>
+  <rect class="chip" x="694" y="151" width="74"  height="20" rx="5"/>
+
+  <text class="chip-t" x="110" y="165" text-anchor="middle">error_unaddressed</text>
+  <text class="chip-t" x="238" y="165" text-anchor="middle">premature_complete</text>
+  <text class="chip-t" x="348" y="165" text-anchor="middle">repeat_loop</text>
+  <text class="chip-t" x="437" y="165" text-anchor="middle">wasted_cmds</text>
+  <text class="chip-t" x="526" y="165" text-anchor="middle">missing_env</text>
+  <text class="chip-t" x="630" y="165" text-anchor="middle">context_pressure</text>
+  <text class="chip-t" x="731" y="165" text-anchor="middle">json_parse</text>
+
+  <text class="lbl-blue" x="44" y="194" style="font-size: 11px;">diagnosed 334</text>
+  <text class="lbl" x="875" y="166" text-anchor="middle">silent 38</text>
+
+  <!-- ===== Train: split by failure type ===== -->
+  <text class="eyebrow" x="40" y="226">TRAIN</text>
+
+  <text class="lbl" x="422" y="255" text-anchor="end">missing_env · json_parse</text>
+  <line class="edge" x1="430" y1="251" x2="452" y2="251" marker-end="url(#t6-arr)"/>
+  <rect x="460" y="236" width="150" height="30" rx="7" fill="#FFFFFF" stroke="#87867F" stroke-width="1"/>
+  <text class="box-t" x="535" y="255" text-anchor="middle">SFT cold start</text>
+
+  <text class="lbl-forest" x="422" y="301" text-anchor="end">premature_complete · error_unaddressed · loops</text>
+  <line class="edge-forest" x1="430" y1="297" x2="452" y2="297" marker-end="url(#t6-arr-forest)"/>
+  <rect x="460" y="282" width="150" height="30" rx="7" fill="#EDF3EE" stroke="#2D5A3D" stroke-width="1.6"/>
+  <text class="box-t-forest" x="535" y="301" text-anchor="middle">reward terms</text>
+
+  <path class="edge" d="M 610 251 C 672 251, 700 256, 768 262" marker-end="url(#t6-arr)"/>
+  <path class="edge-forest" d="M 610 297 C 672 297, 700 276, 768 270" marker-end="url(#t6-arr-forest)"/>
+
+  <rect x="776" y="248" width="144" height="36" rx="7" fill="#2D5A3D"/>
+  <text x="848" y="270" text-anchor="middle" style="font: 700 13px 'Fragment Mono', ui-monospace, Menlo, monospace; fill: #FFFFFF;">GRPO</text>
+</svg>
