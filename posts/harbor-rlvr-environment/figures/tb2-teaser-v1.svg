@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" width="100%" role="img" aria-label="Method pipeline: rollouts to L1 classify to L2 diagnose to reward terms to GRPO training">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="rgba(0,0,0,0.45)"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#3f6f37"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title { font: 600 14.5px Inter, system-ui, -apple-system, sans-serif; fill: rgba(0,0,0,0.86); }
+    .sub   { font: 400 11px "Fragment Mono", ui-monospace, Menlo, monospace; fill: rgba(0,0,0,0.55); }
+    .ref   { font: 400 10.5px "Fragment Mono", ui-monospace, Menlo, monospace; fill: rgba(0,0,0,0.38); }
+    .bridge{ font: 500 11.5px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #3f6f37; }
+    .box   { fill: #fffffb; stroke: rgba(0,0,0,0.22); stroke-width: 1; }
+    .box-accent { fill: #fffffb; stroke: #3f6f37; stroke-width: 1.6; }
+    .edge  { stroke: rgba(0,0,0,0.45); stroke-width: 1.3; fill: none; }
+    .edge-green { stroke: #3f6f37; stroke-width: 1.8; fill: none; }
+  </style>
+
+  <!-- boxes -->
+  <rect class="box" x="8"   y="48" width="168" height="84" rx="8"/>
+  <rect class="box" x="214" y="48" width="168" height="84" rx="8"/>
+  <rect class="box" x="420" y="48" width="168" height="84" rx="8"/>
+  <rect class="box-accent" x="626" y="48" width="168" height="84" rx="8"/>
+  <rect class="box" x="832" y="48" width="168" height="84" rx="8"/>
+
+  <!-- box 1: rollouts -->
+  <text class="title" x="92" y="78" text-anchor="middle">444 rollouts</text>
+  <text class="sub" x="92" y="99" text-anchor="middle">Harbor · terminus-2</text>
+  <text class="sub" x="92" y="116" text-anchor="middle">gpt-oss-20b baseline</text>
+
+  <!-- box 2: L1 -->
+  <text class="title" x="298" y="78" text-anchor="middle">L1 classify</text>
+  <text class="sub" x="298" y="99" text-anchor="middle">rule-based, no LLM</text>
+  <text class="sub" x="298" y="116" text-anchor="middle">verifier_fail: 372</text>
+
+  <!-- box 3: L2 -->
+  <text class="title" x="504" y="78" text-anchor="middle">L2 diagnose</text>
+  <text class="sub" x="504" y="99" text-anchor="middle">7 executable detectors</text>
+  <text class="sub" x="504" y="116" text-anchor="middle">334 diagnosed · 38 silent</text>
+
+  <!-- box 4: rewards (the contribution) -->
+  <text class="title" x="710" y="78" text-anchor="middle">Reward terms</text>
+  <text class="sub" x="710" y="99" text-anchor="middle">R_outcome + penalties</text>
+  <text class="sub" x="710" y="116" text-anchor="middle">from trace evidence</text>
+
+  <!-- box 5: GRPO -->
+  <text class="title" x="916" y="78" text-anchor="middle">GRPO training</text>
+  <text class="sub" x="916" y="99" text-anchor="middle">group-relative RL</text>
+  <text class="sub" x="916" y="116" text-anchor="middle">TRL + Harbor on Modal</text>
+
+  <!-- arrows -->
+  <line class="edge" x1="180" y1="90" x2="206" y2="90" marker-end="url(#arr)"/>
+  <line class="edge" x1="386" y1="90" x2="412" y2="90" marker-end="url(#arr)"/>
+  <line class="edge-green" x1="592" y1="90" x2="618" y2="90" marker-end="url(#arr-green)"/>
+  <line class="edge" x1="798" y1="90" x2="824" y2="90" marker-end="url(#arr)"/>
+
+  <!-- the claim -->
+  <text class="bridge" x="605" y="36" text-anchor="middle">detections become rewards</text>
+
+  <!-- section refs -->
+  <text class="ref" x="92"  y="158" text-anchor="middle">§2</text>
+  <text class="ref" x="298" y="158" text-anchor="middle">§2.1</text>
+  <text class="ref" x="504" y="158" text-anchor="middle">§2.2</text>
+  <text class="ref" x="710" y="158" text-anchor="middle">§3.3</text>
+  <text class="ref" x="916" y="158" text-anchor="middle">§4</text>
+</svg>
