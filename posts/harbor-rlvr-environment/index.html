@@ -485,6 +485,11 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
     #   error_unaddressed, premature_complete, repeat_command_loop, ...
     update row set l2_failure_class = hit.code,   # null -> silent
                    evidence_step    = hit.step</code></pre>
+
+      <figure>
+        <img src="figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system: rollouts fan out to L1 coarse attribution, infra goes to quarantine, the rest goes to L2 fine diagnosis, and silent trials feed an improvement queue whose exits grow L2 (new detector) or L1 (new quarantine rule)" width="960" style="width: 100%; height: auto;" />
+        <figcaption>The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can't be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</figcaption>
+      </figure>
       </section>
 
       <section id="taxonomy-findings">
@@ -805,10 +810,6 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
           failure-driven curation is untested. The two-lens version, data lens plus model lens, is the next
           iteration.</li>
       </ol>
-      <figure>
-        <img src="figures/tb2-taxonomy-v2-design.svg" alt="Taxonomy v2 design: rollouts fan out to L1 coarse attribution, infra goes to quarantine, the rest goes to L2 fine diagnosis, and silent trials feed an improvement queue whose exits grow L2 (new detector) or L1 (new quarantine rule)" width="960" style="width: 100%; height: auto;" />
-        <figcaption>The taxonomy v2 design these limitations point to. L1 does coarse attribution (who is responsible) and quarantines what can't be attributed; L2 runs every detector on every attributable trace, pass included (passes are the control group for lethality checks). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</figcaption>
-      </figure>
     </section>
 
     
