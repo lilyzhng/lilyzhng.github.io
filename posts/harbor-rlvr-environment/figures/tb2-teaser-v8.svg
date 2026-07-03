@@ -84,5 +84,5 @@
   <path class="edge-green" d="M 610 303 C 672 303, 700 282, 768 276" marker-end="url(#t8-arr-green)"/>
 
   <rect x="776" y="254" width="144" height="36" rx="7" fill="#8cc07a"/>
-  <text x="848" y="276" text-anchor="middle" style="font: 700 13px 'Fragment Mono', ui-monospace, Menlo, monospace; fill: #1e2a1c;">GRPO</text>
+  <text x="848" y="276" text-anchor="middle" style="font: 700 13px 'Fragment Mono', ui-monospace, Menlo, monospace; fill: #1e2a1c;">RL: GRPO</text>
 </svg>

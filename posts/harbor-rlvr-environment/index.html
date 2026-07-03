@@ -355,7 +355,7 @@
       <li class="sub"><a href="#data">4.3 Data &amp; curriculum</a></li>
       <li class="sub"><a href="#hyperparams">4.4 Hyperparameters</a></li>
       <li class="sub"><a href="#metrics">4.5 Metrics</a></li>
-      <li><a href="#limitations">5. Limitations</a></li>
+      <li><a href="#limitations">5. Closing &amp; future steps</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#appendix">Appendix</a></li>
       <li class="sub"><a href="#appendix-a">A. Detectability</a></li>
@@ -372,8 +372,16 @@
     </div>
 
     <p class="lede">
-      Without looking at the data and the failure modes, the reward designs are not well grounded. I ran a verifiable failure taxonomy on <code>gpt-oss-20b</code>, then designed
-      the RLVR environment. This failure taxonomy-driven method is something I would carry to any RL environment design.
+      Reward design has to be grounded in the data and the failure modes. Ungrounded rewards fail quietly: you
+      penalize failures the model does not actually have, you miss the one that kills most trials, and on a hard
+      benchmark a bare pass/fail reward leaves GRPO groups all-zero, so nothing trains. The problems you never
+      measured never get solved.
+    </p>
+    <p class="lede">
+      So I measured first: a verifiable failure taxonomy on <code>gpt-oss-20b</code>, 444 trials, every failure
+      classified and diagnosed, and only then designed the RLVR environment. Every reward term traces back to a
+      measured failure mode. This failure taxonomy-driven method is something I would carry to any RL environment
+      design.
     </p>
 
     <figure style="margin: 2.5rem 0 3rem;">
@@ -408,6 +416,11 @@
         <img src="figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system: rollouts fan out to L1 coarse attribution, infra goes to quarantine, the rest goes to L2 fine diagnosis, and silent trials feed an improvement queue whose exits grow L2 (new detector) or L1 (new quarantine rule)" width="960" style="width: 100%; height: auto;" />
         <figcaption>Figure 2: The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can't be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</figcaption>
       </figure>
+      <p>
+        The taxonomy runs once per policy, not once per project. This post shows the first run, on the base model.
+        The plan is to run it again on the SFT model before designing the RL reward: each training stage changes
+        how the model fails, so each stage's reward consumes a fresh measurement.
+      </p>
 
       <section id="taxonomy-layers">
       <h3>2.1 L1 classification</h3>
@@ -543,7 +556,9 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         data and any dev subset get compared against it.
       </p>
       <p>
-        The SFT set should be selected against that anchor, not just cleaned: same agent format (terminus-2), a
+        The SFT source is NVIDIA's Nemotron-Terminal-Corpus: 500 terminus-2 trajectories subsampled from a
+        ~140k-row pool, so there is plenty of room to select rather than just sample. The selection should be
+        made against that anchor, not just cleaned: same agent format (terminus-2), a
         category mix matched to the eval distribution above, mode-targeted upweighting (dependency-install
         recoveries for <code>missing_env</code>, clean tool calls for <code>json_parse</code>), and a turn/token
         budget aligned with <code>MAX_TURNS</code> so imitation does not teach verbosity. Three analyses make this
@@ -835,34 +850,27 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
     
 
     <section id="limitations">
-      <h2>5. Limitations and future steps</h2>
-      <p>The honest caveats, ranked by how much they worry me:</p>
+      <h2>5. Closing &amp; future steps</h2>
+      <p>
+        The bet at the top of this post was: the problems you never measured never get solved. This design is
+        that bet applied end to end. Nothing gets penalized, trained on, or capped without a verifiable measurement behind it,
+        and the measurement itself reruns on the SFT model before the RL reward is locked.
+      </p>
+      <p>What I would fix next:</p>
       <ol>
-        <li><strong>The detectors are gameable once they enter the reward.</strong> During the taxonomy they are
-          diagnostic tools with no adversary; inside the reward, the policy optimizes against them.
-          <code>error_unaddressed</code> looks for fix-words in the next message, so the model can say "let me fix
-          this" and do nothing; <code>premature_complete</code> looks for error text before submit, so the model can
-          clear the screen before submitting. This is why <code>R_outcome</code> dominates and the mode penalties
-          stay small (0.1): gaming a detector does not move the verifier score.</li>
-        <li><strong>The taxonomy is a snapshot; the policy moves.</strong> The 444 trials measured the baseline's
-          failure distribution. After training the distribution shifts and the penalties can go stale. Next step is
-          a living taxonomy: recompute the detector distribution on current rollouts every N steps, retire penalties
-          whose modes disappear, add new ones the same way.</li>
-        <li><strong>No causal evidence per reward term yet.</strong> The P1 terms are implemented and unit-tested
-          but unproven; the first experiment this design calls for is the P0-vs-P1 ablation. Until it runs,
-          "taxonomy terms beat plain partial credit" is a hypothesis, not a finding.</li>
-        <li><strong>The detectors themselves are unvalidated.</strong> No human labels, so I do not know each
-          detector's precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per
-          detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead
-          of grepping for error text).</li>
-        <li><strong>How TB2-shaped is this?</strong> The artifact, fully: the detectors read ATIF spans and
-          terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured
-          traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The
-          open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see
-          whether "reflect before submitting" generalizes or is just TB2-shaped caution.</li>
-        <li><strong>The data lens is specced, not run.</strong> §2.4 defines the three analyses; until they run, the
-          training set is trusted on hygiene alone. The SFT set was hygiene-filtered and stratified-random, not
-          failure-curated; failure-driven curation is untested.</li>
+        <li><strong>Reward hacking.</strong> The taxonomy itself is an analysis tool: I
+          decide how the reward gets shaped, so the environment guides the agent to learn properly. But once a rule
+          is part of the reward, it runs automatically on every rollout, and rollouts that happen to dodge its text
+          pattern (clear the error text before submitting, say "let me fix this" and do nothing) score higher and
+          get reinforced. That is why the outcome reward dominates and the penalties stay small: hacking a rule
+          never moves the test score.</li>
+        <li><strong>No human verification yet.</strong> No human labels, so I am not sure how often each detector
+          fires wrongly, and a bad detector brings noise into the reward. Two things to do: hand-label some data,
+          and build a validation approach that can check a detector's results quickly. Where possible, a detector should rerun the failing test instead of matching error text:
+          execution is harder to fool.</li>
+        <li><strong>Generalization.</strong> The detectors are TB2-specific; the method is not. It needs a
+          deterministic verifier and full traces, nothing else, and the same two-layer taxonomy can run on
+          τ²-bench retail with a different detector pack.</li>
       </ol>
     </section>
 

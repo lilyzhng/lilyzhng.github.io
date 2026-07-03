@@ -104,7 +104,9 @@
 
 <hr />
 
-<p>Without looking at the data and the failure modes, the reward designs are not well grounded. I ran a verifiable failure taxonomy on <code class="language-plaintext highlighter-rouge">gpt-oss-20b</code> before writing reward terms, then designed the RLVR environment.</p>
+<p>Reward design has to be grounded in the data and the failure modes. Ungrounded rewards fail quietly: you penalize failures the model does not actually have, you miss the one that kills most trials, and on a hard benchmark a bare pass/fail reward leaves GRPO groups all-zero, so nothing trains. The problems you never measured never get solved.</p>
+
+<p>So I measured first: a verifiable failure taxonomy on <code class="language-plaintext highlighter-rouge">gpt-oss-20b</code>, 444 trials, every failure classified and diagnosed, and only then designed the RLVR environment. Every reward term traces back to a measured failure mode.</p>
 
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-teaser-v8.svg" alt="Method pipeline teaser" /></p>
 
@@ -147,6 +149,8 @@
 <p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system" /></p>
 
 <p><em>Figure 2: The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can’t be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</em></p>
+
+<p>The taxonomy runs once per policy, not once per project. This post shows the first run, on the base model. The plan is to run it again on the SFT model before designing the RL reward: each training stage changes how the model fails, so each stage’s reward consumes a fresh measurement.</p>
 
 <h3 id="21-l1-classification">2.1 L1 classification</h3>
 
@@ -242,7 +246,7 @@ The logic: demonstrations teach moves, rewards teach decisions. You can imitate 
 
 §2.3 decided which failure modes go to SFT and which go to RL. The data lens is the other half of that decision: what data actually teaches them. The test set comes with its own structure: every TB2 task ships `category` and `difficulty` in `task.toml`. Across the 89 tasks: software-engineering 26 · system-administration 9 · scientific-computing 8 · security 8 · data-science 8 · debugging 5 · file-operations 5 · model-training 4 · mathematics 4 · data-processing 4 · machine-learning 3 · six singletons. Difficulty: medium 55 · hard 30 · easy 4. This distribution is the anchor; the training data and any dev subset get compared against it.
 
-The SFT set should be selected against that anchor, not just cleaned: same agent format (terminus-2), a category mix matched to the eval distribution above, mode-targeted upweighting (dependency-install recoveries for `missing_env`, clean tool calls for `json_parse`), and a turn/token budget aligned with `MAX_TURNS` so imitation does not teach verbosity. Three analyses make this checkable, all computable from existing artifacts, no GPU:
+The SFT source is NVIDIA's Nemotron-Terminal-Corpus: 500 terminus-2 trajectories subsampled from a ~140k-row pool, so there is plenty of room to select rather than just sample. The selection should be made against that anchor, not just cleaned: same agent format (terminus-2), a category mix matched to the eval distribution above, mode-targeted upweighting (dependency-install recoveries for `missing_env`, clean tool calls for `json_parse`), and a turn/token budget aligned with `MAX_TURNS` so imitation does not teach verbosity. Three analyses make this checkable, all computable from existing artifacts, no GPU:
 
 **Table 3: The three data-lens analyses**
 
@@ -460,16 +464,15 @@ End-to-end validation would run Harbor trajectories with CTRF rewards on Nemotro
 
 Primary ablation: P0 (`R_outcome` + `R_integrity`) vs P1 (+ `R_agency` + `premature_complete`).
 
-## 5. Limitations and future steps
+## 5. Closing &amp; future steps
 
-The honest caveats, ranked by how much they worry me:
+The bet at the top of this post was: the problems you never measured never get solved. This design is that bet applied end to end. Nothing gets penalized, trained on, or capped without a verifiable measurement behind it, and the measurement itself reruns on the SFT model before the RL reward is locked.
 
-1. **The detectors are gameable once they enter the reward.** During the taxonomy they are diagnostic tools with no adversary; inside the reward, the policy optimizes against them. `error_unaddressed` looks for fix-words in the next message, so the model can say "let me fix this" and do nothing; `premature_complete` looks for error text before submit, so the model can clear the screen before submitting. This is why `R_outcome` dominates and the mode penalties stay small (0.1): gaming a detector does not move the verifier score.
-2. **The taxonomy is a snapshot; the policy moves.** The 444 trials measured the baseline's failure distribution. After training the distribution shifts and the penalties can go stale. Next step is a living taxonomy: recompute the detector distribution on current rollouts every N steps, retire penalties whose modes disappear, add new ones the same way.
-3. **No causal evidence per reward term yet.** The P1 terms are implemented and unit-tested but unproven; the first experiment this design calls for is the P0-vs-P1 ablation. Until it runs, "taxonomy terms beat plain partial credit" is a hypothesis, not a finding.
-4. **The detectors themselves are unvalidated.** No human labels, so I do not know each detector's precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead of grepping for error text).
-5. **How TB2-shaped is this?** The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether "reflect before submitting" generalizes or is just TB2-shaped caution.
-6. **The data lens is specced, not run.** §2.4 defines the three analyses; until they run, the training set is trusted on hygiene alone. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested.
+What I would fix next:
+
+1. **Reward hacking.** The taxonomy itself is an analysis tool: I decide how the reward gets shaped, so the environment guides the agent to learn properly. But once a rule is part of the reward, it runs automatically on every rollout, and rollouts that happen to dodge its text pattern (clear the error text before submitting, say "let me fix this" and do nothing) score higher and get reinforced. That is why the outcome reward dominates and the penalties stay small: hacking a rule never moves the test score.
+2. **No human verification yet.** No human labels, so I am not sure how often each detector fires wrongly, and a bad detector brings noise into the reward. Two things to do: hand-label some data, and build a validation approach that can check a detector's results quickly. Where possible, a detector should rerun the failing test instead of matching error text: execution is harder to fool.
+3. **Generalization.** The detectors are TB2-specific; the method is not. It needs a deterministic verifier and full traces, nothing else, and the same two-layer taxonomy can run on τ²-bench retail with a different detector pack.
 
 ## References
 
