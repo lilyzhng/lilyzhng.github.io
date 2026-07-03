@@ -344,6 +344,7 @@
       <li class="sub"><a href="#taxonomy-layers">2.1 L1 classification</a></li>
       <li class="sub"><a href="#taxonomy-modes">2.2 L2 diagnosis</a></li>
       <li class="sub"><a href="#taxonomy-findings">2.3 Findings</a></li>
+      <li class="sub"><a href="#data-lens">2.4 Data lens</a></li>
       <li><a href="#environment">3. Environment</a></li>
       <li class="sub"><a href="#observation">3.1 Observation</a></li>
       <li class="sub"><a href="#action">3.2 Action</a></li>
@@ -354,8 +355,7 @@
       <li class="sub"><a href="#data">4.3 Data &amp; curriculum</a></li>
       <li class="sub"><a href="#hyperparams">4.4 Hyperparameters</a></li>
       <li class="sub"><a href="#metrics">4.5 Metrics</a></li>
-      <li><a href="#data-lens">5. Data lens</a></li>
-      <li><a href="#limitations">6. Limitations</a></li>
+      <li><a href="#limitations">5. Limitations</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#appendix">Appendix</a></li>
       <li class="sub"><a href="#appendix-a">A. Detectability</a></li>
@@ -530,6 +530,43 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         you can't imitate when to stop. §3.3 gives every detector its disposition.
       </p>
       </section>
+
+      <section id="data-lens">
+      <h3>2.4 Data lens: preparing the SFT and RL data</h3>
+      <p>
+        §2.3 decided which failure modes go to SFT and which go to RL. The data lens is the other half of that
+        decision: what data actually teaches them. The test set comes with its own structure: every TB2 task ships
+        <code>category</code> and <code>difficulty</code> in <code>task.toml</code>. Across the 89 tasks:
+        software-engineering 26 · system-administration 9 · scientific-computing 8 · security 8 · data-science 8 ·
+        debugging 5 · file-operations 5 · model-training 4 · mathematics 4 · data-processing 4 · machine-learning 3
+        · six singletons. Difficulty: medium 55 · hard 30 · easy 4. This distribution is the anchor; the training
+        data and any dev subset get compared against it.
+      </p>
+      <p>
+        The SFT set should be selected against that anchor, not just cleaned: same agent format (terminus-2), a
+        category mix matched to the eval distribution above, mode-targeted upweighting (dependency-install
+        recoveries for <code>missing_env</code>, clean tool calls for <code>json_parse</code>), and a turn/token
+        budget aligned with <code>MAX_TURNS</code> so imitation does not teach verbosity. Three analyses make this
+        checkable, all computable from existing artifacts, no GPU:
+      </p>
+      <div class="table-wrap">
+        <div class="table-caption">Table 3: The three data-lens analyses</div>
+        <table>
+          <thead><tr><th>Analysis</th><th>Question it answers</th><th>Data it needs</th></tr></thead>
+          <tbody>
+            <tr><td>D1 · SFT set profile</td><td>Does the training distribution match the eval distribution? Category, difficulty, turns, tokens of the 500 trajectories vs the 89 tasks</td><td>SFT dataset + task.toml metadata</td></tr>
+            <tr><td>D2 · task pool difficulty</td><td>Which tasks can GRPO learn from? Per-task reward mean and variance; keep <code>reward_std &gt; 0</code></td><td>Probe rollouts</td></tr>
+            <tr><td>D3 · proxy representativeness</td><td>Can a small dev subset stand in for the full test set? Category and difficulty coverage</td><td>Task metadata</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Two rules come with the lens. Every training row carries provenance (source, domain, score), so a blind
+        slice of a sorted file cannot hide. And the distribution profile is a pre-flight gate: it gets reviewed
+        before a training run launches, not after one fails. The delivery artifact is a data viewer over both sets:
+        filterable rows with provenance columns, plus train-vs-eval distribution diffs.
+      </p>
+      </section>
     </section>
 
     <section id="environment">
@@ -556,7 +593,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <pre><code>[ system prompt | instruction.md | (assistant_turn, env_feedback)_1 … (assistant_turn, env_feedback)_{t-1} ]</code></pre>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 3: Observation space</div>
+          <div class="table-caption">Table 4: Observation space</div>
           <table>
             <thead><tr><th>Component</th><th>Content</th></tr></thead>
             <tbody>
@@ -578,7 +615,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <h3>3.2 Action space</h3>
         <p>At each step, the policy emits one terminus-2 message. The meaningful action is what happens in the sandbox.</p>
         <div class="table-wrap">
-          <div class="table-caption">Table 4: Action space</div>
+          <div class="table-caption">Table 5: Action space</div>
           <table>
             <thead><tr><th>Dimension</th><th>Definition</th></tr></thead>
             <tbody>
@@ -607,7 +644,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         </p>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 5: Failure → reward mapping</div>
+          <div class="table-caption">Table 6: Failure → reward mapping</div>
           <table>
             <thead><tr><th>Failure</th><th>Reward</th><th>Priority</th></tr></thead>
             <tbody>
@@ -638,7 +675,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <p>P0: outcome + integrity (<code>λ = 0</code>, <code>lam_pc = 0</code>). P1: agency and premature-complete penalty.</p>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 6: Implemented in code (42 tests)</div>
+          <div class="table-caption">Table 7: Implemented in code (42 tests)</div>
           <table>
             <thead><tr><th>Term</th><th>What it does</th><th>Module</th><th>Default mode</th></tr></thead>
             <tbody>
@@ -683,7 +720,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <pre><code>Â_i = (R_i − mean(R_{1..G})) / (std(R_{1..G}) + ε)</code></pre>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 7: Why GRPO fits this environment</div>
+          <div class="table-caption">Table 8: Why GRPO fits this environment</div>
           <table>
             <thead><tr><th>Property</th><th>Fit</th></tr></thead>
             <tbody>
@@ -696,7 +733,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         </div>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 8: Training stack</div>
+          <div class="table-caption">Table 9: Training stack</div>
           <table>
             <thead><tr><th>Stage</th><th>Role</th><th>Planned</th></tr></thead>
             <tbody>
@@ -711,7 +748,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
       <section id="data">
         <h3>4.3 Data splits and curriculum</h3>
         <div class="table-wrap">
-          <div class="table-caption">Table 9: Data splits</div>
+          <div class="table-caption">Table 10: Data splits</div>
           <table>
             <thead><tr><th>Split</th><th>Source</th><th>Size</th><th>Use</th></tr></thead>
             <tbody>
@@ -734,7 +771,7 @@ for row in supabase.tb2_trials where l1 == "verifier_fail":
         <p>Single-node LoRA on gpt-oss-20b (16GB-class MoE with mxfp4). Anchored to the AfterQuery blog band.</p>
 
         <div class="table-wrap">
-          <div class="table-caption">Table 10: LoRA SFT + GRPO configuration</div>
+          <div class="table-caption">Table 11: LoRA SFT + GRPO configuration</div>
           <table>
             <thead><tr><th>Parameter</th><th>SFT</th><th>GRPO rollouts</th><th>GRPO update</th></tr></thead>
             <tbody>
@@ -771,7 +808,7 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
       <section id="metrics">
         <h3>4.5 Metrics</h3>
         <div class="table-wrap">
-          <div class="table-caption">Table 11: Metrics</div>
+          <div class="table-caption">Table 12: Metrics</div>
           <table>
             <thead><tr><th>Phase</th><th>Metric</th><th>Purpose</th></tr></thead>
             <tbody>
@@ -795,34 +832,10 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
       </section>
     </section>
 
-    <section id="data-lens">
-      <h2>5. Data lens: test and training set analysis</h2>
-      <p>
-        The failure taxonomy is the model lens: what the agent does wrong. The other half is the data lens: what we
-        train on, what we evaluate on, and whether the two match. Three analyses cover it, all computable from
-        existing artifacts, no GPU:
-      </p>
-      <div class="table-wrap">
-        <div class="table-caption">Table 12: The three data-lens analyses</div>
-        <table>
-          <thead><tr><th>Analysis</th><th>Question it answers</th><th>Data it needs</th></tr></thead>
-          <tbody>
-            <tr><td>D1 · SFT set profile</td><td>Does the training distribution match the eval distribution? Category, level, turns, tokens of the 500 trajectories vs the 89 tasks</td><td>SFT dataset + task index</td></tr>
-            <tr><td>D2 · task pool difficulty</td><td>Which tasks can GRPO learn from? Per-task reward mean and variance; keep <code>reward_std &gt; 0</code></td><td>Probe rollouts</td></tr>
-            <tr><td>D3 · proxy representativeness</td><td>Can a small dev subset stand in for the full test set? Category and difficulty coverage</td><td>Task metadata</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        Two rules come with the lens. Every training row carries provenance (source, domain, score), so a blind
-        slice of a sorted file cannot hide. And the distribution profile is a pre-flight gate: it gets reviewed
-        before a training run launches, not after one fails. The delivery artifact is a data viewer over both sets:
-        filterable rows with provenance columns, plus train-vs-eval distribution diffs.
-      </p>
-    </section>
+    
 
     <section id="limitations">
-      <h2>6. Limitations and future steps</h2>
+      <h2>5. Limitations and future steps</h2>
       <p>The honest caveats, ranked by how much they worry me:</p>
       <ol>
         <li><strong>The detectors are gameable once they enter the reward.</strong> During the taxonomy they are
@@ -847,7 +860,7 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
           traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The
           open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see
           whether "reflect before submitting" generalizes or is just TB2-shaped caution.</li>
-        <li><strong>The data lens is specced, not run.</strong> §5 defines the three analyses; until they run, the
+        <li><strong>The data lens is specced, not run.</strong> §2.4 defines the three analyses; until they run, the
           training set is trusted on hygiene alone. The SFT set was hygiene-filtered and stratified-random, not
           failure-curated; failure-driven curation is untested.</li>
       </ol>

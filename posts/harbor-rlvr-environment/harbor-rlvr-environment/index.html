@@ -238,6 +238,22 @@ The failure modes also decide what goes to SFT and what goes to RL:
 
 The logic: demonstrations teach moves, rewards teach decisions. You can imitate how to install a dependency; you can't imitate when to stop. §3.3 gives every detector its disposition.
 
+### 2.4 Data lens: preparing the SFT and RL data
+
+§2.3 decided which failure modes go to SFT and which go to RL. The data lens is the other half of that decision: what data actually teaches them. The test set comes with its own structure: every TB2 task ships `category` and `difficulty` in `task.toml`. Across the 89 tasks: software-engineering 26 · system-administration 9 · scientific-computing 8 · security 8 · data-science 8 · debugging 5 · file-operations 5 · model-training 4 · mathematics 4 · data-processing 4 · machine-learning 3 · six singletons. Difficulty: medium 55 · hard 30 · easy 4. This distribution is the anchor; the training data and any dev subset get compared against it.
+
+The SFT set should be selected against that anchor, not just cleaned: same agent format (terminus-2), a category mix matched to the eval distribution above, mode-targeted upweighting (dependency-install recoveries for `missing_env`, clean tool calls for `json_parse`), and a turn/token budget aligned with `MAX_TURNS` so imitation does not teach verbosity. Three analyses make this checkable, all computable from existing artifacts, no GPU:
+
+**Table 3: The three data-lens analyses**
+
+| Analysis | Question it answers | Data it needs |
+| --- | --- | --- |
+| D1 · SFT set profile | Does the training distribution match the eval distribution? Category, difficulty, turns, tokens of the 500 trajectories vs the 89 tasks | SFT dataset + task.toml metadata |
+| D2 · task pool difficulty | Which tasks can GRPO learn from? Per-task reward mean and variance; keep `reward_std &gt; 0` | Probe rollouts |
+| D3 · proxy representativeness | Can a small dev subset stand in for the full test set? Category and difficulty coverage | Task metadata |
+
+Two rules come with the lens. Every training row carries provenance (source, domain, score), so a blind slice of a sorted file cannot hide. And the distribution profile is a pre-flight gate: it gets reviewed before a training run launches, not after one fails. The delivery artifact is a data viewer over both sets: filterable rows with provenance columns, plus train-vs-eval distribution diffs.
+
 ## 3. Environment creation
 
 An RL environment is three design decisions: what the agent sees (observation), what it can do (actions), and what it gets rewarded for. For Terminal-Bench 2, the first two mostly follow Harbor's terminus-2 setup; the real design work is in the reward, and that is where the failure taxonomy from §2 comes in.
@@ -285,7 +301,7 @@ Horizon is capped at 6 in training since first failures cluster at steps 2–3 (
 
 The mapping is deliberately boring, and that is the point: every reward term traces back to a row in the taxonomy, and anything the taxonomy did not show me, I do not reward. The dominant failure, most trials miss the verifier, calls for dense partial credit so the GRPO groups are not all zeros. The early-submit and loop failures get explicit penalties, but only on top of partial credit, not in place of it. The 38 silent trials get nothing extra, because I cannot see why they failed and I will not penalize what I cannot measure.
 
-**Table 5: Failure → reward mapping**
+**Table 6: Failure → reward mapping**
 
 | Failure                                | Reward                                                                                                                                                                           | Priority |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -313,7 +329,7 @@ total_i = R_outcome_i + λ · agency_bonus_i − integrity_penalty_i − lam_pc 
 
 P0: outcome + integrity (`λ = 0`, `lam_pc = 0`). P1: agency and premature-complete penalty.
 
-**Table 6: Implemented in code (42 tests)**
+**Table 7: Implemented in code (42 tests)**
 
 | Term | What it does | Module | Default mode |
 | --- | --- | --- | --- |
@@ -444,19 +460,7 @@ End-to-end validation would run Harbor trajectories with CTRF rewards on Nemotro
 
 Primary ablation: P0 (`R_outcome` + `R_integrity`) vs P1 (+ `R_agency` + `premature_complete`).
 
-## 5. Data lens: test and training set analysis
-
-The failure taxonomy is the model lens: what the agent does wrong. The other half is the data lens: what we train on, what we evaluate on, and whether the two match. Three analyses cover it, all computable from existing artifacts, no GPU:
-
-| Analysis | Question it answers | Data it needs |
-| --- | --- | --- |
-| D1 · SFT set profile | Does the training distribution match the eval distribution? Category, level, turns, tokens of the 500 trajectories vs the 89 tasks | SFT dataset + task index |
-| D2 · task pool difficulty | Which tasks can GRPO learn from? Per-task reward mean and variance; keep `reward_std &gt; 0` | Probe rollouts |
-| D3 · proxy representativeness | Can a small dev subset stand in for the full test set? Category and difficulty coverage | Task metadata |
-
-Two rules come with the lens. Every training row carries provenance (source, domain, score), so a blind slice of a sorted file cannot hide. And the distribution profile is a pre-flight gate: it gets reviewed before a training run launches, not after one fails. The delivery artifact is a data viewer over both sets: filterable rows with provenance columns, plus train-vs-eval distribution diffs.
-
-## 6. Limitations and future steps
+## 5. Limitations and future steps
 
 The honest caveats, ranked by how much they worry me:
 
@@ -465,7 +469,7 @@ The honest caveats, ranked by how much they worry me:
 3. **No causal evidence per reward term yet.** The P1 terms are implemented and unit-tested but unproven; the first experiment this design calls for is the P0-vs-P1 ablation. Until it runs, "taxonomy terms beat plain partial credit" is a hypothesis, not a finding.
 4. **The detectors themselves are unvalidated.** No human labels, so I do not know each detector's precision; a noisy detector injects noise into the reward. Next: label ~50 fired trials per detector, report precision, and move regex signals toward execution-grounded ones (rerun the tests instead of grepping for error text).
 5. **How TB2-shaped is this?** The artifact, fully: the detectors read ATIF spans and terminus-2 actions. The method transfers wherever there is a deterministic verifier plus structured traces; the same two-layer taxonomy already runs on τ²-bench retail with a different detector pack. The open test is behavioral: train with these rewards on TB2, evaluate on another agent benchmark, and see whether "reflect before submitting" generalizes or is just TB2-shaped caution.
-6. **The data lens is specced, not run.** §5 defines the three analyses; until they run, the training set is trusted on hygiene alone. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested.
+6. **The data lens is specced, not run.** §2.4 defines the three analyses; until they run, the training set is trusted on hygiene alone. The SFT set was hygiene-filtered and stratified-random, not failure-curated; failure-driven curation is untested.
 
 ## References
 
