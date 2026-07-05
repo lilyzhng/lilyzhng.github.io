@@ -1,6 +1,6 @@
 # Reward Shaping via Failure Taxonomy
 
-Designing an RLVR Environment from a Failure Taxonomy (Terminal-Bench 2)
+What Can't Be Measured Can't Be Solved: RLVR Environment Design from a Failure Taxonomy
 
 **Lily Zhang** · Jun 10, 2026
 

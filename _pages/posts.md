@@ -33,7 +33,7 @@ permalink: /posts/
   </div>
 
   <div class="blog-entry">
-    <a href="/posts/harbor-rlvr-environment/" class="blog-title">Designing RLVR Environment for Terminal-Bench 2</a>
+    <a href="/posts/harbor-rlvr-environment/" class="blog-title">What Can't Be Measured Can't Be Solved: RLVR Environment Design from a Failure Taxonomy</a>
     <span class="blog-date">Jun 2026</span>
   </div>
 
