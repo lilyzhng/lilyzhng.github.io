@@ -34,7 +34,7 @@ permalink: /posts/
 
   <div class="blog-entry">
     <a href="https://x.com/lily_gpupoor/status/2072083403898507278" class="blog-title" target="_blank">Poster @ AI Engineer World's Fair: Is Speculative Decoding All We Need?</a>
-    <span class="blog-date">Jun 2026</span>
+    <span class="blog-date">Jul 2026</span>
   </div>
 
   <div class="blog-entry">
