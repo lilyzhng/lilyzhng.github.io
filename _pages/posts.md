@@ -33,6 +33,11 @@ permalink: /posts/
   </div>
 
   <div class="blog-entry">
+    <a href="https://x.com/lily_gpupoor/status/2072083403898507278" class="blog-title" target="_blank">Poster @ AI Engineer World's Fair: Is Speculative Decoding All We Need?</a>
+    <span class="blog-date">Jun 2026</span>
+  </div>
+
+  <div class="blog-entry">
     <a href="https://x.com/lily_gpupoor/status/2070401977251659794" class="blog-title" target="_blank">Build a Dense Reward for Your Writing</a>
     <span class="blog-date">Jun 2026</span>
   </div>
