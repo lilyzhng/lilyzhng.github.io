@@ -28,6 +28,11 @@ permalink: /posts/
 
 <div class="blog-list">
   <div class="blog-entry">
+    <a href="https://x.com/lily_gpupoor/status/2076114858203095503" class="blog-title" target="_blank">Second-Order Effects After Cursor and Cognition Cracked Post-Training</a>
+    <span class="blog-date">Jul 2026</span>
+  </div>
+
+  <div class="blog-entry">
     <a href="https://x.com/lily_gpupoor/status/2074728312161849627" class="blog-title" target="_blank">Reflection: Where Is the Market for Post-Training as a Service?</a>
     <span class="blog-date">Jul 2026</span>
   </div>
