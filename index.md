@@ -70,23 +70,30 @@ author_profile: true
 <div class="news-section">
 <div id="talks-videos" class="video-grid">
 <figure>
-  <figcaption>SuperGeneral: Compositional Tool Environments for Long-Horizon Agents<br><span class="venue-text"><a href="https://supergeneral.vercel.app/">[Project]</a> <a href="https://github.com/lilyzhng/OpenEnv">[Code]</a> RL Environments on Tool Use</span></figcaption>
+  <figcaption>Is Speculative Decoding All We Need?<br><span class="venue-text"><a href="https://x.com/lily_gpupoor/status/2072083403898507278">Poster</a> AI Engineer World's Fair 2026</span></figcaption>
+  <a href="https://x.com/lily_gpupoor/status/2072083403898507278" target="_blank" rel="noopener">
+    <img src="/assets/img/projects/aie_speculative.jpg" alt="Is Speculative Decoding All We Need? — AI Engineer World's Fair" class="talk-thumbnail">
+  </a>
+</figure>
+
+<figure>
+  <figcaption>Eureka: SFT + RL Post-trained AI-Infra Agent<br><span class="venue-text"><a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">Paper</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">Poster</a> NeurIPS 2025 VLM4RWD, DASFAA 2026</span></figcaption>
+  <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
+    <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
+  </a>
+</figure>
+
+<figure>
+  <figcaption>SuperGeneral: Compositional Tool Environments for Long-Horizon Agents<br><span class="venue-text"><a href="https://supergeneral.vercel.app/">Project</a> <a href="https://github.com/lilyzhng/OpenEnv">Code</a> RL Environments on Tool Use</span></figcaption>
   <a href="https://supergeneral.vercel.app/" target="_blank" rel="noopener">
     <img src="/assets/img/projects/supergeneral.png" alt="SuperGeneral" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
-  <figcaption>SofaGenius: Orchestrate Agentic Post-Training<br><span class="venue-text"><a href="https://github.com/lilyzhng/sofagenius">[Code]</a> Top 15/13k finalist in Anthropic Global Hackathon</span></figcaption>
+  <figcaption>SofaGenius: Orchestrate Agentic Post-Training<br><span class="venue-text"><a href="https://github.com/lilyzhng/sofagenius">Code</a> <a href="https://x.com/lily_gpupoor/status/2025068694280569338" target="_blank" rel="noopener">Video</a> Top 15/13k finalist in Anthropic Global Hackathon</span></figcaption>
   <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
     <img src="/assets/img/projects/sofagenius.png" alt="SofaGenius" class="talk-thumbnail">
-  </a>
-</figure>
-
-<figure>
-  <figcaption>Eureka: SFT + RL Post-trained AI-Infra Agent<br><span class="venue-text"><a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a> NeurIPS 2025 VLM4RWD, DASFAA 2026</span></figcaption>
-  <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
-    <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
   </a>
 </figure>
 
@@ -105,14 +112,14 @@ author_profile: true
 </figure>
 
 <figure>
-  <figcaption>General Chair for IROS 2025 RoboGen Workshop<br><span class="venue-text"><a href="https://robogen-iros.github.io">[Call for Papers]</a> IEEE IROS 2025 Conference</span></figcaption>
+  <figcaption>General Chair for IROS 2025 RoboGen Workshop<br><span class="venue-text"><a href="https://robogen-iros.github.io">Call for Papers</a> IEEE IROS 2025 Conference</span></figcaption>
   <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener" class="iros-link">
     <img src="/assets/img/invited_talks/2025_iros.png" alt="IROS Workshop" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure class="video-item">
-  <figcaption>From Lab to Road: Turning Self-Driving Research into Production Features<br><span class="venue-text"><a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D">[Article]</a> IROS 2023 Novel Sensor Workshop Keynote</span></figcaption>
+  <figcaption>From Lab to Road: Turning Self-Driving Research into Production Features<br><span class="venue-text"><a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D">Article</a> IROS 2023 Novel Sensor Workshop Keynote</span></figcaption>
   <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D" target="_blank" rel="noopener" class="talk-link">
     <img src="/assets/img/invited_talks/2023_iros.png" alt="IROS 2023 Keynote" class="talk-thumbnail">
   </a>
@@ -128,7 +135,7 @@ author_profile: true
   </a>
 </figure>
 
-<figure>
+<figure class="video-item hidden">
   <figcaption>Panel Chair for 2025 IEEE MOST Conference<br><span class="venue-text">IEEE MOST 2025 Conference</span></figcaption>
   <a href="https://ieeemobility.org/MOST2025/keynote.php" target="_blank" rel="noopener" class="most-link">
     <img src="/assets/img/invited_talks/2025_most.png" alt="2025 MOST" class="talk-thumbnail">
