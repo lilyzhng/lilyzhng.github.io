@@ -620,3 +620,19 @@ a:hover {
 .header-container .navigation-container .nav-link:after {
   background-color: var(--link-color) !important; /* Dark blue underline on hover */
 }
+
+/* ===== News grid redesign (2026-07): 3-per-row, uniform 16/9, image-first ===== */
+.video-grid { justify-content: flex-start; }
+@media (min-width: 600px) {
+  .video-grid figure { flex: 1 1 calc(33.333% - 1rem) !important; max-width: calc(33.333% - 1rem) !important; }
+}
+.video-grid figure:not(.hidden) {
+  display: flex !important; flex-direction: column !important;
+  justify-content: flex-start !important; align-items: center !important; text-align: center !important;
+}
+.video-grid figure.hidden, .video-grid .video-item.hidden { display: none !important; }
+.video-grid figcaption { order: 2 !important; margin-top: .55rem !important; font-size: .8rem !important; line-height: 1.4 !important; text-align: center !important; }
+.video-grid .venue-text { font-size: .68rem !important; }
+.video-grid figure > .talk-thumbnail { order: 1; width: 100% !important; height: auto !important; aspect-ratio: 16/9 !important; object-fit: cover !important; border-radius: 8px; }
+.video-grid figure > a { order: 1; position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16/9 !important; overflow: hidden !important; border-radius: 8px; }
+.video-grid figure > a > .talk-thumbnail { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; aspect-ratio: auto !important; object-fit: cover !important; }

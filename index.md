@@ -12,6 +12,7 @@ author_profile: true
   <div class="navigation-container">
     <a href="/" class="nav-link">Home</a>
     <a href="/posts" class="nav-link">Posts</a>
+    <a href="/papers" class="nav-link">Papers</a>
   </div>
 </div>
 
@@ -40,7 +41,7 @@ author_profile: true
 
   <div class="intro-text">
     <p>
-      I’m Lily Zhang, a Tech Lead and Research Scientist in the Bay Area, California. My research focus is: post-training and AI training data. I’ve published at CVPR, ICCV, NeurIPS, and RAL
+      I’m Lily Zhang, a Tech Lead and Research Scientist in the Bay Area, California. My research focus is: post-training and AI training data. I’ve published at CVPR, ICCV, NeurIPS, RAL
       <a href="https://arxiv.org/abs/2412.15447">[1]</a>
       <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf">[2]</a>
       <a href="https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf">[3]</a>
@@ -49,12 +50,11 @@ author_profile: true
       and gave a keynote at <a href="https://www.linkedin.com/feed/update/urn:li:activity:7043634213106974720/" target="_blank" rel="noopener">NVIDIA GTC</a>.
     </p>
     <p>
-      At <a href="https://lat.ai/" target="_blank" rel="noopener">Latitude AI</a>, I build LLMs, multimodal LLMs, and AI agents for physical AI. (<a href="https://x.com/lily_gpupoor/status/2032687023832838450" target="_blank" rel="noopener">NVIDIA GTC</a> panel on agentic post-training).
+      At <a href="https://lat.ai/" target="_blank" rel="noopener">Latitude AI</a>, I build LLMs, multimodal LLMs, and AI agents for physical AI (<a href="https://x.com/lily_gpupoor/status/2032687023832838450" target="_blank" rel="noopener">NVIDIA GTC</a> panel on agentic post-training).
       Previously, I led applied R&D at Ford Greenfield Labs (2019–2023) on building perception models and AI training data <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D">(IROS keynote)</a>.
     </p>
     <p>
-      My latest research (colab w AliCloud) reframes <a href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">feature engineering as agentic code generation</a>, SFT + RL post-trained AI-infra agent deployed at Alibaba Cloud with 91% adoption.
-      (poster at <a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">NeurIPS 2025 VLM4RWD</a>, oral at <a href="https://doi.org/10.1007/978-981-92-0378-9_33" target="_blank" rel="noopener">DASFAA 2026</a>).
+      My latest research (colab w AliCloud) reframes <a href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">feature engineering as agentic code generation</a>, SFT + RL post-trained AI-infra agent deployed at Alibaba Cloud with 91% adoption (poster at <a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">NeurIPS 2025 VLM4RWD</a>, oral at <a href="https://doi.org/10.1007/978-981-92-0378-9_33" target="_blank" rel="noopener">DASFAA 2026</a>).
     </p>
     <p>
       You can reach me at lilyzhng.ai AT gmail.com. (Publishing as Xianling Zhang)
@@ -65,47 +65,47 @@ author_profile: true
 
 
 
-## News
+## Status quo
 
 <div class="news-section">
 <div id="talks-videos" class="video-grid">
 <figure>
-  <figcaption>SuperGeneral: Compositional Tool Environments for Long-Horizon Agents <a href="https://supergeneral.vercel.app/">[Project]</a> <a href="https://github.com/lilyzhng/OpenEnv">[Code]</a><br><span class="venue-text">OpenEnv Hackathon 2026. Tool Use, Tool Composition, Tool Creation.</span></figcaption>
+  <figcaption>SuperGeneral: Compositional Tool Environments for Long-Horizon Agents<br><span class="venue-text"><a href="https://supergeneral.vercel.app/">[Project]</a> <a href="https://github.com/lilyzhng/OpenEnv">[Code]</a> RL Environments on Tool Use</span></figcaption>
   <a href="https://supergeneral.vercel.app/" target="_blank" rel="noopener">
     <img src="/assets/img/projects/supergeneral.png" alt="SuperGeneral" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
-  <figcaption>SofaGenius: Multi-Agent ML Research Assistant <a href="https://github.com/lilyzhng/sofagenius">[Code]</a><br><span class="venue-text">4 specialized sub-agents with orchestrator routing. Built on Claude API.</span></figcaption>
+  <figcaption>SofaGenius: Orchestrate Agentic Post-Training<br><span class="venue-text"><a href="https://github.com/lilyzhng/sofagenius">[Code]</a> Top 15/13k finalist in Anthropic Global Hackathon</span></figcaption>
   <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
     <img src="/assets/img/projects/sofagenius.png" alt="SofaGenius" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
-  <figcaption>Skill Claw: Self-Debugging Robot Skill Agent<br><span class="venue-text">RL environments that train skill composition. Transfer across robot platforms.</span></figcaption>
+  <figcaption>Skill Claw: Self-Debugging Robot Skill Agent<br><span class="venue-text">RL environments that train code policy</span></figcaption>
   <a href="https://skill-claw.vercel.app/" target="_blank" rel="noopener">
     <img src="/assets/img/projects/skill_claw.png" alt="Skill Claw" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
-  <figcaption>Frontend Slides: AI-Native Presentation Generation<br><span class="venue-text">12K+ GitHub stars. Production-grade HTML slides from natural language.</span></figcaption>
+  <figcaption>Frontend Slides: AI-Native Presentation Generation<br><span class="venue-text">25K+ GitHub stars. Frontend Slides that's anti-slop</span></figcaption>
   <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">
     <img src="/assets/img/projects/frontend_slides.png" alt="Frontend Slides" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
-  <figcaption>Eureka: Intelligent Feature Engineering for Enterprise AI Cloud Resource Demand Prediction <a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a><br><span class="venue-text">NeurIPS 2025 Vision Language Models: Challenges of RealWorld Deployment</span></figcaption>
+  <figcaption>SFT + RL Post-trained AI-Infra Agent<br><span class="venue-text"><a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a> NeurIPS 2025 VLM4RWD, DASFAA 2026</span></figcaption>
   <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
     <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
   </a>
 </figure>
 
 <figure>
-  <figcaption>General Chair for IROS 2025 RoboGen Workshop on Solving the Data Bottleneck for Embodied AGI <a href="https://robogen-iros.github.io">[Call for Papers]</a><br><span class="venue-text">IEEE IROS 2025 Conference</span></figcaption>
+  <figcaption>General Chair for IROS 2025 RoboGen Workshop<br><span class="venue-text"><a href="https://robogen-iros.github.io">[Call for Papers]</a> IEEE IROS 2025 Conference</span></figcaption>
   <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener" class="iros-link">
     <img src="/assets/img/invited_talks/2025_iros.png" alt="IROS Workshop" class="talk-thumbnail">
   </a>
@@ -119,7 +119,7 @@ author_profile: true
 </figure>
 
 <figure>
-  <figcaption>Achieving AV Training Data Diversity Using AI Relighting<br><span class="venue-text">NVIDIA GTC Conference</span></figcaption>
+  <figcaption>Diversify AI Training Data<br><span class="venue-text">NVIDIA GTC Conference</span></figcaption>
   <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51407/" target="_blank" rel="noopener" class="nvidia-talk-link">
     <img src="/assets/img/invited_talks/2023_nvidia_2.png" alt="NVIDIA GTC Talk on Scene Relighting" class="talk-thumbnail">
     <div class="play-overlay">
@@ -128,8 +128,8 @@ author_profile: true
   </a>
 </figure>
 
-<figure class="video-item hidden">
-  <figcaption>From Lab to Road: Turning Self-Driving Research into Production Features <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D">[Article]</a><br><span class="venue-text">IROS 2023 Novel Sensor Workshop Keynote</span></figcaption>
+<figure class="video-item">
+  <figcaption>From Lab to Road: Turning Self-Driving Research into Production Features<br><span class="venue-text"><a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D">[Article]</a> IROS 2023 Novel Sensor Workshop Keynote</span></figcaption>
   <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D" target="_blank" rel="noopener" class="talk-link">
     <img src="/assets/img/invited_talks/2023_iros.png" alt="IROS 2023 Keynote" class="talk-thumbnail">
   </a>
@@ -164,88 +164,6 @@ author_profile: true
 
 
 
----
-
-## Publications
-
-<ul id="papers-list" class="bibliography">
-{% assign show_limit = 6 %}
-{% for paper in site.data.papers %}
-  <li{% if forloop.index0 >= show_limit %} class="hidden"{% endif %}>
-    {% if paper.url %}
-      <strong><a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a></strong>
-      {% if paper.project_url %}
-        <a href="{{ paper.project_url }}" target="_blank" rel="noopener" class="project-link">[Project Page]</a>
-      {% endif %}
-      {% if paper.code_url %}
-        <a href="{{ paper.code_url }}" target="_blank" rel="noopener" class="code-link">[Code]</a>
-      {% endif %}<br>
-    {% else %}
-      <strong>{{ paper.title }}</strong>
-      {% if paper.project_url %}
-        <a href="{{ paper.project_url }}" target="_blank" rel="noopener" class="project-link">[Project Page]</a>
-      {% endif %}
-      {% if paper.code_url %}
-        <a href="{{ paper.code_url }}" target="_blank" rel="noopener" class="code-link">[Code]</a>
-      {% endif %}<br>
-    {% endif %}
-    {{ paper.authors }}.<br>
-
-    {% if paper.venue or paper.year %}
-      <cite>
-        {% if paper.venue %}{{ paper.venue }}{% endif %}
-        {% if paper.volume %} {{ paper.volume }}{% endif %}
-        {% if paper.pages  %}, {{ paper.pages }}{% endif %}
-        {% if paper.year   %} ({{ paper.year }}){% endif %}
-      </cite>
-    {% endif %}
-  </li>
-{% endfor %}
-</ul>
-
-<button id="papers-more-button"
-        class="more-button"
-        data-target="#papers-list">
-  Show&nbsp;more
-</button>
-
-
----
-
-## Service
-
-<ul id="service-list">
-  <li>
-    <span class="service-title">Program Committee Member</span><br>
-    TPC for NeurIPS ('21, '24, '25), CVPR ('22, '23, '24, '25), ICRA ('23), IROS ('23), ICML ('23), ICLR ('24), ECCV ('24),  KDD ('24), ICCV ('25)
-  </li>
-  
-  <li>
-    <span class="service-title">Industry Advisory Board <a href="https://www.linkedin.com/feed/update/urn:li:activity:7265427014088556546/">[MXET Board Meeting]</a></span><br>
-    Invited to serve on the Industry Advisory Board at Texas A&M University 
-  </li>
-  
-  <li>
-    <span class="service-title">Journal Editor <a href="https://dl.acm.org/journal/tiot/calls-for-papers">[Call for Papers]</a></span><br>
-    Invited guest editor for ACM Journal, Transactions on Internet of Things, Special Issue on Autonomous Driving
-  </li>
-
-  
-  <li>
-    <span class="service-title">Conference Chair <a href="https://ieeemobility.org/MOST2025/keynote.php">[Keynote & Panel]</a>, <a href="https://docs.google.com/presentation/d/1yAV6jGk2n1CLgnNpIYc4ORwTF69NOKmQ6u0fDyX9f_0/edit?slide=id.p#slide=id.p">[Slides]</a></span><br>
-    Chairing for The IEEE International Conference on Mobility (MOST) Panel Discussion "Driving Force: Towards Large-Scale Autonomous Driving Commercialization"
-  </li>
-  
-  <li>
-    <span class="service-title">Workshop Moderator <a href="https://docs.google.com/presentation/d/1i6EZEfebDGI1I0zpZoV6OHZ5kWvmX3OZ/edit?usp=sharing&ouid=103941006958426062861&rtpof=true&sd=true">[Slides]</a></span><br>
-    Moderated the "Generative AI: A New World Simulator to Transform data generation at large scale" workshop at the Auto.AI conference
-  </li>
-  
-  <li>
-    <span class="service-title">Hackathon Judge</span><br>
-    Invited judge for Gen AI Hackathon in San Francisco
-  </li>
-</ul>
 
 <!-- put this at the very end of index.md (or whatever page),            -->
 <!-- right before the closing markdown '---' or before any footer include -->
