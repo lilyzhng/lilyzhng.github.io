@@ -142,8 +142,9 @@ permalink: /posts/
 
 
 @media (max-width: 768px) {
-  .motto-quote {
-    font-size: 1.125rem;
+  .motto-quote,
+  .motto-attribution {
+    font-size: 1.125rem;   /* keep quote + name the same size on mobile too */
   }
   
   .motto-section {
