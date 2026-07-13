@@ -1,5 +1,5 @@
 ---
-layout: bare
+layout: splash
 title: "Lily Zhang | Posts"
 permalink: /posts/
 ---
@@ -100,38 +100,8 @@ permalink: /posts/
 </div>
 
 <style>
-/* Header Styling */
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-}
-
-.name-container .author-name {
-  font-size: 2rem;
-  font-weight: 400;
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-.navigation-container {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-link {
-  font-size: 1.1rem;
-  color: #4a5568;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-  color: #2d3748;
-}
+/* Header + nav come from the shared site CSS (main.css) via the splash layout,
+   so this page matches Home and Papers exactly (background, zoom, header). */
 
 /* Motto Section */
 .motto-section {
@@ -167,24 +137,6 @@ permalink: /posts/
 
 
 @media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-    gap: 1.5rem;
-    margin: 1.5rem auto;
-  }
-  
-  .name-container .author-name {
-    font-size: 1.75rem;
-  }
-  
-  .navigation-container {
-    gap: 1.5rem;
-  }
-  
-  .nav-link {
-    font-size: 1rem;
-  }
-  
   .motto-quote {
     font-size: 1.125rem;
   }
