@@ -106,7 +106,7 @@ permalink: /posts/
 /* Motto Section */
 .motto-section {
   max-width: 700px;
-  margin: 3rem auto 4rem;
+  margin: 2rem auto 1.5rem;
   padding: 0 1rem;
   text-align: center;
 }
@@ -147,23 +147,24 @@ permalink: /posts/
 }
 
 .blog-list {
-  max-width: 600px;
+  /* wider than the title's ~600px so the reserved date column doesn't force
+     titles to wrap early — line 1 stays long like the original */
+  max-width: 700px;
   margin: 1.5rem auto 3rem;
   padding: 0 1rem;
 }
 
 .blog-entry {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;   /* date sits at the bottom, level with the title's last line */
-  gap: 1.25rem;
-  padding: 0.5rem 0;
+  align-items: baseline;   /* date sits top-right, level with the title's first line */
+  gap: 1.5rem;
+  padding: 0.9rem 0;
   border-bottom: 1px solid #eef0f3;
 }
 
 .blog-entry .blog-title {
   flex: 1 1 auto;
-  min-width: 0;   /* allow long titles to wrap instead of pushing the date off */
+  min-width: 0;   /* let the title wrap; it keeps ~600px so line 1 stays full */
 }
 
 .blog-entry:last-child {
@@ -172,7 +173,8 @@ permalink: /posts/
 
 .blog-date {
   flex: 0 0 auto;
-  white-space: nowrap;   /* keep "Jul 2026" on one line, bottom-right */
+  margin-left: auto;   /* push the date to the far-right corner */
+  white-space: nowrap;
   font-size: 0.85rem;
   color: #9aa4b2;
   letter-spacing: 0.01em;
