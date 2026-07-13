@@ -50,7 +50,7 @@ author_profile: true
       and gave a keynote at <a href="https://www.linkedin.com/feed/update/urn:li:activity:7043634213106974720/" target="_blank" rel="noopener">NVIDIA GTC</a>.
     </p>
     <p>
-      At <a href="https://lat.ai/" target="_blank" rel="noopener">Latitude AI</a>, I build LLMs, multimodal LLMs, and AI agents for physical AI (<a href="https://x.com/lily_gpupoor/status/2032687023832838450" target="_blank" rel="noopener">NVIDIA GTC</a> panel on agentic post-training).
+      At <a href="https://lat.ai/" target="_blank" rel="noopener">Latitude AI</a>, I build LLMs, multimodal LLMs, and AI agents for physical AI (<a href="https://x.com/lily_gpupoor/status/2032687023832838450" target="_blank" rel="noopener">Modal GTC</a> panel on agentic post-training).
       Previously, I led applied R&D at Ford Greenfield Labs (2019–2023) on building perception models and AI training data <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D">(IROS keynote)</a>.
     </p>
     <p>
