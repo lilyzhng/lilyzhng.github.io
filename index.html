@@ -20,8 +20,20 @@
          (MIME errors in console). Font Awesome + Academicons are loaded via main.css
          (@import, versioned), so icons are unaffected. -->
 
-    <!-- Fonts -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+    <!-- Roboto / Roboto Slab / Material Icons removed: not used anywhere
+         (site uses EB Garamond / Inter / Georgia). Dead render-blocking font request. -->
+
+    <!-- Fonts + icons: parallel <link> tags with preconnect. Previously these were
+         render-blocking, serialized @imports inside main.css (browser had to fetch +
+         parse main.css before even discovering them). This is the actively-included
+         head (custom-head.html is an orphan and never rendered). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css">
 
     <!-- Code Syntax Highlighting: removed. site.highlight_theme_light was never set,
          so this rendered as ".../jekyll-pygments-themes@master/.css" and HUNG ~8s
@@ -104,7 +116,7 @@
           <a href="https://www.linkedin.com/in/lilyzhng/" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://x.com/_lilyzhng" aria-label="X (Twitter)">
+          <a href="https://x.com/lily_gpupoor" aria-label="X (Twitter)">
             <i class="fab fa-twitter"></i>
           </a>
           <a href="https://github.com/lilyzhng" aria-label="GitHub">
