@@ -18,7 +18,7 @@ permalink: /posts/
 <div class="motto-section">
   <div class="motto-container">
     <div class="motto-quote">
-      "Pain is inevitable but suffering is optional."
+      Pain is inevitable but suffering is optional
     </div>
     <div class="motto-attribution">
       — Haruki Murakami
@@ -117,21 +117,26 @@ permalink: /posts/
 }
 
 .motto-quote {
+  display: inline;   /* quote + attribution on one line */
   font-size: 1.25rem;
   font-weight: 300;
   color: #1a202c;
   font-style: italic;
   line-height: 1.5;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
   font-family: Georgia, serif;
   letter-spacing: 0;
 }
 
 .motto-attribution {
-  font-size: 0.875rem;
-  color: #718096;
+  display: inline;
+  margin-left: 0.6rem;   /* small gap after the quote */
+  font-style: italic;    /* fully uniform with the quote — no hierarchy */
+  font-family: Georgia, serif;
+  font-size: 1.25rem;    /* same size as the quote */
+  color: #1a202c;        /* same color as the quote */
   margin-bottom: 0;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 
