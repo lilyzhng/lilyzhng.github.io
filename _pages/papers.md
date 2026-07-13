@@ -1,5 +1,5 @@
 ---
-layout: bare
+layout: splash
 title: "Lily Zhang | Papers"
 permalink: /papers/
 ---

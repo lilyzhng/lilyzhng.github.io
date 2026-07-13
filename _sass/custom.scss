@@ -333,7 +333,9 @@ body {
   aspect-ratio: 16/9;
   border: 0;
   display: block;
-  flex: 1;
+  /* no flex-grow: let aspect-ratio (16/9) set the height so the video/link
+     tile matches the plain image tiles instead of stretching to fill the row */
+  flex: 0 0 auto;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -636,3 +638,12 @@ a:hover {
 .video-grid figure > .talk-thumbnail { order: 1; width: 100% !important; height: auto !important; aspect-ratio: 16/9 !important; object-fit: cover !important; border-radius: 8px; }
 .video-grid figure > a { order: 1; position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16/9 !important; overflow: hidden !important; border-radius: 8px; }
 .video-grid figure > a > .talk-thumbnail { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; aspect-ratio: auto !important; object-fit: cover !important; }
+
+/* ---------- global zoom ----------
+   The minimal-mistakes reset bumps the root font-size to 22px at x-large
+   (>=1280px), which reads as "too zoomed in" on desktop. Since the layout is
+   rem-based, dropping the root to 20px on large screens is an ~91% zoom that
+   scales text and spacing together. Smaller breakpoints (16/18/20px) unchanged. */
+@media (min-width: 80em) {
+  html { font-size: 20px; }
+}
