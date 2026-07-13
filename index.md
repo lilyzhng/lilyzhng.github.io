@@ -84,7 +84,7 @@ author_profile: true
 </figure>
 
 <figure>
-  <figcaption>SFT + RL Post-trained AI-Infra Agent<br><span class="venue-text"><a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a> NeurIPS 2025 VLM4RWD, DASFAA 2026</span></figcaption>
+  <figcaption>Eureka: SFT + RL Post-trained AI-Infra Agent<br><span class="venue-text"><a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a> NeurIPS 2025 VLM4RWD, DASFAA 2026</span></figcaption>
   <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
     <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
   </a>
@@ -111,10 +111,10 @@ author_profile: true
   </a>
 </figure>
 
-<figure>
-  <figcaption>Panel Chair for 2025 IEEE MOST Conference<br><span class="venue-text">IEEE MOST 2025 Conference</span></figcaption>
-  <a href="https://ieeemobility.org/MOST2025/keynote.php" target="_blank" rel="noopener" class="most-link">
-    <img src="/assets/img/invited_talks/2025_most.png" alt="2025 MOST" class="talk-thumbnail">
+<figure class="video-item">
+  <figcaption>From Lab to Road: Turning Self-Driving Research into Production Features<br><span class="venue-text"><a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D">[Article]</a> IROS 2023 Novel Sensor Workshop Keynote</span></figcaption>
+  <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D" target="_blank" rel="noopener" class="talk-link">
+    <img src="/assets/img/invited_talks/2023_iros.png" alt="IROS 2023 Keynote" class="talk-thumbnail">
   </a>
 </figure>
 
@@ -128,10 +128,10 @@ author_profile: true
   </a>
 </figure>
 
-<figure class="video-item">
-  <figcaption>From Lab to Road: Turning Self-Driving Research into Production Features<br><span class="venue-text"><a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D">[Article]</a> IROS 2023 Novel Sensor Workshop Keynote</span></figcaption>
-  <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=zdLXaqUkSzm8DI6LVcsaYA%3D%3D" target="_blank" rel="noopener" class="talk-link">
-    <img src="/assets/img/invited_talks/2023_iros.png" alt="IROS 2023 Keynote" class="talk-thumbnail">
+<figure>
+  <figcaption>Panel Chair for 2025 IEEE MOST Conference<br><span class="venue-text">IEEE MOST 2025 Conference</span></figcaption>
+  <a href="https://ieeemobility.org/MOST2025/keynote.php" target="_blank" rel="noopener" class="most-link">
+    <img src="/assets/img/invited_talks/2025_most.png" alt="2025 MOST" class="talk-thumbnail">
   </a>
 </figure>
 
