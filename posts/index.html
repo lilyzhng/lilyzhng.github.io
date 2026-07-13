@@ -23,10 +23,13 @@
     <!-- Fonts -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
 
-    <!-- Code Syntax Highlighting -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/.css" media="" id="highlight_theme_light" />
+    <!-- Code Syntax Highlighting: removed. site.highlight_theme_light was never set,
+         so this rendered as ".../jekyll-pygments-themes@master/.css" and HUNG ~8s
+         (render-blocking) before failing — it was the site's entire load time.
+         minimal-mistakes already provides code highlighting via main.css. -->
 
-    
+    <!-- Sidebar TOC (cdn.rawgit.com) removed: RawGit shut down in 2019; the URL
+         would hang the same way on any TOC-sidebar page. -->
 
     <!-- Styles -->
     
