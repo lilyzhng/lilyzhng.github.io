@@ -69,7 +69,7 @@ permalink: /posts/
   </div>
 
   <div class="blog-entry">
-    <a href="https://skill-claw.vercel.app/" class="blog-title" target="_blank">Skill Claw: Self-Debugging Robot Skill Agent</a>
+    <a href="https://skill-claw.vercel.app/" class="blog-title" target="_blank">Skill Claw: Self-Improving Robot Agents</a>
     <span class="blog-date">Mar 2026</span>
   </div>
 

@@ -84,9 +84,9 @@ author_profile: true
 </figure>
 
 <figure>
-  <figcaption>Skill Claw: Self-Debugging Robot Skill Agent<br><span class="venue-text">RL environments that train code policy</span></figcaption>
-  <a href="https://skill-claw.vercel.app/" target="_blank" rel="noopener">
-    <img src="/assets/img/projects/skill_claw.png" alt="Skill Claw" class="talk-thumbnail">
+  <figcaption>SFT + RL Post-trained AI-Infra Agent<br><span class="venue-text"><a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a> NeurIPS 2025 VLM4RWD, DASFAA 2026</span></figcaption>
+  <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
+    <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
   </a>
 </figure>
 
@@ -98,9 +98,9 @@ author_profile: true
 </figure>
 
 <figure>
-  <figcaption>SFT + RL Post-trained AI-Infra Agent<br><span class="venue-text"><a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">[Paper]</a> <a href="/assets/pdf/eureka_poster_neurips.pdf">[Poster]</a> NeurIPS 2025 VLM4RWD, DASFAA 2026</span></figcaption>
-  <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener" class="eureka-link">
-    <img src="/assets/img/eureka_poster_preview.png" alt="Eureka NeurIPS 2025" class="talk-thumbnail">
+  <figcaption>Skill Claw: Self-Improving Robot Agents<br><span class="venue-text">RL environments that train code policy</span></figcaption>
+  <a href="https://skill-claw.vercel.app/" target="_blank" rel="noopener">
+    <img src="/assets/img/projects/skill_claw.jpg" alt="Skill Claw" class="talk-thumbnail">
   </a>
 </figure>
 
