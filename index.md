@@ -27,7 +27,7 @@ author_profile: true
           <a href="https://www.linkedin.com/in/lilyzhng/" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="https://x.com/_lilyzhng" aria-label="X (Twitter)">
+          <a href="https://x.com/lily_gpupoor" aria-label="X (Twitter)">
             <i class="fab fa-twitter"></i>
           </a>
           <a href="https://github.com/lilyzhng" aria-label="GitHub">

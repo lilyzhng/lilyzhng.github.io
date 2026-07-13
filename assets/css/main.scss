@@ -3,11 +3,10 @@
 /* import the full theme */
 @import "minimal-mistakes";
 
-/* Font Awesome */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
-
-/* Academicons */
-@import url("https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css");
+/* Font Awesome + Academicons moved to <link> tags in _includes/custom-head.html
+   (with preconnect). CSS @import here was render-blocking AND serialized — the
+   browser had to download+parse this file before even discovering the icon CSS.
+   Academicons was also a duplicate (already <link>ed in custom-head.html). */
 
 /* import your overrides */
 @import "custom";

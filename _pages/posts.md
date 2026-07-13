@@ -146,6 +146,13 @@ permalink: /posts/
   .motto-attribution {
     font-size: 1.125rem;   /* keep quote + name the same size on mobile too */
   }
+
+  /* on phones, drop the "— Haruki Murakami" to its own second line */
+  .motto-attribution {
+    display: block;
+    margin-left: 0;
+    margin-top: 0.35rem;
+  }
   
   .motto-section {
     margin: 2.5rem auto 3.5rem;
