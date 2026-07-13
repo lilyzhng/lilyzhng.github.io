@@ -153,8 +153,17 @@ permalink: /posts/
 }
 
 .blog-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;   /* date sits at the bottom, level with the title's last line */
+  gap: 1.25rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid #eef0f3;
+}
+
+.blog-entry .blog-title {
+  flex: 1 1 auto;
+  min-width: 0;   /* allow long titles to wrap instead of pushing the date off */
 }
 
 .blog-entry:last-child {
@@ -162,8 +171,8 @@ permalink: /posts/
 }
 
 .blog-date {
-  display: block;
-  margin-top: 0.15rem;
+  flex: 0 0 auto;
+  white-space: nowrap;   /* keep "Jul 2026" on one line, bottom-right */
   font-size: 0.85rem;
   color: #9aa4b2;
   letter-spacing: 0.01em;
