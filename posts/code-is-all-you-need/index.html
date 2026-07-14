@@ -15,10 +15,10 @@
 <meta name="twitter:image" content="https://lilyzhng.github.io/posts/code-is-all-you-need/hero_diagram.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
 <style>
     :root {
-      --bg: #f8f8f3;
+      --bg: #F9F9F9;
       --surface: #fffffb;
       --ink: rgba(0,0,0,0.86);
       --text: rgba(0,0,0,0.80);
@@ -184,17 +184,26 @@
       padding: 2.5rem 1.5rem 4rem; border-top: 1px solid var(--line);
       font: 400 0.8125rem/1.6 var(--sans); color: var(--muted);
     }
-    .site-nav { max-width: 1240px; margin: 0 auto; padding: 1.25rem 2rem 0; font: 500 0.875rem/1 var(--sans); }
-    .site-nav a { color: rgba(0,0,0,0.55); text-decoration: none; margin-right: 1.25rem; }
-    .site-nav a:hover { color: #000; text-decoration: underline; }
-</style>
+    .site-header { max-width: 1240px; margin: 0 auto; padding: 2.25rem 2rem 0.5rem; }
+    .site-header-inner { display: flex; align-items: baseline; justify-content: space-between; }
+    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 2.4rem; font-weight: 400; color: rgba(0,0,0,0.88); text-decoration: none; }
+    .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 1.35rem; color: rgba(0,0,0,0.88); text-decoration: none; margin-left: 1.75rem; }
+    .site-header-nav a:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .site-name { font-size: 1.75rem; } .site-header-nav a { font-size: 1rem; margin-left: 1rem; } }
+  </style>
 </head>
 <body>
 
-<nav class="site-nav" aria-label="Site">
-  <a href="/">Home</a>
-  <a href="/posts/">Posts</a>
-</nav>
+<header class="site-header" aria-label="Site">
+  <div class="site-header-inner">
+    <a class="site-name" href="/">Lily Zhang</a>
+    <nav class="site-header-nav">
+      <a href="/">Home</a>
+      <a href="/posts/">Posts</a>
+      <a href="/papers/">Papers</a>
+    </nav>
+  </div>
+</header>
 
 <div class="layout">
   <aside class="toc" aria-label="Table of contents">
