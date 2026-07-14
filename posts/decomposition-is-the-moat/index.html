@@ -144,12 +144,13 @@
        Sizes are px equivalents of 2.5rem/1.5rem under the theme's root scaling
        (16px base, 18px >=768, 20px >=1024; custom.scss caps x-large at 20px),
        so the post body (rem on a fixed 16px root) stays untouched. */
-    .site-header { max-width: 1220px; margin: 0 auto; padding: 0 1rem; }
+    .site-header { max-width: 1220px; margin: 0 auto; padding: 0 15px; }
+    @media (min-width: 768px) and (max-width: 1024px) { .site-header { max-width: 900px; padding: 0 2rem; } }
     .site-header-inner {
       display: flex; justify-content: space-between; align-items: center;
       padding: 32px 0; border-bottom: 1px solid #f2f2f2;
     }
-    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 400; color: rgba(0,0,0,0.88); text-decoration: none; }
+    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 400; line-height: 1.2; color: rgba(0,0,0,0.88); text-decoration: none; }
     .site-header-nav { display: flex; gap: 24px; }
     .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; color: rgba(0,0,0,0.88); text-decoration: none; }
     .site-header-nav a:hover { text-decoration: underline; }
