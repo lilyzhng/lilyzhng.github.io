@@ -184,12 +184,32 @@
       padding: 2.5rem 1.5rem 4rem; border-top: 1px solid var(--line);
       font: 400 0.8125rem/1.6 var(--sans); color: var(--muted);
     }
-    .site-header { max-width: 1240px; margin: 0 auto; padding: 2.25rem 2rem 0.5rem; }
-    .site-header-inner { display: flex; align-items: baseline; justify-content: space-between; }
-    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 2.4rem; font-weight: 400; color: rgba(0,0,0,0.88); text-decoration: none; }
-    .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 1.35rem; color: rgba(0,0,0,0.88); text-decoration: none; margin-left: 1.75rem; }
+    /* Site header, mirrors the theme header exactly (custom.scss .header-container).
+       Sizes are px equivalents of 2.5rem/1.5rem under the theme's root scaling
+       (16px base, 18px >=768, 20px >=1024; custom.scss caps x-large at 20px),
+       so the post body (rem on a fixed 16px root) stays untouched. */
+    .site-header { max-width: 1220px; margin: 0 auto; padding: 0 1rem; }
+    .site-header-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 32px 0; border-bottom: 1px solid #f2f2f2;
+    }
+    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 400; color: rgba(0,0,0,0.88); text-decoration: none; }
+    .site-header-nav { display: flex; gap: 24px; }
+    .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; color: rgba(0,0,0,0.88); text-decoration: none; }
     .site-header-nav a:hover { text-decoration: underline; }
-    @media (max-width: 640px) { .site-name { font-size: 1.75rem; } .site-header-nav a { font-size: 1rem; margin-left: 1rem; } }
+    @media (min-width: 768px) {
+      .site-header-inner { padding: 36px 0; }
+      .site-name { font-size: 45px; }
+      .site-header-nav { gap: 27px; }
+      .site-header-nav a { font-size: 27px; }
+    }
+    @media (min-width: 1024px) {
+      .site-header-inner { padding: 40px 0; }
+      .site-name { font-size: 50px; }
+      .site-header-nav { gap: 30px; }
+      .site-header-nav a { font-size: 30px; }
+    }
+    @media (max-width: 640px) { .site-name { font-size: 28px; } .site-header-nav a { font-size: 16px; } }
   </style>
 </head>
 <body>
