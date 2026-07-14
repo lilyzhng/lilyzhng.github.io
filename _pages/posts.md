@@ -29,6 +29,11 @@ permalink: /posts/
 
 <div class="blog-list">
   <div class="blog-entry">
+    <a href="https://x.com/lily_gpupoor/status/2076794330401087964" class="blog-title" target="_blank">My Take on the $100B Market for AI Training Data, Including RL Environments</a>
+    <span class="blog-date">Jul 2026</span>
+  </div>
+
+  <div class="blog-entry">
     <a href="/posts/decomposition-is-the-moat/" class="blog-title">Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.</a>
     <span class="blog-date">Jul 2026</span>
   </div>
