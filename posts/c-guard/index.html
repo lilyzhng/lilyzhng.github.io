@@ -234,7 +234,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
 
     <p class="lede">Conflicting objectives are general in RL alignment, and training on them
     data-efficiently is hard. Training a safety guard with RL means optimizing two objectives that
-    catch real harm without refusing benign prompts. Our finding is that over-refusal improves
+    conflict: catch real harm, and do not refuse benign prompts. Our finding is that over-refusal improves
     22.4% to 12.8%, while under-refusal on adversarial attacks silently worsens 0.27 to 0.33. We
     present <strong>C-Guard</strong>, a constitution-grid instrument that generates the RL training
     data, and <strong>C-LIM</strong>, a per-cell learnability score that decides each cell's move:
@@ -266,7 +266,8 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       means a harmful request dressed as fiction or roleplay walks past the same benchmark
       (<a href="https://arxiv.org/abs/2406.18495">Han et al., 2024</a>).</p>
 
-      <p>The standard fix is more boundary data, but volume without a target is wasteful. We added
+      <p>The standard fix is more boundary data, but volume without a target is wasteful
+      (<a href="https://arxiv.org/abs/2410.15225">Diddee &amp; Ippolito, 2024</a>). We added
       187 rows to our weakest topic and its accuracy gain is 0. Worse, the data spending is
       one-sided if XSTest is the only reference test set. It grades over-refusal and stays nearly
       flat on the other axis, so training could drift to one side while paying invisible cost in
@@ -308,7 +309,8 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
         <tr><th>Method</th><th>Policy data</th><th>Probe-aimed</th><th>Attack channel</th><th>RL</th></tr>
         </thead>
         <tbody>
-        <tr><td>LlamaGuard / WildGuard (<a href="https://arxiv.org/abs/2406.18495">Han et al., 2024</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+        <tr><td>LlamaGuard (<a href="https://arxiv.org/abs/2312.06674">Inan et al., 2023</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+        <tr><td>WildGuard (<a href="https://arxiv.org/abs/2406.18495">Han et al., 2024</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
         <tr><td>OR-Bench (<a href="https://arxiv.org/abs/2405.20947">Cui et al., 2024</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
         <tr><td>GuardReasoner (<a href="https://arxiv.org/abs/2501.18492">Liu et al., 2025</a>)</td><td>&#10007;</td><td>&sim;</td><td>&#10007;</td><td>&sim;</td></tr>
         <tr><td>RSafe (<a href="https://arxiv.org/abs/2506.07736">Zheng et al., 2025</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td><span class="good">&#10003;</span></td></tr>
@@ -320,7 +322,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       </table>
       </div>
       <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 1.</strong> Where C-Guard sits,
-      &sim; marks a partial mechanism. GuardReasoner aims by hard-sample mining and tunes with DPO.
+      &sim; marks a partial mechanism. GuardReasoner aims by hard-sample mining and tunes with DPO (<a href="https://arxiv.org/abs/2305.18290">Rafailov et al., 2023</a>).
       HaloGuard's attack side is static augmentation. Constitutional Classifiers red-team once.
       Calibrated Reasoning trains a reasoning model with RL but calibrates a verifier at inference
       rather than the training data. C-Guard aims per-cell and re-measures attacks every
@@ -444,7 +446,8 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     <section id="rl">
       <h3>2.4 · RL training</h3>
 
-      <p>We start from Nemotron-Content-Safety-Reasoning-4B, a safety guard that reasons before it
+      <p>We start from Nemotron-Content-Safety-Reasoning-4B
+      (<a href="https://arxiv.org/abs/2505.20087">Sreedhar et al., 2025</a>), a safety guard that reasons before it
       outputs a safe or unsafe label and is trained with SFT only. The goal is to add RL on top of
       that SFT base to make it reason better, following RSafe and GuardReasoner
       (<a href="https://arxiv.org/abs/2506.07736">Zheng et al., 2025</a>;
@@ -471,7 +474,8 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       one-sided scoreboard hides, (3) how aimed coverage lifts a flagged cell, and (4) the gates
       that keep risky moves safe.</p>
 
-      <p><strong>Setup.</strong> The base is Nemotron-Content-Safety-Reasoning-4B, SFT only. XSTest
+      <p><strong>Setup.</strong> The base is Nemotron-Content-Safety-Reasoning-4B
+      (<a href="https://arxiv.org/abs/2505.20087">Sreedhar et al., 2025</a>), SFT only. XSTest
       (<a href="https://arxiv.org/abs/2308.01263">Röttger et al., 2024</a>) is the scoreboard, 450
       prompts with greedy decoding. Under-refusal is measured on WildGuardTest
       (<a href="https://arxiv.org/abs/2406.18495">Han et al., 2024</a>), an independent
