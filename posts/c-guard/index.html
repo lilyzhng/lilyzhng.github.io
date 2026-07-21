@@ -210,16 +210,16 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
   <aside class="toc" aria-label="Table of contents">
     <div class="toc-title">Table of Contents</div>
     <ul>
-      <li><a href="#intro">Introduction</a></li>
-      <li><a href="#method">Method</a></li>
-      <li><a href="#read-act">Read then act</a></li>
-      <li><a href="#attack-amend">Attack then amend</a></li>
-      <li><a href="#grow">Grow the board</a></li>
-      <li><a href="#rl">RL training</a></li>
-      <li><a href="#results">Results</a></li>
-      <li><a href="#drifttax">The drift tax</a></li>
-      <li><a href="#guardrails">Guardrails</a></li>
-      <li><a href="#conclusion">Conclusion</a></li>
+      <li><a href="#intro">1 · Introduction</a></li>
+      <li><a href="#method">2 · Method</a></li>
+      <li><a href="#read-act">2.1 · Read then act</a></li>
+      <li><a href="#attack-amend">2.2 · Attack then amend</a></li>
+      <li><a href="#grow">2.3 · Grow the board</a></li>
+      <li><a href="#rl">2.4 · RL training</a></li>
+      <li><a href="#results">3 · Results</a></li>
+      <li><a href="#drifttax">3.2 · The drift tax</a></li>
+      <li><a href="#guardrails">3.4 · Guardrails</a></li>
+      <li><a href="#conclusion">4 · Conclusion</a></li>
       <li><a href="#appendix">Appendix</a></li>
     </ul>
   </aside>
@@ -243,7 +243,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     region's learning impact 0.733 to 0.80.</p>
 
     <section id="intro">
-      <h2>Introduction</h2>
+      <h2>1 · Introduction</h2>
 
       <figure class="mid">
         <img src="fig1-constitution-board.png" alt="The constitution board">
@@ -298,13 +298,38 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       </ol>
 
       <p>No prior guard combines constitution policy data, per-cell probe aiming, a live attack
-      channel, and RL. The closest neighbor is Calibrated Reasoning
+      channel, and RL (Table 1). The closest neighbor is Calibrated Reasoning
       (<a href="https://arxiv.org/abs/2509.19681">Garg et al., 2025</a>), which trains a reasoning
       model with RL but calibrates a verifier at inference rather than the training data.</p>
+
+      <div class="table-wrap">
+      <table>
+        <thead>
+        <tr><th>Method</th><th>Policy data</th><th>Probe-aimed</th><th>Attack channel</th><th>RL</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>LlamaGuard / WildGuard (<a href="https://arxiv.org/abs/2406.18495">Han et al., 2024</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+        <tr><td>OR-Bench (<a href="https://arxiv.org/abs/2405.20947">Cui et al., 2024</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+        <tr><td>GuardReasoner (<a href="https://arxiv.org/abs/2501.18492">Liu et al., 2025</a>)</td><td>&#10007;</td><td>&sim;</td><td>&#10007;</td><td>&sim;</td></tr>
+        <tr><td>RSafe (<a href="https://arxiv.org/abs/2506.07736">Zheng et al., 2025</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td><span class="good">&#10003;</span></td></tr>
+        <tr><td>HaloGuard (<a href="https://arxiv.org/abs/2607.02079">Sangameswaran et al., 2026</a>)</td><td><span class="good">&#10003;</span></td><td>&#10007;</td><td>&sim;</td><td>&#10007;</td></tr>
+        <tr><td>Const. Classifiers (<a href="https://arxiv.org/abs/2501.18837">Sharma et al., 2025</a>)</td><td><span class="good">&#10003;</span></td><td>&#10007;</td><td>&sim;</td><td>&#10007;</td></tr>
+        <tr><td>Calibrated Reasoning (<a href="https://arxiv.org/abs/2509.19681">Garg et al., 2025</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td><span class="good">&#10003;</span></td></tr>
+        <tr><td><strong>C-Guard (ours)</strong></td><td><span class="good">&#10003;</span></td><td><span class="good">&#10003;</span></td><td><span class="good">&#10003;</span></td><td><span class="good">&#10003;</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 1.</strong> Where C-Guard sits,
+      &sim; marks a partial mechanism. GuardReasoner aims by hard-sample mining and tunes with DPO.
+      HaloGuard's attack side is static augmentation. Constitutional Classifiers red-team once.
+      Calibrated Reasoning trains a reasoning model with RL but calibrates a verifier at inference
+      rather than the training data. C-Guard aims per-cell and re-measures attacks every
+      checkpoint.</figcaption>
+
     </section>
 
     <section id="method">
-      <h2>Method</h2>
+      <h2>2 · Method</h2>
 
       <p>The constitution grid has an automatic loop, as it takes a checkpoint in and puts directed
       training rows out. We read the board, make the move, train the model, and iterate (Figure 2).
@@ -319,7 +344,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     </section>
 
     <section id="read-act">
-      <h3>Read then act</h3>
+      <h3>2.1 · Read then act</h3>
 
       <figure>
         <div class="fig2">
@@ -337,7 +362,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       <a href="https://arxiv.org/abs/2607.02079">Sangameswaran et al., 2026</a>), and each clause
       draws one line between safe and unsafe. Its topics crossed with the ways a user can ask span
       the grid. The generator writes a safe twin and an unsafe twin at each clause boundary
-      (Table 1). A twin pair shares the trigger word and flips only the intent, so the guard must
+      (Table 2). A twin pair shares the trigger word and flips only the intent, so the guard must
       learn the boundary rather than the word.</p>
 
       <div class="table-wrap">
@@ -352,7 +377,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
         </tbody>
       </table>
       </div>
-      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 1.</strong> Example twin pairs, one
+      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 2.</strong> Example twin pairs, one
       per topic.</figcaption>
 
       <p>To read a cell on learnability, we sample the model 8 times on unseen rows at each
@@ -373,7 +398,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     </section>
 
     <section id="attack-amend">
-      <h3>Attack then amend</h3>
+      <h3>2.2 · Attack then amend</h3>
 
       <figure>
         <div class="fig2">
@@ -397,7 +422,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     </section>
 
     <section id="grow">
-      <h3>Grow the board</h3>
+      <h3>2.3 · Grow the board</h3>
 
       <figure>
         <div class="fig2">
@@ -417,7 +442,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     </section>
 
     <section id="rl">
-      <h3>RL training</h3>
+      <h3>2.4 · RL training</h3>
 
       <p>We start from Nemotron-Content-Safety-Reasoning-4B, a safety guard that reasons before it
       outputs a safe or unsafe label and is trained with SFT only. The goal is to add RL on top of
@@ -439,7 +464,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     </section>
 
     <section id="results">
-      <h2>Results</h2>
+      <h2>3 · Results</h2>
 
       <p>Helpfulness and harmlessness pull against each other, and we read the guard on both axes to
       report four capabilities: (1) which data is dead weight before training, (2) the drift tax a
@@ -453,7 +478,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       human-labeled set with adversarial and vanilla slices. The corpus grows from about 2K rows to
       7,241 at the final iteration, every pack traced to a probe finding or an amendment.</p>
 
-      <h3>Dead-weight diagnosis</h3>
+      <h3>3.1 · Dead-weight diagnosis</h3>
 
       <p>C-LIM flags the dead-weight region before any training budget is spent (Figure 6). Across
       the checkpoint ladder, 20 of 21 scored cells cluster healthy while
@@ -483,13 +508,13 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
         </tbody>
       </table>
       </div>
-      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 2.</strong> The SFT base vs the RL
+      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 3.</strong> The SFT base vs the RL
       ship. Over-refusal drops 9.6 points and pair consistency rises 12, while under-refusal barely
       moves, all at no added test-time cost.</figcaption>
     </section>
 
     <section id="drifttax">
-      <h3>The drift tax</h3>
+      <h3>3.2 · The drift tax</h3>
 
       <p>RL cuts XSTest over-refusal from 22.4% to 12.8% while the scoreboard's under-refusal barely
       moves, so the boundary looks stable (Figure 7). On two independent sets the same shift tells
@@ -520,13 +545,13 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
         </tbody>
       </table>
       </div>
-      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 3.</strong> Over- and under-refusal
+      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 4.</strong> Over- and under-refusal
       error rates, SFT base vs the RL ship, on the XSTest scoreboard and three independent slices.
       Over-refusal improves on every eval. Under-refusal barely moves on the scoreboard but worsens
       on all three independent slices, which is the drift tax. XSTest, 450 prompts. WildGuardTest,
       1,699. ToxicChat, 2,853.</figcaption>
 
-      <h3>Targeted coverage</h3>
+      <h3>3.3 · Targeted coverage</h3>
 
       <p>Aimed generation lifts a flagged cell where blind volume could not. The privacy family,
       flat at 0.733 under the 187 untargeted rows, moved to 0.80 once rows were aimed at its probed
@@ -536,7 +561,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     </section>
 
     <section id="guardrails">
-      <h3>Guardrails</h3>
+      <h3>3.4 · Guardrails</h3>
 
       <p>Moves that change the rules are gated, and the gates reject real over-reach. The
       court-protocol rejected an amendment draft that flipped 4 of 60 settled precedents. The
@@ -555,7 +580,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     </section>
 
     <section id="conclusion">
-      <h2>Conclusion and future work</h2>
+      <h2>4 · Conclusion and future work</h2>
 
       <p>We framed guard RL data generation as building a constitution grid with measured moves, and
       we trained the reasoning guard with RL on the data those moves produce. On XSTest this cut
@@ -575,7 +600,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     <section id="appendix">
       <h2>Appendix</h2>
 
-      <h3>What the evaluation contains</h3>
+      <h3>A · What the evaluation contains</h3>
 
       <figure>
         <img src="fig6-xstest-distribution-v2.png" alt="XSTest composition">
@@ -584,7 +609,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
         traffic is not.</figcaption>
       </figure>
 
-      <h3>Where the baseline fails</h3>
+      <h3>B · Where the baseline fails</h3>
 
       <figure>
         <img src="fig7-baseline-per-family-v2.png" alt="Per-family accuracy of the SFT base">
@@ -593,33 +618,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
         generation quotas.</figcaption>
       </figure>
 
-      <h3>Where C-Guard sits among prior guards</h3>
-
-      <div class="table-wrap">
-      <table>
-        <thead>
-        <tr><th>Method</th><th>Policy data</th><th>Probe-aimed</th><th>Attack channel</th><th>RL</th></tr>
-        </thead>
-        <tbody>
-        <tr><td>LlamaGuard / WildGuard (<a href="https://arxiv.org/abs/2406.18495">Han et al., 2024</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
-        <tr><td>OR-Bench (<a href="https://arxiv.org/abs/2405.20947">Cui et al., 2024</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
-        <tr><td>GuardReasoner (<a href="https://arxiv.org/abs/2501.18492">Liu et al., 2025</a>)</td><td>&#10007;</td><td>&sim;</td><td>&#10007;</td><td>&sim;</td></tr>
-        <tr><td>RSafe (<a href="https://arxiv.org/abs/2506.07736">Zheng et al., 2025</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td><span class="good">&#10003;</span></td></tr>
-        <tr><td>HaloGuard (<a href="https://arxiv.org/abs/2607.02079">Sangameswaran et al., 2026</a>)</td><td><span class="good">&#10003;</span></td><td>&#10007;</td><td>&sim;</td><td>&#10007;</td></tr>
-        <tr><td>Const. Classifiers (<a href="https://arxiv.org/abs/2501.18837">Sharma et al., 2025</a>)</td><td><span class="good">&#10003;</span></td><td>&#10007;</td><td>&sim;</td><td>&#10007;</td></tr>
-        <tr><td>Calibrated Reasoning (<a href="https://arxiv.org/abs/2509.19681">Garg et al., 2025</a>)</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td><span class="good">&#10003;</span></td></tr>
-        <tr><td><strong>C-Guard (ours)</strong></td><td><span class="good">&#10003;</span></td><td><span class="good">&#10003;</span></td><td><span class="good">&#10003;</span></td><td><span class="good">&#10003;</span></td></tr>
-        </tbody>
-      </table>
-      </div>
-      <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 4.</strong> Where C-Guard sits,
-      &sim; marks a partial mechanism. GuardReasoner aims by hard-sample mining and tunes with DPO.
-      HaloGuard's attack side is static augmentation. Constitutional Classifiers red-team once.
-      Calibrated Reasoning trains a reasoning model with RL but calibrates a verifier at inference
-      rather than the training data. C-Guard aims per-cell and re-measures attacks every
-      checkpoint.</figcaption>
-
-      <h3>Open discussion</h3>
+      <h3>C · Open discussion</h3>
 
       <p>Coverage is meant to drive learning, and on the helpfulness axis it does: aimed rows lifted
       the flagged privacy cell from 0.733 to 0.80 where 187 untargeted rows bought nothing. We do
