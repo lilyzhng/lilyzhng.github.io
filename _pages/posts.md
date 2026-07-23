@@ -39,11 +39,6 @@ permalink: /posts/
   </div>
 
   <div class="blog-entry">
-    <a href="/posts/decomposition-is-the-moat/" class="blog-title">Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.</a>
-    <span class="blog-date">Jul 2026</span>
-  </div>
-
-  <div class="blog-entry">
     <a href="https://x.com/lily_gpupoor/status/2076114858203095503" class="blog-title" target="_blank">Second-Order Effects After Cursor and Cognition Cracked Post-Training</a>
     <span class="blog-date">Jul 2026</span>
   </div>
