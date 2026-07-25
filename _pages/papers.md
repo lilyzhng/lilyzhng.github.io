@@ -223,7 +223,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 .posts-layout::after {
   content: '';
   position: absolute;
-  top: -70px;
+  top: -3.5rem;   /* reach up to the header rule; rem so it scales with the root font on mobile */
   bottom: 0;
   width: 2px;
   background:
