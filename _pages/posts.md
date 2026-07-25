@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
   flex-direction: column;
   gap: 0.55rem;
   padding-top: 0.9rem;   /* level with the first entry's title */
-  padding-left: 0.9rem;  /* text aligns to the rail, evenly for every item */
+  padding-left: 0.35rem;  /* text hugs the rail, evenly for every item */
 }
 
 .filter-item {
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .filter-item.is-active::before {
   content: '';
   position: absolute;
-  left: -1.5rem;
+  left: -1rem;
   top: 0.15em;
   width: 3px;
   height: 1.1em;
