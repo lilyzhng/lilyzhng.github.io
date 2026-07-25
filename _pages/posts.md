@@ -25,42 +25,42 @@ permalink: /posts/
   <div class="blog-list">
   <div class="blog-entry" data-type="blog">
     <a href="/posts/c-guard/" class="blog-title">A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</a>
-    <span class="blog-date">Jul 2026</span>
+    <span class="blog-date">07.21.26</span>
   </div>
 
   <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2076794330401087964" class="blog-title" target="_blank">My Take on the $100B Market for AI Training Data, Including RL Environments</a>
-    <span class="blog-date">Jul 2026</span>
+    <span class="blog-date">07.13.26</span>
   </div>
 
   <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2076114858203095503" class="blog-title" target="_blank">Second-Order Effects After Cursor and Cognition Cracked Post-Training</a>
-    <span class="blog-date">Jul 2026</span>
+    <span class="blog-date">07.12.26</span>
   </div>
 
   <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2074728312161849627" class="blog-title" target="_blank">Reflection: Where Is the Market for Post-Training as a Service?</a>
-    <span class="blog-date">Jul 2026</span>
+    <span class="blog-date">07.08.26</span>
   </div>
 
   <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2072083403898507278" class="blog-title" target="_blank">Poster @ AI Engineer World's Fair: Is Speculative Decoding All We Need?</a>
-    <span class="blog-date">Jul 2026</span>
+    <span class="blog-date">06.30.26</span>
   </div>
 
   <div class="blog-entry" data-type="blog">
     <a href="https://x.com/lily_gpupoor/status/2070401977251659794" class="blog-title" target="_blank">Build a Dense Reward for Your Writing</a>
-    <span class="blog-date">Jun 2026</span>
+    <span class="blog-date">06.26.26</span>
   </div>
 
   <div class="blog-entry" data-type="blog">
     <a href="/posts/harbor-rlvr-environment/" class="blog-title">What Can't Be Measured Can't Be Solved: RLVR Environment Design from a Failure Taxonomy</a>
-    <span class="blog-date">Jun 2026</span>
+    <span class="blog-date">06.10.26</span>
   </div>
 
   <div class="blog-entry" data-type="blog">
     <a href="/posts/interaction-model/" class="blog-title">Thoughts on Thinking Machine's Interaction Model</a>
-    <span class="blog-date">May 2026</span>
+    <span class="blog-date">05.20.26</span>
   </div>
 
   <div class="blog-entry" data-type="thoughts">
@@ -325,9 +325,10 @@ document.addEventListener('DOMContentLoaded', function () {
   flex: 0 0 auto;
   margin-left: auto;   /* push the date to the far-right corner */
   white-space: nowrap;
-  font-size: 0.85rem;
+  font-family: 'SFMono-Regular', Menlo, Consolas, monospace;   /* matches the 01 section number */
+  font-size: 0.78rem;
   color: #9aa4b2;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .blog-date.blog-soon {
