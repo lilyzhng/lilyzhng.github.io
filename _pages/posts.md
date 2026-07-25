@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   
   .motto-section {
-    margin: 2.5rem auto 3.5rem;
+    margin: 4rem 0 0;   /* full-width footer on mobile too, flush to the page end */
   }
 }
 
@@ -194,6 +194,28 @@ document.addEventListener('DOMContentLoaded', function () {
   max-width: 860px;
   margin: 1.5rem auto 3rem;
   padding: 0 1rem;
+  position: relative;
+}
+
+/* menu column rail: tick at the top, line running the full height of the section */
+.posts-layout::before {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  left: calc(1rem - 1px);
+  width: 2px;
+  height: 14px;
+  background: #b3b8c2;
+}
+
+.posts-layout::after {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  bottom: 0;
+  left: 1rem;
+  width: 1px;
+  background: #e7e9ee;
 }
 
 .posts-filter {
@@ -205,24 +227,23 @@ document.addEventListener('DOMContentLoaded', function () {
   flex-direction: column;
   gap: 0.55rem;
   padding-top: 0.9rem;   /* level with the first entry's title */
-  padding-left: 0.9rem;
-  border-left: 1px solid #e7e9ee;   /* the menu column's own rail */
+  padding-left: 0.9rem;  /* text aligns to the rail, evenly for every item */
 }
 
 .filter-item {
   appearance: none;
   background: none;
   border: none;
-  padding: 0 0 0 0.75rem;
+  padding: 0;
   margin: 0;
+  position: relative;
   text-align: left;
   font-size: 0.95rem;
   font-weight: 400;
   color: #1a202c;
   cursor: pointer;
   line-height: 1.5;
-  border-left: 2px solid transparent;   /* reserve space for the indicator */
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .filter-item:hover {
@@ -240,8 +261,18 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 .filter-item.is-active {
-  color: #2437e7;                 /* Cognition-style blue */
-  border-left: 2px solid #2437e7; /* the "|" indicator */
+  color: #2437e7;   /* Cognition-style blue */
+}
+
+/* the "|" indicator floats just outside the rail, like Cognition's */
+.filter-item.is-active::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 0.15em;
+  width: 3px;
+  height: 1.1em;
+  background: #2437e7;
 }
 
 .blog-list {
@@ -288,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
   .posts-filter {
     position: static;
     flex-direction: row;
+    align-items: baseline;   /* don't stretch buttons — keep the underline snug */
     gap: 1.25rem;
     padding-top: 0;
     padding-left: 0;
@@ -297,7 +329,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* column furniture is a desktop-only device */
   .blog-list::before,
-  .blog-list::after {
+  .blog-list::after,
+  .posts-layout::before,
+  .posts-layout::after,
+  .filter-item.is-active::before {
     display: none;
   }
 
