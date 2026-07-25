@@ -154,7 +154,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   max-width: none;
   margin: 6rem 0 0;
   margin-top: auto;             /* absorb leftover viewport height — line sits at the very bottom */
-  padding: 1rem 1rem 1.25rem;   /* tight under the rule — reads as a footnote */
+  padding: 0.5rem 1rem 0.6rem;   /* a flat band — line, breath, text, done */
   border-top: 1px solid #e7e9ee;
   text-align: center;
 }

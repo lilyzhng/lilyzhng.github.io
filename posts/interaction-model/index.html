@@ -380,7 +380,25 @@
       .site-header-nav a { font-size: 30px; }
     }
     @media (max-width: 640px) { .site-name { font-size: 28px; } .site-header-nav a { font-size: 16px; } }
-  </style>
+  
+    /* Column rails carried over from the Posts index (Cognition-style) */
+    .layout { position: relative; }
+    .layout::before, .layout::after {
+      content: '';
+      position: absolute;
+      top: 4rem;
+      bottom: 6rem;
+      width: 2px;
+      background:
+        linear-gradient(#b3b8c2, #b3b8c2) 0 0 / 2px 14px no-repeat,
+        linear-gradient(#e7e9ee, #e7e9ee) 0.5px 14px / 1px calc(100% - 14px) no-repeat;
+    }
+    .layout::before { left: calc(2rem - 6px); }
+    .layout::after { left: calc(220px + 3.5rem); }
+    @media (max-width: 940px) {
+      .layout::before, .layout::after { display: none; }
+    }
+</style>
 </head>
 <body>
 
