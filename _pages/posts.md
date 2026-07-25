@@ -385,8 +385,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   order: -1;              /* date leads the row, Cognition-style */
   flex: 0 0 4.6rem;       /* fixed column so every title starts on the same rail */
   white-space: nowrap;
-  font-family: 'SFMono-Regular', Menlo, Consolas, monospace;   /* matches the 01 section number */
-  font-size: 0.78rem;
+  font-size: 0.85rem;   /* same serif as the rest of the page */
   color: #9aa4b2;
   letter-spacing: 0.02em;
 }
