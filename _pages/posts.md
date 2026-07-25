@@ -129,10 +129,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Motto Section */
 .motto-section {
-  max-width: 828px;                  /* matches the posts column (860 minus its padding) */
-  margin: 3rem auto 2.5rem;          /* sits at the foot of the page now */
-  padding: 2rem 1rem 0;
-  border-top: 1px solid #e5e7eb;     /* hairline divider before the closing note */
+  /* a true full-width footer: the top rule spans the page, echoing the
+     header's line so the two frame the content */
+  max-width: none;
+  margin: 6rem 0 0;
+  padding: 2.5rem 1rem 3rem;
+  border-top: 1px solid #e7e9ee;
   text-align: center;
 }
 
@@ -143,9 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .motto-quote {
   display: inline;   /* quote + attribution on one line */
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 300;
-  color: #1a202c;
+  color: #6b7280;   /* muted — footer furniture, not content */
   font-style: italic;
   line-height: 1.5;
   margin-bottom: 0;
@@ -158,8 +160,8 @@ document.addEventListener('DOMContentLoaded', function () {
   margin-left: 0.6rem;   /* small gap after the quote */
   font-style: italic;    /* fully uniform with the quote — no hierarchy */
   font-family: Georgia, serif;
-  font-size: 1rem;       /* same size as the quote */
-  color: #1a202c;        /* same color as the quote */
+  font-size: 0.9rem;     /* same size as the quote */
+  color: #6b7280;        /* same color as the quote */
   margin-bottom: 0;
   font-weight: 300;
 }
