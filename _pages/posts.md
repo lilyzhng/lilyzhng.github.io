@@ -214,7 +214,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   gap: 0;
   max-width: 860px;
   width: 100%;
-  margin: 1.5rem auto 7rem;   /* generous clearance above the footer rule */
+  margin: 1.5rem auto 14rem;   /* footer sits far below the content, at the very end of the scroll */
   padding: 0 1rem;
   position: relative;
 }
@@ -249,7 +249,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-  padding-top: 0.9rem;   /* level with the first entry's title */
+  padding-top: 0;         /* menu starts level with the 01 marker */
   padding-left: 0.15rem;  /* text hugs the rail, evenly for every item */
 }
 
@@ -313,10 +313,10 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 .blog-list::after {
   content: '01';
   position: absolute;
-  top: -0.1rem;
+  top: 0;
   left: 0.35rem;
   font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
-  font-size: 0.62rem;
+  font-size: 0.5rem;   /* very small, Cognition-style */
   color: #b3b8c2;
   letter-spacing: 0.04em;
 }
