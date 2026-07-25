@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment</title>
-<meta property="og:title" content="C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment">
+<title>A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</title>
+<meta property="og:title" content="A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)">
 <meta property="og:description" content="Training a safety guard with RL means optimizing two objectives that pull against each other. C-Guard turns data generation into measured moves on a constitution grid.">
 <meta property="og:image" content="https://lilyzhng.github.io/posts/c-guard/fig1-constitution-board.png">
 <meta property="og:url" content="https://lilyzhng.github.io/posts/c-guard/">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment">
+<meta name="twitter:title" content="A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)">
 <meta name="twitter:description" content="Training a safety guard with RL means optimizing two objectives that pull against each other. C-Guard turns data generation into measured moves on a constitution grid.">
 <meta name="twitter:image" content="https://lilyzhng.github.io/posts/c-guard/fig1-constitution-board.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
 <script>
 MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
 </script>
@@ -76,18 +76,28 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     .toc li { margin-bottom: 0.85rem; }
     .toc a {
       display: block;
+      position: relative;
       font: 500 0.875rem/1.35 var(--sans);
       color: rgba(0,0,0,0.42);
       padding-left: 0.85rem;
-      border-left: 2px solid transparent;
       text-decoration: none;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s;
     }
-    .toc a:hover { color: rgba(0,0,0,0.72); }
-    .toc a.active { color: #000; font-weight: 600; border-left-color: #000; }
+    .toc a:hover { color: #2437e7; }
+    .toc a.active { color: #2437e7; font-weight: 600; }
+    /* the "|" indicator floats left of the column rail, like the Posts filter */
+    .toc a.active::before {
+      content: '';
+      position: absolute;
+      left: -0.7rem;
+      top: 0.28em;
+      width: 3px;
+      height: 0.78em;
+      background: #2437e7;
+    }
 
     h1 {
-      font-family: var(--serif);
+      font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;   /* same face as the site name */
       font-size: clamp(2rem, 4.5vw, 2.55rem);
       font-weight: 400; letter-spacing: -0.012em; line-height: 1.12;
       color: var(--ink); margin-bottom: 1.5rem;
@@ -174,7 +184,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       display: flex; justify-content: space-between; align-items: center;
       padding: 32px 0; border-bottom: 1px solid #f2f2f2;
     }
-    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 400; line-height: 1.2; color: rgba(0,0,0,0.88); text-decoration: none; }
+    .site-name { font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 300; line-height: 1.2; color: rgba(0,0,0,0.88); text-decoration: none; }
     .site-header-nav { display: flex; gap: 24px; }
     .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; color: rgba(0,0,0,0.88); text-decoration: none; }
     .site-header-nav a:hover { text-decoration: underline; }
@@ -191,7 +201,29 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       .site-header-nav a { font-size: 30px; }
     }
     @media (max-width: 640px) { .site-name { font-size: 28px; } .site-header-nav a { font-size: 16px; } }
-  </style>
+  
+    /* Column rails carried over from the Posts index (Cognition-style) */
+    .layout { position: relative; }
+    .layout::before, .layout::after {
+      content: '';
+      position: absolute;
+      top: 0;   /* flush against the site header's rule */
+      bottom: 6rem;
+      width: 2px;
+      background:
+        linear-gradient(#b3b8c2, #b3b8c2) 0 0 / 2px 14px no-repeat,
+        linear-gradient(#e7e9ee, #e7e9ee) 0.5px 14px / 1px calc(100% - 14px) no-repeat;
+    }
+    .layout::before { left: calc(2rem - 6px); }
+    .layout::after { left: calc(220px + 3.5rem); }
+    @media (max-width: 940px) {
+      .layout::before, .layout::after { display: none; }
+    }
+
+    /* Brand-blue text selection */
+    ::selection { background: #2437e7; color: #fff; }
+    ::-moz-selection { background: #2437e7; color: #fff; }
+</style>
 </head>
 <body>
 
@@ -226,7 +258,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
   </aside>
 
   <article>
-    <h1>C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment</h1>
+    <h1>A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</h1>
     <div class="authors">
       <span class="avatar">LZ</span>
       <span class="who">Lily Zhang</span>
@@ -648,7 +680,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       <h2>Citation</h2>
       <p>You can cite this post here:</p>
       <pre><code>@article{zhang2026cguard,
-  title   = "C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment",
+  title   = "A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)",
   author  = "Zhang, Lily",
   year    = "2026",
   month   = "July",
@@ -677,6 +709,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       if (visible.length) setActive(visible[0].target.id);
     }, { rootMargin: '-12% 0px -70% 0px', threshold: 0 });
     targets.forEach(t => obs.observe(t));
+    if (targets.length) setActive(targets[0].id);   // first section active on load
   })();
 </script>
 
