@@ -26,6 +26,10 @@ include:
   - _pages
   - CNAME
 
+# Hidden / incomplete posts — kept in source, not published
+exclude:
+  - posts/code-is-all-you-need
+
 # Plugins (previously gems:)
 plugins:
   - jekyll-paginate
