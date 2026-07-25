@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
      header's line so the two frame the content */
   max-width: none;
   margin: 6rem 0 0;
-  padding: 2.5rem 1rem 3rem;
+  padding: 1rem 1rem 1.25rem;   /* tight under the rule — reads as a footnote */
   border-top: 1px solid #e7e9ee;
   text-align: center;
 }
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .motto-quote {
   display: inline;   /* quote + attribution on one line */
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 300;
   color: #6b7280;   /* muted — footer furniture, not content */
   font-style: italic;
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
   margin-left: 0.6rem;   /* small gap after the quote */
   font-style: italic;    /* fully uniform with the quote — no hierarchy */
   font-family: Georgia, serif;
-  font-size: 0.9rem;     /* same size as the quote */
+  font-size: 0.8rem;     /* same size as the quote */
   color: #6b7280;        /* same color as the quote */
   margin-bottom: 0;
   font-weight: 300;
@@ -197,13 +197,16 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 .posts-filter {
-  flex: 0 0 120px;
+  flex: 0 0 110px;
+  margin-right: 3rem;    /* clear air between the menu column and the content rail */
   position: sticky;
   top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
   padding-top: 0.9rem;   /* level with the first entry's title */
+  padding-left: 0.9rem;
+  border-left: 1px solid #e7e9ee;   /* the menu column's own rail */
 }
 
 .filter-item {
@@ -264,14 +267,14 @@ document.addEventListener('DOMContentLoaded', function () {
   background: #b3b8c2;
 }
 
-/* …and a small mono section number beside it */
+/* …and a tiny mono section number hugging the rule, Cognition-style */
 .blog-list::after {
   content: '01';
   position: absolute;
-  top: 0.15rem;
-  left: -2.6rem;
+  top: -0.1rem;
+  left: 0.35rem;
   font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: 0.62rem;
   color: #b3b8c2;
   letter-spacing: 0.04em;
 }
@@ -287,6 +290,15 @@ document.addEventListener('DOMContentLoaded', function () {
     flex-direction: row;
     gap: 1.25rem;
     padding-top: 0;
+    padding-left: 0;
+    border-left: none;
+    margin-right: 0;
+  }
+
+  /* column furniture is a desktop-only device */
+  .blog-list::before,
+  .blog-list::after {
+    display: none;
   }
 
   .filter-item {
@@ -324,8 +336,8 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 .blog-date {
-  flex: 0 0 auto;
-  margin-left: auto;   /* push the date to the far-right corner */
+  order: -1;              /* date leads the row, Cognition-style */
+  flex: 0 0 4.6rem;       /* fixed column so every title starts on the same rail */
   white-space: nowrap;
   font-family: 'SFMono-Regular', Menlo, Consolas, monospace;   /* matches the 01 section number */
   font-size: 0.78rem;
