@@ -12,7 +12,7 @@
   <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     :root {
       /* warm cream palette */
@@ -76,15 +76,25 @@
     .toc li { margin-bottom: 0.85rem; }
     .toc a {
       display: block;
+      position: relative;
       font: 500 0.875rem/1.35 var(--sans);
       color: rgba(0,0,0,0.42);
       padding-left: 0.85rem;
-      border-left: 2px solid transparent;
       text-decoration: none;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s;
     }
-    .toc a:hover { color: rgba(0,0,0,0.72); }
-    .toc a.active { color: #000; font-weight: 600; border-left-color: #000; }
+    .toc a:hover { color: #2437e7; }
+    .toc a.active { color: #2437e7; font-weight: 600; }
+    /* the "|" indicator floats left of the column rail, like the Posts filter */
+    .toc a.active::before {
+      content: '';
+      position: absolute;
+      left: -0.7rem;
+      top: 0.28em;
+      width: 3px;
+      height: 0.78em;
+      background: #2437e7;
+    }
     .toc .sub a { font-size: 0.8125rem; padding-left: 1.65rem; }
     .toc .sub2 a { font-size: 0.75rem; padding-left: 2.45rem; }
     .toc .sub.active-parent a,
@@ -98,7 +108,7 @@
     .meta span + span::before { content: "·"; margin: 0 0.45rem; color: var(--faint); }
 
     h1 {
-      font-family: var(--serif);
+      font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;   /* same face as the site name */
       font-size: clamp(2rem, 4.5vw, 2.55rem);
       font-weight: 400;
       letter-spacing: -0.012em;
@@ -324,7 +334,7 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 32px 0; border-bottom: 1px solid #f2f2f2;
     }
-    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 400; line-height: 1.2; color: rgba(0,0,0,0.88); text-decoration: none; }
+    .site-name { font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 300; line-height: 1.2; color: rgba(0,0,0,0.88); text-decoration: none; }
     .site-header-nav { display: flex; gap: 24px; }
     .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; color: rgba(0,0,0,0.88); text-decoration: none; }
     .site-header-nav a:hover { text-decoration: underline; }
@@ -341,7 +351,29 @@
       .site-header-nav a { font-size: 30px; }
     }
     @media (max-width: 640px) { .site-name { font-size: 28px; } .site-header-nav a { font-size: 16px; } }
-  </style>
+  
+    /* Column rails carried over from the Posts index (Cognition-style) */
+    .layout { position: relative; }
+    .layout::before, .layout::after {
+      content: '';
+      position: absolute;
+      top: 0;   /* flush against the site header's rule */
+      bottom: 6rem;
+      width: 2px;
+      background:
+        linear-gradient(#b3b8c2, #b3b8c2) 0 0 / 2px 14px no-repeat,
+        linear-gradient(#e7e9ee, #e7e9ee) 0.5px 14px / 1px calc(100% - 14px) no-repeat;
+    }
+    .layout::before { left: calc(2rem - 6px); }
+    .layout::after { left: calc(220px + 3.5rem); }
+    @media (max-width: 940px) {
+      .layout::before, .layout::after { display: none; }
+    }
+
+    /* Brand-blue text selection */
+    ::selection { background: #2437e7; color: #fff; }
+    ::-moz-selection { background: #2437e7; color: #fff; }
+</style>
 </head>
 <body>
 
@@ -1033,6 +1065,7 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
       if (visible.length) setActive(visible[0].target.id);
     }, { rootMargin: '-12% 0px -70% 0px', threshold: 0 });
     targets.forEach(t => obs.observe(t));
+    if (targets.length) setActive(targets[0].id);   // first section active on load
   })();
 </script>
 
