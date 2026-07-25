@@ -292,9 +292,9 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   content: '';
   position: absolute;
   left: -1rem;
-  top: 0.15em;
+  top: 0.32em;
   width: 3px;
-  height: 1.1em;
+  height: 0.78em;   /* matches the text's cap height, no taller */
   background: #2437e7;
 }
 
