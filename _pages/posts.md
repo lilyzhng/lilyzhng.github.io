@@ -343,26 +343,10 @@ document.addEventListener('DOMContentLoaded', function () {
   transition: color 0.2s ease;
 }
 
-.blog-title::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: -2px;
-  left: 0;
-  background-color: #1e3a8a;
-  visibility: hidden;
-  transform: scaleX(0);
-  transition: all 0.3s ease-in-out;
-}
-
+/* Hover: no underline (the entry divider already draws a line) —
+   just light the title up in the accent blue, Cognition-style */
 .blog-title:hover {
-  color: #1e3a8a !important;
-}
-
-.blog-title:hover::after {
-  visibility: visible;
-  transform: scaleX(1);
+  color: #2437e7 !important;
 }
 
 /* Remove underline from all link states */
