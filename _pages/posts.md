@@ -44,7 +44,7 @@ permalink: /posts/
   </div>
 
   <div class="blog-entry" data-type="thoughts">
-    <a href="https://x.com/lily_gpupoor/status/2072083403898507278" class="blog-title" target="_blank">Poster @ AI Engineer World's Fair: Is Speculative Decoding All We Need?</a>
+    <a href="https://x.com/lily_gpupoor/status/2072083403898507278" class="blog-title" target="_blank">AI Engineer World's Fair: Is Speculative Decoding All We Need?</a>
     <span class="blog-date">06.30.26</span>
   </div>
 
@@ -70,7 +70,7 @@ permalink: /posts/
 
   <div class="blog-entry" data-type="blog">
     <a href="https://skill-claw.vercel.app/" class="blog-title" target="_blank">Skill Claw: Self-Improving Robot Agents</a>
-    <span class="blog-date">Mar 2026</span>
+    <span class="blog-date">03.15.26</span>
   </div>
 
   <div class="blog-entry" data-type="blog">
@@ -80,7 +80,7 @@ permalink: /posts/
 
   <div class="blog-entry" data-type="blog">
     <a href="https://sofagenius.ai/" class="blog-title" target="_blank">SofaGenius: Multi-Agent ML Research Assistant</a>
-    <span class="blog-date">Feb 2026</span>
+    <span class="blog-date">02.21.26</span>
   </div>
 
   <div class="blog-entry" data-type="thoughts">
