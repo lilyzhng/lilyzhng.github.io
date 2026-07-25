@@ -75,7 +75,7 @@ permalink: /posts/
 
   <div class="blog-entry" data-type="blog">
     <a href="https://supergeneral.vercel.app/" class="blog-title" target="_blank">SuperGeneral: Compositional Tool Environments for Agent Training</a>
-    <span class="blog-date">Mar 2026</span>
+    <span class="blog-date">03.10.26</span>
   </div>
 
   <div class="blog-entry" data-type="blog">
