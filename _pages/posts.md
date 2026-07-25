@@ -291,7 +291,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 .filter-item.is-active::before {
   content: '';
   position: absolute;
-  left: -1rem;
+  left: -0.5rem;   /* just off the rail */
   top: 0.32em;
   width: 3px;
   height: 0.78em;   /* matches the text's cap height, no taller */

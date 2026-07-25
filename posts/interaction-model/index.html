@@ -81,15 +81,25 @@
     .toc li { margin-bottom: 0.85rem; }
     .toc a {
       display: block;
+      position: relative;
       font: 500 0.875rem/1.35 var(--sans);
       color: rgba(0,0,0,0.42);
       padding-left: 0.85rem;
-      border-left: 2px solid transparent;
       text-decoration: none;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s;
     }
-    .toc a:hover { color: rgba(0,0,0,0.72); }
-    .toc a.active { color: #000; font-weight: 600; border-left-color: #000; }
+    .toc a:hover { color: #2437e7; }
+    .toc a.active { color: #2437e7; font-weight: 600; }
+    /* the "|" indicator floats left of the column rail, like the Posts filter */
+    .toc a.active::before {
+      content: '';
+      position: absolute;
+      left: -0.7rem;
+      top: 0.28em;
+      width: 3px;
+      height: 0.78em;
+      background: #2437e7;
+    }
     .toc .sub a { font-size: 0.8125rem; padding-left: 1.65rem; }
     .toc .sub2 a { font-size: 0.75rem; padding-left: 2.45rem; }
     .toc .sub.active-parent a,
@@ -386,7 +396,7 @@
     .layout::before, .layout::after {
       content: '';
       position: absolute;
-      top: 4rem;
+      top: 0;   /* flush against the site header's rule */
       bottom: 6rem;
       width: 2px;
       background:
