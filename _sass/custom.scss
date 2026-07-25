@@ -5,7 +5,7 @@
   padding: 0;
   font-size: 1rem;           /* standard size for paper list */
   line-height: 1.6;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
   color: var(--text-color);
 }
 
@@ -18,12 +18,12 @@
 .bibliography cite {
   font-style: italic;        /* ensure italics even if theme overrides <cite> */
   color: var(--text-color);
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
 }
 
 .bibliography strong {
   font-weight: 500;          /* slightly less bold for paper titles */
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
 }
 
 
@@ -55,7 +55,7 @@
 .page__content .intro-text p {
   font-size: 1rem;   /* reduced from 1.2rem */
   line-height: 1.5;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
   color: var(--text-color);
   margin-bottom: 0.8rem; /* reduced from 1.5rem */
 }
@@ -83,7 +83,7 @@
 
 /* Update all headings to use EB Garamond like Jason Wei */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
   color: var(--heading-color);
   font-weight: 400;
 }
@@ -198,11 +198,11 @@ body {
 
 .author-name {
   font-size: 2.5rem;
-  font-weight: 400;
+  font-weight: 300;
   margin: 0;
   padding: 0;
   color: var(--heading-color);
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
 }
 
 .navigation-container {
@@ -216,7 +216,7 @@ body {
   text-decoration: none;
   font-weight: 400;
   position: relative;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
 }
 
 .nav-link:hover {
@@ -243,7 +243,7 @@ body {
 
 /* Cooking placeholder styling */
 .cooking-placeholder {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
   font-size: 1.5rem;
   color: var(--text-color);
   text-align: center;
@@ -419,7 +419,7 @@ body {
   font-weight: 400;
   color: var(--text-color);
   font-style: normal;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
   width: 100%;
   padding: 0 0.5rem;
   box-sizing: border-box;
@@ -433,7 +433,7 @@ body {
   color: rgba(0, 0, 0, 0.6);
   display: block;
   margin-top: 0.25rem;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif;
   font-style: italic;
   text-align: center;
   width: 100%;
