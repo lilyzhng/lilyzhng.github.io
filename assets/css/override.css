@@ -254,6 +254,7 @@ button, input, select, textarea {
   list-style: none;
   padding-left: 0;
   margin-left: 0;
+  margin-top: 0;   /* match #papers-list so the first item hugs the 02 marker like 01 */
 }
 
 #service-list li {
