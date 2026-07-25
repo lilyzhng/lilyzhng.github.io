@@ -214,30 +214,31 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   gap: 0;
   max-width: 860px;
   width: 100%;
-  margin: 1.5rem auto 4rem;   /* guaranteed clearance above the footer rule */
+  margin: 1.5rem auto 7rem;   /* generous clearance above the footer rule */
   padding: 0 1rem;
   position: relative;
 }
 
-/* menu column rail: tick at the top, line running the full height of the section */
-.posts-layout::before {
-  content: '';
-  position: absolute;
-  top: -0.5rem;
-  left: calc(1rem - 1px);
-  width: 2px;
-  height: 14px;
-  background: #b3b8c2;
-}
-
+/* Column rails: each starts with a bold tick flush against the header line
+   (70px above this box) and runs a 1px hairline to the bottom of the section. */
+.posts-layout::before,
 .posts-layout::after {
   content: '';
   position: absolute;
-  top: -0.5rem;
+  top: -70px;      /* reach up to the header's horizontal rule */
   bottom: 0;
-  left: 1rem;
-  width: 1px;
-  background: #e7e9ee;
+  width: 2px;
+  background:
+    linear-gradient(#b3b8c2, #b3b8c2) 0 0 / 2px 14px no-repeat,
+    linear-gradient(#e7e9ee, #e7e9ee) 0.5px 14px / 1px calc(100% - 14px) no-repeat;
+}
+
+.posts-layout::before {
+  left: calc(1rem - 1px);              /* menu column rail */
+}
+
+.posts-layout::after {
+  left: calc(4rem + 110px - 1px);      /* content column rail (menu 110px + 3rem air) */
 }
 
 .posts-filter {
@@ -305,22 +306,10 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   max-width: 700px;
   margin: 0;
   padding: 0 0 0 2rem;
-  border-left: 1px solid #e5e7eb;   /* hairline column divider */
-  position: relative;
+  position: relative;   /* rail itself is drawn by .posts-layout::after */
 }
 
-/* Cognition-style column furniture: a bolder tick at the top of the hairline… */
-.blog-list::before {
-  content: '';
-  position: absolute;
-  top: -0.5rem;
-  left: -1.5px;
-  width: 2px;
-  height: 14px;
-  background: #b3b8c2;
-}
-
-/* …and a tiny mono section number hugging the rule, Cognition-style */
+/* a tiny mono section number hugging the rule, Cognition-style */
 .blog-list::after {
   content: '01';
   position: absolute;
