@@ -63,11 +63,6 @@ permalink: /posts/
     <span class="blog-date">05.20.26</span>
   </div>
 
-  <div class="blog-entry" data-type="thoughts">
-    <a href="https://github.com/zarazhangrui/frontend-slides" class="blog-title" target="_blank">Frontend Slides: AI-Native Presentation Generation</a>
-    <span class="blog-date">Apr 2026</span>
-  </div>
-
   <div class="blog-entry" data-type="blog">
     <a href="https://skill-claw.vercel.app/" class="blog-title" target="_blank">Skill Claw: Self-Improving Robot Agents</a>
     <span class="blog-date">03.15.26</span>
@@ -78,6 +73,11 @@ permalink: /posts/
     <span class="blog-date">03.10.26</span>
   </div>
 
+  <div class="blog-entry" data-type="thoughts">
+    <a href="https://github.com/zarazhangrui/frontend-slides" class="blog-title" target="_blank">Frontend Slides: AI-Native Presentation Generation</a>
+    <span class="blog-date">02.27.26</span>
+  </div>
+
   <div class="blog-entry" data-type="blog">
     <a href="https://sofagenius.ai/" class="blog-title" target="_blank">SofaGenius: Multi-Agent ML Research Assistant</a>
     <span class="blog-date">02.21.26</span>
@@ -85,7 +85,7 @@ permalink: /posts/
 
   <div class="blog-entry" data-type="thoughts">
     <a href="/posts/ieee-most-panel" class="blog-title">IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a>
-    <span class="blog-date">May 2025</span>
+    <span class="blog-date">05.05.25</span>
   </div>
 
   </div>
