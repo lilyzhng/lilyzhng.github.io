@@ -386,7 +386,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   flex: 0 0 4.6rem;       /* fixed column so every title starts on the same rail */
   white-space: nowrap;
   font-family: 'SFMono-Regular', Menlo, Consolas, monospace !important;   /* same face as the 01 marker; beats override.css's span rule */
-  font-size: 0.68rem;
+  font-size: 10px;
   color: #9aa4b2;
   letter-spacing: 0.02em;
 }
