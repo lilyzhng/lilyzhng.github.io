@@ -83,7 +83,7 @@ permalink: /posts/
     <span class="blog-date">Feb 2026</span>
   </div>
 
-  <div class="blog-entry" data-type="blog">
+  <div class="blog-entry" data-type="thoughts">
     <a href="/posts/ieee-most-panel" class="blog-title">IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a>
     <span class="blog-date">May 2025</span>
   </div>
