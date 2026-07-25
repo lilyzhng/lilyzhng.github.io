@@ -27,82 +27,107 @@ permalink: /posts/
   </div>
 </div>
 
-<div class="blog-list">
-  <div class="blog-entry">
+<div class="posts-layout">
+  <nav class="posts-filter" aria-label="Post type filter">
+    <button class="filter-item is-active" data-filter="all">All</button>
+    <button class="filter-item" data-filter="blog">Blog</button>
+    <button class="filter-item" data-filter="thoughts">Thoughts</button>
+  </nav>
+
+  <div class="blog-list">
+  <div class="blog-entry" data-type="blog">
     <a href="/posts/c-guard/" class="blog-title">C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment</a>
     <span class="blog-date">Jul 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2076794330401087964" class="blog-title" target="_blank">My Take on the $100B Market for AI Training Data, Including RL Environments</a>
     <span class="blog-date">Jul 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2076114858203095503" class="blog-title" target="_blank">Second-Order Effects After Cursor and Cognition Cracked Post-Training</a>
     <span class="blog-date">Jul 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2074728312161849627" class="blog-title" target="_blank">Reflection: Where Is the Market for Post-Training as a Service?</a>
     <span class="blog-date">Jul 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2072083403898507278" class="blog-title" target="_blank">Poster @ AI Engineer World's Fair: Is Speculative Decoding All We Need?</a>
     <span class="blog-date">Jul 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="thoughts">
     <a href="https://x.com/lily_gpupoor/status/2070401977251659794" class="blog-title" target="_blank">Build a Dense Reward for Your Writing</a>
     <span class="blog-date">Jun 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="/posts/harbor-rlvr-environment/" class="blog-title">What Can't Be Measured Can't Be Solved: RLVR Environment Design from a Failure Taxonomy</a>
     <span class="blog-date">Jun 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="thoughts">
     <a href="/posts/interaction-model/" class="blog-title">Thoughts on Thinking Machine's Interaction Model</a>
     <span class="blog-date">May 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="https://github.com/zarazhangrui/frontend-slides" class="blog-title" target="_blank">Frontend Slides: AI-Native Presentation Generation</a>
     <span class="blog-date">Apr 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="https://skill-claw.vercel.app/" class="blog-title" target="_blank">Skill Claw: Self-Improving Robot Agents</a>
     <span class="blog-date">Mar 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="https://supergeneral.vercel.app/" class="blog-title" target="_blank">SuperGeneral: Compositional Tool Environments for Agent Training</a>
     <span class="blog-date">Mar 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="https://sofagenius.ai/" class="blog-title" target="_blank">SofaGenius: Multi-Agent ML Research Assistant</a>
     <span class="blog-date">Feb 2026</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="/posts/ieee-most-panel" class="blog-title">IEEE MOST Panel: Driving Force Towards Large-Scale AV Commercialization</a>
     <span class="blog-date">May 2025</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="/posts/test-time-scaling" class="blog-title">Test Time Scaling</a>
     <span class="blog-date blog-soon">Coming soon</span>
   </div>
 
-  <div class="blog-entry">
+  <div class="blog-entry" data-type="blog">
     <a href="/posts/contrastive-vs-generative-alignment" class="blog-title">Contrastive Alignment vs Generative Alignment</a>
     <span class="blog-date blog-soon">Coming soon</span>
   </div>
+  </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var buttons = document.querySelectorAll('.posts-filter .filter-item');
+  var entries = document.querySelectorAll('.blog-entry');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      buttons.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      var f = btn.getAttribute('data-filter');
+      entries.forEach(function (e) {
+        e.style.display = (f === 'all' || e.getAttribute('data-type') === f) ? '' : 'none';
+      });
+    });
+  });
+});
+</script>
 
 <style>
 /* Header + nav come from the shared site CSS (main.css) via the splash layout,
@@ -164,12 +189,114 @@ permalink: /posts/
   }
 }
 
+/* ---- Posts layout: vertical filter sidebar + hairline divider (Cognition-style) ---- */
+.posts-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  max-width: 860px;
+  margin: 1.5rem auto 3rem;
+  padding: 0 1rem;
+}
+
+.posts-filter {
+  flex: 0 0 120px;
+  position: sticky;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-top: 0.9rem;   /* level with the first entry's title */
+}
+
+.filter-item {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0 0 0 0.75rem;
+  margin: 0;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #1a202c;
+  cursor: pointer;
+  line-height: 1.5;
+  border-left: 2px solid transparent;   /* reserve space for the indicator */
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.filter-item:hover {
+  color: #1e3a8a;
+}
+
+.filter-item.is-active {
+  color: #2437e7;                 /* Cognition-style blue */
+  border-left: 2px solid #2437e7; /* the "|" indicator */
+}
+
 .blog-list {
   /* wider than the title's ~600px so the reserved date column doesn't force
      titles to wrap early — line 1 stays long like the original */
+  flex: 1 1 auto;
+  min-width: 0;
   max-width: 700px;
-  margin: 1.5rem auto 3rem;
-  padding: 0 1rem;
+  margin: 0;
+  padding: 0 0 0 2rem;
+  border-left: 1px solid #e5e7eb;   /* hairline column divider */
+  position: relative;
+}
+
+/* Cognition-style column furniture: a bolder tick at the top of the hairline… */
+.blog-list::before {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  left: -1.5px;
+  width: 2px;
+  height: 14px;
+  background: #b3b8c2;
+}
+
+/* …and a small mono section number beside it */
+.blog-list::after {
+  content: '01';
+  position: absolute;
+  top: 0.15rem;
+  left: -2.6rem;
+  font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  color: #b3b8c2;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .posts-layout {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .posts-filter {
+    position: static;
+    flex-direction: row;
+    gap: 1.25rem;
+    padding-top: 0;
+  }
+
+  .filter-item {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 0 0 0.25rem 0;
+  }
+
+  .filter-item.is-active {
+    border-left: none;
+    border-bottom: 2px solid #2437e7;
+  }
+
+  .blog-list {
+    border-left: none;
+    padding-left: 0;
+  }
 }
 
 .blog-entry {
