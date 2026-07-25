@@ -709,6 +709,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       if (visible.length) setActive(visible[0].target.id);
     }, { rootMargin: '-12% 0px -70% 0px', threshold: 0 });
     targets.forEach(t => obs.observe(t));
+    if (targets.length) setActive(targets[0].id);   // first section active on load
   })();
 </script>
 

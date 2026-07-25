@@ -1065,6 +1065,7 @@ std(R_{1..G}) > 0  for at least one task group</code></pre>
       if (visible.length) setActive(visible[0].target.id);
     }, { rootMargin: '-12% 0px -70% 0px', threshold: 0 });
     targets.forEach(t => obs.observe(t));
+    if (targets.length) setActive(targets[0].id);   // first section active on load
   })();
 </script>
 
