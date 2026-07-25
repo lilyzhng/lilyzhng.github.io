@@ -113,48 +113,11 @@ h2 {
 /* 2. stack photo + icons as a mini column */
 .intro-left        { display: flex; flex-direction: column; align-items: center; width: 180px; }
 
-/* 3. tidy up the icon row */
-.social-links { 
-  margin-top: 1rem; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  gap: 1rem;
-  min-height: 2rem;
-}
-.social-links a { 
-  font-size: 1.5rem; 
-  opacity: .85; 
-  display: flex; 
-  align-items: center;
-  justify-content: center;
-  color: var(--text-color); 
-  text-decoration: none;
-  width: 2rem;
-  height: 2rem;
-  line-height: 1;
-  text-align: center;
-  border-bottom: none;
-}
-.social-links a:hover { 
-  opacity: 1; 
-  color: var(--link-color); 
-  border-bottom: none;
-}
-
-/* remove stray descenders / protrusions in the glyph boxes */
-.social-links i { 
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Make Google Scholar icon match others */
-.social-links .ai-google-scholar { 
-  font-size: 1.7rem; 
+/* 3. social links as a plain left-aligned text row
+   (full styling lives in override.css) */
+.social-links {
+  margin-top: 1.1rem;
+  text-align: left;
 }
 
 

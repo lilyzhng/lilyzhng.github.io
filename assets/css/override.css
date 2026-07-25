@@ -5,6 +5,12 @@
   --background-color: #F9F9F9;
 }
 
+/* Brand-blue text selection, consistent with the blog posts.
+   !important is required: the theme's ::selection{background:#000} is loaded
+   after this file (override.css is @imported at the top of main.css). */
+::selection { background: #2437e7 !important; color: #fff !important; }
+::-moz-selection { background: #2437e7 !important; color: #fff !important; }
+
 /* Base body styles */
 body {
   background-color: var(--background-color);
@@ -51,9 +57,22 @@ body {
   width: 220px !important;
 }
 
-/* Update social links width to match new profile picture size */
+/* Social links as clean text (Twitter / CV / Google Scholar / Email / LinkedIn) */
 .social-links {
-  width: 220px !important;
+  width: auto !important;
+  margin-top: 1.1rem;
+  font-family: 'Cormorant Garamond', 'EB Garamond', serif !important;
+  font-size: 1.1rem !important;
+  line-height: 1.6;
+  white-space: nowrap;      /* keep all links on one line; no mid-label wrap */
+  color: #9aa4b2;           /* the " / " separators */
+}
+
+/* inherit the exact link style used in the bio paragraphs (base `a` rule) */
+.social-links a {
+  font-size: inherit !important;
+  opacity: 1 !important;
+  margin-right: 0 !important;
 }
 
 /* Footer styles */
@@ -100,6 +119,9 @@ a.site-title,
 
 .header-container {
   width: 100%;
+  /* nudge the name left so every page (home, posts, papers) aligns identically */
+  margin-left: -1.25rem;
+  padding-left: 1.25rem;
 }
 
 /* Typography settings */
@@ -159,9 +181,8 @@ button, input, select, textarea {
     height: 180px !important;
   }
   
-  /* Adjust social links container */
-  .intro-left,
-  .social-links {
+  /* Adjust profile column width */
+  .intro-left {
     width: 180px !important;
   }
   
@@ -192,8 +213,7 @@ button, input, select, textarea {
     height: 150px !important;
   }
   
-  .intro-left,
-  .social-links {
+  .intro-left {
     width: 150px !important;
   }
   
@@ -240,4 +260,64 @@ button, input, select, textarea {
   text-indent: -1.25rem;     /* hanging indent like publications */
   padding-left: 1.25rem;     /* match publications indent */
   margin-bottom: 1.5rem;
+}
+
+/* ---- Home page vertical rails (Cognition-style ticker lines) ----
+   Far-left rail runs the full height of the content; the middle rail
+   divides the photo column from the text but stops at the end of the
+   intro section. Each starts with a bold 14px tick, then a 1px hairline. */
+.home-frame {
+  position: relative;
+}
+
+/* header rule: flush against the frame top and extended left to meet the
+   far-left rail, so the top of the grid is one connected corner (home only) */
+.home-header {
+  margin-bottom: 0 !important;   /* rails start flush at the header line */
+  border-bottom-color: #e7e9ee !important;
+}
+
+/* intro (bio) section — hosts the "01" marker */
+.intro-section {
+  position: relative;
+  padding-top: 2rem;      /* content breathing room */
+  padding-bottom: 2.5rem; /* space above the Status quo line */
+  margin-bottom: 0;
+}
+
+/* far-left rail — full height; meets the header line (top) and every
+   horizontal divider on the left */
+.home-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1.25rem;
+  width: 2px;
+  background:
+    linear-gradient(#b3b8c2, #b3b8c2) 0 0 / 2px 14px no-repeat,
+    linear-gradient(#e7e9ee, #e7e9ee) 0.5px 14px / 1px calc(100% - 14px) no-repeat;
+  pointer-events: none;
+}
+
+/* Status quo divider — sits close to the heading and extends left to the rail */
+.status-quo-heading {
+  position: relative;
+  border-top: 1px solid #e7e9ee;
+  margin-top: 0;
+  padding-top: 0.9rem;
+  margin-left: -1.25rem;
+  padding-left: 1.25rem;
+}
+
+/* the rail is a desktop device; drop it once the layout stacks */
+@media (max-width: 767px) {
+  .home-frame::before {
+    display: none;
+  }
+  .header-container,
+  .status-quo-heading {
+    margin-left: 0;
+    padding-left: 0;
+  }
 }

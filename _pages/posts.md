@@ -22,7 +22,7 @@ permalink: /posts/
     <button class="filter-item" data-filter="all">All</button>
   </nav>
 
-  <div class="blog-list">
+  <div class="blog-list" data-section="01">
   <div class="blog-entry" data-type="blog">
     <a href="/posts/c-guard/" class="blog-title">A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</a>
     <span class="blog-date">07.21.26</span>
@@ -107,10 +107,13 @@ permalink: /posts/
 document.addEventListener('DOMContentLoaded', function () {
   var buttons = document.querySelectorAll('.posts-filter .filter-item');
   var entries = document.querySelectorAll('.blog-entry');
+  var list = document.querySelector('.blog-list');
+  var sectionNumbers = { blog: '01', thoughts: '02', all: '03' };
   function apply(f) {
     entries.forEach(function (e) {
       e.style.display = (f === 'all' || e.getAttribute('data-type') === f) ? '' : 'none';
     });
+    if (list) list.setAttribute('data-section', sectionNumbers[f] || '01');
   }
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -311,7 +314,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 
 /* a tiny mono section number hugging the rule, Cognition-style */
 .blog-list::after {
-  content: '01';
+  content: attr(data-section);
   position: absolute;
   top: 0;
   left: 0.35rem;
