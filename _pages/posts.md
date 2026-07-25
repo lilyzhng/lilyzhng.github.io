@@ -127,12 +127,33 @@ document.addEventListener('DOMContentLoaded', function () {
 /* Header + nav come from the shared site CSS (main.css) via the splash layout,
    so this page matches Home and Papers exactly (background, zoom, header). */
 
+/* Pin the footer to the viewport bottom when the (filtered) list is short:
+   stretch the page's wrapper chain and let the motto take the slack. */
+body.sticky-bottom-footer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.sticky-bottom-footer > .container.mt-5 {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
 /* Motto Section */
 .motto-section {
   /* a true full-width footer: the top rule spans the page, echoing the
      header's line so the two frame the content */
   max-width: none;
   margin: 6rem 0 0;
+  margin-top: auto;             /* absorb leftover viewport height — line sits at the very bottom */
   padding: 1rem 1rem 1.25rem;   /* tight under the rule — reads as a footnote */
   border-top: 1px solid #e7e9ee;
   text-align: center;
@@ -192,7 +213,8 @@ document.addEventListener('DOMContentLoaded', function () {
   align-items: flex-start;
   gap: 0;
   max-width: 860px;
-  margin: 1.5rem auto 3rem;
+  width: 100%;
+  margin: 1.5rem auto 4rem;   /* guaranteed clearance above the footer rule */
   padding: 0 1rem;
   position: relative;
 }
@@ -227,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
   flex-direction: column;
   gap: 0.55rem;
   padding-top: 0.9rem;   /* level with the first entry's title */
-  padding-left: 0.35rem;  /* text hugs the rail, evenly for every item */
+  padding-left: 0.15rem;  /* text hugs the rail, evenly for every item */
 }
 
 .filter-item {
