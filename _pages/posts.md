@@ -15,28 +15,16 @@ permalink: /posts/
   </div>
 </div>
 
-<div class="motto-section">
-  <div class="motto-container">
-    <div class="motto-quote">
-      Pain is inevitable but suffering is optional
-    </div>
-    <div class="motto-attribution">
-      — Haruki Murakami
-    </div>
-
-  </div>
-</div>
-
 <div class="posts-layout">
   <nav class="posts-filter" aria-label="Post type filter">
-    <button class="filter-item is-active" data-filter="all">All</button>
-    <button class="filter-item" data-filter="blog">Blog</button>
+    <button class="filter-item is-active" data-filter="blog">Blog</button>
     <button class="filter-item" data-filter="thoughts">Thoughts</button>
+    <button class="filter-item" data-filter="all">All</button>
   </nav>
 
   <div class="blog-list">
   <div class="blog-entry" data-type="blog">
-    <a href="/posts/c-guard/" class="blog-title">C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment</a>
+    <a href="/posts/c-guard/" class="blog-title">A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</a>
     <span class="blog-date">Jul 2026</span>
   </div>
 
@@ -60,7 +48,7 @@ permalink: /posts/
     <span class="blog-date">Jul 2026</span>
   </div>
 
-  <div class="blog-entry" data-type="thoughts">
+  <div class="blog-entry" data-type="blog">
     <a href="https://x.com/lily_gpupoor/status/2070401977251659794" class="blog-title" target="_blank">Build a Dense Reward for Your Writing</a>
     <span class="blog-date">Jun 2026</span>
   </div>
@@ -70,12 +58,12 @@ permalink: /posts/
     <span class="blog-date">Jun 2026</span>
   </div>
 
-  <div class="blog-entry" data-type="thoughts">
+  <div class="blog-entry" data-type="blog">
     <a href="/posts/interaction-model/" class="blog-title">Thoughts on Thinking Machine's Interaction Model</a>
     <span class="blog-date">May 2026</span>
   </div>
 
-  <div class="blog-entry" data-type="blog">
+  <div class="blog-entry" data-type="thoughts">
     <a href="https://github.com/zarazhangrui/frontend-slides" class="blog-title" target="_blank">Frontend Slides: AI-Native Presentation Generation</a>
     <span class="blog-date">Apr 2026</span>
   </div>
@@ -100,15 +88,18 @@ permalink: /posts/
     <span class="blog-date">May 2025</span>
   </div>
 
-  <div class="blog-entry" data-type="blog">
-    <a href="/posts/test-time-scaling" class="blog-title">Test Time Scaling</a>
-    <span class="blog-date blog-soon">Coming soon</span>
   </div>
+</div>
 
-  <div class="blog-entry" data-type="blog">
-    <a href="/posts/contrastive-vs-generative-alignment" class="blog-title">Contrastive Alignment vs Generative Alignment</a>
-    <span class="blog-date blog-soon">Coming soon</span>
-  </div>
+<div class="motto-section">
+  <div class="motto-container">
+    <div class="motto-quote">
+      Pain is inevitable but suffering is optional
+    </div>
+    <div class="motto-attribution">
+      — Haruki Murakami
+    </div>
+
   </div>
 </div>
 
@@ -116,16 +107,19 @@ permalink: /posts/
 document.addEventListener('DOMContentLoaded', function () {
   var buttons = document.querySelectorAll('.posts-filter .filter-item');
   var entries = document.querySelectorAll('.blog-entry');
+  function apply(f) {
+    entries.forEach(function (e) {
+      e.style.display = (f === 'all' || e.getAttribute('data-type') === f) ? '' : 'none';
+    });
+  }
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
       buttons.forEach(function (b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
-      var f = btn.getAttribute('data-filter');
-      entries.forEach(function (e) {
-        e.style.display = (f === 'all' || e.getAttribute('data-type') === f) ? '' : 'none';
-      });
+      apply(btn.getAttribute('data-filter'));
     });
   });
+  apply('blog');   // Blog is the default view
 });
 </script>
 
@@ -135,9 +129,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Motto Section */
 .motto-section {
-  max-width: 700px;
-  margin: 2rem auto 1.5rem;
-  padding: 0 1rem;
+  max-width: 828px;                  /* matches the posts column (860 minus its padding) */
+  margin: 3rem auto 2.5rem;          /* sits at the foot of the page now */
+  padding: 2rem 1rem 0;
+  border-top: 1px solid #e5e7eb;     /* hairline divider before the closing note */
   text-align: center;
 }
 
@@ -148,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .motto-quote {
   display: inline;   /* quote + attribution on one line */
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 300;
   color: #1a202c;
   font-style: italic;
@@ -163,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
   margin-left: 0.6rem;   /* small gap after the quote */
   font-style: italic;    /* fully uniform with the quote — no hierarchy */
   font-family: Georgia, serif;
-  font-size: 1.25rem;    /* same size as the quote */
+  font-size: 1rem;       /* same size as the quote */
   color: #1a202c;        /* same color as the quote */
   margin-bottom: 0;
   font-weight: 300;
@@ -174,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 768px) {
   .motto-quote,
   .motto-attribution {
-    font-size: 1.125rem;   /* keep quote + name the same size on mobile too */
+    font-size: 0.95rem;   /* keep quote + name the same size on mobile too */
   }
 
   /* on phones, drop the "— Haruki Murakami" to its own second line */
@@ -227,6 +222,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .filter-item:hover {
   color: #1e3a8a;
+}
+
+/* kill the browser's default focus ring/box on click; keep it for keyboard nav */
+.filter-item:focus {
+  outline: none;
+}
+
+.filter-item:focus-visible {
+  outline: 2px solid #2437e7;
+  outline-offset: 2px;
 }
 
 .filter-item.is-active {
@@ -344,9 +349,15 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 /* Hover: no underline (the entry divider already draws a line) —
-   just light the title up in the accent blue, Cognition-style */
-.blog-title:hover {
+   light the whole row up in the accent blue, Cognition-style.
+   Row-level hover so title and date change together. */
+.blog-entry:hover .blog-title,
+.blog-entry:hover .blog-date {
   color: #2437e7 !important;
+}
+
+.blog-date {
+  transition: color 0.2s ease;
 }
 
 /* Remove underline from all link states */
