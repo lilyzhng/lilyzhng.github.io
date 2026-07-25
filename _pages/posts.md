@@ -430,5 +430,9 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   border-bottom: none !important;
   outline: none !important;
 }
+
+    /* Brand-blue text selection */
+    ::selection { background: #2437e7; color: #fff; }
+    ::-moz-selection { background: #2437e7; color: #fff; }
 </style>
 
