@@ -334,6 +334,9 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
     position: static;
     flex-direction: row;
     align-items: baseline;   /* don't stretch buttons — keep the underline snug */
+    justify-content: center; /* center the filter tabs on phone */
+    width: 100%;             /* fill the row so justify-content can center */
+    flex-basis: auto;        /* drop the 110px sidebar width */
     gap: 1.25rem;
     padding-top: 0;
     padding-left: 0;
