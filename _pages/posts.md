@@ -368,6 +368,11 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
     border-left: none;
     padding-left: 0;
   }
+
+  /* first entry hugs the tabs, matching the papers page spacing */
+  .blog-entry:first-child {
+    padding-top: 0;
+  }
 }
 
 .blog-entry {
