@@ -202,8 +202,18 @@ document.addEventListener('DOMContentLoaded', function () {
   var list = document.querySelector('.blog-list');
   var sectionNumbers = { blog: '01', thoughts: '02', all: '03' };
   function apply(f) {
+    var firstVisibleSet = false;
     entries.forEach(function (e) {
-      e.style.display = (f === 'all' || e.getAttribute('data-type') === f) ? '' : 'none';
+      var visible = (f === 'all' || e.getAttribute('data-type') === f);
+      e.style.display = visible ? '' : 'none';
+      // Tag the first *visible* entry so its top spacing can be trimmed to hug
+      // the tabs. :first-child can't do this because filtered-out entries are
+      // still in the DOM (display:none), so it targets a hidden element.
+      e.classList.remove('is-first-visible');
+      if (visible && !firstVisibleSet) {
+        e.classList.add('is-first-visible');
+        firstVisibleSet = true;
+      }
     });
     if (list) list.setAttribute('data-section', sectionNumbers[f] || '01');
   }
@@ -461,8 +471,10 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
     padding-left: 0;
   }
 
-  /* first entry hugs the tabs, matching the papers page spacing */
-  .blog-entry:first-child {
+  /* first *visible* entry hugs the tabs, matching the papers page spacing.
+     Keyed off .is-first-visible (set in JS) rather than :first-child so the
+     spacing is consistent across every filter, not just the Blog tab. */
+  .blog-entry.is-first-visible {
     padding-top: 0;
   }
 }
