@@ -249,7 +249,9 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       <li><a href="#grow">2.3 · Grow the board</a></li>
       <li><a href="#rl">2.4 · RL training</a></li>
       <li><a href="#results">3 · Results</a></li>
+      <li><a href="#deadweight">3.1 · Dead-weight diagnosis</a></li>
       <li><a href="#drifttax">3.2 · The drift tax</a></li>
+      <li><a href="#coverage">3.3 · Targeted coverage</a></li>
       <li><a href="#guardrails">3.4 · Guardrails</a></li>
       <li><a href="#conclusion">4 · Conclusion</a></li>
       <li><a href="#appendix">Appendix</a></li>
@@ -515,7 +517,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       human-labeled set with adversarial and vanilla slices. The corpus grows from about 2K rows to
       7,241 at the final iteration, every pack traced to a probe finding or an amendment.</p>
 
-      <h3>3.1 · Dead-weight diagnosis</h3>
+      <h3 id="deadweight">3.1 · Dead-weight diagnosis</h3>
 
       <p>C-LIM flags the dead-weight region before any training budget is spent (Figure 6). Across
       the checkpoint ladder, 20 of 21 scored cells cluster healthy while
@@ -588,7 +590,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       on all three independent slices, which is the drift tax. XSTest, 450 prompts. WildGuardTest,
       1,699. ToxicChat, 2,853.</figcaption>
 
-      <h3>3.3 · Targeted coverage</h3>
+      <h3 id="coverage">3.3 · Targeted coverage</h3>
 
       <p>Aimed generation lifts a flagged cell where blind volume could not. The privacy family,
       flat at 0.733 under the 187 untargeted rows, moved to 0.80 once rows were aimed at its probed
