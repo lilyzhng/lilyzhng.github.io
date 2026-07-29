@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>How to Train a Draft Model: Speculative Decoding, Verify, and Why Longer Isn't Better | Lily Zhang (draft)</title>
+  <meta name="description" content="Draft translation: speculative decoding — how draft models are trained, why neither draft nor verify should be longer, and dynamic verify." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="katex/katex.min.css" />
+  <script defer src="katex/katex.min.js"></script>
+  <script defer src="katex/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],ignoredTags:['script','noscript','style','textarea','pre','code'],ignoredClasses:['term']});"></script>
+  <style>
+    :root {
+      --bg: #F9F9F9;
+      --surface: #fffffb;
+      --ink: rgba(0,0,0,0.86);
+      --text: rgba(0,0,0,0.80);
+      --muted: rgba(0,0,0,0.55);
+      --faint: rgba(0,0,0,0.40);
+      --line: rgba(0,0,0,0.12);
+      --accent: #d9534a;
+      --quote-bg: rgba(0,0,0,0.035);
+      --serif: Georgia, "Times New Roman", "Noto Serif", serif;
+      --sans: Inter, system-ui, -apple-system, sans-serif;
+      --mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      --term-bg: #101418;
+      --term-text: #e6e8ea;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--serif);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.66;
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: rgba(0,0,0,0.70); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(0,0,0,0.25); }
+    a:hover { text-decoration-color: rgba(0,0,0,0.7); }
+    article { max-width: 780px; margin: 0 auto; padding: 3.5rem 1.4rem 6rem; }
+
+    .draft-banner {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      color: #7a4d00;
+      background: #fdf3dd;
+      border: 1px solid #eddcb4;
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      margin-bottom: 2.2rem;
+    }
+    .draft-banner strong { color: #5e3b00; }
+
+    .src-note {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-left: 3px solid var(--accent);
+      background: var(--quote-bg);
+      border-radius: 0 8px 8px 0;
+      padding: 0.85rem 1.1rem;
+      margin: 1.6rem 0 2.4rem;
+      line-height: 1.55;
+    }
+
+    h1 {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 1.9rem;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+      margin-bottom: 0.8rem;
+    }
+    .subtitle { font-size: 1.02rem; color: var(--muted); font-style: italic; margin-bottom: 1.4rem; }
+    .meta { font-family: var(--sans); font-size: 0.8rem; color: var(--faint); margin-bottom: 0.4rem; }
+
+    h2 {
+      font-family: var(--sans);
+      font-weight: 650;
+      font-size: 1.32rem;
+      color: var(--ink);
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--accent);
+      display: table;      /* underline hugs the text like the original */
+    }
+    p { margin: 0 0 1.15rem; }
+    strong.hl { color: var(--accent); }
+    sup { font-size: 0.72em; }
+    ul { margin: 0 0 1.15rem 1.4rem; }
+    li { margin-bottom: 0.4rem; }
+
+    blockquote {
+      background: var(--quote-bg);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.15rem;
+      margin: 0 0 1.15rem;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    blockquote p { margin: 0 0 0.6rem; }
+    blockquote p:last-child { margin: 0; }
+
+    .term {
+      background: var(--term-bg);
+      border-radius: 12px;
+      margin: 1.4rem 0 1.6rem;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    }
+    .term-bar { display: flex; gap: 7px; padding: 12px 14px 4px; }
+    .term-bar span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .term-bar .r { background: #ff5f56; } .term-bar .y { background: #ffbd2e; } .term-bar .g { background: #27c93f; }
+    .term pre {
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      line-height: 1.65;
+      color: var(--term-text);
+      padding: 10px 18px 18px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .term pre .cm { color: #8b98a5; }
+
+    figure { margin: 2rem 0 2.2rem; }
+    figure img { width: 100%; height: auto; display: block; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
+    figcaption { font-family: var(--sans); font-size: 0.8rem; color: var(--faint); margin-top: 0.55rem; text-align: center; }
+
+    .tok { font-family: var(--mono); font-size: 0.83em; background: #fbe9e7; color: #b3392f; border-radius: 4px; padding: 0.08em 0.35em; white-space: nowrap; }
+
+    .katex-display { margin: 1.3rem 0 1.5rem; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+    .refs { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); margin-top: 3rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+    .refs ol { margin-left: 1.3rem; }
+    .endnote { font-family: var(--sans); font-size: 0.85rem; color: var(--faint); font-style: italic; margin-top: 2rem; }
+    @media (max-width: 560px) { body { font-size: 16.5px; } h1 { font-size: 1.55rem; } }
+  </style>
+</head>
+<body>
+<article>
+
+  <div class="draft-banner">
+    <strong>Draft — unlisted.</strong> This page is not linked from the site index and carries
+    <code>noindex</code>. It is an English translation for personal study/review; see the source
+    attribution below before sharing or publishing.
+  </div>
+
+  <div class="meta">DRAFT · TRANSLATION · 2026-07-29</div>
+  <h1>How to Train a Draft Model: Speculative Decoding, Verify, and Why Longer Isn&rsquo;t Better</h1>
+  <p class="subtitle">An English translation of SuSun&rsquo;s article on speculative decoding in OpenInfer.</p>
+
+  <div class="src-note">
+    <strong>Source &amp; attribution.</strong> Original article (Chinese) by <strong>SuSun</strong>:
+    <a href="https://zhuanlan.zhihu.com/p/2061569158689698340">zhuanlan.zhihu.com/p/2061569158689698340</a>.
+    Original note: &ldquo;The Qingke community provides publicity support for researchers&rsquo; results.
+    If you have excellent research results to share and promote, contributions are welcome — contact: aiFreeCode.&rdquo;
+    Translated from 14 captured pages; the source article continues past the final speedup formula
+    (the intro promises a section on DSpark&rsquo;s dynamic verify that is not captured here).
+    Figures are re-plotted from the data shown in the original.
+  </div>
+
+  <p>Thanks to the friends on the openinfer team for their support — we wrote openinfer&rsquo;s speculative decoding code and this blog together.</p>
+
+  <p>We have already added support for DFlash and DSpark speculative decoding on OpenInfer<sup>[1]</sup> with Qwen3-4B. In a ShareGPT test on a single RTX 5090, DSpark raised single-stream throughput from 170 to 381 token/s, and brought TPOT down from 5.83&nbsp;ms to 2.96&nbsp;ms; at concurrency 4, throughput likewise rose from 576 to 1288 token/s — all while keeping the output lossless.</p>
+
+  <p>This article breaks down the speculative decoding technique itself: <strong class="hl">how the draft model is trained, why neither the draft nor the verify is &ldquo;the longer the better&rdquo;, and how the latest DSpark does dynamic verify.</strong></p>
+
+  <p>Large-model decode is limited by memory bandwidth: for every token emitted, the full set of weights has to be read from VRAM once. For an 8GB dense model with 800GB/s of bandwidth, one full read is 10ms, so the per-request ceiling is 100 token/s.</p>
+
+  <p>This ceiling has nothing to do with how many requests there are or how complex they are, and it doesn&rsquo;t have much to do with how well the kernels are written either — bandwidth utilization cannot exceed the physical limit, and a single forward simply has to read that much data. If you want to go faster, there is only one way: make a single decode forward emit more than one token.</p>
+
+  <h2>Why can an LLM decode forward only emit one token?</h2>
+
+  <p>Mainstream LLMs are decoder-only Transformers with a causal attention mask: each position can only see itself and the tokens to its left, and the entire model&rsquo;s training objective is &ldquo;given the text, predict the next token.&rdquo;</p>
+
+  <p>So within one forward pass, the only position that actually produces something new is the last one in the sequence — it yields the distribution for the next token, the sampled token is appended to the end of the sequence, and only then can the next forward begin. Each output depends on the previous step&rsquo;s output — inherently serial.</p>
+
+  <p>Here&rsquo;s an intuition: the &ldquo;effort&rdquo; the model spends on each output token is actually not uniform. For example, when it&rsquo;s writing Rust, the first token after a newline is &ldquo;l&rdquo; (of course the tokenizer may not split that finely), the next is very likely &ldquo;e&rdquo;, then &ldquo;t&rdquo;, then a space:</p>
+
+  <div class="term"><div class="term-bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+<pre>let a = 1;
+let b = 2;</pre></div>
+
+  <p>Is there some way to recognize such patterns and guess in advance what the model is likely to output next? The precondition is unchanged precision: after the model receives these hints, the final output must still be identical to the original model&rsquo;s.</p>
+
+  <p>The simple idea is: before some decode step, use some mechanism to generate a handful of follow-up tokens and hand them to the model for verification. If the model accepts 3 tokens, that&rsquo;s equivalent to one decode forward generating 3 tokens.</p>
+
+  <p>Temporarily ignoring the extra overhead of the draft stage and the verify stage, that would mean generating 3 tokens per 10ms — close to 3&times; the throughput, taking single-request tps from 100 token/s to 300 token/s.</p>
+
+  <h2>How do we approximately measure how hard a token is to output?</h2>
+
+  <p>The model fundamentally outputs logits, not tokens directly. After normalization, the logits can be read as the model&rsquo;s probability of choosing each word — for instance <code class="tok">{"a": 0.99, "b": 0.01}</code> means the model has a very strong preference for the token &ldquo;a&rdquo; (though this cannot be directly equated with difficulty). If &ldquo;a&rdquo; and &ldquo;b&rdquo; are each at 0.5, the model doesn&rsquo;t really know what to output — there&rsquo;s some hesitation.</p>
+
+  <p>We compute the entropy of the logits at every output position, \(H = -\sum_i p_i \log p_i\). This metric roughly represents &ldquo;average uncertainty&rdquo; — the smaller it is, the more certain the model likely is.</p>
+
+  <p>Taking Qwen3 4B as the example, we collect the logits produced while the model generates under a set of prompts and watch how the entropy changes at each output token.</p>
+
+  <p>To clarify once more: I don&rsquo;t claim the &ldquo;entropy&rdquo; here is equivalent to how difficult the model finds it to output a token, but the two should be correlated.</p>
+
+  <p>Let&rsquo;s look at four typical workloads.</p>
+
+  <p><strong>coding</strong> comes from HumanEval; example prompts:</p>
+
+  <blockquote>
+    <p>Complete the body of this Python function. Output only the function. def has_close_elements(numbers: List[float], threshold: float) -&gt; bool: &hellip; <em>(with docstring + doctest — standard OpenAI code completion)</em></p>
+    <p>Write a Python function is_prime(n) that returns True if n is a prime number and False otherwise.</p>
+  </blockquote>
+
+  <p><strong>math</strong> comes from GSM8K:</p>
+
+  <blockquote><p>Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?</p></blockquote>
+
+  <p><strong>prose</strong> source: r/WritingPrompts. Famous works are deliberately avoided so the model can create freely.</p>
+
+  <blockquote><p>Write a short story based on this writing prompt: You are the last human alive on Earth. Suddenly, you hear a knock on the door.</p></blockquote>
+
+  <p><strong>chat</strong> source: MT-Bench Q81 + the first Alpaca instruction.</p>
+
+  <blockquote><p>Compose an engaging travel blog post about a recent trip to Hawaii, highlighting cultural experiences and must-see attractions.</p></blockquote>
+
+  <p>We then let Qwen3 4B generate greedily, and at every generated token we record the full-vocabulary logits and compute the entropy.</p>
+
+  <p>Before showing the full analysis, let&rsquo;s first look at a concrete example from the math domain. The problem is:</p>
+
+  <blockquote><p>Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?</p></blockquote>
+
+  <p>The model&rsquo;s reply looks like this:</p>
+
+  <div class="term"><div class="term-bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+<pre>Natalia sold clips to **48 friends** in **April**.
+
+In **May**, she sold **half as many** clips as in April:
+
+$$
+\frac{48}{2} = 24
+$$
+
+So, in **May**, she sold **24 clips**.
+
+Now, add the number of clips sold in both months:
+
+$$
+48 + 24 = 72
+$$
+
+**Answer:** Natalia sold **72 clips** altogether in April and May.</pre></div>
+
+  <p>We pull out the first sentence, &ldquo;Natalia sold clips to 48 friends in April.&rdquo;, and look at each token&rsquo;s entropy in generation order (larger H = more hesitant; p1 is the top-1 probability):</p>
+
+  <div class="term"><div class="term-bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+<pre>'N'           H=0.244  p1=0.946    <span class="cm"># restate the problem first, or not?</span>
+'atal'        H=0.000  p1=1.000    <span class="cm"># restating begins — entropy very low</span>
+'ia'          H=0.000  p1=1.000
+' sold'       H=0.000  p1=1.000
+' clips'      H=0.050  p1=0.991
+' to'         H=0.000  p1=1.000
+' **'         H=0.315  p1=0.905    <span class="cm"># bold the number, or not?</span>
+'4'           H=0.000  p1=1.000    <span class="cm"># emit the number</span>
+'8'           H=0.000  p1=1.000
+' friends'    H=0.040  p1=0.993
+'**'          H=0.074  p1=0.986
+' in'         H=0.000  p1=1.000
+' **'         H=0.269  p1=0.924    <span class="cm"># still has to bold</span>
+'April'       H=0.000  p1=1.000    <span class="cm"># repeating the problem text</span>
+'**'          H=0.002  p1=1.000
+'.\n\n'       H=0.040  p1=0.993</pre></div>
+
+  <p>For most structural output — plainly restating the problem, restating numbers — once the model has decided on the restatement and the format, the subsequent output is highly determined and the entropy is very low.</p>
+
+  <p>This means we can most likely use a small model to maintain fairly high accuracy at these low-entropy positions, guessing several tokens at a time, and thereby let the main model emit multiple tokens in a single forward.</p>
+
+  <figure>
+    <img src="figures/token-effort-by-domain.svg" alt="Per-token entropy traces for code, math, chat, and prose workloads, with perfect-draft headroom bars of 22, 11, 3, and 2 tokens per forward" />
+    <figcaption>Re-plot of the original figure: per-token full-vocab entropy across four domains, and perfect-draft headroom (τ=0.9). Entropy traces are illustrative reconstructions; headroom values are from the original.</figcaption>
+  </figure>
+
+  <p>The left figure shows how entropy evolves while the model generates its reply on the four workloads. code and math have lower entropy — more determined output; chat and prose are more diffuse. This suggests we can probably capture pretty good gains in the code and math scenarios.</p>
+
+  <p>The right side is the ideal speedup. We mark an output token with top1_prob &gt; 0.9 as &ldquo;the model is very certain&rdquo;, and find consecutive runs of such tokens. For instance tokens 48 &rarr; 72 form a run of 24 consecutive certain tokens, meaning we could draft 24 tokens out for the model to verify. In the coding and math scenarios this count is large; under chat and prose it&rsquo;s only 3 and 2 — but these are just relative values.</p>
+
+  <p>The experiment above validates one thing: in the code and math scenarios there really is a lot of low-difficulty output that a small model can guess correctly.</p>
+
+  <p>But guessing is guessing — how exactly do we guarantee accuracy? How do we guarantee losslessness?</p>
+
+  <h2>Greedy decoding</h2>
+
+  <p>Let&rsquo;s start from greedy decoding, i.e. sampling always picks the token with the highest probability.</p>
+
+  <p>Verification under greedy is simple and deterministic: the target model \(M\) takes the argmax throughout, so there exists a single, uniquely determined &ldquo;reference answer&rdquo; sequence — precisely the string of tokens \(M\) would greedily emit step by step on its own.</p>
+
+  <p>Spec decode being &ldquo;lossless&rdquo; under greedy means the output matches this reference sequence token for token — only the number of \(M\)&rsquo;s forwards goes down.</p>
+
+  <p>Let&rsquo;s work from a concrete example. Suppose the current context is \(x_{1:t}\). In the draft stage, we use the small model \(q\) to autoregressively emit \(\gamma\) candidates \(d_1, \ldots, d_\gamma\) — that&rsquo;s \(\gamma\) small-model forwards, a small cost. In the verify stage, we feed the whole sequence \([x_{1:t}, d_1, \ldots, d_\gamma]\) into \(M\) and run just one forward.</p>
+
+  <p>Why can a single forward give us the verify for multiple positions? We&rsquo;re exploiting the causal mask mechanism. The causal mask dictates that position i can only see 1..\(i\) — it cannot see the future. Technically, the attention weights pointing to the future are pushed down to \(-\infty\) (0 after softmax).</p>
+
+  <p>So we can stuff multiple draft tokens in at once. Every position&rsquo;s output depends only on itself and the tokens to its left; with the mask in place, each token&rsquo;s computation is no different from normal decode.</p>
+
+  <p>For example, with 4 drafted tokens, this forward is like processing 5 decode positions in parallel along the sequence dimension. Put another way, this single forward computes \(\gamma + 1\) distributions in parallel and in isolation along the sequence — the hidden state at each draft token&rsquo;s position is predicting its own next token:</p>
+
+  <div class="term"><div class="term-bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+<pre>fed in:         x_{1:t}   d1    d2    d3    d4
+                   |       |     |     |     |
+predict next:     p0      p1    p2    p3    p4     <span class="cm">← one forward, 5 distributions</span></pre></div>
+
+  <p>The key is that \(p_i = M(\cdot \mid x_{1:t}, d_1..d_i)\) is \(M\)&rsquo;s true conditional distribution — no loss of any kind. The mask makes \(p_i\) attend only to \(x\) and \(d_1..d_i\), so it is exactly &ldquo;the next-token distribution \(M\) would give if it had really been fed this prefix.&rdquo; The verify step involves no approximation whatsoever: within a single forward, \(M\) has computed its true argmax at every position. That is where losslessness comes from.</p>
+
+  <p>The acceptance rule is equally simple: walk through the sequence, comparing until the first mismatch.</p>
+
+  <p>Using the earlier Rust example: the context stops at the newline, and \(M\)&rsquo;s true greedy continuation is <span class="tok">let&nbsp;␣a&nbsp;␣=&nbsp;␣1</span>&nbsp;; while the <em>draft</em> (\(\gamma = 4\)) guessed <span class="tok">let&nbsp;␣a&nbsp;␣=&nbsp;␣2</span>.</p>
+
+  <p><span class="tok">let&nbsp;␣a&nbsp;␣=</span> — all three hit; at <span class="tok">␣2</span> we find a mismatch, because the model chose 1, not 2. So we accept the first 3, then take <span class="tok">␣1</span> as an extra bonus (it has already been forwarded, and it is the correct choice) — so this round emits <span class="tok">let&nbsp;␣a&nbsp;␣=&nbsp;␣1</span>: 4 tokens / 1 forward.</p>
+
+  <p>Therefore, <strong class="hl">the correctness of verification is completely independent of where the draft came from.</strong> Whether \(d_1..d_\gamma\) came from small-model greedy, small-model sampling, n-gram copying from the context, or random tokens — none of it affects output correctness; it only affects the acceptance rate \(\alpha\).</p>
+
+  <p>But once we add sampling — say top-k, top-p — verification gets a bit thornier, because there is more than one legal output. Our definition of &ldquo;lossless&rdquo; probably has to become: whether speculative decoding is on or off is imperceptible at the user level; over many repeated generations, the two output distributions should be identical.</p>
+
+  <p>For instance with top_k=2, either &ldquo;a&rdquo; or &ldquo;b&rdquo; could be a legal output. But if the draft only ever offers &ldquo;b&rdquo; and we accept it blindly because it&rsquo;s legal, we lose the randomness that sampling grants the model itself.</p>
+
+  <p>In other words, if speculative decoding and sampling are both enabled and we generate many replies for the same request, the distribution of those replies is not equivalent to the base model&rsquo;s own sampling results.</p>
+
+  <p>So how do we solve this problem?</p>
+
+  <p>The first solution comes from DeepMind&rsquo;s paper <em>Accelerating Large Language Model Decoding with Speculative Sampling</em><sup>[2]</sup>.</p>
+
+  <p>The intuition of this scheme is actually not complicated. The draft keeps proposing tokens according to its own distribution \(q\), but what we really want is the target&rsquo;s distribution \(p\). For each concrete token, we look at just two things: the frequency at which the main model wants it, \(p\), and the frequency at which the draft proposes it, \(q\).</p>
+
+  <p>If the draft proposes it less often than the main model wants (\(q &lt; p\)): easy — every time it proposes, we accept, and the remaining shortfall (\(p - q\)) we make up ourselves.</p>
+
+  <p>Conversely, if the draft proposes it more often than we want (\(q &gt; p\)): accepting every one would definitely be &ldquo;lossy&rdquo;. So each time it&rsquo;s proposed, we keep it only with probability \(p/q\) — which adds up to exactly \(p\).</p>
+
+  <p>In mathematical terms it goes like this.</p>
+
+  <p>For a given item \(x\), there are only two quantities:</p>
+
+  <ul>
+    <li>\(p\) = the standard amount — the proportion we want.</li>
+    <li>\(q\) = the machine amount — the proportion the auto-restocking machine habitually piles up.</li>
+  </ul>
+
+  <p>The key identity, in one line:</p>
+
+  $$\underbrace{\min(p, q)}_{\text{overlap}} + \underbrace{(p - q)_+}_{\text{shortfall}} = p$$
+
+  <ul>
+    <li>Overlap \(\min(p, q)\): the smaller of the two — the part the machine can supply that I also happen to want.</li>
+    <li>Shortfall \((p - q)_+\): the subscript \(+\) means negatives are zeroed out — the part I still want but the machine didn&rsquo;t stock enough of.</li>
+  </ul>
+
+  <p>Why must it hold?</p>
+
+  <ul>
+    <li><strong class="hl">The machine understocks (\(p &gt; q\))</strong>: I take everything the machine stocked (overlap = \(q\)), and I make up the difference myself (shortfall = \(p - q\)); together that&rsquo;s exactly \(p\).</li>
+    <li><strong class="hl">The machine overstocks (\(p &lt; q\))</strong>: I have enough — I take only as much as I need (overlap = \(p\)), nothing is missing, so shortfall = 0, and the total is still \(p\). The machine&rsquo;s excess isn&rsquo;t part of this identity — it&rsquo;s the portion that gets probabilistically rejected at delivery and never reaches the shelf.</li>
+  </ul>
+
+  <p>There is another, more engineering-flavored approach — and it&rsquo;s what OpenInfer does now: first let the main model sample a token according to its own sampling, then compare it with the token the draft gave; if they&rsquo;re the same, accept; if different, discard.</p>
+
+  <p>Doing it this way slightly affects the acceptance rate, but the measured impact is small. Unless the sampling parameters are very &ldquo;open&rdquo;, most of the time the model&rsquo;s output concentrates on a small number of tokens — close to greedy.</p>
+
+  <p>But this depends on the actual workload and the actual MTP, including the sampling parameters received in real serving.</p>
+
+  <h2>How to train a draft model: EAGLE as the example</h2>
+
+  <p>The traditional, or rather naive, approach works on tokens — like a pure function: given a token list, output a token list, predicting at the token level. This is intuitive, but the acceptance rate isn&rsquo;t very high.</p>
+
+  <p>EAGLE initially used the hidden state right before the logits, plus the token embedding shifted forward by one time step (that is, the token actually sampled at the previous step), as the draft model&rsquo;s input.</p>
+
+  <p>The body is a single-layer autoregressive Transformer. It directly predicts hidden states, and afterwards still uses the main model&rsquo;s lm_head to complete the hidden &rarr; logits &rarr; token conversion.</p>
+
+  <p>That makes training simple too: run the target LLM over training text, collect hidden states, and construct training samples. Here you can choose to run the target LLM&rsquo;s prefill over a real text corpus to obtain hidden states, or let it generate answers and use the decode-stage hidden states as training data.</p>
+
+  <p>According to the EAGLE paper, generating with a fixed dataset (where the answers also come from the dataset) already achieves a 2.78&times; speedup; swapping the answers for ones the target generates itself achieves 2.88&times; — an improvement, but not a big one.</p>
+
+  <p>The loss function is defined like this:</p>
+
+  <div class="term"><div class="term-bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+<pre>L = L_reg + 0.1 * L_cls
+
+L_reg = SmoothL1(f, f̂)
+
+L_cls = CE(p, p̂) = - Σ_k p[k] * log(p̂[k])</pre></div>
+
+  <p>The former guarantees the accuracy of the hidden state prediction; the latter keeps the draft model&rsquo;s and target model&rsquo;s token distributions close. Both serve the same purpose: raising the acceptance rate. I feel the loss here wasn&rsquo;t defined from first principles — which is also one of the motivations behind the later EAGLE-3.</p>
+
+  <p>There&rsquo;s still another problem here: the draft generates a single chain — tokens 1, 2, 3, 4. If token 1 gets rejected, then 2, 3, 4 are wasted too. We can guess multiple tokens per position and generate a tree — i.e., multiple chains — which improves the chance of acceptance; see this explainer<sup>[3]</sup>.</p>
+
+  <p>Although tree-based drafting can push the accepted length very high and can substantially raise throughput at small batch sizes, a bigger tree is not always better: in JetSpec<sup>[4]</sup>, when the budget goes from 128 to 256, the accepted tokens gained per 100 additional verified nodes drop by about 81% compared with the previous tier.</p>
+
+  <figure>
+    <img src="figures/draft-tree-marginal-return.svg" alt="Larger draft trees accept more and waste more: accepted length rises with tree budget while verified-node utilization and marginal return collapse" />
+    <figcaption>Re-plot of the original figure (data from JetSpec, Table 2 · mean across 7 tasks · temperature 0).</figcaption>
+  </figure>
+
+  <p>EAGLE-3 takes hidden states from three layers at once — \(l, m, h\) — and then uses a fully connected layer to reduce them to a &ldquo;single layer&rdquo;, obtaining a feature that integrates information from different levels. At the same time, EAGLE-3&rsquo;s training objective looks only at the token distribution, which makes EAGLE-3 easier to scale.</p>
+
+  <p>You can also swap this draft for a diffusion model that generates multiple tokens at once — for example DFlash<sup>[5]</sup>, which is the DFlash that OpenInfer integrates.</p>
+
+  <h2>Calculating the gains of speculative decoding</h2>
+
+  <p>Suppose the draft generates \(\gamma\) tokens per round, and each position is accepted with probability \(\alpha\).</p>
+
+  <p>The first token brings \(\alpha\) expected output; the second is only useful if the first two are both accepted, contributing \(\alpha^2\); the \(i\)-th contributes \(\alpha^i\).</p>
+
+  <p>Moreover, no matter where the draft fails, the target always yields one corrected token. So the expected output of one verify round is</p>
+
+  $$\mathbb{E}(n) = 1 + \alpha + \alpha^2 + \cdots + \alpha^\gamma = \frac{1 - \alpha^{\gamma+1}}{1 - \alpha}.$$
+
+  <p>Put simply: <strong class="hl">the longer the draft, the harder the later tokens are to accept.</strong> Each additional draft token only adds \(\alpha^\gamma\) of expected output.</p>
+
+  <p>As \(\gamma \to \infty\), the total output only approaches \(1/(1 - \alpha)\). For example, at \(\alpha = 0.5\), no matter how long the draft is, a round averages no more than 2 tokens; only at \(\alpha = 0.9\) does the ceiling rise to 10.</p>
+
+  <p>How many tokens a round produces still can&rsquo;t be directly equated with how much speedup we get, because generating the draft and verifying both take time.</p>
+
+  <p>Let the time for normal decode to generate one token be 1, let the draft model&rsquo;s relative cost to generate one token be \(c\), and let the relative cost of verifying \(\gamma + 1\) positions at once be \(v_\gamma\). Then one round of speculative decoding costs \(\gamma c + v_\gamma\) units of time.</p>
+
+  <p>In the same amount of time, normal decode could generate \(\gamma c + v_\gamma\) tokens, while speculative decoding generates \(\mathbb{E}(n)\) on average. So the speedup ratio is approximately</p>
+
+  $$S(\gamma) \approx \frac{\mathbb{E}(n)}{\gamma c + v_\gamma} = \frac{1 + \alpha + \cdots + \alpha^\gamma}{\gamma c + v_\gamma}.$$
+
+  <div class="refs">
+    <strong>References</strong> (as cited in the original; the reference list itself was not in the captured pages)
+    <ol>
+      <li>OpenInfer</li>
+      <li>DeepMind, <em>Accelerating Large Language Model Decoding with Speculative Sampling</em></li>
+      <li>Explainer on tree-based drafting</li>
+      <li>JetSpec</li>
+      <li>DFlash</li>
+    </ol>
+  </div>
+
+  <p class="endnote">Translation ends here — the captured pages stop at the speedup formula. The original article continues (the intro promises coverage of how DSpark does dynamic verify).</p>
+
+</article>
+</body>
+</html>

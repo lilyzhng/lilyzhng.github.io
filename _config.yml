@@ -100,6 +100,11 @@ defaults:
     values:
       page_js:
         - /assets/js/video-toggle.js
+  -
+    scope:
+      path: "posts/draft"   # unlisted drafts: keep out of sitemap.xml
+    values:
+      sitemap: false
 
 # -----------------------------------------------------------------------------
 # Analytics
