@@ -24,7 +24,7 @@ permalink: /posts/
 
   <div class="blog-list" data-section="01">
   <div class="blog-entry" data-type="blog">
-    <a href="/posts/losslessbench/" class="blog-title">Token Speed Maxxing Has a Price: LosslessBench on Inference Acceleration</a>
+    <a href="/posts/losslessbench/" class="blog-title">Introducing LosslessBench</a>
     <span class="blog-date">07.28.26</span>
   </div>
 
