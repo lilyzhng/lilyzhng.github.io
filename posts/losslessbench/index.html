@@ -454,7 +454,7 @@
       <span class="role">July 28, 2026</span>
     </div>
 
-    <p class="lede">Every inference vendor is racing to make open models faster. Nobody measures what the speedup costs. So I built LosslessBench: I benchmarked GLM 5.2 and Kimi K3 across five domains, measuring what inference acceleration would cost in quality, and why token speed maxxing has a price. See Figure 1: both pages came from GLM 5.2, same prompt. The left was served by Z.AI at fp8, the right through Baseten's accelerated fp4 endpoint. This is what inference acceleration can cost.</p>
+    <p class="lede">Every inference provider is racing to make open models faster. Nobody measures what the speedup costs. So I built LosslessBench: designed across five domains,I benchmarked GLM 5.2 and Kimi K3 to measure what inference acceleration would cost in quality, and why token speed maxxing has a price. See Figure 1: both pages came from GLM 5.2, same prompt. The left was served by Z.AI at fp8, the right through Baseten's accelerated fp4 endpoint. This is what inference acceleration can cost.</p>
 
     <figure class="diagram bare">
         <div style="display:flex;gap:14px;align-items:flex-start;">
@@ -474,9 +474,9 @@
         <figcaption>Figure 1. Left: fp8 implements the photo card with the 3D flip. Right: fp4 renders a near-blank page.</figcaption>
       </figure>
 
-    <p>The judge evaluates each rendered page on whether it fulfills the prompt: a photo card interface with a 3D flip on hover. fp8 built it, scored 93, and the judge wrote "excellently implements the 3D flip effect." fp4, in contrast, produced a page with no flip effect and no photo card at all, scored 15, and the judge wrote "fails to meet the prompt's requirements." fp4 didn't implement badly; it skipped the prompt requirement.</p>
+    <p>The judge evaluates each rendered page on whether it fulfills the prompt: a photo card interface with a 3D flip on hover. fp8 built it, scored 93, and the judge wrote "excellently implements the 3D flip effect." fp4, in contrast, produced a page with no flip effect and no photo card at all, scored 15, and the judge wrote "fails to meet the prompt's requirements." fp4 model skipped the prompt requirement entirely.</p>
 
-    <p>Zoom out, and the whole benchmark comes down to one number per model. GLM 5.2, accelerated by its vendors, loses 5.6 points on frontend design. Kimi K3, which owns its own acceleration, loses 0.3. <strong>Whoever handles inference acceleration owns the quality loss.</strong></p>
+    <p>Zoom out, <strong>Whoever handles inference acceleration owns the quality loss.</strong> GLM 5.2, accelerated by its vendors, loses 5.6 points on frontend design. Kimi K3, which owns its own acceleration, loses 0.3. </p>
 
     <figure class="diagram bare"><div style="max-width:560px;margin:0 auto;"><svg viewBox="40 10 640 240" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Quality loss comparison. GLM 5.2 with vendor-owned acceleration loses 5.6 points. Kimi K3 with model-owned acceleration loses 0.3 points.">
   <line x1="120" y1="60" x2="120" y2="260" stroke="#e7e7e2" stroke-width="1"/>
@@ -527,7 +527,7 @@
 
       <p>Eugene (<a href="https://x.com/picocreator">@picocreator</a>, CEO @ <a href="https://featherless.ai">featherless.ai</a>) mentioned that speculative decoding works very well on easy-to-predict tasks, but not on creative design and writing, because those tokens are hard to predict.</p>
 
-      <p>The blank page is the failure you would catch. Here is the one you wouldn't. Prompt: "Stunning translucent calendar popup that smoothly blends into the interface." The fp4 page is visually appealing, the judge said so, but the calendar popup itself is missing. It scored 53. fp8 built the popup and scored 93.</p>
+      <p>Here is the another failure. Prompt: "Stunning translucent calendar popup that smoothly blends into the interface." The fp4 page is visually appealing, but the calendar popup itself is missing. It scored 53. fp8 built the popup and scored 93.</p>
 
       <figure class="diagram bare">
         <div style="display:flex;gap:14px;align-items:flex-start;">
@@ -587,15 +587,13 @@
 
       <p><strong>This is a big shift.</strong> Kimi just moved that ownership back into the model layer.</p>
 
-      <p>When the model layer owns the inference acceleration, the thing left for a vendor is faithful execution. So I measured that: Moonshot's endpoint vs Baseten's endpoint. Both stacks have a speculative decoder; about half of the tokens in every answer came from a draft model. You can see it in Baseten's API response:</p>
+      <p>When the model layer owns the inference acceleration, the thing left for a vendor is faithful execution. So I measured that: Moonshot's endpoint vs Baseten's endpoint. Both stacks have a speculative decoder, and about half of the tokens in every answer came from a draft model. 27 of the 61 output tokens in this call came from the draft model. You can see it in Baseten's API response:</p>
 
       <pre><code>"completion_tokens_details": {
   "accepted_prediction_tokens": 27,
   "reasoning_tokens": 4,
   "rejected_prediction_tokens": 0
 }</code></pre>
-
-      <p>27 of the 61 output tokens in this call came from the draft model. With the speculator running, seven of ten prompts scored exactly identical. Mean gap: 0.3 points.</p>
 
       <p>Compare GLM 5.2: shipped fp8, vendors quantized to fp4 and trained spec drafts their own way. Everyone gets the speedup, but nobody owns the quality benchmark. Tax rolls downhill, customers eat it.</p>
     </section>
