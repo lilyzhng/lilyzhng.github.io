@@ -579,7 +579,7 @@
 
     <section id="k3">
       <h2><span class="sec-num">03</span>Kimi K3 does QAT + draft model</h2>
-      <p>I was mid running Lossless benchmark when Moonshot released Kimi K3, so I tested it.</p>
+      <p>I was mid running LosslessBench when Moonshot released Kimi K3, so I tested it.</p>
 
       <p>Note that Kimi K3 is notably faster than Fable. I dug into why. Instead of releasing fp8 and letting vendors quantize, <strong>Kimi K3 does QAT from SFT onward and trains its own speculative draft model</strong>. It ships natively in MXFP4, benchmarks all reported at 4-bit.</p>
 
