@@ -618,6 +618,7 @@
         <li>A controlled run: serve the model myself and toggle one acceleration at a time, so I can tell which one costs quality.</li>
         <li>Measure token distribution shift: compare each token's probability against the reference.</li>
         <li>Watch the acceptance rate: if a vendor relaxes the acceptance rule, acceptance goes up and quality drifts.</li>
+        <li>Make LosslessBench efficient enough to run as part of CI, catching regressions on every inference stack change.</li>
       </ul>
 
       <p class="detail">A month ago I found GLM 5.2 running absurdly fast inside Devin Desktop and tweeted about it. Then the replies started asking the question I couldn't answer: does the speedup degrade the model? Two days later I presented a <a href="aie-poster.png">poster</a> at the AIE conference: "Is speculative decoding all we need? Will GLM 5.2 dflash/dspark be lossy on long tail tasks?" This benchmark is the answer I owed those replies.</p>
