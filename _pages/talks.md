@@ -48,7 +48,7 @@ permalink: /talks/
   <div class="talk-card" data-type="panel">
     <a href="https://pi2ws.github.io/" target="_blank" rel="noopener">
       <span class="talk-thumb">
-        <img src="/assets/img/invited_talks/pi2_workshop.png" alt="Physical Intelligence Initiative workshop" loading="lazy">
+        <img src="/assets/img/invited_talks/pi2_panel_photo.jpg" alt="Lily Zhang on the Robotics and AI industry panel at the PI2 Workshop" loading="lazy">
       </span>
       <span class="talk-title">Robotics &amp; AI Industry Panel</span>
     </a>
