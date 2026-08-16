@@ -138,10 +138,17 @@
   </div>
 
   <div class="talk-card" data-type="presentation">
-    <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
-      <span class="talk-thumb">
+    <div class="talk-thumb talk-carousel-wrap">
+      <div class="talk-carousel" tabindex="0" aria-label="Hackathon photos, swipe or use arrows">
         <img src="/assets/img/invited_talks/claude_code_hackathon.jpg" alt="Finalists on stage at the Anthropic Claude Code Global Hackathon" loading="lazy" />
-      </span>
+        <img src="/assets/img/invited_talks/claude_code_hackathon_2.jpg" alt="Judges panel with Lauren Reeder, Boris Cherny, and Cat Wu" loading="lazy" />
+        <img src="/assets/img/invited_talks/claude_code_hackathon_3.jpg" alt="Audience at the Claude Code hackathon finals" loading="lazy" />
+      </div>
+      <button class="car-nav car-prev" aria-label="Previous photo">&#10094;</button>
+      <button class="car-nav car-next" aria-label="Next photo">&#10095;</button>
+      <span class="car-dots" aria-hidden="true"></span>
+    </div>
+    <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
       <span class="talk-title">SofaGenius: Orchestrate Agentic Post-Training</span>
     </a>
     <div class="talk-meta">Finalist Presentation (Top 15/13k), Anthropic Claude Code Global Hackathon, San Francisco · 02.26</div>
@@ -272,6 +279,39 @@ document.addEventListener('DOMContentLoaded', function () {
       cards.forEach(function (c) {
         c.style.display = (f === 'all' || c.getAttribute('data-type') === f) ? '' : 'none';
       });
+    });
+  });
+
+  // photo carousels: swipe (native scroll-snap) + arrows + dots
+  document.querySelectorAll('.talk-carousel-wrap').forEach(function (wrap) {
+    var track = wrap.querySelector('.talk-carousel');
+    var imgs = track.querySelectorAll('img');
+    var dotsBox = wrap.querySelector('.car-dots');
+    var dots = [];
+    imgs.forEach(function (_, i) {
+      var d = document.createElement('span');
+      d.className = 'car-dot' + (i === 0 ? ' is-on' : '');
+      dotsBox.appendChild(d);
+      dots.push(d);
+    });
+    function current() { return Math.round(track.scrollLeft / track.clientWidth); }
+    function goTo(i) {
+      i = Math.max(0, Math.min(imgs.length - 1, i));
+      track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+    }
+    track.addEventListener('scroll', function () {
+      var i = current();
+      dots.forEach(function (d, j) { d.classList.toggle('is-on', j === i); });
+    }, { passive: true });
+    wrap.querySelector('.car-prev').addEventListener('click', function (e) {
+      e.preventDefault(); goTo(current() - 1);
+    });
+    wrap.querySelector('.car-next').addEventListener('click', function (e) {
+      e.preventDefault(); goTo(current() + 1);
+    });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current() - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current() + 1); }
     });
   });
 
@@ -418,6 +458,65 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 }
 
 .talk-card:hover img { filter: grayscale(0); }
+
+/* photo carousel: native scroll-snap swipe, arrows on hover, dots below */
+.talk-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 4px;
+}
+.talk-carousel::-webkit-scrollbar { display: none; }
+.talk-carousel img {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.talk-carousel:focus-visible { outline: 2px solid #2437e7; outline-offset: 2px; }
+
+.car-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(10, 12, 16, 0.45);
+  color: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+.car-prev { left: 10px; }
+.car-next { right: 10px; }
+.talk-card:hover .car-nav { opacity: 1; }
+.car-nav:hover { background: rgba(36, 55, 231, 0.85); }
+/* touch devices don't hover: keep arrows visible so the carousel is discoverable */
+@media (hover: none) { .car-nav { opacity: 1; } }
+
+.car-dots {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  display: flex;
+  gap: 6px;
+}
+.car-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 3px rgba(0,0,0,0.35);
+  transition: background 0.2s ease;
+}
+.car-dot.is-on { background: #fff; }
 
 /* play badge: only on entries with an actual recording */
 .talk-play {
