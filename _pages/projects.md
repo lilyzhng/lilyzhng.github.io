@@ -18,8 +18,8 @@ permalink: /projects/
 
 <div class="proj-page">
   <div class="proj-topics">
+    <label class="proj-topic"><input type="checkbox" value="products"> Products</label>
     <label class="proj-topic"><input type="checkbox" value="research"> AI Research</label>
-    <label class="proj-topic"><input type="checkbox" value="deployment"> Product Deployment</label>
     <label class="proj-topic"><input type="checkbox" value="post-training"> Agentic Post-Training</label>
     <label class="proj-topic"><input type="checkbox" value="rl-env"> RL Environments</label>
     <label class="proj-topic"><input type="checkbox" value="tools"> Tools/Skills</label>
@@ -55,14 +55,14 @@ permalink: /projects/
       </a>
       <div class="proj-desc">Blogpost + lossless100 dataset · 2026</div>
     </div>
-    <div class="proj-card" data-topics="rl-env">
+    <div class="proj-card" data-topics="rl-env products">
       <a href="https://skill-claw.vercel.app/" target="_blank" rel="noopener">
         <img src="/assets/img/projects/skill_claw.jpg" alt="Skill Claw" loading="lazy">
         <span class="proj-title">Skill Claw: Self-Improving Robot Agents</span>
       </a>
       <div class="proj-desc">RL environments that train code policy · 2026</div>
     </div>
-    <div class="proj-card" data-topics="tools">
+    <div class="proj-card" data-topics="tools products">
       <a href="/writing/interaction-model/">
         <img src="/writing/interaction-model/diagram_architecture.svg" alt="Dual-model voice agent architecture" loading="lazy" class="fit-contain" style="background: #F5F3EF">
         <span class="proj-title">Dual-Model Voice Agent (Walkie-Talkie)</span>
@@ -70,7 +70,7 @@ permalink: /projects/
       <div class="proj-desc">Front-end model talks with the user; back-end model handles tool calls, search, and generative UI · 2026</div>
     </div>
 
-    <div class="proj-card" data-topics="post-training">
+    <div class="proj-card" data-topics="post-training products">
       <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
         <img src="/assets/img/projects/sofagenius.png" alt="SofaGenius" loading="lazy">
         <span class="proj-title">SofaGenius: Agentic Post-Training</span>
@@ -84,7 +84,7 @@ permalink: /projects/
       </a>
       <div class="proj-desc">Frontier models on tool use, composition, and creation · 2026</div>
     </div>
-    <div class="proj-card" data-topics="tools">
+    <div class="proj-card" data-topics="tools products">
       <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">
         <img src="/assets/img/projects/frontend_slides.png" alt="Frontend Slides" loading="lazy">
         <span class="proj-title">Frontend Slides: AI-Native Presentation Generation</span>
@@ -98,7 +98,7 @@ permalink: /projects/
       </a>
       <div class="proj-desc">Poster, AI Engineer World's Fair · 2026</div>
     </div>
-    <div class="proj-card" data-topics="research">
+    <div class="proj-card" data-topics="research products">
       <a href="/assets/pdf/eureka_poster_neurips.pdf" target="_blank" rel="noopener">
         <img src="/assets/img/eureka_poster_preview.png" alt="Eureka" loading="lazy">
         <span class="proj-title">Eureka: Feature Engineering as Agentic Code Generation</span>
@@ -112,21 +112,21 @@ permalink: /projects/
       </a>
       <div class="proj-desc">General Chair, RoboGen Workshop, IEEE IROS · 2025</div>
     </div>
-    <div class="proj-card" data-topics="tools">
+    <div class="proj-card" data-topics="tools products">
       <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">
         <img src="/assets/img/projects/deep_seek.png" alt="Deep-Seek deep research agent" loading="lazy">
         <span class="proj-title">Deep-Seek: Deep Research Agent</span>
       </a>
       <div class="proj-desc">LLM-powered retrieval engine that compiles entity tables from internet-scale sources · 2024</div>
     </div>
-    <div class="proj-card" data-topics="deployment">
+    <div class="proj-card" data-topics="products">
       <a href="https://www.youtube.com/watch?v=_xMXiK9wBxE" target="_blank" rel="noopener">
         <img src="https://img.youtube.com/vi/_xMXiK9wBxE/hqdefault.jpg" alt="Continuous Learning Loop" loading="lazy">
         <span class="proj-title">Continuous Learning Loop: Online / Offline Perception Systems</span>
       </a>
       <div class="proj-desc">Seminar, University of Delaware · 2023</div>
     </div>
-    <div class="proj-card" data-topics="deployment">
+    <div class="proj-card" data-topics="products">
       <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/" target="_blank" rel="noopener">
         <img src="/assets/img/invited_talks/2023_iros.png" alt="From Lab to Road" loading="lazy">
         <span class="proj-title">From Lab to Road: Turning Self-Driving Research into Production Features</span>
