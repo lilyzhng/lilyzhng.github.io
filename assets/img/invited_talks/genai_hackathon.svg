@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Gen AI Hackathon, Invited Judge">
+  <rect width="800" height="500" fill="#f4f5f7"/>
+  <rect x="0" y="0" width="800" height="6" fill="#043976"/>
+  <text x="60" y="150" font-family="'SFMono-Regular', Menlo, Consolas, monospace" font-size="20" letter-spacing="3" fill="#9aa4b2">03.24 · SAN FRANCISCO</text>
+  <text x="60" y="248" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#043976">Gen AI</text>
+  <text x="60" y="330" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#043976">Hackathon</text>
+  <text x="60" y="400" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#2437e7">Invited Judge</text>
+</svg>
