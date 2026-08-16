@@ -12,6 +12,7 @@ permalink: /posts/
     <a href="/" class="nav-link">Home</a>
     <a href="/posts" class="nav-link">Posts</a>
     <a href="/papers" class="nav-link">Papers</a>
+    <a href="/talks" class="nav-link">Talks</a>
   </div>
 </div>
 
