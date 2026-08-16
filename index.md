@@ -67,7 +67,7 @@ author_profile: true
 <div class="research-entry">
   <a class="research-title" href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">Eureka: Feature Engineering as Agentic Code Generation</a>
   <div class="research-authors">H Li, R Jia, X Wu, Y Qian, Z Zheng, <strong>X Zhang</strong> · NeurIPS-W 2025, Proceedings of the 31st International Conference on Database Systems for Advanced Applications (DASFAA 2026, Oral)</div>
-  <div class="research-desc">SFT + RL post-trained AI-infra agent deployed at Alibaba Cloud: +16% demand fulfillment, 91% ops adoption.</div>
+  <div class="research-desc">SFT + RL post-trained AI-infra agent deployed at Alibaba Cloud: +16% demand, 91% adoption.</div>
   <div class="research-links"><a href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">Paper</a> <a href="/assets/pdf/eureka_poster_neurips.pdf" target="_blank" rel="noopener">Poster</a> <a href="http://eureka.swam.top/eureka/home.html" target="_blank" rel="noopener">Project Page</a></div>
 </div>
 
@@ -156,11 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <style>
+/* same, reduced gap under both section headings (AI Research / Advisory Boards) */
+.status-quo-heading { margin-bottom: 0.6rem; }
 .research-section { align-items: stretch; text-align: left; padding-left: calc(220px + 1.5rem); }
 @media (max-width: 767px) { .research-section { padding-left: 0; } }
 .research-section .research-more,
 .research-section .research-entry { width: 100%; }
-.research-more { margin: 0.2rem 0 1rem; }
+.research-more { margin: 0 0 1rem; }
 .research-more a { color: #2437e7; text-decoration: underline; border-bottom: none; }
 .research-entry { margin: 0 0 1rem; }
 .research-title { display: block; color: #043976; font-weight: 700; font-size: 0.97rem; line-height: 1.4; text-decoration: none; border-bottom: none; }
