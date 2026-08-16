@@ -102,7 +102,7 @@ permalink: /talks/
   <div class="talk-card" data-type="panel">
     <a href="https://docs.google.com/presentation/d/1i6EZEfebDGI1I0zpZoV6OHZ5kWvmX3OZ/edit?usp=sharing&ouid=103941006958426062861&rtpof=true&sd=true" target="_blank" rel="noopener">
       <span class="talk-thumb">
-        <img src="/assets/img/invited_talks/autoai_worldsim.png" alt="Generative AI world simulator talk title slide" loading="lazy">
+        <img src="/assets/img/invited_talks/autoai_logo.png" alt="Auto.AI USA conference" loading="lazy" class="fit-contain" style="background: #000">
       </span>
       <span class="talk-title">Generative AI: A New World Simulator to Transform Data Generation at Large Scale</span>
     </a>
@@ -374,6 +374,10 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 }
 
 .talk-card:hover img { filter: grayscale(0); }
+
+/* images that must not be cropped: letterbox inside the 16:10 frame,
+   padding with the image's own background color (set inline per image) */
+.talk-card img.fit-contain { object-fit: contain; }
 
 /* photo carousel: native scroll-snap swipe, arrows on hover, dots below */
 .talk-carousel {
