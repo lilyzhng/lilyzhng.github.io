@@ -29,7 +29,7 @@ author_profile: true
 
   <div class="intro-text">
     <p>
-      I’m Lily Zhang, a Tech Lead and Research Scientist in the Bay Area, California. My research focus is: post-training and AI training data. I’ve published at CVPR, ICCV, NeurIPS, RAL
+      I’m Lily Zhang, a Tech Lead and Research Scientist in the Bay Area, California. My research focus: agentic post-training and AI training data, including RL environments. I’ve published at CVPR, ICCV, NeurIPS, RAL
       <a href="https://arxiv.org/abs/2412.15447">[1]</a>
       <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf">[2]</a>
       <a href="https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf">[3]</a>
@@ -42,7 +42,7 @@ author_profile: true
       Previously, I led applied R&D at Ford Greenfield Labs (2019–2023) on building perception models and AI training data <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D">(IROS keynote)</a>.
     </p>
     <p>
-      My latest research (colab w AliCloud) reframes <a href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">feature engineering as agentic code generation</a>, SFT + RL post-trained AI-infra agent deployed at Alibaba Cloud with 91% adoption (poster at <a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">NeurIPS 2025 VLM4RWD</a>, oral at <a href="https://doi.org/10.1007/978-981-92-0378-9_33" target="_blank" rel="noopener">DASFAA 2026</a>). Publishing as Xianling Zhang.
+      Recent work: <a href="/writing/harbor-rlvr-environment/">reward shaping from a verifiable failure taxonomy</a> for a multi-turn RLVR terminal environment, and <a href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">feature engineering as agentic code generation</a> (colab w AliCloud) — an SFT + RL post-trained AI-infra agent deployed at Alibaba Cloud with 91% adoption (poster at <a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">NeurIPS 2025 VLM4RWD</a>, oral at <a href="https://doi.org/10.1007/978-981-92-0378-9_33" target="_blank" rel="noopener">DASFAA 2026</a>). Publishing as Xianling Zhang.
     </p>
     <p class="social-links"><a href="https://x.com/lily_gpupoor" target="_blank" rel="noopener">X</a> / <a href="/assets/pdf/lily_cv.pdf" class="cv-link" target="_blank" rel="noopener">CV</a> / <a href="https://www.linkedin.com/in/lilyzhng/" target="_blank" rel="noopener">In</a> / <a href="mailto:lilyzhng.ai@gmail.com">Email</a> / <a href="https://scholar.google.com/citations?user=la-Mx-UAAAAJ" target="_blank" rel="noopener">Scholar</a></p>
   </div>
