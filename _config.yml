@@ -3,7 +3,8 @@ title: ""
 masthead_title: ""   # text shown top-left
 email: lilyzhng.ai@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Technical Lead and Research Scientist, working on 3D generation and vision language models.
+  Tech Lead and Research Scientist. Agentic post-training and AI training data, including RL environments.
+og_image: /assets/img/prof_pic.jpeg
 twitter_username: lily_gpupoor
 github_username: lilyzhng
 minimal_mistakes_skin: dirt
