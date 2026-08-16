@@ -20,7 +20,7 @@ permalink: /projects/
   <div class="proj-topics">
     <label class="proj-topic"><input type="checkbox" value="research"> AI Research</label>
     <label class="proj-topic"><input type="checkbox" value="deployment"> Product Deployment</label>
-    <label class="proj-topic"><input type="checkbox" value="post-training"> Agentic Post-Training</label>
+    <label class="proj-topic"><input type="checkbox" value="post-training"> Post-Training Harness</label>
     <label class="proj-topic"><input type="checkbox" value="rl-env"> RL Environments</label>
     <label class="proj-topic"><input type="checkbox" value="tools"> Tools/Skills</label>
   </div>
