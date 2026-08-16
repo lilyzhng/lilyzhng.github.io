@@ -56,7 +56,7 @@ permalink: /talks/
       <span class="car-dots" aria-hidden="true"></span>
     </div>
     <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
-      <span class="talk-title">SofaGenius: Orchestrate Agentic Post-Training</span>
+      <span class="talk-title">SofaGenius: Agentic Post-Training</span>
     </a>
     <div class="talk-meta">Finalist Presentation (Top 15/13k), Anthropic Claude Code Global Hackathon, San Francisco · 02.26</div>
   </div>
