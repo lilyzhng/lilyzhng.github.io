@@ -17,14 +17,13 @@ permalink: /projects/
 </div>
 
 <div class="proj-page">
-  <nav class="posts-filter" aria-label="Project topic filter">
-    <button class="filter-item is-active" data-filter="all">All</button>
-    <button class="filter-item" data-filter="research">AI Research</button>
-    <button class="filter-item" data-filter="deployment">Product Deployment</button>
-    <button class="filter-item" data-filter="post-training">Agentic Post-Training</button>
-    <button class="filter-item" data-filter="rl-env">RL Environments</button>
-    <button class="filter-item" data-filter="tools">Tools/Skills</button>
-  </nav>
+  <div class="proj-topics">
+    <label class="proj-topic"><input type="checkbox" value="research"> AI Research</label>
+    <label class="proj-topic"><input type="checkbox" value="deployment"> Product Deployment</label>
+    <label class="proj-topic"><input type="checkbox" value="post-training"> Agentic Post-Training</label>
+    <label class="proj-topic"><input type="checkbox" value="rl-env"> RL Environments</label>
+    <label class="proj-topic"><input type="checkbox" value="tools"> Tools/Skills</label>
+  </div>
 
   <div class="proj-grid">
 
@@ -169,19 +168,16 @@ permalink: /projects/
 {% raw %}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var buttons = document.querySelectorAll('.posts-filter .filter-item');
+  var boxes = document.querySelectorAll('.proj-topic input');
   var cards = document.querySelectorAll('.proj-card');
-  buttons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      buttons.forEach(function (b) { b.classList.remove('is-active'); });
-      btn.classList.add('is-active');
-      var f = btn.getAttribute('data-filter');
-      cards.forEach(function (c) {
-        var topics = c.getAttribute('data-topics').split(' ');
-        c.style.display = (f === 'all' || topics.includes(f)) ? '' : 'none';
-      });
+  function apply() {
+    var checked = Array.from(boxes).filter(b => b.checked).map(b => b.value);
+    cards.forEach(function (c) {
+      var topics = c.getAttribute('data-topics').split(' ');
+      c.style.display = (checked.length === 0 || topics.some(t => checked.includes(t))) ? '' : 'none';
     });
-  });
+  }
+  boxes.forEach(b => b.addEventListener('change', apply));
 
   // touch devices: reveal color as cards scroll into view
   if (window.matchMedia('(hover: none)').matches && 'IntersectionObserver' in window) {
@@ -201,37 +197,22 @@ document.addEventListener('DOMContentLoaded', function () {
   padding: 0 1.5rem 6rem;
 }
 
-/* topic toggle: same pattern and metrics as the Writing and Talks tabs */
-.posts-filter {
+/* topic checkboxes: unchecked = show all; shared style with the Talks page */
+.proj-topics {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.55rem 1.5rem;
+  gap: 0.5rem 2.2rem;
   margin: 1.5rem 0 2.5rem;
 }
-.filter-item {
-  appearance: none;
-  background: none;
-  border: none;
-  padding: 0 0 0.25rem 0;
-  margin: 0;
-  text-align: left;
-  font-size: 0.95rem;
-  font-weight: 400;
-  color: #1a202c;
+.proj-topic {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  line-height: 1.5;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease;
+  color: #1a1a1a;
 }
-.filter-item:hover { color: #1e3a8a; }
-.filter-item:focus { outline: none; }
-.filter-item:focus-visible { outline: 2px solid #2437e7; outline-offset: 2px; }
-.filter-item.is-active {
-  color: #2437e7;
-  border-bottom: 2px solid #2437e7;
-}
+.proj-topic input { accent-color: #043976; width: 15px; height: 15px; cursor: pointer; }
 
 .proj-grid {
   display: grid;
@@ -281,7 +262,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 @media (max-width: 767px) {
   .proj-grid { grid-template-columns: 1fr; }
-  .posts-filter { justify-content: center; gap: 0.55rem 1.25rem; }  /* same as Writing/Talks mobile */
 }
 
 /* touch devices have no hover: grayscale by default, color when scrolled into view */
