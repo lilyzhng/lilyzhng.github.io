@@ -109,11 +109,10 @@
 </div>
 
 <div class="talks-page">
-  <nav class="posts-filter" aria-label="Talk type filter">
-    <button class="filter-item is-active" data-filter="all">All</button>
-    <button class="filter-item" data-filter="keynote">Keynotes</button>
-    <button class="filter-item" data-filter="panel">Panels</button>
-  </nav>
+  <div class="proj-topics">
+    <label class="proj-topic"><input type="checkbox" value="keynote" /> Keynotes</label>
+    <label class="proj-topic"><input type="checkbox" value="panel" /> Panels</label>
+  </div>
 
   <div class="talks-grid">
 
@@ -276,18 +275,15 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var buttons = document.querySelectorAll('.posts-filter .filter-item');
+  var boxes = document.querySelectorAll('.proj-topic input');
   var cards = document.querySelectorAll('.talk-card');
-  buttons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      buttons.forEach(function (b) { b.classList.remove('is-active'); });
-      btn.classList.add('is-active');
-      var f = btn.getAttribute('data-filter');
-      cards.forEach(function (c) {
-        c.style.display = (f === 'all' || c.getAttribute('data-type') === f) ? '' : 'none';
-      });
+  function apply() {
+    var checked = Array.from(boxes).filter(b => b.checked).map(b => b.value);
+    cards.forEach(function (c) {
+      c.style.display = (checked.length === 0 || checked.includes(c.getAttribute('data-type'))) ? '' : 'none';
     });
-  });
+  }
+  boxes.forEach(b => b.addEventListener('change', apply));
 
   // photo carousels: swipe (native scroll-snap) + arrows + dots
   document.querySelectorAll('.talk-carousel-wrap').forEach(function (wrap) {
@@ -403,38 +399,22 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   padding: 0 1.5rem 6rem;
 }
 
-/* tabs start 1.5rem below the header rule, exactly like the Writing page */
-.posts-filter {
+/* type checkboxes: unchecked = show all; same style as the Projects page */
+.proj-topics {
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.2rem;
   margin: 1.5rem 0 2.5rem;
 }
-
-.filter-item {
-  appearance: none;
-  background: none;
-  border: none;
-  padding: 0 0 0.25rem 0;
-  margin: 0;
-  text-align: left;
-  font-size: 0.95rem;   /* matches the Writing page tabs exactly */
-  font-weight: 400;
-  color: #1a202c;
+.proj-topic {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  line-height: 1.5;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease;
+  color: #1a1a1a;
 }
-
-.filter-item:hover { color: #1e3a8a; }
-.filter-item:focus { outline: none; }
-.filter-item:focus-visible { outline: 2px solid #2437e7; outline-offset: 2px; }
-.filter-item.is-active {
-  color: #2437e7;
-  border-bottom: 2px solid #2437e7;
-}
+.proj-topic input { accent-color: #043976; width: 15px; height: 15px; cursor: pointer; }
 
 .talks-grid {
   display: grid;
@@ -580,7 +560,6 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 
 @media (max-width: 767px) {
   .talks-grid { grid-template-columns: 1fr; }
-  .posts-filter { justify-content: center; gap: 1.25rem; }  /* same as Writing page mobile */
 }
 
 /* touch devices have no hover: grayscale by default, color when scrolled into view */
