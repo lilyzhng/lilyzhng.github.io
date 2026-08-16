@@ -12,8 +12,8 @@ author_profile: true
   <div class="navigation-container">
     <a href="/" class="nav-link">Home</a>
     <a href="/writing/" class="nav-link">Writing</a>
-    <a href="/talks" class="nav-link">Talks</a>
     <a href="/projects" class="nav-link">Projects</a>
+    <a href="/talks" class="nav-link">Talks</a>
   </div>
 </div>
 
