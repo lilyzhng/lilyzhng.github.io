@@ -55,14 +55,14 @@ permalink: /projects/
       </a>
       <div class="proj-desc">Blogpost + lossless100 dataset · 2026</div>
     </div>
-    <div class="proj-card" data-topics="rl-env products">
+    <div class="proj-card" data-topics="rl-env">
       <a href="https://skill-claw.vercel.app/" target="_blank" rel="noopener">
         <img src="/assets/img/projects/skill_claw.jpg" alt="Skill Claw" loading="lazy">
         <span class="proj-title">Skill Claw: Self-Improving Robot Agents</span>
       </a>
       <div class="proj-desc">RL environments that train code policy · 2026</div>
     </div>
-    <div class="proj-card" data-topics="tools products">
+    <div class="proj-card" data-topics="tools research">
       <a href="/writing/interaction-model/">
         <img src="/writing/interaction-model/diagram_architecture.svg" alt="Dual-model voice agent architecture" loading="lazy" class="fit-contain" style="background: #F5F3EF">
         <span class="proj-title">Dual-Model Voice Agent (Walkie-Talkie)</span>
@@ -72,10 +72,27 @@ permalink: /projects/
 
     <div class="proj-card" data-topics="post-training products">
       <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
-        <img src="/assets/img/projects/sofagenius.png" alt="SofaGenius" loading="lazy">
+        <img src="/assets/img/projects/sofagenius_demo.gif" alt="SofaGenius agentic post-training demo" loading="lazy">
         <span class="proj-title">SofaGenius: Agentic Post-Training</span>
       </a>
       <div class="proj-desc">Top 15/13k finalist in Anthropic Global Hackathon · 2026</div>
+      <div class="proj-links"><a href="https://sofagenius.ai/" target="_blank" rel="noopener">Project Page</a> <a href="https://www.youtube.com/watch?v=kxTkAnzROH8" target="_blank" rel="noopener">Video</a></div>
+    </div>
+    <div class="proj-card" data-topics="tools products">
+      <a href="https://github.com/lilyzhng/agent-channels" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/agent_channels.gif" alt="Agent team talking in Discord channels" loading="lazy">
+        <span class="proj-title">Agent Channels: Talk to Your CLI Agents in Discord</span>
+      </a>
+      <div class="proj-desc">Discord bridge + MCP for CLI coding agents (Cursor, Kimi, Devin) · open source, active users · 2026</div>
+      <div class="proj-links"><a href="https://github.com/lilyzhng/agent-channels" target="_blank" rel="noopener">Code</a> <a href="https://x.com/lily_gpupoor/status/2064925882926686486" target="_blank" rel="noopener">Video</a></div>
+    </div>
+    <div class="proj-card" data-topics="tools products">
+      <a href="https://github.com/lilyzhng/agent-browser-use" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/agent_browser_use.gif" alt="Cursor agent driving a real Chrome browser" loading="lazy">
+        <span class="proj-title">Agent in Chrome: Let your agent browse online</span>
+      </a>
+      <div class="proj-desc">Coding agent controls your logged-in Chrome profile, no re-authentication · open source · 2026</div>
+      <div class="proj-links"><a href="https://github.com/lilyzhng/agent-browser-use" target="_blank" rel="noopener">Code</a> <a href="https://x.com/lily_gpupoor/status/2066788176564490712" target="_blank" rel="noopener">Video</a></div>
     </div>
     <div class="proj-card" data-topics="rl-env">
       <a href="https://supergeneral.vercel.app/" target="_blank" rel="noopener">
@@ -87,7 +104,7 @@ permalink: /projects/
     <div class="proj-card" data-topics="tools products">
       <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">
         <img src="/assets/img/projects/frontend_slides.png" alt="Frontend Slides" loading="lazy">
-        <span class="proj-title">Frontend Slides: AI-Native Presentation Generation</span>
+        <span class="proj-title">Frontend Slides: Create beautiful slides on the web using a coding agent's frontend skills</span>
       </a>
       <div class="proj-desc">25K+ GitHub stars · 2026</div>
     </div>
@@ -107,24 +124,38 @@ permalink: /projects/
     </div>
     <div class="proj-card" data-topics="research">
       <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener">
-        <img src="/assets/img/invited_talks/2025_iros.png" alt="RoboGen IROS 2025" loading="lazy">
+        <img src="/assets/img/projects/robogen_speakers.png" alt="RoboGen IROS 2025" loading="lazy">
         <span class="proj-title">Building toward Embodied AGI: Solving the Data Bottleneck</span>
       </a>
       <div class="proj-desc">General Chair, RoboGen Workshop, IEEE IROS · 2025</div>
     </div>
-    <div class="proj-card" data-topics="tools products">
-      <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">
-        <img src="/assets/img/projects/deep_seek.png" alt="Deep-Seek deep research agent" loading="lazy">
-        <span class="proj-title">Deep-Seek: Deep Research Agent</span>
+    <div class="proj-card" data-topics="products research">
+      <a href="https://umautobots.github.io/lihi_gs" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/lihi_gs_world_sim.gif" alt="LiHi-GS highway scene reconstruction" loading="lazy" style="object-position: center 78%">
+        <span class="proj-title">Dynamic World Simulation: LiDAR-Supervised Gaussian Splatting</span>
       </a>
-      <div class="proj-desc">LLM-powered retrieval engine that compiles entity tables from internet-scale sources · 2024</div>
+      <div class="proj-desc">Large-scale model training: 50K models trained over 300K GPU hours · RA-L 2026</div>
     </div>
     <div class="proj-card" data-topics="products">
       <a href="https://www.youtube.com/watch?v=_xMXiK9wBxE" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/_xMXiK9wBxE/hqdefault.jpg" alt="Continuous Learning Loop" loading="lazy">
-        <span class="proj-title">Continuous Learning Loop: Online / Offline Perception Systems</span>
+        <img src="/assets/img/projects/continuous_learning_data_engine.png" alt="Continuous Learning Data Engine" loading="lazy" class="fit-contain">
+        <span class="proj-title">Continuous Learning Data Engine: Online / Offline Perception Systems</span>
       </a>
-      <div class="proj-desc">Seminar, University of Delaware · 2023</div>
+      <div class="proj-desc">Powers Ford BlueCruise · 492K vehicles, 244M+ hands-free miles</div>
+    </div>
+    <div class="proj-card" data-topics="products research">
+      <a href="https://simbarv1.github.io/" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/simbar_in_the_wild.gif" alt="SIMBAR scene relighting in the wild" loading="lazy">
+        <span class="proj-title">SIMBAR: Single-Image Scene Relighting for AV Data Augmentation</span>
+      </a>
+      <div class="proj-desc">CVPR 2022 · productionized in Ford's neural light simulation pipeline</div>
+    </div>
+    <div class="proj-card" data-topics="products">
+      <a href="https://media.ford.com/content/fordmedia/fna/us/en/news/2023/04/05/how-ford-uses-artificial-intelligence-to-make-hitching-a-trailer.html" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/trailer_hitch_assist.png" alt="Pro Trailer Hitch Assist" loading="lazy">
+        <span class="proj-title">Pro Trailer Hitch Assist: Synthetic Data in Production</span>
+      </a>
+      <div class="proj-desc">Shipped on Ford F-150, F-150 Lightning & Super Duty · Henry Ford Technology Award</div>
     </div>
     <div class="proj-card" data-topics="products">
       <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/" target="_blank" rel="noopener">
@@ -133,26 +164,19 @@ permalink: /projects/
       </a>
       <div class="proj-desc">Keynote at IEEE IROS Workshop · 2023</div>
     </div>
-    <div class="proj-card" data-topics="research">
-      <a href="https://computervisionsummit.com/location/cvsanjose/speaker/lilyxianlingzhang" target="_blank" rel="noopener">
-        <img src="/assets/img/invited_talks/cv_summit_2023.png" alt="Deep Learning-based Data-centric Solutions" loading="lazy">
-        <span class="proj-title">Deep Learning-based Data-centric Solutions</span>
+    <div class="proj-card" data-topics="tools products">
+      <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/deep_seek.png" alt="Deep-Seek deep research agent" loading="lazy">
+        <span class="proj-title">Deep-Seek: Deep Research Agent</span>
       </a>
-      <div class="proj-desc">Computer Vision Summit 2023</div>
+      <div class="proj-desc">LLM-powered retrieval engine that compiles entity tables from internet-scale sources · 2024</div>
     </div>
-    <div class="proj-card" data-topics="research">
-      <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51407/" target="_blank" rel="noopener">
-        <img src="/assets/img/invited_talks/2023_nvidia_2.png" alt="Diversify AI Training Data" loading="lazy">
-        <span class="proj-title">Diversify AI Training Data</span>
+    <div class="proj-card" data-topics="tools">
+      <a href="https://github.com/lilyzhng/Unity_DataVisualization" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/unity_dataviz.gif" alt="Unity particle system data visualization" loading="lazy">
+        <span class="proj-title">Unity Data Visualization: Particle Systems for Data</span>
       </a>
-      <div class="proj-desc">NVIDIA GTC Conference · 2023</div>
-    </div>
-    <div class="proj-card" data-topics="research">
-      <a href="https://www.researchgate.net/publication/382000139_Data_misconceptions_challenges_and_solutions" target="_blank" rel="noopener">
-        <img src="/assets/img/invited_talks/ai_institude.png" alt="Data Misconceptions" loading="lazy">
-        <span class="proj-title">Data Misconceptions: Challenges and Solutions</span>
-      </a>
-      <div class="proj-desc">AI Accelerator Summit 2023</div>
+      <div class="proj-desc">A collection of Unity particle systems for data visualization · 2017</div>
     </div>
     <div class="proj-card" data-topics="research">
       <a href="https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf" target="_blank" rel="noopener">
@@ -160,6 +184,13 @@ permalink: /projects/
         <span class="proj-title">DeepPIC: Deep Perceptual Image Clustering for Identifying Bias in Vision</span>
       </a>
       <div class="proj-desc">CVPR Workshops 2022</div>
+    </div>
+    <div class="proj-card" data-topics="products">
+      <a href="https://docs.google.com/presentation/d/11PQLnsxHRhdKNddSwy7s_etgkpAdok95-3GKwSXGBtw/" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/bmw_dwmc_pass.gif" alt="BMW agent trajectory simulation in a parking garage" loading="lazy">
+        <span class="proj-title">BMW: Agent Trajectory Simulation for Data Generation</span>
+      </a>
+      <div class="proj-desc">"Dude, Where's My Car?" — fine-tuned SSD + MobileNet on ego-perspective simulated data, shipped to production at BMW · 2019</div>
     </div>
 
   </div>
@@ -252,6 +283,9 @@ document.addEventListener('DOMContentLoaded', function () {
 .proj-card:hover .proj-title {
   background-color: #dbe7fb;
 }
+.proj-links { margin-top: 3px; font-size: 0.83rem; }
+.proj-links a { display: inline-block !important; color: #1a1a1a; text-decoration: underline !important; margin-right: 0.6rem; border-bottom: none !important; }
+.proj-links a:hover { color: #2437e7; }
 .proj-desc {
   font-style: italic;
   color: #8a8f98;
