@@ -1,6 +1,6 @@
 # Harbor RLVR environment — figures
 
-Figures from [harbor-rlvr-environment.md](./harbor-rlvr-environment.md) / [lilyzh.ng/posts/harbor-rlvr-environment](https://lilyzh.ng/posts/harbor-rlvr-environment/). Captions are copied verbatim from the published figcaptions. Relative paths so a normal markdown preview renders them.
+Figures from [harbor-rlvr-environment.md](./harbor-rlvr-environment.md) / [lilyzh.ng/posts/harbor-rlvr-environment](https://lilyzh.ng/writing/harbor-rlvr-environment/). Captions are copied verbatim from the published figcaptions. Relative paths so a normal markdown preview renders them.
 
 **Paper-plot triage** (compact + informative enough for `/paper-plot`):
 

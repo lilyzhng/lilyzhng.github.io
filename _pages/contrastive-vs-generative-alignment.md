@@ -11,7 +11,7 @@ author_profile: false
   </div>
   <div class="navigation-container">
     <a href="/" class="nav-link">Home</a>
-    <a href="/posts" class="nav-link">Posts</a>
+    <a href="/writing/" class="nav-link">Writing</a>
   </div>
 </div>
 
@@ -29,7 +29,7 @@ author_profile: false
   </div>
 
   <div class="post-footer">
-    <a href="/posts" class="back-link">← Back to Posts</a>
+    <a href="/writing/" class="back-link">← Back to Writing</a>
   </div>
 </div>
 

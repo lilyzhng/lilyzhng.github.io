@@ -1,7 +1,7 @@
 ---
 layout: splash
-title: "Lily Zhang | Posts"
-permalink: /posts/
+title: "Lily Zhang | Writing"
+permalink: /writing/
 ---
 
 <div class="header-container">
@@ -10,9 +10,9 @@ permalink: /posts/
   </div>
   <div class="navigation-container">
     <a href="/" class="nav-link">Home</a>
-    <a href="/posts" class="nav-link">Posts</a>
-    <a href="/papers" class="nav-link">Papers</a>
+    <a href="/writing/" class="nav-link">Writing</a>
     <a href="/talks" class="nav-link">Talks</a>
+    <a href="/projects" class="nav-link">Projects</a>
   </div>
 </div>
 
@@ -25,12 +25,12 @@ permalink: /posts/
 
   <div class="blog-list" data-section="01">
   <div class="blog-entry" data-type="blog">
-    <a href="/posts/losslessbench/" class="blog-title">Introducing LosslessBench</a>
+    <a href="/writing/losslessbench/" class="blog-title">Introducing LosslessBench</a>
     <span class="blog-date">07.28.26</span>
   </div>
 
   <div class="blog-entry" data-type="blog">
-    <a href="/posts/c-guard/" class="blog-title">A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</a>
+    <a href="/writing/c-guard/" class="blog-title">A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</a>
     <span class="blog-date">07.21.26</span>
   </div>
 
@@ -60,12 +60,12 @@ permalink: /posts/
   </div>
 
   <div class="blog-entry" data-type="blog">
-    <a href="/posts/harbor-rlvr-environment/" class="blog-title">What Can't Be Measured Can't Be Solved: RLVR Environment Design from a Failure Taxonomy</a>
+    <a href="/writing/harbor-rlvr-environment/" class="blog-title">What Can't Be Measured Can't Be Solved: RLVR Environment Design from a Failure Taxonomy</a>
     <span class="blog-date">06.10.26</span>
   </div>
 
   <div class="blog-entry" data-type="blog">
-    <a href="/posts/interaction-model/" class="blog-title">Thoughts on Thinking Machine's Interaction Model</a>
+    <a href="/writing/interaction-model/" class="blog-title">Built dual-model voice agent and tested it against Thinking Machine's Interaction Model</a>
     <span class="blog-date">05.20.26</span>
   </div>
 
