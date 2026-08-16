@@ -21,11 +21,12 @@ permalink: /talks/
     <button class="filter-item is-active" data-filter="all">All</button>
     <button class="filter-item" data-filter="keynote">Keynotes</button>
     <button class="filter-item" data-filter="panel">Panels</button>
+    <button class="filter-item" data-filter="poster">Posters</button>
   </nav>
 
   <div class="talks-grid">
 
-  <div class="talk-card" data-type="presentation">
+  <div class="talk-card" data-type="poster">
     <a href="https://x.com/lily_gpupoor/status/2072083403898507278" target="_blank" rel="noopener">
       <span class="talk-thumb">
         <img src="/assets/img/projects/aie_speculative.jpg" alt="Is Speculative Decoding All We Need? poster" loading="lazy">
@@ -60,6 +61,16 @@ permalink: /talks/
       <span class="talk-title">SofaGenius: Orchestrate Agentic Post-Training</span>
     </a>
     <div class="talk-meta">Finalist Presentation (Top 15/13k), Anthropic Claude Code Global Hackathon, San Francisco · 02.26</div>
+  </div>
+
+  <div class="talk-card" data-type="poster">
+    <a href="/assets/pdf/eureka_poster_neurips.pdf" target="_blank" rel="noopener">
+      <span class="talk-thumb">
+        <img src="/assets/img/eureka_poster_preview.png" alt="Eureka poster at NeurIPS 2025 VLM4RWD workshop" loading="lazy">
+      </span>
+      <span class="talk-title">Eureka: Feature Engineering as Agentic Code Generation</span>
+    </a>
+    <div class="talk-meta">Poster, NeurIPS 2025 VLM4RWD Workshop · 12.25</div>
   </div>
 
   <div class="talk-card" data-type="panel">
