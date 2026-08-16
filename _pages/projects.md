@@ -84,6 +84,13 @@ permalink: /projects/
       </a>
       <div class="proj-desc">Frontier models on tool use, composition, and creation · 2026</div>
     </div>
+    <div class="proj-card" data-topics="research tools">
+      <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/deepseek_flow.png" alt="Deep Seek planning and enrichment pipeline" loading="lazy" class="fit-contain">
+        <span class="proj-title">Deep Seek: Open-Source Deep Research Agent</span>
+      </a>
+      <div class="proj-desc">LLM retrieval engine: plan, search, extract, enrich over many sources · collab w/ dzhng · 2025</div>
+    </div>
     <div class="proj-card" data-topics="tools">
       <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">
         <img src="/assets/img/projects/frontend_slides.png" alt="Frontend Slides" loading="lazy">
