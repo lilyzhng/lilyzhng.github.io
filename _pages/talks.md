@@ -20,6 +20,7 @@ permalink: /talks/
   <div class="proj-topics">
     <label class="proj-topic"><input type="checkbox" value="keynote"> Keynotes</label>
     <label class="proj-topic"><input type="checkbox" value="panel"> Panels</label>
+    <label class="proj-topic"><input type="checkbox" value="presentation"> Presentations</label>
   </div>
 
   <div class="talks-grid">
@@ -239,24 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
 /* Header + nav come from the shared site CSS (main.css) via the splash layout. */
 
-/* Pin the footer to the viewport bottom when the (filtered) grid is short. */
-body.sticky-bottom-footer {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-body.sticky-bottom-footer > .container.mt-5 {
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-}
-
-body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-}
+/* Note: no body.sticky-bottom-footer flex rules here — they suppress margin
+   collapsing and pushed this page's filter row lower than the Projects page. */
 
 /* Motto Section */
 .motto-section {
