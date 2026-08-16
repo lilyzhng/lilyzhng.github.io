@@ -63,10 +63,17 @@ permalink: /talks/
   </div>
 
   <div class="talk-card" data-type="keynote">
-    <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener">
-      <span class="talk-thumb">
+    <div class="talk-thumb talk-carousel-wrap">
+      <div class="talk-carousel" tabindex="0" aria-label="RoboGen workshop photos, swipe or use arrows">
         <img src="/assets/img/invited_talks/2025_iros.png" alt="RoboGen Workshop at IEEE IROS 2025" loading="lazy">
-      </span>
+        <img src="/assets/img/invited_talks/robogen_iros_talk.jpg" alt="Keynote session at the RoboGen workshop" loading="lazy">
+        <img src="/assets/img/invited_talks/robogen_iros_audience.jpg" alt="Audience at the RoboGen workshop" loading="lazy">
+      </div>
+      <button class="car-nav car-prev" aria-label="Previous photo">&#10094;</button>
+      <button class="car-nav car-next" aria-label="Next photo">&#10095;</button>
+      <span class="car-dots" aria-hidden="true"></span>
+    </div>
+    <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener">
       <span class="talk-title">Building toward Embodied AGI: Solving the Data Bottleneck</span>
     </a>
     <div class="talk-meta">RoboGen Workshop General Chair, IEEE IROS · 10.25</div>
@@ -310,7 +317,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
   padding: 0 0 0.25rem 0;
   margin: 0;
   text-align: left;
-  font-size: 1rem;
+  font-size: 0.95rem;   /* matches the Writing page tabs exactly */
   font-weight: 400;
   color: #1a202c;
   cursor: pointer;
@@ -467,7 +474,7 @@ body.sticky-bottom-footer > .container.mt-5 > .container-fluid {
 
 @media (max-width: 767px) {
   .talks-grid { grid-template-columns: 1fr; }
-  .posts-filter { justify-content: center; }
+  .posts-filter { justify-content: center; gap: 1.25rem; }  /* same as Writing page mobile */
 }
 
 /* touch devices have no hover: grayscale by default, color when scrolled into view */
