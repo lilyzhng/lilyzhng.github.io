@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="">
+
+  <!-- Head -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lily Zhang | Projects | </title>
+    <meta name="author" content="  " />
+    <meta name="description" content="Technical Lead and Research Scientist, working on 3D generation and vision language models." />
+
+
+    <!-- NOTE: bootstrap / mdbootstrap / bootstrap-table / fontawesome / academicons
+         CDN links removed. Their version vars (site.bootstrap.version, etc.) were
+         never set in _config.yml, so these URLs rendered as "…@/…" and always 404'd
+         (MIME errors in console). Font Awesome + Academicons are loaded via main.css
+         (@import, versioned), so icons are unaffected. -->
+
+    <!-- Roboto / Roboto Slab / Material Icons removed: not used anywhere
+         (site uses EB Garamond / Inter / Georgia). Dead render-blocking font request. -->
+
+    <!-- Fonts + icons: parallel <link> tags with preconnect. Previously these were
+         render-blocking, serialized @imports inside main.css (browser had to fetch +
+         parse main.css before even discovering them). This is the actively-included
+         head (custom-head.html is an orphan and never rendered). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css">
+
+    <!-- Code Syntax Highlighting: removed. site.highlight_theme_light was never set,
+         so this rendered as ".../jekyll-pygments-themes@master/.css" and HUNG ~8s
+         (render-blocking) before failing — it was the site's entire load time.
+         minimal-mistakes already provides code highlighting via main.css. -->
+
+    <!-- Sidebar TOC (cdn.rawgit.com) removed: RawGit shut down in 2019; the URL
+         would hang the same way on any TOC-sidebar page. -->
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="/assets/img/"/>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://lilyzh.ng/projects/">
+
+    <!-- Dark Mode -->
+    
+
+  </head>
+
+  <!-- Body -->
+  <body class=" sticky-bottom-footer">
+
+    <!-- Header -->
+    <header>
+
+      <!-- Nav Bar -->
+      <nav id="navbar" class="navbar navbar-light navbar-expand-sm sticky-top">
+        <div class="container">
+          <a class="navbar-brand title font-weight-lighter" href="/"></a>
+          <!-- Navbar Toggle -->
+          <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+          </button>
+
+          <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+
+              <!-- About -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/">Lily Zhang</a>
+              </li>
+              
+
+              <!-- Other pages -->
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    </header>
+
+
+    <!-- Content -->
+    
+      <div class="container mt-5">
+        
+          <div class="container-fluid">
+  <div class="header-container">
+  <div class="name-container">
+    <h1 class="author-name">Lily Zhang</h1>
+  </div>
+  <div class="navigation-container">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/writing/" class="nav-link">Writing</a>
+    <a href="/talks" class="nav-link">Talks</a>
+    <a href="/projects" class="nav-link">Projects</a>
+  </div>
+</div>
+
+<div class="proj-page">
+  <div class="proj-topics">
+    <label class="proj-topic"><input type="checkbox" value="research" /> AI Research</label>
+    <label class="proj-topic"><input type="checkbox" value="deployment" /> Product Deployment</label>
+    <label class="proj-topic"><input type="checkbox" value="post-training" /> Agentic Post-Training</label>
+    <label class="proj-topic"><input type="checkbox" value="rl-env" /> RL Environments</label>
+    <label class="proj-topic"><input type="checkbox" value="tools" /> Tools/Skills</label>
+  </div>
+
+  <div class="proj-grid">
+
+    <div class="proj-card" data-topics="post-training">
+      <a href="https://lily-safety-guard.vercel.app/" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/cguard-grid-probe.svg" alt="C-Guard constitution grid probe" loading="lazy" class="fit-contain" style="background: #F4F4F4" />
+        <span class="proj-title">C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment</span>
+      </a>
+      <div class="proj-desc">Post-trained safety guard model with RL · COLM 2026 ER</div>
+    </div>
+    <div class="proj-card" data-topics="tools">
+      <a href="https://pbs.twimg.com/media/HOc3O7_bYAAVgo0?format=jpg&amp;name=large" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/skills_top8.jpg" alt="Most-used agent skills" loading="lazy" />
+        <span class="proj-title">My Most-Used Agent Skills</span>
+      </a>
+      <div class="proj-desc">Track the most frequently used skills, prune the useless ones · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="rl-env research">
+      <a href="/writing/harbor-rlvr-environment/">
+        <img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="RLVR failure taxonomy" loading="lazy" class="fit-contain" style="background: #1e2a1c" />
+        <span class="proj-title">Reward Shaping from Failure Taxonomy for RLVR Terminal Environment</span>
+      </a>
+      <div class="proj-desc">Multi-turn harbor terminal environment · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="/writing/losslessbench/">
+        <img src="/writing/losslessbench/radar-v4.svg" alt="LosslessBench radar chart" loading="lazy" class="fit-contain" />
+        <span class="proj-title">LosslessBench: Evaluating Inference Acceleration Impact on Model Behaviors</span>
+      </a>
+      <div class="proj-desc">Blogpost + lossless100 dataset · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="rl-env">
+      <a href="https://skill-claw.vercel.app/" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/skill_claw.jpg" alt="Skill Claw" loading="lazy" />
+        <span class="proj-title">Skill Claw: Self-Improving Robot Agents</span>
+      </a>
+      <div class="proj-desc">RL environments that train code policy · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="tools">
+      <a href="/writing/interaction-model/">
+        <img src="/writing/interaction-model/diagram_architecture.svg" alt="Dual-model voice agent architecture" loading="lazy" class="fit-contain" style="background: #F5F3EF" />
+        <span class="proj-title">Dual-Model Voice Agent (Walkie-Talkie)</span>
+      </a>
+      <div class="proj-desc">Front-end model talks with the user; back-end model handles tool calls, search, and generative UI · 2026</div>
+    </div>
+
+    <div class="proj-card" data-topics="post-training">
+      <a href="https://sofagenius.ai/" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/sofagenius.png" alt="SofaGenius" loading="lazy" />
+        <span class="proj-title">SofaGenius: Orchestrate Agentic Post-Training</span>
+      </a>
+      <div class="proj-desc">Top 15/13k finalist in Anthropic Global Hackathon · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="rl-env">
+      <a href="https://supergeneral.vercel.app/" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/supergeneral-terminal.gif" alt="SuperGeneral" loading="lazy" />
+        <span class="proj-title">SuperGeneral: Compositional Tool Environments for Long-Horizon Agents</span>
+      </a>
+      <div class="proj-desc">Frontier models on tool use, composition, and creation · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="tools">
+      <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/frontend_slides.png" alt="Frontend Slides" loading="lazy" />
+        <span class="proj-title">Frontend Slides: AI-Native Presentation Generation</span>
+      </a>
+      <div class="proj-desc">25K+ GitHub stars · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="https://x.com/lily_gpupoor/status/2072083403898507278" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/aie_speculative.jpg" alt="Is Speculative Decoding All We Need?" loading="lazy" />
+        <span class="proj-title">Is Speculative Decoding All We Need?</span>
+      </a>
+      <div class="proj-desc">Poster, AI Engineer World's Fair · 2026</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="/assets/pdf/eureka_poster_neurips.pdf" target="_blank" rel="noopener">
+        <img src="/assets/img/eureka_poster_preview.png" alt="Eureka" loading="lazy" />
+        <span class="proj-title">Eureka: Feature Engineering as Agentic Code Generation</span>
+      </a>
+      <div class="proj-desc">Poster, NeurIPS 2025 VLM4RWD · 2025</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="https://robogen-iros.github.io/" target="_blank" rel="noopener">
+        <img src="/assets/img/invited_talks/2025_iros.png" alt="RoboGen IROS 2025" loading="lazy" />
+        <span class="proj-title">Building toward Embodied AGI: Solving the Data Bottleneck</span>
+      </a>
+      <div class="proj-desc">General Chair, RoboGen Workshop, IEEE IROS · 2025</div>
+    </div>
+    <div class="proj-card" data-topics="deployment">
+      <a href="https://www.youtube.com/watch?v=_xMXiK9wBxE" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/_xMXiK9wBxE/hqdefault.jpg" alt="Continuous Learning Loop" loading="lazy" />
+        <span class="proj-title">Continuous Learning Loop: Online / Offline Perception Systems</span>
+      </a>
+      <div class="proj-desc">Seminar, University of Delaware · 2023</div>
+    </div>
+    <div class="proj-card" data-topics="deployment">
+      <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/" target="_blank" rel="noopener">
+        <img src="/assets/img/invited_talks/2023_iros.png" alt="From Lab to Road" loading="lazy" />
+        <span class="proj-title">From Lab to Road: Turning Self-Driving Research into Production Features</span>
+      </a>
+      <div class="proj-desc">Keynote at IEEE IROS Workshop · 2023</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="https://computervisionsummit.com/location/cvsanjose/speaker/lilyxianlingzhang" target="_blank" rel="noopener">
+        <img src="/assets/img/invited_talks/cv_summit_2023.png" alt="Deep Learning-based Data-centric Solutions" loading="lazy" />
+        <span class="proj-title">Deep Learning-based Data-centric Solutions</span>
+      </a>
+      <div class="proj-desc">Computer Vision Summit 2023</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51407/" target="_blank" rel="noopener">
+        <img src="/assets/img/invited_talks/2023_nvidia_2.png" alt="Diversify AI Training Data" loading="lazy" />
+        <span class="proj-title">Diversify AI Training Data</span>
+      </a>
+      <div class="proj-desc">NVIDIA GTC Conference · 2023</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="https://www.researchgate.net/publication/382000139_Data_misconceptions_challenges_and_solutions" target="_blank" rel="noopener">
+        <img src="/assets/img/invited_talks/ai_institude.png" alt="Data Misconceptions" loading="lazy" />
+        <span class="proj-title">Data Misconceptions: Challenges and Solutions</span>
+      </a>
+      <div class="proj-desc">AI Accelerator Summit 2023</div>
+    </div>
+    <div class="proj-card" data-topics="research">
+      <a href="https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf" target="_blank" rel="noopener">
+        <img src="https://raw.githubusercontent.com/lilyzhng/unpuzzle_dataset_bias/main/assets/img/PipelineWithImages.jpg" alt="DeepPIC" loading="lazy" />
+        <span class="proj-title">DeepPIC: Deep Perceptual Image Clustering for Identifying Bias in Vision</span>
+      </a>
+      <div class="proj-desc">CVPR Workshops 2022</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var boxes = document.querySelectorAll('.proj-topic input');
+  var cards = document.querySelectorAll('.proj-card');
+  function apply() {
+    var checked = Array.from(boxes).filter(b => b.checked).map(b => b.value);
+    cards.forEach(function (c) {
+      var topics = c.getAttribute('data-topics').split(' ');
+      c.style.display = (checked.length === 0 || topics.some(t => checked.includes(t))) ? '' : 'none';
+    });
+  }
+  boxes.forEach(b => b.addEventListener('change', apply));
+
+  // touch devices: reveal color as cards scroll into view
+  if (window.matchMedia('(hover: none)').matches && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('in-view', e.intersectionRatio >= 0.6); });
+    }, { threshold: [0, 0.6, 1] });
+    cards.forEach(function (c) { io.observe(c); });
+  }
+});
+</script>
+
+<style>
+.proj-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 6rem;
+}
+.proj-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.2rem;
+  margin: 1.5rem 0 2.5rem;
+}
+.proj-topic {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+.proj-topic input { accent-color: #043976; width: 15px; height: 15px; cursor: pointer; }
+
+.proj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
+  row-gap: 3rem;
+}
+.proj-card a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  display: block;
+}
+.proj-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 4px;
+  filter: grayscale(1);
+  transition: filter 0.5s ease;
+  margin-bottom: 0.9rem;
+}
+.proj-card:hover img {
+  filter: grayscale(0);
+}
+.proj-card img.fit-contain {
+  object-fit: contain;
+  background: #fff;
+}
+.proj-title {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.35;
+  padding: 0 2px;
+  transition: background-color 0.15s ease;
+}
+.proj-card:hover .proj-title {
+  background-color: #dbe7fb;
+}
+.proj-desc {
+  font-style: italic;
+  color: #8a8f98;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 767px) {
+  .proj-grid { grid-template-columns: 1fr; }
+}
+
+/* touch devices have no hover: grayscale by default, color when scrolled into view */
+@media (hover: none) {
+  .proj-card img { filter: grayscale(1); }
+  .proj-card.in-view img { filter: grayscale(0); }
+}
+</style>
+
+
+</div>
+
+        
+      </div>
+    
+
+    <!-- Footer -->    <footer class="sticky-bottom mt-5">
+      <div class="container">
+        
+      </div>
+    </footer>
+
+    <!-- JavaScripts -->
+    <!-- jQuery removed: site.jquery.version was never set, so this always 404'd
+     (jquery@/dist/... -> "$ is not defined"). No page uses jQuery. -->
+
+    <!-- Bootstrap & MDB scripts removed: version vars never set (bootstrap@/…, mdb@/…
+     always 404'd). The site's design doesn't use Bootstrap/MDB JS. -->
+
+    
+    
+
+  <!-- Bootstrap Table removed: version var never set (bootstrap-table@/… 404'd). -->
+
+  <!-- no_defer.js and common.js removed: both require jQuery (now gone) and
+       always threw "$ is not defined" in the console. -->
+  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
+
+    
+
+    
+
+    
+    <!-- GoatCounter Analytics - Privacy-friendly website analytics -->
+<script data-goatcounter="https://lilyzhng.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script><!-- Display visitor count -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to update all visitor counters on the page
+  function updateVisitorCount() {
+    // Create a temporary element for GoatCounter to inject the count
+    var tempDiv = document.createElement('div');
+    tempDiv.style.display = 'none';
+    tempDiv.id = 'gc-counter';
+    document.body.appendChild(tempDiv);
+    
+    // Wait for GoatCounter to load
+    var checkInterval = setInterval(function() {
+      if (typeof window.goatcounter !== 'undefined' && window.goatcounter.count) {
+        clearInterval(checkInterval);
+        
+        // Use GoatCounter's visit_count method
+        if (window.goatcounter.visit_count) {
+          window.goatcounter.visit_count({
+            append: '#gc-counter',
+            path: window.location.pathname
+          });
+          
+          // Wait a bit for the count to be injected
+          setTimeout(function() {
+            var countElement = document.querySelector('#gc-counter');
+            if (countElement && countElement.textContent) {
+              // Extract the number from GoatCounter's output
+              var match = countElement.textContent.match(/(\d+)/);
+              if (match) {
+                var count = parseInt(match[1]);
+                // Update all visitor counter elements
+                document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+                  elem.innerHTML = 'page view: ' + count.toLocaleString();
+                });
+              }
+            }
+            // Clean up
+            if (countElement) {
+              countElement.remove();
+            }
+          }, 500);
+        }
+      }
+    }, 100);
+    
+    // Timeout fallback
+    setTimeout(function() {
+      clearInterval(checkInterval);
+      // If still loading, try direct API call
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://lilyzhng.goatcounter.com/counter/' + encodeURIComponent(window.location.pathname) + '.json');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            var count = data.count || data.count_unique || 0;
+            document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+              elem.innerHTML = 'page view: ' + count.toLocaleString();
+            });
+          } catch (e) {
+            // If JSON fails, show a simple message
+            document.querySelectorAll('.goatcounter-visitors').forEach(function(elem) {
+              elem.innerHTML = 'page view: -';
+            });
+          }
+        }
+      };
+      xhr.send();
+    }, 3000);
+  }
+  
+  // Run the update
+  updateVisitorCount();
+});
+</script>
+    
+
+  </body>
+</html>

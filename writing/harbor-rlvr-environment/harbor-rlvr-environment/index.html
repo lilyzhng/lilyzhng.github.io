@@ -48,7 +48,7 @@
     <link rel="shortcut icon" href="/assets/img/"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://lilyzh.ng/posts/harbor-rlvr-environment/harbor-rlvr-environment/">
+    <link rel="canonical" href="https://lilyzh.ng/writing/harbor-rlvr-environment/harbor-rlvr-environment/">
 
     <!-- Dark Mode -->
     
@@ -120,7 +120,7 @@
 
 <p>So I measured first: a verifiable failure taxonomy on <code class="language-plaintext highlighter-rouge">gpt-oss-20b</code>, 444 trials, every failure classified and diagnosed, and only then designed the RLVR environment. Every reward term traces back to a measured failure mode.</p>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-teaser-v8.svg" alt="Method pipeline teaser" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-teaser-v8.svg" alt="Method pipeline teaser" /></p>
 
 <p><em>Figure 1: The pipeline. Classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.</em></p>
 
@@ -158,7 +158,7 @@
 
 <p>The taxonomy has two layers: L1 classifies what happened, L2 diagnoses why. This is my own implementation based on the paper; the original Pathfinder code is not open-sourced.</p>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system" /></p>
 
 <p><em>Figure 2: The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can’t be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</em></p>
 
@@ -168,11 +168,11 @@
 
 <p>We categorize each agent trial into four categories (<code class="language-plaintext highlighter-rouge">pass</code> 21 · <code class="language-plaintext highlighter-rouge">verifier_fail</code> 372 · <code class="language-plaintext highlighter-rouge">agent_timeout</code> 46 · infra 5, of 444 trials), so that we don’t count infra crashes as agent behavior, and we can bypass the tasks the agent already passed (a baseline shortcut; in the next iteration passes also run through L2, as the control group for the failure modes).</p>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" /></p>
 
 <p><em>Figure 3: Harbor L1 outcomes. Mostly <code class="language-plaintext highlighter-rouge">verifier_fail</code> (~84%), not timeout. The learning problem is <strong>how</strong> the agent fails the verifier.</em></p>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-2.svg" alt="Analysis funnel" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-2.svg" alt="Analysis funnel" /></p>
 
 <p><em>Figure 4: Analysis funnel. 38 silent trials: verifier failed but no ATIF signal for a mode penalty. Design rule: only penalize computed trace evidence.</em></p>
 
@@ -206,11 +206,11 @@ For only the verifier-fail trials, we run executable detectors over the agent tr
 
 After excluding the 38 silent trials, we have 334 trials with trace evidence. Figures 5 and 6 are computed over these.
 
-![Executable failure modes](/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-3.svg)
+![Executable failure modes](/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-3.svg)
 
 *Figure 5: Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (`premature_complete` + `error_unaddressed`) fires 434+ times across multi-label trials.*
 
-![Failure step distribution](/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-4.svg)
+![Failure step distribution](/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-4.svg)
 
 *Figure 6: Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.*
 

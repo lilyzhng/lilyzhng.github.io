@@ -48,7 +48,7 @@
     <link rel="shortcut icon" href="/assets/img/"/>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://lilyzh.ng/posts/harbor-rlvr-environment/harbor-rlvr-figures-README/">
+    <link rel="canonical" href="https://lilyzh.ng/writing/harbor-rlvr-environment/harbor-rlvr-figures-README/">
 
     <!-- Dark Mode -->
     
@@ -106,7 +106,7 @@
           <article>
             <h1 id="harbor-rlvr-environment--figures">Harbor RLVR environment — figures</h1>
 
-<p>Figures from <a href="/posts/harbor-rlvr-environment/harbor-rlvr-environment/">harbor-rlvr-environment.md</a> / <a href="https://lilyzh.ng/posts/harbor-rlvr-environment/">lilyzh.ng/posts/harbor-rlvr-environment</a>. Captions are copied verbatim from the published figcaptions. Relative paths so a normal markdown preview renders them.</p>
+<p>Figures from <a href="/writing/harbor-rlvr-environment/harbor-rlvr-environment/">harbor-rlvr-environment.md</a> / <a href="https://lilyzh.ng/writing/harbor-rlvr-environment/">lilyzh.ng/posts/harbor-rlvr-environment</a>. Captions are copied verbatim from the published figcaptions. Relative paths so a normal markdown preview renders them.</p>
 
 <p><strong>Paper-plot triage</strong> (compact + informative enough for <code class="language-plaintext highlighter-rouge">/paper-plot</code>):</p>
 
@@ -168,7 +168,7 @@
 
 <h2 id="figure-1--method-pipeline">Figure 1 — Method pipeline</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-teaser-v9-light.svg" alt="Method pipeline teaser" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-teaser-v9-light.svg" alt="Method pipeline teaser" /></p>
 
 <p><strong>Figure 1:</strong> The pipeline. Classify what happened (L1), diagnose why (L2), then split by failure type: knowledge gaps go to SFT, decision failures become reward terms for GRPO.</p>
 
@@ -176,7 +176,7 @@
 
 <h2 id="figure-2--taxonomy-as-a-system">Figure 2 — Taxonomy as a system</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-v2-design.svg" alt="The taxonomy as a system" /></p>
 
 <p><strong>Figure 2:</strong> The taxonomy as a system. L1 does coarse attribution (who is responsible) and quarantines what can’t be attributed; L2 runs the executable detectors over every attributable trace, pass included (passes are the control group for the failure modes). Every silent trial exits the improvement queue one of two ways: A, a failure we have no detector for, so we build one and L2 grows; or B, the task or verifier itself is broken, so we add a quarantine rule and L1 grows.</p>
 
@@ -184,7 +184,7 @@
 
 <h2 id="figure-3--harbor-l1-outcomes">Figure 3 — Harbor L1 outcomes</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-1.svg" alt="Harbor L1 outcomes" /></p>
 
 <p><strong>Figure 3:</strong> Harbor L1 outcomes. Mostly <code class="language-plaintext highlighter-rouge">verifier_fail</code> (~84%), not timeout. The learning problem is <strong>how</strong> the agent fails the verifier.</p>
 
@@ -192,7 +192,7 @@
 
 <h2 id="figure-4--analysis-funnel">Figure 4 — Analysis funnel</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-2.svg" alt="Analysis funnel" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-2.svg" alt="Analysis funnel" /></p>
 
 <p><strong>Figure 4:</strong> Analysis funnel. 38 silent trials: verifier failed but no ATIF signal for a mode penalty. Design rule: only penalize computed trace evidence.</p>
 
@@ -200,7 +200,7 @@
 
 <h2 id="figure-5--executable-failure-modes">Figure 5 — Executable failure modes</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-3.svg" alt="Executable failure modes" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-3.svg" alt="Executable failure modes" /></p>
 
 <p><strong>Figure 5:</strong> Executable failure modes. Primary chart for reward design. Headline: the missing-reflection family (<code class="language-plaintext highlighter-rouge">premature_complete</code> + <code class="language-plaintext highlighter-rouge">error_unaddressed</code>) fires 434+ times across multi-label trials.</p>
 
@@ -208,7 +208,7 @@
 
 <h2 id="figure-6--failure-step-distribution">Figure 6 — Failure step distribution</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-taxonomy-fig-4.svg" alt="Failure step distribution" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-taxonomy-fig-4.svg" alt="Failure step distribution" /></p>
 
 <p><strong>Figure 6:</strong> Failure step distribution. First failures cluster at steps 2–3, not the turn cap. Bottleneck is wasted actions early, not horizon length.</p>
 
@@ -216,7 +216,7 @@
 
 <h2 id="figure-7--corpus-vs-balanced-sample">Figure 7 — Corpus vs balanced sample</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-data-fig-corpus-vs-sample.svg" alt="Nemotron corpus vs balanced sample" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-data-fig-corpus-vs-sample.svg" alt="Nemotron corpus vs balanced sample" /></p>
 
 <p><strong>Figure 7:</strong> Source corpus vs the first-round sample: each of the 11 categories gets an equal share.</p>
 
@@ -224,7 +224,7 @@
 
 <h2 id="figure-8--sample-vs-eval-anchor">Figure 8 — Sample vs eval anchor</h2>
 
-<p><img src="/posts/harbor-rlvr-environment/figures/tb2-data-fig-sample-vs-eval.svg" alt="Sample vs eval anchor" /></p>
+<p><img src="/writing/harbor-rlvr-environment/figures/tb2-data-fig-sample-vs-eval.svg" alt="Sample vs eval anchor" /></p>
 
 <p><strong>Figure 8:</strong> The same sample vs the eval anchor. Six eval categories do not exist in the corpus at all; model-training survives the quality gates with only 3 rows.</p>
 
