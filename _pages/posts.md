@@ -85,7 +85,7 @@ permalink: /writing/
   </div>
 
   <div class="blog-entry" data-type="blog">
-    <a href="https://sofagenius.ai/" class="blog-title" target="_blank">SofaGenius: Multi-Agent ML Research Assistant</a>
+    <a href="https://sofagenius.ai/" class="blog-title" target="_blank">SofaGenius: Agentic Post-Training</a>
     <span class="blog-date">02.21.26</span>
   </div>
 
