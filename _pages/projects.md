@@ -112,6 +112,13 @@ permalink: /projects/
       </a>
       <div class="proj-desc">General Chair, RoboGen Workshop, IEEE IROS · 2025</div>
     </div>
+    <div class="proj-card" data-topics="tools">
+      <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">
+        <img src="/assets/img/projects/deep_seek.png" alt="Deep-Seek deep research agent" loading="lazy">
+        <span class="proj-title">Deep-Seek: Deep Research Agent</span>
+      </a>
+      <div class="proj-desc">LLM-powered retrieval engine that compiles entity tables from internet-scale sources · 2024</div>
+    </div>
     <div class="proj-card" data-topics="deployment">
       <a href="https://www.youtube.com/watch?v=_xMXiK9wBxE" target="_blank" rel="noopener">
         <img src="https://img.youtube.com/vi/_xMXiK9wBxE/hqdefault.jpg" alt="Continuous Learning Loop" loading="lazy">
