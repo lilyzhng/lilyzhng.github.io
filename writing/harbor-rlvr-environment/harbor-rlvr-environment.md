@@ -1,6 +1,6 @@
 # AURA: Automatic Reward Shaping via Failure Taxonomy
 
-What Can't Be Measured Can't Be Solved: RLVR Environment Design from a Failure Taxonomy
+AURA: Automatic Reward Shaping from a Hierarchical Failure Taxonomy
 
 **Lily Zhang** · Jun 10, 2026
 
