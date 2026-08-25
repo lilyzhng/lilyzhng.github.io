@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
-  <title>Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal. | Lily Zhang</title>
-  <meta name="description" content="Cheap delegation should be a byproduct of good decomposition, not the thing you optimize for. A reading of Devin Fusion and where the real leverage in agent harnesses lives." />
-  <meta property="og:title" content="Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal." />
-  <meta property="og:description" content="Cheap delegation should be a byproduct of good decomposition, not the thing you optimize for." />
-  <meta property="og:url" content="https://lilyzhng.github.io/writing/decomposition-is-the-moat/" />
-  <meta property="og:type" content="article" />
-  <meta name="twitter:card" content="summary" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/blog-header.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+<title>Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.</title>
+<meta property="og:title" content="Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.">
+<meta property="og:description" content="Cheap delegation should be a byproduct of good decomposition, not the thing you optimize for.">
+<meta property="og:image" content="https://lilyzhng.github.io/writing/decomposition-is-the-moat/fig1-constitution-board.png">
+<meta property="og:url" content="https://lilyzhng.github.io/writing/decomposition-is-the-moat/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.">
+<meta name="twitter:description" content="Cheap delegation should be a byproduct of good decomposition, not the thing you optimize for.">
+<meta name="twitter:image" content="https://lilyzhng.github.io/writing/decomposition-is-the-moat/fig1-constitution-board.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/css/blog-header.css">
 <style>
-  @font-face { font-family: 'ET Book'; font-style: normal; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-roman.woff') format('woff'); }
-  @font-face { font-family: 'ET Book'; font-style: normal; font-weight: 700; font-display: swap; src: url('../../assets/fonts/et-book-bold.woff') format('woff'); }
-  @font-face { font-family: 'ET Book'; font-style: italic; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-italic.woff') format('woff'); }
-  
+@font-face { font-family: 'ET Book'; font-style: normal; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-roman.woff') format('woff'); }
+@font-face { font-family: 'ET Book'; font-style: normal; font-weight: 700; font-display: swap; src: url('../../assets/fonts/et-book-bold.woff') format('woff'); }
+@font-face { font-family: 'ET Book'; font-style: italic; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-italic.woff') format('woff'); }
+
     /* align TOC left edge with the site-name (cancel the 2rem layout padding on desktop) */
     @media (min-width: 941px) { .layout { position: relative; left: -24px; } }
 </style>
-  <style>
+<script>
+MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
     :root {
       --bg: #F9F9F9;
       --surface: #fffffb;
@@ -77,24 +84,33 @@
     }
     .toc ul { list-style: none; margin: 0; }
     .toc li { margin-bottom: 0.85rem; }
+    .toc li.sub { margin-left: 0.45rem; margin-bottom: 0; padding-bottom: 0.45rem; }
+    .toc li.sub:has(+ li:not(.sub)) { padding-bottom: 0.85rem; } /* larger gap after the last sub */
+    .toc li.sub a { font-size: 0.75rem; padding-left: 1.5rem; }
     .toc a {
       display: block;
+      position: relative;
       font: 500 0.875rem/1.35 var(--serif);
       color: rgba(0,0,0,0.42);
       padding-left: 0.85rem;
-      border-left: 2px solid transparent;
       text-decoration: none;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s;
     }
-    .toc a:hover { color: rgba(0,0,0,0.72); }
-    .toc a.active { color: #000; font-weight: 600; border-left-color: #000; }
-    .toc .sub a { font-size: 0.75rem; padding-left: 1.5rem; }
-    .toc li.sub { margin-left: 0.45rem; margin-bottom: 0; padding-bottom: 0.45rem; }
-    .toc li.sub:has(+ li:not(.sub)) { padding-bottom: 0.85rem; } /* larger gap after the last sub */
+    .toc a:hover { color: #2437e7; }
+    .toc a.active { color: #2437e7; font-weight: 600; }
+    /* the "|" indicator floats left of the column rail, like the Posts filter */
+    .toc a.active::before {
+      content: '';
+      position: absolute;
+      left: -0.7rem;
+      top: 0.28em;
+      width: 3px;
+      height: 0.78em;
+      background: #2437e7;
+    }
 
-    .meta { font: 500 0.8125rem/1 var(--serif); color: var(--muted); margin-bottom: 1.25rem; }
     h1 {
-      font-family: var(--serif);
+      font-family: 'ET Book', 'Iowan Old Style', Palatino, Georgia, serif;
       font-size: clamp(2rem, 4.5vw, 2.55rem);
       font-weight: 400; letter-spacing: -0.012em; line-height: 1.12;
       color: var(--ink); margin-bottom: 1.5rem;
@@ -118,15 +134,20 @@
     .byline-col .byline-label { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
     .byline-col .byline-value { font-weight: 600; color: var(--ink); }
     .byline-col .byline-value.light { font-weight: 400; }
+
     .lede { font-size: 1.2rem; line-height: 1.55; color: var(--ink); margin-bottom: 2.5rem; }
-    h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); margin: 3.25rem 0 1rem; }
+    h2 {
+      font-family: var(--serif); font-size: 1.55rem; font-weight: 700;
+      letter-spacing: -0.01em; color: var(--ink); margin: 3.25rem 0 1rem;
+    }
     h3 { font-family: var(--serif); font-size: 1.22rem; font-weight: 700; color: var(--ink); margin: 2.25rem 0 0.75rem; }
+    h4 { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; color: var(--ink); margin: 1.75rem 0 0.5rem; }
     p { margin-bottom: 1.15rem; }
     p + ul { margin-top: -0.4rem; }
     ul, ol { margin: 0 0 1.15rem 1.35rem; }
     li { margin-bottom: 0.4rem; }
 
-    blockquote {
+    blockquote, .callout {
       border-left: 2px solid var(--line-strong);
       padding: 0.25rem 0 0.25rem 1.25rem; margin: 1.5rem 0;
       font-style: italic; color: var(--muted);
@@ -135,16 +156,37 @@
 
     .table-wrap { overflow-x: auto; margin: 1.5rem 0 2rem; }
     table { width: 100%; border-collapse: collapse; font: 400 0.9375rem/1.5 var(--serif); }
-    th, td { padding: 0.6rem 1.25rem 0.6rem 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th, td {
+      padding: 0.6rem 1.25rem 0.6rem 0;
+      text-align: left; vertical-align: top; border-bottom: 1px solid var(--line);
+    }
     th { font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--line-strong); font-size: 0.875rem; letter-spacing: 0.01em; }
     tbody tr:last-child td { border-bottom: 1px solid var(--line-strong); }
-    .table-caption { font-family: var(--serif); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--ink); }
+    td .num { font-family: var(--mono); color: var(--ink); font-weight: 600; }
+    .good { color: #2e5e46; font-weight: 600; }
+    .bad { color: #a84b28; font-weight: 600; }
 
-    figure { margin: 2.5rem 0; text-align: center; }
-    figure svg { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    figure { margin: 2.25rem 0; text-align: center; }
+    figure img {
+      display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto;
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+    }
+    figure.mid img { max-width: 640px; }
     figcaption { font: 400 0.8125rem/1.55 var(--serif); color: var(--muted); margin-top: 0.7rem; text-align: left; }
+    .fig2 { display: flex; gap: 12px; }
+    .fig2 img { width: 50%; min-width: 0; }
+    @media (max-width: 640px) { .fig2 { flex-direction: column; } .fig2 img { width: 100%; } }
 
-    code { font-family: var(--mono); font-size: 0.78em; background: var(--code-bg); color: var(--ink); padding: 0.12em 0.36em; border-radius: 4px; }
+    pre {
+      background: #1e2a1c; color: #e8e8e3;
+      font-family: var(--mono); font-size: 0.8125rem; line-height: 1.6;
+      padding: 1.1rem 1.25rem; border-radius: 10px; overflow-x: auto; margin: 1.5rem 0 2rem;
+    }
+    code {
+      font-family: var(--mono); font-size: 0.78em;
+      background: var(--code-bg); color: var(--ink); padding: 0.12em 0.36em; border-radius: 4px;
+    }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
 
     /* BibTeX citation block with copy button */
     .bibtex-block { position: relative; }
@@ -159,20 +201,81 @@
     .bibtex-copy:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
     .bibtex-copy.copied { color: #7fd6a4; border-color: #7fd6a4; }
 
-    .callout {
+    .refs { font-size: 0.9375rem; color: var(--text); }
+    .refs li { margin-bottom: 0.75rem; }
+
+    .punchline {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 700;
+      color: var(--ink); text-align: center; margin: 3rem 0 1rem;
+    }
+
+    footer {
+      max-width: 1240px; margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem; border-top: 1px solid var(--line);
+      font: 400 0.8125rem/1.6 var(--serif); color: var(--muted);
+    }
+  
+    /* Column rails carried over from the Posts index (Cognition-style) */
+    .layout { position: relative; }
+    .layout::before, .layout::after {
+      content: '';
+      position: absolute;
+      top: 0;   /* flush against the site header's rule */
+      bottom: 6rem;
+      width: 2px;
+      background:
+        linear-gradient(#b3b8c2, #b3b8c2) 0 0 / 2px 14px no-repeat,
+        linear-gradient(#e7e9ee, #e7e9ee) 0.5px 14px / 1px calc(100% - 14px) no-repeat;
+    }
+    .layout::before { left: calc(2rem - 6px); }
+    .layout::after { left: calc(220px + 3.5rem); }
+    @media (max-width: 940px) {
+      .layout::before, .layout::after { display: none; }
+    }
+
+    /* Brand-blue text selection */
+    ::selection { background: #2437e7; color: #fff; }
+    ::-moz-selection { background: #2437e7; color: #fff; }
+</style>
+<style>
+.toc a {
+      display: block;
+      font: 500 0.875rem/1.35 var(--serif);
+      color: rgba(0,0,0,0.42);
+      padding-left: 0.85rem;
+      border-left: 2px solid transparent;
+      text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+    }
+.toc a:hover { color: rgba(0,0,0,0.72); }
+.toc a.active { color: #000; font-weight: 600; border-left-color: #000; }
+.toc .sub a { font-size: 0.75rem; padding-left: 1.5rem; }
+/* larger gap after the last sub */
+
+    .meta { font: 500 0.8125rem/1 var(--serif); color: var(--muted); margin-bottom: 1.25rem; }
+h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.5vw, 2.55rem);
+      font-weight: 400; letter-spacing: -0.012em; line-height: 1.12;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+blockquote {
+      border-left: 2px solid var(--line-strong);
+      padding: 0.25rem 0 0.25rem 1.25rem; margin: 1.5rem 0;
+      font-style: italic; color: var(--muted);
+    }
+.table-caption { font-family: var(--serif); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--ink); }
+figure { margin: 2.5rem 0; text-align: center; }
+figure svg { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.callout {
       background: var(--block-bg); border: 1px solid var(--line);
       border-radius: 10px; padding: 1.1rem 1.35rem; margin: 1.75rem 0;
       font-size: 1.02rem;
     }
-    .callout strong { color: var(--ink); }
+.callout strong { color: var(--ink); }
+footer p { margin-bottom: 0.5rem; }
 
-    .refs { font-size: 0.9375rem; color: var(--text); }
-    .refs li { margin-bottom: 0.75rem; }
-
-    footer { max-width: 1240px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; border-top: 1px solid var(--line); font: 400 0.8125rem/1.6 var(--serif); color: var(--muted); }
-    footer p { margin-bottom: 0.5rem; }
-
-  </style>
+</style>
 </head>
 <body>
 
@@ -192,14 +295,14 @@
   <aside class="toc" aria-label="Table of contents">
     <div class="toc-title">Table of Contents</div>
     <ul>
-      <li><a href="#shipped">1. Routing shipped as a product</a></li>
-      <li><a href="#sidekick">2. The sidekick optimizes cost</a></li>
-      <li><a href="#wrong-target">3. Cost is the wrong target</a></li>
-      <li><a href="#decompose">4. Optimize the decomposition</a></li>
-      <li><a href="#amortize">5. Why it is structural</a></li>
-      <li><a href="#when">6. When decomposition wins</a></li>
-      <li><a href="#moat">7. The actual moat</a></li>
-      <li><a href="#measure">8. What I would measure</a></li>
+      <li><a href="#shipped">1 · Routing shipped as a product</a></li>
+      <li><a href="#sidekick">2 · The sidekick optimizes cost</a></li>
+      <li><a href="#wrong-target">3 · Cost is the wrong target</a></li>
+      <li><a href="#decompose">4 · Optimize the decomposition, and cost falls out</a></li>
+      <li><a href="#amortize">5 · Why this is structural, not incidental</a></li>
+      <li><a href="#when">6 · When decomposition wins, and when it does not</a></li>
+      <li><a href="#moat">7 · The actual moat</a></li>
+      <li><a href="#measure">8 · What I would measure next</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#citation">Citation</a></li>
     </ul>
@@ -222,135 +325,71 @@
       </span>
     </div>
 
-    <p class="lede">
-      Cognition shipped Devin Fusion, a harness that routes subtasks between an expensive model and a cheap
-      one and reports real cost savings, and the whole industry is now saying the harness is the moat. I think
-      that is half right. The router is the part everyone can see, and the part everyone can copy. The leverage
-      sits upstream, in how you carve the task before any model runs. Cheap delegation is a byproduct of good
-      decomposition, not the thing to chase.
-    </p>
+    <p class="lede">Cognition shipped Devin Fusion, a harness that routes subtasks between an expensive model and a cheap one and reports real cost savings, and the whole industry is now saying the harness is the moat. I think that is half right. The router is the part everyone can see, and the part everyone can copy. The leverage sits upstream, in how you carve the task before any model runs. Cheap delegation is a byproduct of good decomposition, not the thing to chase.</p>
 
     <section id="shipped">
-      <h2>1. Routing shipped as a product</h2>
-      <p>
-        <a href="https://cognition.com/blog/devin-fusion" target="_blank" rel="noopener">Devin Fusion</a> runs two
-        parallel agents: a frontier model and a cheaper "sidekick" model, each with its own persistent, cached
-        context. The frontier model makes the significant decisions (the plan, the ambiguous calls, the final
-        review) and delegates execution to the sidekick. A lightweight classifier decides, mid-run, when to switch
-        which model is in charge. Cognition reports a 41% cost reduction at the same quality, and Aaron Levie ran
-        the same experiment by hand and was surprised to find that delegation <em>lowered</em> total cost rather
-        than raising it. His conclusion: the harness is becoming the core area of differentiation.
-      </p>
-      <p>
-        That last claim is the one worth pressing on. If the harness is the moat, which part of the harness? The
-        answer people reach for is the router: the policy that decides which model runs which step. I want to
-        argue that the router is the least defensible part of the whole thing, and that the real work happens
-        before it.
-      </p>
+      <h2>1 · Routing shipped as a product</h2>
+
+<p><a href="https://cognition.com/blog/devin-fusion">Devin Fusion</a> runs two parallel agents: a frontier model and a cheaper "sidekick" model, each with its own persistent, cached context. The frontier model makes the significant decisions (the plan, the ambiguous calls, the final review) and delegates execution to the sidekick. A lightweight classifier decides, mid-run, when to switch which model is in charge. Cognition reports a 41% cost reduction at the same quality, and Aaron Levie ran the same experiment by hand and was surprised to find that delegation <em>lowered</em> total cost rather than raising it. His conclusion: the harness is becoming the core area of differentiation.</p>
+<p>That last claim is the one worth pressing on. If the harness is the moat, which part of the harness? The answer people reach for is the router: the policy that decides which model runs which step. I want to argue that the router is the least defensible part of the whole thing, and that the real work happens before it.</p>
+
     </section>
 
     <section id="sidekick">
-      <h2>2. The sidekick optimizes cost</h2>
-      <p>
-        The sidekick pattern is an economics move. Put the expensive model on the decisions, put the cheap model
-        on the token-heavy grunt work, keep both contexts warm so switching between them does not trigger a cache
-        miss. Everything about the design is organized around one objective: spend fewer expensive tokens without
-        losing quality.
-      </p>
-      <p>
-        Cognition's own examples make this concrete. Modernizing a file to ES6 is a trivial edit, but verifying it
-        means babysitting a slow Playwright end-to-end suite. The expensive part is watching the tests, not writing
-        the code, so they hand the test-watching to the cheap model and save 62% with no quality loss. Ripping an
-        unused library out of a large Go codebase is mechanical work across many files with almost no judgment
-        calls, so the entire task goes to the cheap model, 32% cheaper at the same quality. The pattern is clear:
-        delegation pays off when the expensive work is low-intelligence, high-token, and cleanly separable.
-      </p>
+      <h2>2 · The sidekick optimizes cost</h2>
+
+<p>The sidekick pattern is an economics move. Put the expensive model on the decisions, put the cheap model on the token-heavy grunt work, keep both contexts warm so switching between them does not trigger a cache miss. Everything about the design is organized around one objective: spend fewer expensive tokens without losing quality.</p>
+<p>Cognition's own examples make this concrete. Modernizing a file to ES6 is a trivial edit, but verifying it means babysitting a slow Playwright end-to-end suite. The expensive part is watching the tests, not writing the code, so they hand the test-watching to the cheap model and save 62% with no quality loss. Ripping an unused library out of a large Go codebase is mechanical work across many files with almost no judgment calls, so the entire task goes to the cheap model, 32% cheaper at the same quality. The pattern is clear: delegation pays off when the expensive work is low-intelligence, high-token, and cleanly separable.</p>
+
     </section>
 
     <section id="wrong-target">
-      <h2>3. Cost is the wrong target</h2>
-      <p>
-        This is where I part ways with the design. Because the sidekick's objective is cost, it back-derives a
-        rule: the main agent should "take minimal actions, and only read what is absolutely necessary." The
-        system is being told to read less and do less, not because the task is small, but because reading and
-        doing cost money.
-      </p>
-      <p>
-        That is optimizing the wrong variable, and the failure shows up in Cognition's own results. Their
-        launch note admits the savings are not uniform: <em>"serial debugging tasks necessitate accumulated
-        context to trace the error."</em> In their blog, a React and Redux feature delegated to the sidekick
-        scored only 27. Both are the same failure. The moment a task needs continuity, a cost heuristic that
-        starves the agent of context produces a quality collapse. You told the agent to read less to save money,
-        and it read less, and then it could not do the job.
-      </p>
-      <div class="callout">
+      <h2>3 · Cost is the wrong target</h2>
+
+<p>This is where I part ways with the design. Because the sidekick's objective is cost, it back-derives a rule: the main agent should "take minimal actions, and only read what is absolutely necessary." The system is being told to read less and do less, not because the task is small, but because reading and doing cost money.</p>
+<p>That is optimizing the wrong variable, and the failure shows up in Cognition's own results. Their launch note admits the savings are not uniform: <em>"serial debugging tasks necessitate accumulated context to trace the error."</em> In their blog, a React and Redux feature delegated to the sidekick scored only 27. Both are the same failure. The moment a task needs continuity, a cost heuristic that starves the agent of context produces a quality collapse. You told the agent to read less to save money, and it read less, and then it could not do the job.</p>
+<div class="callout">
         <strong>The anti-pattern:</strong> when cost is the objective, "minimal actions" becomes a cause you
         impose on the agent. You clamp it from the top to save money, and clamping can starve it. Cost-driven
         routing has no way to tell the difference between a step that is genuinely small and a step you are simply
         refusing to pay for.
       </div>
+
+
     </section>
 
     <section id="decompose">
-      <h2>4. Optimize the decomposition, and cost falls out</h2>
-      <p>
-        The fix is not a better router. It is to move the intelligence upstream, to the decomposition. Qualify
-        each phase of the work well enough, with a clear goal and a clear definition of done, and the agent's job
-        on any single phase becomes small. The agent then takes few actions, not because you forbade the rest,
-        but because a well-scoped task does not need them.
-      </p>
-      <p>
-        Same behavior, opposite mechanism. The sidekick clamps the agent at runtime and hopes it does not starve.
-        Good decomposition makes the clamp unnecessary at design time. Few reads are now a result of good carving,
-        not a rule imposed on a hard task, so quality and cost move together instead of trading off. A small,
-        well-specified task is both easy to do right and cheap to run.
-      </p>
-      <p>
-        This is the argument in three steps, and the order matters:
-      </p>
-      <ol>
-        <li>Qualify each phase's goal properly, so the work is well scoped.</li>
-        <li>A well-scoped phase is easy for a cheap model to execute correctly. High-quality delivery is the direct result.</li>
-        <li>Cost-effectiveness is the side effect. It comes along for free, because you never had to spend expensive tokens fighting an underspecified task.</li>
-      </ol>
+      <h2>4 · Optimize the decomposition, and cost falls out</h2>
+
+<p>The fix is not a better router. It is to move the intelligence upstream, to the decomposition. Qualify each phase of the work well enough, with a clear goal and a clear definition of done, and the agent's job on any single phase becomes small. The agent then takes few actions, not because you forbade the rest, but because a well-scoped task does not need them.</p>
+<p>Same behavior, opposite mechanism. The sidekick clamps the agent at runtime and hopes it does not starve. Good decomposition makes the clamp unnecessary at design time. Few reads are now a result of good carving, not a rule imposed on a hard task, so quality and cost move together instead of trading off. A small, well-specified task is both easy to do right and cheap to run.</p>
+<p>This is the argument in three steps, and the order matters:</p>
+<ol>
+<li>Qualify each phase's goal properly, so the work is well scoped.</li>
+<li>A well-scoped phase is easy for a cheap model to execute correctly. High-quality delivery is the direct result.</li>
+<li>Cost-effectiveness is the side effect. It comes along for free, because you never had to spend expensive tokens fighting an underspecified task.</li>
+</ol>
+
     </section>
 
     <section id="amortize">
-      <h2>5. Why this is structural, not incidental</h2>
-      <p>
-        Step 3 is stronger than "and it also happens to be cheaper." Good
-        decomposition does not eliminate the cost of frontier intelligence. It relocates it. The expensive
-        reasoning moves from runtime, where the sidekick pays for it on every step it micromanages, to design
-        time, where you pay for it once while writing the plan.
-      </p>
-      <p>
-        That is the real reason it is cost-effective. You are amortizing. The frontier model (or a person, or
-        both) is expensive exactly once, when it carves the task into the right milestones. After that, a cheap
-        model runs many steps against a plan that already removed the hard reasoning. Compare that to paying the
-        frontier model to sit in the loop and re-decide every step, which is what the sidekick's "delegate and
-        monitor" actually costs. One up-front carving versus per-step micromanagement.
-      </p>
-      <p>
-        Which surfaces a position that neither Cognition nor most of the routing literature states outright. The
-        sidekick says: frontier decides, cheap executes, per step. The better claim is: the frontier model's best
-        use is not per-step manager but up-front decomposer. Spend the expensive intelligence on carving and
-        qualifying the goals, then hand the whole execution to a cheap model. Frontier tokens on decomposition,
-        cheap tokens on execution. Carve once, do not route every step.
-      </p>
+      <h2>5 · Why this is structural, not incidental</h2>
+
+<p>Step 3 is stronger than "and it also happens to be cheaper." Good decomposition does not eliminate the cost of frontier intelligence. It relocates it. The expensive reasoning moves from runtime, where the sidekick pays for it on every step it micromanages, to design time, where you pay for it once while writing the plan.</p>
+<p>That is the real reason it is cost-effective. You are amortizing. The frontier model (or a person, or both) is expensive exactly once, when it carves the task into the right milestones. After that, a cheap model runs many steps against a plan that already removed the hard reasoning. Compare that to paying the frontier model to sit in the loop and re-decide every step, which is what the sidekick's "delegate and monitor" actually costs. One up-front carving versus per-step micromanagement.</p>
+<p>Which surfaces a position that neither Cognition nor most of the routing literature states outright. The sidekick says: frontier decides, cheap executes, per step. The better claim is: the frontier model's best use is not per-step manager but up-front decomposer. Spend the expensive intelligence on carving and qualifying the goals, then hand the whole execution to a cheap model. Frontier tokens on decomposition, cheap tokens on execution. Carve once, do not route every step.</p>
+
     </section>
 
     <section id="when">
-      <h2>6. When decomposition wins, and when it does not</h2>
-      <p>
-        I want to be honest about the boundary, because "my approach is always better" is the claim a single
-        counterexample kills. The dividing line is not how long the task is. It is whether you can understand its
-        structure before you start.
-      </p>
-      <div class="table-wrap">
+      <h2>6 · When decomposition wins, and when it does not</h2>
+
+<p>I want to be honest about the boundary, because "my approach is always better" is the claim a single counterexample kills. The dividing line is not how long the task is. It is whether you can understand its structure before you start.</p>
+<div class="table-wrap">
         <div class="table-caption">Table 1. Two ways to delegate, and what each optimizes.</div>
         <table>
           <thead>
-            <tr><th>&nbsp;</th><th>Sidekick routing</th><th>Explicit decomposition</th></tr>
+            <tr><th> </th><th>Sidekick routing</th><th>Explicit decomposition</th></tr>
           </thead>
           <tbody>
             <tr><td>Optimizes for</td><td>Cost per token</td><td>Delivery per milestone</td></tr>
@@ -361,64 +400,42 @@
           </tbody>
         </table>
       </div>
-      <p>
-        On plannable long-horizon work, decomposition wins, and it wins precisely on the tasks Cognition admits
-        are its weak spot: serial, dependent chains where accumulated context matters. There is no per-step
-        classifier to accumulate routing errors, the plan is auditable, and drift gets caught at the next
-        milestone.
-      </p>
-      <p>
-        On genuinely unpredictable work, research, debugging an unknown failure, an interactive session where hard
-        follow-ups arrive after simple prompts, the sidekick's reactivity is more robust. You cannot decompose
-        what you cannot foresee, and a coarse milestone gate corrects more slowly than per-step routing. The
-        sidekick also skips the up-front cost of writing a plan, which matters when the plan would be wrong anyway.
-      </p>
-      <p>
-        And to keep the cost accounting fair: decomposition's total has to include the price of the decomposition
-        itself. On a one-off short task, the sidekick can be cheaper because it never pays that up-front tax. The
-        advantage of decomposition grows with task length and with reuse. The more steps a plan governs, and the
-        more times you run the same class of task, the harder the up-front carving amortizes in your favor.
-      </p>
+
+<p>On plannable long-horizon work, decomposition wins, and it wins precisely on the tasks Cognition admits are its weak spot: serial, dependent chains where accumulated context matters. There is no per-step classifier to accumulate routing errors, the plan is auditable, and drift gets caught at the next milestone.</p>
+<p>On genuinely unpredictable work, research, debugging an unknown failure, an interactive session where hard follow-ups arrive after simple prompts, the sidekick's reactivity is more robust. You cannot decompose what you cannot foresee, and a coarse milestone gate corrects more slowly than per-step routing. The sidekick also skips the up-front cost of writing a plan, which matters when the plan would be wrong anyway.</p>
+<p>And to keep the cost accounting fair: decomposition's total has to include the price of the decomposition itself. On a one-off short task, the sidekick can be cheaper because it never pays that up-front tax. The advantage of decomposition grows with task length and with reuse. The more steps a plan governs, and the more times you run the same class of task, the harder the up-front carving amortizes in your favor.</p>
+
     </section>
 
     <section id="moat">
-      <h2>7. The actual moat</h2>
-      <p>
-        So back to "the harness is the moat." The router, the part everyone is excited about, is the
-        commoditizable part. Routing between a strong and a weak model is a solved genre: a small learned
-        classifier scoring difficulty, which anyone can train and anyone can copy. If your differentiation is the
-        router, your differentiation has a half-life.
-      </p>
-      <p>
-        What does not commoditize is the judgment that turns a vague, sprawling goal into five milestones that
-        cannot be faked. That is not a model you can distill. It is taste about where a task actually splits,
-        what "done" means at each seam, and which parts carry the accumulated context that must not be severed.
-        The router is downstream plumbing. The decomposition is the thing worth defending.
-      </p>
-      <figure>
-        <svg viewBox="0 0 720 420" role="img" aria-label="Conceptual cost versus quality frontier: a single-model curve, a sidekick point up and to the left of it, and a predicted decomposition point further up and to the left.">
-          <rect x="0" y="0" width="720" height="420" fill="#fffffb"/>
+      <h2>7 · The actual moat</h2>
+
+<p>So back to "the harness is the moat." The router, the part everyone is excited about, is the commoditizable part. Routing between a strong and a weak model is a solved genre: a small learned classifier scoring difficulty, which anyone can train and anyone can copy. If your differentiation is the router, your differentiation has a half-life.</p>
+<p>What does not commoditize is the judgment that turns a vague, sprawling goal into five milestones that cannot be faked. That is not a model you can distill. It is taste about where a task actually splits, what "done" means at each seam, and which parts carry the accumulated context that must not be severed. The router is downstream plumbing. The decomposition is the thing worth defending.</p>
+<figure>
+        <svg viewbox="0 0 720 420" role="img" aria-label="Conceptual cost versus quality frontier: a single-model curve, a sidekick point up and to the left of it, and a predicted decomposition point further up and to the left.">
+          <rect x="0" y="0" width="720" height="420" fill="#fffffb"></rect>
           <!-- axes -->
-          <line x1="90" y1="360" x2="670" y2="360" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
-          <line x1="90" y1="360" x2="90" y2="40" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
-          <text x="380" y="398" font-family="Inter, sans-serif" font-size="14" fill="rgba(0,0,0,0.55)" text-anchor="middle">cost per task  &#8594;</text>
-          <text x="46" y="200" font-family="Inter, sans-serif" font-size="14" fill="rgba(0,0,0,0.55)" text-anchor="middle" transform="rotate(-90 46 200)">quality  &#8594;</text>
+          <line x1="90" y1="360" x2="670" y2="360" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"></line>
+          <line x1="90" y1="360" x2="90" y2="40" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"></line>
+          <text x="380" y="398" font-family="Inter, sans-serif" font-size="14" fill="rgba(0,0,0,0.55)" text-anchor="middle">cost per task  →</text>
+          <text x="46" y="200" font-family="Inter, sans-serif" font-size="14" fill="rgba(0,0,0,0.55)" text-anchor="middle" transform="rotate(-90 46 200)">quality  →</text>
           <!-- single-model curve -->
-          <path d="M 150 330 C 300 300, 460 230, 610 180" fill="none" stroke="rgba(0,0,0,0.30)" stroke-width="2"/>
-          <circle cx="150" cy="330" r="4" fill="rgba(0,0,0,0.45)"/>
-          <circle cx="380" cy="270" r="4" fill="rgba(0,0,0,0.45)"/>
-          <circle cx="610" cy="180" r="4" fill="rgba(0,0,0,0.45)"/>
+          <path d="M 150 330 C 300 300, 460 230, 610 180" fill="none" stroke="rgba(0,0,0,0.30)" stroke-width="2"></path>
+          <circle cx="150" cy="330" r="4" fill="rgba(0,0,0,0.45)"></circle>
+          <circle cx="380" cy="270" r="4" fill="rgba(0,0,0,0.45)"></circle>
+          <circle cx="610" cy="180" r="4" fill="rgba(0,0,0,0.45)"></circle>
           <text x="620" y="176" font-family="Inter, sans-serif" font-size="13" fill="rgba(0,0,0,0.5)">single model</text>
           <!-- sidekick point -->
-          <path d="M 300 200 L 300 200" />
-          <circle cx="330" cy="205" r="7" fill="#2f5fd0"/>
+          <path d="M 300 200 L 300 200"></path>
+          <circle cx="330" cy="205" r="7" fill="#2f5fd0"></circle>
           <text x="345" y="200" font-family="Inter, sans-serif" font-size="13" fill="#2f5fd0" font-weight="600">sidekick (measured)</text>
           <!-- decomposition point -->
-          <circle cx="215" cy="150" r="7" fill="#1f8a4c"/>
+          <circle cx="215" cy="150" r="7" fill="#1f8a4c"></circle>
           <text x="230" y="146" font-family="Inter, sans-serif" font-size="13" fill="#1f8a4c" font-weight="600">decomposition (predicted)</text>
           <!-- up-left arrow annotation -->
           <text x="150" y="70" font-family="Inter, sans-serif" font-size="13" fill="rgba(0,0,0,0.5)">better = up and to the left</text>
-          <path d="M 250 78 C 210 95, 185 115, 170 138" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.3" stroke-dasharray="3 3"/>
+          <path d="M 250 78 C 210 95, 185 115, 170 138" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.3" stroke-dasharray="3 3"></path>
         </svg>
         <figcaption>
           Figure 1 (conceptual, not measured). On a cost versus quality frontier, up and to the left is better:
@@ -428,95 +445,85 @@
           a result.
         </figcaption>
       </figure>
+
+
     </section>
 
     <section id="measure">
-      <h2>8. What I would measure next</h2>
-      <p>
-        A thesis is cheap. The honest version of this argument is an experiment, and it does not require training
-        a model or building a new environment. It is inference-only measurement on existing tasks:
-      </p>
-      <ul>
-        <li>Take a set of plannable long-horizon tasks that already exist.</li>
-        <li>Run two arms with the same cheap executor model: one with sidekick-style runtime delegation, one with explicit decomposition plus milestone gates.</li>
-        <li>Measure de-confounded token cost (completion and new input, not re-sent history) and quality per task.</li>
-        <li>Plot the cost versus quality frontier and see whether decomposition dominates.</li>
-      </ul>
-      <p>
-        Three things keep it honest. The sidekick baseline has to be faithful, not a strawman. The cost of the
-        decomposition itself has to be counted in the decomposition arm's total, or the comparison is rigged. And
-        the strongest result is not "mine is better," it is the crossover: decomposition dominates on plannable
-        long-horizon work, reactive routing holds the unpredictable regime, and here is where the line falls. If
-        that curve reproduces Cognition's own serial-debugging caveat as a measured effect, the benchmark is
-        measuring the right thing.
-      </p>
-      <p>
-        That is the follow-up. For now the claim stands on its own logic: the router is the part you can copy, the
-        decomposition is the part you cannot, and cheap delegation is what you get for free when you carve the
-        task well, not the thing you should be optimizing for in the first place.
-      </p>
+      <h2>8 · What I would measure next</h2>
+
+<p>A thesis is cheap. The honest version of this argument is an experiment, and it does not require training a model or building a new environment. It is inference-only measurement on existing tasks:</p>
+<ul>
+<li>Take a set of plannable long-horizon tasks that already exist.</li>
+<li>Run two arms with the same cheap executor model: one with sidekick-style runtime delegation, one with explicit decomposition plus milestone gates.</li>
+<li>Measure de-confounded token cost (completion and new input, not re-sent history) and quality per task.</li>
+<li>Plot the cost versus quality frontier and see whether decomposition dominates.</li>
+</ul>
+<p>Three things keep it honest. The sidekick baseline has to be faithful, not a strawman. The cost of the decomposition itself has to be counted in the decomposition arm's total, or the comparison is rigged. And the strongest result is not "mine is better," it is the crossover: decomposition dominates on plannable long-horizon work, reactive routing holds the unpredictable regime, and here is where the line falls. If that curve reproduces Cognition's own serial-debugging caveat as a measured effect, the benchmark is measuring the right thing.</p>
+<p>That is the follow-up. For now the claim stands on its own logic: the router is the part you can copy, the decomposition is the part you cannot, and cheap delegation is what you get for free when you carve the task well, not the thing you should be optimizing for in the first place.</p>
+
     </section>
 
     <section id="references">
       <h2>References</h2>
-      <ol class="refs">
-        <li>Cognition. "Devin Fusion." <a href="https://cognition.com/blog/devin-fusion" target="_blank" rel="noopener">cognition.com/blog/devin-fusion</a>, 2026.</li>
-        <li>Cognition. Launch thread, on non-uniform cost savings and serial debugging. <a href="https://x.com/cognition/status/2076714968334913786" target="_blank" rel="noopener">x.com/cognition</a>, 2026.</li>
-        <li>Aaron Levie. On the Fable-as-manager cost experiment and the harness as differentiation. <a href="https://x.com/levie/status/2076839463410671637" target="_blank" rel="noopener">x.com/levie</a>, 2026.</li>
-        <li>Ong et al. "RouteLLM: Learning to Route LLMs with Preference Data." LMSYS, <a href="https://www.lmsys.org/blog/2024-07-01-routellm/" target="_blank" rel="noopener">lmsys.org</a>, 2024.</li>
-      </ol>
+
+<ol>
+<li>Cognition. "Devin Fusion." <a href="https://cognition.com/blog/devin-fusion">cognition.com/blog/devin-fusion</a>, 2026.</li>
+<li>Cognition. Launch thread, on non-uniform cost savings and serial debugging. <a href="https://x.com/cognition/status/2076714968334913786">x.com/cognition</a>, 2026.</li>
+<li>Aaron Levie. On the Fable-as-manager cost experiment and the harness as differentiation. <a href="https://x.com/levie/status/2076839463410671637">x.com/levie</a>, 2026.</li>
+<li>Ong et al. "RouteLLM: Learning to Route LLMs with Preference Data." LMSYS, <a href="https://www.lmsys.org/blog/2024-07-01-routellm/">lmsys.org</a>, 2024.</li>
+</ol>
     </section>
 
     <section id="citation">
       <h2>Citation</h2>
+      <p>You can cite this post here:</p>
       <div class="bibtex-block">
         <button class="bibtex-copy" type="button">Copy</button>
         <pre><code>@article{zhang2026decomposition,
-  title   = "Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.",
-  author  = "Zhang, Lily",
-  year    = "2026",
-  month   = "July",
-  url     = "https://lilyzh.ng/writing/decomposition-is-the-moat/"
+  title   = &quot;Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.&quot;,
+  author  = &quot;Zhang, Lily&quot;,
+  year    = &quot;2026&quot;,
+  month   = &quot;Jul&quot;,
+  url     = &quot;https://lilyzh.ng/writing/decomposition-is-the-moat/&quot;
 }</code></pre>
       </div>
     </section>
   </article>
 </div>
 
-<footer>
-  <p>Lily Zhang &middot; Jul 14, 2026 &middot; A reading of Devin Fusion.</p>
-  <p>Written as a peer-read. The companion piece, on why routing gets internalized while auditability does not, is next.</p>
-</footer>
-
 <script>
   // BibTeX copy buttons
-  document.querySelectorAll('.bibtex-copy').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var code = btn.parentElement.querySelector('code').innerText;
-      navigator.clipboard.writeText(code).then(function () {
-        btn.textContent = 'Copied';
-        btn.classList.add('copied');
-        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
-      });
+  document.querySelectorAll('.bibtex-copy').forEach(btn => btn.addEventListener('click', () => {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
     });
-  });
+  }));
 
-  // TOC scrollspy
+  // Scroll-spy: highlight the active section in the sidebar TOC
   (function () {
-    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
-    var map = {};
-    links.forEach(function (a) { var id = a.getAttribute('href').slice(1); map[id] = a; });
-    var sections = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
-    function onScroll() {
-      var top = window.scrollY + 120;
-      var current = sections[0];
-      sections.forEach(function (s) { if (s.offsetTop <= top) current = s; });
-      links.forEach(function (a) { a.classList.remove('active'); });
-      if (current && map[current.id]) map[current.id].classList.add('active');
+    const links = [...document.querySelectorAll('.toc a')];
+    const byId = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+    const targets = [...byId.keys()].map(id => document.getElementById(id)).filter(Boolean);
+    let current = null;
+    function setActive(id) {
+      if (id === current) return;
+      current = id;
+      links.forEach(a => a.classList.remove('active'));
+      const a = byId.get(id);
+      if (a) a.classList.add('active');
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    const obs = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setActive(visible[0].target.id);
+    }, { rootMargin: '-12% 0px -70% 0px', threshold: 0 });
+    targets.forEach(t => obs.observe(t));
+    if (targets.length) setActive(targets[0].id);   // first section active on load
   })();
 </script>
+
 </body>
 </html>

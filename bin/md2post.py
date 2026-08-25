@@ -53,16 +53,30 @@ def build_sections(md_body):
     )
     # split on h2
     parts = re.split(r"(<h2[^>]*>.*?</h2>)", rendered)
-    lede_html = parts[0].strip()
+    pre = parts[0].strip()
+    # lede = first <p> before any heading; anything after it (teaser figures
+    # etc.) is kept as a raw preamble block
+    m = re.match(r"<p>(.*?)</p>\s*(.*)", pre, re.S)
+    lede_html = f"<p>{m.group(1)}</p>" if m else pre
+    preamble = m.group(2).strip() if m else ""
     sections, toc = [], []
     num = 0
     for i in range(1, len(parts), 2):
         heading = re.sub(r"</?h2[^>]*>", "", parts[i]).strip()
+        id_m = re.search(r'id="([^"]+)"', parts[i])
         body = parts[i + 1] if i + 1 < len(parts) else ""
-        sec_id = slugify(heading)
+        sec_id = id_m.group(1) if id_m else slugify(heading)
         if slugify(heading) in UNNUMBERED:
             h2 = f"<h2>{heading}</h2>"
             toc.append((sec_id, heading, False))
+
+            def plain_h3(m3):
+                text = m3.group(2).strip()
+                id3 = re.search(r'id="([^"]+)"', m3.group(1))
+                h3_id = id3.group(1) if id3 else slugify(text)
+                toc.append((h3_id, text, True))
+                return f'<h3 id="{h3_id}">{text}</h3>'
+            body = re.sub(r"<h3([^>]*)>(.*?)</h3>", plain_h3, body)
         else:
             num += 1
             h2 = f"<h2>{num} · {heading}</h2>"
@@ -73,12 +87,13 @@ def build_sections(md_body):
                 nonlocal sub
                 sub += 1
                 text = m3.group(2).strip()
-                h3_id = slugify(text)
+                id3 = re.search(r'id="([^"]+)"', m3.group(1))
+                h3_id = id3.group(1) if id3 else slugify(text)
                 toc.append((h3_id, f"{num}.{sub} · {text}", True))
                 return f'<h3 id="{h3_id}">{num}.{sub} · {text}</h3>'
             body = re.sub(r"<h3([^>]*)>(.*?)</h3>", number_h3, body)
         sections.append(f'    <section id="{sec_id}">\n      {h2}\n{body}\n    </section>')
-    return lede_html, sections, toc
+    return lede_html, preamble, sections, toc
 
 
 def figureize(html_text):
@@ -116,7 +131,7 @@ def main():
     affiliation = meta.get("affiliation", "Independent")
     bibkey = meta.get("bibkey", f"zhang{year}{meta['slug'].split('-')[0]}")
 
-    lede, sections, toc = build_sections(body)
+    lede, preamble, sections, toc = build_sections(body)
     sections = [figureize(s) for s in sections]
 
     # citation section from front matter
@@ -149,6 +164,11 @@ def main():
                 .replace("POST_SLUG", meta["slug"])
                 .replace("POST_DESCRIPTION", html.escape(meta["description"])))
 
+    # per-post extra styles: custom.css next to the md file
+    custom_css = pathlib.Path(args.mdfile).resolve().parent / "custom.css"
+    if custom_css.exists():
+        head = head.replace("</head>", f"<style>\n{custom_css.read_text()}\n</style>\n</head>")
+
     lede_block = f'\n    <p class="lede">{re.sub(r"^<p>|</p>$", "", lede)}</p>\n' if lede else ""
     page = (
         head
@@ -163,7 +183,7 @@ def main():
         + f'        <span class="byline-value light">{affiliation}</span>\n      </span>\n'
         + '      <span class="byline-col">\n        <span class="byline-label">Published</span>\n'
         + f'        <span class="byline-value light">{date}</span>\n      </span>\n    </div>\n'
-        + lede_block + "\n"
+        + lede_block + (("\n" + preamble + "\n") if preamble else "") + "\n"
         + "\n\n".join(sections)
         + "\n  </article>\n"
         + tail
@@ -185,7 +205,10 @@ def main():
         site_out = REPO / "_site" / "writing" / meta["slug"]
         site_out.mkdir(parents=True, exist_ok=True)
         for f in out.iterdir():
-            shutil.copy(f, site_out / f.name)
+            if f.is_dir():
+                shutil.copytree(f, site_out / f.name, dirs_exist_ok=True)
+            else:
+                shutil.copy(f, site_out / f.name)
         print(f"copied to {site_out}")
 
 

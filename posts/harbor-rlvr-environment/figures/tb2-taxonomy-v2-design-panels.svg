@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="100%" role="img" aria-label="The taxonomy as a system, three panels: L1 coarse attribution, L2 fine diagnosis, improvement queue">
+  <style>
+    .ptitle { font: 600 15px Inter, system-ui, -apple-system, sans-serif; fill: #17450C; }
+    .tag    { font: 600 9.5px ui-monospace, Menlo, monospace; letter-spacing: 0.08em; }
+    .chip-h { font: 600 12px ui-monospace, Menlo, monospace; fill: #17450C; }
+    .chip-s { font: 500 9.5px ui-monospace, Menlo, monospace; fill: #87867F; }
+    .tok    { font: 500 9.5px ui-monospace, Menlo, monospace; fill: #2a3a28; }
+    .note   { font: 500 10.5px ui-monospace, Menlo, monospace; fill: #87867F; }
+  </style>
+
+  <!-- dark canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="#1e2a1c"/>
+
+  <!-- ===================== Panel 1: L1 ===================== -->
+  <rect x="32" y="28" width="896" height="158" rx="14" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="ptitle" x="56" y="62">1 · L1 coarse attribution</text>
+  <rect x="712" y="46" width="172" height="22" rx="5" fill="#D6E4D9"/>
+  <text class="tag" x="798" y="61" text-anchor="middle" fill="#2D5A3D">WHO IS RESPONSIBLE</text>
+
+  <rect x="56"  y="84" width="196" height="46" rx="8" fill="#EDF3EE" stroke="#2D5A3D"/>
+  <text class="chip-h" x="154" y="104" text-anchor="middle">pass</text>
+  <text class="chip-s" x="154" y="120" text-anchor="middle">agent got it right</text>
+
+  <rect x="266" y="84" width="196" height="46" rx="8" fill="#EAF1FB" stroke="#5b8fd4"/>
+  <text class="chip-h" x="364" y="104" text-anchor="middle" fill="#1e3a5c">verifier_fail</text>
+  <text class="chip-s" x="364" y="120" text-anchor="middle">agent got it wrong</text>
+
+  <rect x="476" y="84" width="196" height="46" rx="8" fill="#FBF3E0" stroke="#b3893a"/>
+  <text class="chip-h" x="574" y="104" text-anchor="middle" fill="#6b4e14">timeout</text>
+  <text class="chip-s" x="574" y="120" text-anchor="middle">unfinished · deferred</text>
+
+  <rect x="686" y="84" width="196" height="46" rx="8" fill="#FFFFFF" stroke="#9a988e" stroke-dasharray="5 4"/>
+  <text class="chip-h" x="784" y="104" text-anchor="middle" fill="#6b6a63">infra · unscored</text>
+  <text class="chip-s" x="784" y="120" text-anchor="middle">external · not attributable</text>
+
+  <text class="note" x="686" y="160">└ quarantine · count &amp; report, don't chase</text>
+  <text class="note" x="56" y="160">pass, verifier_fail, timeout continue to L2 · pass is the control group</text>
+
+  <!-- ===================== Panel 2: L2 ===================== -->
+  <rect x="32" y="206" width="896" height="196" rx="14" fill="#EDF3EE" stroke="rgba(45,90,61,0.35)"/>
+  <text class="ptitle" x="56" y="240">2 · L2 fine diagnosis</text>
+  <rect x="690" y="224" width="194" height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tag" x="787" y="239" text-anchor="middle" fill="#2D5A3D">MULTI-LABEL · N/A ≠ 0 · $0</text>
+  <text class="note" x="56" y="264">executable detectors over every attributable trace:</text>
+
+  <rect x="56"  y="278" width="128" height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tok" x="120" y="293" text-anchor="middle">error_unaddressed</text>
+  <rect x="194" y="278" width="134" height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tok" x="261" y="293" text-anchor="middle">premature_complete</text>
+  <rect x="338" y="278" width="94"  height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tok" x="385" y="293" text-anchor="middle">repeat_loop</text>
+  <rect x="442" y="278" width="96"  height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tok" x="490" y="293" text-anchor="middle">wasted_cmds</text>
+  <rect x="548" y="278" width="94"  height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tok" x="595" y="293" text-anchor="middle">missing_env</text>
+  <rect x="652" y="278" width="122" height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tok" x="713" y="293" text-anchor="middle">context_pressure</text>
+  <rect x="784" y="278" width="84"  height="22" rx="5" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="tok" x="826" y="293" text-anchor="middle">json_parse</text>
+
+  <rect x="56" y="322" width="500" height="52" rx="8" fill="#FFFFFF" stroke="#2D5A3D"/>
+  <text class="chip-h" x="72" y="344">diagnosed · a detector fired</text>
+  <text class="chip-s" x="72" y="362">lethal modes → reward · the rest → env / data fixes</text>
+
+  <rect x="576" y="322" width="308" height="52" rx="8" fill="#FFFFFF" stroke="#9a988e" stroke-dasharray="5 4"/>
+  <text class="chip-h" x="592" y="344" fill="#6b6a63">silent · nothing fired</text>
+  <text class="chip-s" x="592" y="362">failed, cause unseen → panel 3</text>
+
+  <!-- ===================== Panel 3: queue ===================== -->
+  <rect x="32" y="422" width="896" height="110" rx="14" fill="#FFFFFF" stroke="#D1CFC5"/>
+  <text class="ptitle" x="56" y="456">3 · improvement queue</text>
+  <rect x="660" y="440" width="224" height="22" rx="5" fill="#D6E4D9"/>
+  <text class="tag" x="772" y="455" text-anchor="middle" fill="#2D5A3D">EVERY SILENT TRIAL EXITS A OR B</text>
+
+  <rect x="56" y="476" width="400" height="34" rx="8" fill="#EDF3EE" stroke="#2D5A3D"/>
+  <text class="chip-h" x="72" y="498">A · build the missing detector → L2 grows</text>
+  <rect x="476" y="476" width="408" height="34" rx="8" fill="#FFFFFF" stroke="#9a988e" stroke-dasharray="5 4"/>
+  <text class="chip-h" x="492" y="498" fill="#6b6a63">B · broken task → quarantine rule → L1 grows</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg viewBox="40 10 640 330" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Quality loss comparison. GLM 5.2 with vendor-owned acceleration loses 5.6 points. Kimi K3 with model-owned acceleration loses 0.3 points.">
+  <line x1="120" y1="60" x2="120" y2="260" stroke="#e7e7e2" stroke-width="1"/>
+  <line x1="120" y1="60" x2="640" y2="60" stroke="#e7e7e2" stroke-width="1"/>
+  <text x="112" y="64" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="12" fill="#8a8a84">0</text>
+  <rect x="120" y="60" width="470" height="70" fill="#d6437c" fill-opacity="0.14"/>
+  <rect x="120" y="60" width="470" height="70" fill="none"/>
+  <rect x="120" y="74" width="470" height="42" fill="#d6437c"/>
+  <text x="600" y="101" font-family="Inter,system-ui,sans-serif" font-size="17" font-weight="700" fill="#d6437c">&#8722;5.6</text>
+  <text x="120" y="46" font-family="Inter,system-ui,sans-serif" font-size="15.5" font-weight="600" fill="#1a1a19">GLM 5.2, acceleration owned by the vendor</text>
+  <rect x="120" y="188" width="25" height="42" fill="#1f5c3d"/>
+  <text x="155" y="215" font-family="Inter,system-ui,sans-serif" font-size="17" font-weight="700" fill="#1f5c3d">&#8722;0.3</text>
+  <text x="120" y="172" font-family="Inter,system-ui,sans-serif" font-size="15.5" font-weight="600" fill="#1a1a19">Kimi K3, acceleration owned by the model</text>
+  <text x="120" y="250" font-family="Inter,system-ui,sans-serif" font-size="13" fill="#8a8a84">frontend quality loss vs each model's reference endpoint, same prompts, same judge</text>
+  <text x="332" y="215" font-family="Inter,system-ui,sans-serif" font-size="13.5" fill="#8a8a84">7 of 10 prompts score exactly identical</text>
+</svg>
