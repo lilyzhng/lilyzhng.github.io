@@ -30,7 +30,7 @@ include:
 
 # Hidden / incomplete posts — kept in source, not published
 exclude:
-  - posts/code-is-all-you-need
+  - posts        # markdown post sources; compiled output is served from writing/
   - vendor
   - Gemfile
   - Gemfile.lock
