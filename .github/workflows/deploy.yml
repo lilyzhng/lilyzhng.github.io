@@ -28,7 +28,7 @@ jobs:
     - name: Compile markdown posts 📝
       run: |
         pip3 install markdown pyyaml
-        for f in posts/*/article.md; do python3 bin/md2post.py "$f"; done
+        for f in writing/*/article.md; do python3 bin/md2post.py "$f"; done
     - name: Install and Build 🔧
       run: |
         npm install -g mermaid.cli
