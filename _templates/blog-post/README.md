@@ -2,7 +2,7 @@
 
 Derived from `writing/c-guard/index.html` (2026-08-25). To start a new post:
 
-1. `cp -r _templates/blog-post writing/<slug>` then rename to `index.html`'s folder slug.
+1. Create `writing/<slug>/article.md` (see the front matter spec in `bin/md2post.py`), images beside it.
 2. Replace the placeholders: `POST_TITLE`, `POST_SLUG`, `POST_DESCRIPTION`, `MONTH DAY, YEAR`, `YEAR`, `zhangYEARslug`.
 3. Update the TOC `<li>` list to match your `<section id=...>` headings (use `class="sub"` for subsections).
 4. Add an `og-image.png` in the post folder for social cards.
