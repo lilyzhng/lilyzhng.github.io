@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="../../assets/img/favicon.png">
 <title>Thoughts on Thinking Machine's Interaction Model</title>
 <meta property="og:title" content="Thoughts on Thinking Machine's Interaction Model">
 <meta property="og:description" content="I built a dual-model voice agent and tested it against every Thinking Machines demo. Here's what I found.">
@@ -17,7 +18,16 @@
 <meta name="twitter:image" content="https://lilyzhng.github.io/writing/interaction-model/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/css/blog-header.css">
+<style>
+@font-face { font-family: 'ET Book'; font-style: normal; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-roman.woff') format('woff'); }
+@font-face { font-family: 'ET Book'; font-style: normal; font-weight: 700; font-display: swap; src: url('../../assets/fonts/et-book-bold.woff') format('woff'); }
+@font-face { font-family: 'ET Book'; font-style: italic; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-italic.woff') format('woff'); }
+
+    /* align TOC left edge with the site-name (cancel the 2rem layout padding on desktop) */
+    @media (min-width: 941px) { .layout { position: relative; left: -24px; } }
+</style>
 <style>
     :root {
       /* warm cream palette */
@@ -31,7 +41,7 @@
       --line-strong: rgba(0,0,0,0.20);
       --code-bg: rgba(0,0,0,0.055);
       --block-bg: rgba(0,0,0,0.035);
-      --serif: Georgia, "Times New Roman", "Noto Serif", serif;
+      --serif: 'ET Book', 'Iowan Old Style', Palatino, Georgia, serif;
       --sans: Inter, system-ui, -apple-system, sans-serif;
       --mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
     }
@@ -71,7 +81,7 @@
 
     .toc { position: sticky; top: 3rem; align-self: start; }
     .toc-title {
-      font: 500 0.6875rem/1 var(--sans);
+      font: 500 0.6875rem/1 var(--serif);
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--faint);
@@ -82,7 +92,7 @@
     .toc a {
       display: block;
       position: relative;
-      font: 500 0.875rem/1.35 var(--sans);
+      font: 500 0.875rem/1.35 var(--serif);
       color: rgba(0,0,0,0.42);
       padding-left: 0.85rem;
       text-decoration: none;
@@ -100,20 +110,22 @@
       height: 0.78em;
       background: #2437e7;
     }
-    .toc .sub a { font-size: 0.8125rem; padding-left: 1.65rem; }
+    .toc .sub a { font-size: 0.75rem; padding-left: 1.5rem; }
+    .toc li.sub { margin-left: 0.45rem; margin-bottom: 0; padding-bottom: 0.45rem; }
+    .toc li.sub:has(+ li:not(.sub)) { padding-bottom: 0.85rem; } /* larger gap after the last sub */
     .toc .sub2 a { font-size: 0.75rem; padding-left: 2.45rem; }
     .toc .sub.active-parent a,
     .toc .sub a { /* keep subs subdued */ }
 
     .meta {
-      font: 500 0.8125rem/1 var(--sans);
+      font: 500 0.8125rem/1 var(--serif);
       color: var(--muted);
       margin-bottom: 1.25rem;
     }
     .meta span + span::before { content: "·"; margin: 0 0.45rem; color: var(--faint); }
 
     h1 {
-      font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;   /* same face as the site name */
+      font-family: 'ET Book', 'Iowan Old Style', Palatino, Georgia, serif;
       font-size: clamp(2rem, 4.5vw, 2.55rem);
       font-weight: 400;
       letter-spacing: -0.012em;
@@ -124,7 +136,7 @@
 
     .authors {
       display: flex; align-items: center; gap: 0.6rem;
-      font: 500 0.9375rem/1.3 var(--sans);
+      font: 500 0.9375rem/1.3 var(--serif);
       color: var(--text);
       margin-bottom: 2.5rem;
       padding-bottom: 2rem; border-bottom: 1px solid var(--line);
@@ -133,10 +145,17 @@
       width: 32px; height: 32px; border-radius: 50%;
       background: #111; color: #fff;
       display: inline-flex; align-items: center; justify-content: center;
-      font: 600 0.75rem/1 var(--sans); letter-spacing: 0.02em;
+      font: 600 0.75rem/1 var(--serif); letter-spacing: 0.02em;
       flex: none;
     }
     .authors .role { color: var(--muted); font-weight: 400; }
+
+    /* distill-style byline strip: authors | affiliations | published */
+    .authors { gap: 4rem; padding-top: 1rem; padding-bottom: 1rem; border-top: 1px solid var(--line); }
+    .byline-col { display: flex; flex-direction: column; gap: 0.1rem; }
+    .byline-col .byline-label { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+    .byline-col .byline-value { font-weight: 600; color: var(--ink); }
+    .byline-col .byline-value.light { font-weight: 400; }
 
     .lede {
       font-size: 1.2rem;
@@ -178,7 +197,7 @@
     blockquote p:last-child { margin-bottom: 0; }
 
     .table-wrap { overflow-x: auto; margin: 1.5rem 0 2rem; }
-    table { width: 100%; border-collapse: collapse; font: 400 0.9375rem/1.5 var(--sans); }
+    table { width: 100%; border-collapse: collapse; font: 400 0.9375rem/1.5 var(--serif); }
     th, td {
       padding: 0.6rem 1.25rem 0.6rem 0;
       text-align: left; vertical-align: top;
@@ -263,7 +282,7 @@
       background: var(--surface); /* for DARK figures, set this to the plot canvas color (e.g. #1e2a1c) so any letterbox fills seamlessly */
     }
     figcaption {
-      font: 400 0.8125rem/1.55 var(--sans);
+      font: 400 0.8125rem/1.55 var(--serif);
       color: var(--muted);
       margin-top: 0.7rem; text-align: left;
     }
@@ -280,7 +299,7 @@
     }
     code {
       font-family: var(--mono);
-      font-size: 0.85em;
+      font-size: 0.78em;
       background: var(--code-bg);
       color: var(--ink);
       padding: 0.12em 0.36em;
@@ -288,8 +307,21 @@
     }
     pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
 
+    /* BibTeX citation block with copy button */
+    .bibtex-block { position: relative; }
+    .bibtex-block pre { margin: 1rem 0 2rem; background: #12291d; color: #d7e8dd; border: none; border-radius: 8px; }
+    .bibtex-copy {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      font: 500 0.75rem/1 var(--serif); color: #a9c4b2;
+      min-width: 3.9rem; text-align: center;
+      background: transparent; border: 1px solid rgba(215,232,221,0.35);
+      border-radius: 6px; padding: 0.35rem 0.7rem; cursor: pointer;
+    }
+    .bibtex-copy:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
+    .bibtex-copy.copied { color: #7fd6a4; border-color: #7fd6a4; }
+
     .terminal-label {
-      font: 600 0.75rem/1 var(--sans);
+      font: 600 0.75rem/1 var(--serif);
       text-transform: uppercase; letter-spacing: 0.06em;
       color: var(--muted); margin-bottom: 0.4rem;
     }
@@ -299,7 +331,7 @@
       background: var(--surface);
       border: 1px solid var(--line-strong);
       padding: 0.3rem 0.75rem; border-radius: 999px;
-      font: 500 0.8125rem/1 var(--sans); color: var(--text);
+      font: 500 0.8125rem/1 var(--serif); color: var(--text);
     }
 
     .consideration { margin-bottom: 1.25rem; }
@@ -317,7 +349,7 @@
       max-width: 1240px; margin: 0 auto;
       padding: 2.5rem 1.5rem 4rem;
       border-top: 1px solid var(--line);
-      font: 400 0.8125rem/1.6 var(--sans); color: var(--muted);
+      font: 400 0.8125rem/1.6 var(--serif); color: var(--muted);
     }
     footer p { margin-bottom: 0.5rem; }
 
@@ -325,7 +357,7 @@
     /* media + prose extras (interaction-model) */
     .lede a { color: rgba(0,0,0,0.7); }
     .detail { color: var(--muted); font-size: 0.92em; }
-    .caption { font: 400 0.8125rem/1.55 var(--sans); color: var(--muted); margin: 0.7rem 0 1.6rem; }
+    .caption { font: 400 0.8125rem/1.55 var(--serif); color: var(--muted); margin: 0.7rem 0 1.6rem; }
 
     figure.diagram { margin: 2.25rem 0; }
     figure.diagram img, figure.diagram object {
@@ -333,12 +365,12 @@
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
     }
     figure.diagram.bare img { border: none; background: transparent; }
-    figure.diagram figcaption { font: 400 0.8125rem/1.55 var(--sans); color: var(--muted); margin-top: 0.7rem; }
+    figure.diagram figcaption { font: 400 0.8125rem/1.55 var(--serif); color: var(--muted); margin-top: 0.7rem; }
 
     .video-pair { display: flex; gap: 1rem; margin: 1.5rem 0 0.4rem; align-items: flex-start; height: 504px; }
     .video-pair .video-col { min-width: 0; display: flex; flex-direction: column; height: 100%; }
     .video-pair .video-col:first-child { flex-shrink: 0; }
-    .video-label { font: 600 0.7rem/1 var(--sans); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.45rem; flex-shrink: 0; }
+    .video-label { font: 600 0.7rem/1 var(--serif); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.45rem; flex-shrink: 0; }
     .video-pair video { height: 100%; max-width: 100%; border-radius: 10px; object-fit: contain; border: 1px solid var(--line); }
     .video-wrap { position: relative; border-radius: 10px; overflow: hidden; background: #000; cursor: pointer; height: 100%; aspect-ratio: 16/9; max-width: 440px; border: 1px solid var(--line); }
     .video-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -363,33 +395,6 @@
       .video-pair { height: auto; }
       .teaser-left img { height: auto; width: 100%; }
     }
-    /* Site header, mirrors the theme header exactly (custom.scss .header-container).
-       Sizes are px equivalents of 2.5rem/1.5rem under the theme's root scaling
-       (16px base, 18px >=768, 20px >=1024; custom.scss caps x-large at 20px),
-       so the post body (rem on a fixed 16px root) stays untouched. */
-    .site-header { max-width: 1220px; margin: 0 auto; padding: 0 15px; }
-    @media (min-width: 768px) and (max-width: 1024px) { .site-header { max-width: 900px; padding: 0 2rem; } }
-    .site-header-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 32px 0; border-bottom: 1px solid #f2f2f2;
-    }
-    .site-name { font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 300; line-height: 1.2; color: rgba(0,0,0,0.88); text-decoration: none; }
-    .site-header-nav { display: flex; gap: 24px; }
-    .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; color: rgba(0,0,0,0.88); text-decoration: none; }
-    .site-header-nav a:hover { text-decoration: underline; }
-    @media (min-width: 768px) {
-      .site-header-inner { padding: 36px 0; }
-      .site-name { font-size: 45px; }
-      .site-header-nav { gap: 27px; }
-      .site-header-nav a { font-size: 27px; }
-    }
-    @media (min-width: 1024px) {
-      .site-header-inner { padding: 40px 0; }
-      .site-name { font-size: 50px; }
-      .site-header-nav { gap: 30px; }
-      .site-header-nav a { font-size: 30px; }
-    }
-    @media (max-width: 640px) { .site-name { font-size: 28px; } .site-header-nav a { font-size: 16px; } }
   
     /* Column rails carried over from the Posts index (Cognition-style) */
     .layout { position: relative; }
@@ -422,8 +427,8 @@
     <nav class="site-header-nav">
       <a href="/">Home</a>
       <a href="/writing/">Writing</a>
-      <a href="/talks/">Talks</a>
       <a href="/projects/">Projects</a>
+      <a href="/talks/">Talks</a>
     </nav>
   </div>
 </header>
@@ -440,15 +445,25 @@
       <li><a href="#demo-4">Demo 4: Time awareness</a></li>
       <li><a href="#demo-5">Demo 5: Tools + generative UI</a></li>
       <li><a href="#closing">Closing</a></li>
+      <li><a href="#citation">Citation</a></li>
     </ul>
   </aside>
 
   <article>
     <h1>Thoughts on Thinking Machine's Interaction Model</h1>
     <div class="authors">
-      <span class="avatar">LZ</span>
-      <span class="who">Lily Zhang</span>
-      <span class="role">May 20, 2026</span>
+      <span class="byline-col">
+        <span class="byline-label">Authors</span>
+        <span class="byline-value">Lily Zhang</span>
+      </span>
+      <span class="byline-col">
+        <span class="byline-label">Affiliations</span>
+        <span class="byline-value light">Independent</span>
+      </span>
+      <span class="byline-col">
+        <span class="byline-label">Published</span>
+        <span class="byline-value light">May 20, 2026</span>
+      </span>
     </div>
 
     <p class="lede">I built a dual-model voice agent and tested it against every Thinking Machines demo. Here's what I found.</p>
@@ -620,6 +635,19 @@
       <h2>Closing</h2>
       <p>Reading through Thinky's interaction model blog, it mentioned that for interactivity to scale with intelligence, it must be part of the model itself. I don't fully agree. Model plus harness becomes a powerful, collaborative agent. These are simply two means to the same end. Interactivity is essentially a type of user experience. As long as we can facilitate and provide this experience, whether we use a full-duplex model or cascaded scaffolding, there is no essential difference for the users.</p>
     </section>
+    <section id="citation">
+      <h2>Citation</h2>
+      <div class="bibtex-block">
+        <button class="bibtex-copy" type="button">Copy</button>
+        <pre><code>@article{zhang2026interactionmodel,
+  title   = "Thoughts on Thinking Machine's Interaction Model",
+  author  = "Zhang, Lily",
+  year    = "2026",
+  month   = "May",
+  url     = "https://lilyzh.ng/writing/interaction-model/"
+}</code></pre>
+      </div>
+    </section>
   </article>
 </div>
 
@@ -630,6 +658,16 @@ function playYoutube(wrap, ytId) {
 </script>
 
 <script>
+  // BibTeX copy buttons
+  document.querySelectorAll('.bibtex-copy').forEach(btn => btn.addEventListener('click', () => {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+    });
+  }));
+
   // Scroll-spy: highlight the active section in the sidebar TOC
   (function () {
     const links = [...document.querySelectorAll('.toc a')];

@@ -27,9 +27,9 @@
         {{ site.blog_nav_title }} | {{ title }}
     {%- elsif page.title != "blank" and page.url != "/" -%}
         {%- if page.title == nil or page.title == "" -%}
-            {{ page.date | date: "%Y" }} | {{ title }}
+            {{ page.date | date: "%Y" }}{% if title != "" %} | {{ title }}{% endif %}
         {%- else -%}
-            {{ page.title }} | {{ title }}
+            {{ page.title }}{% if title != "" %} | {{ title }}{% endif %}
         {%- endif -%}
     {%- else -%}
         {{ title }}

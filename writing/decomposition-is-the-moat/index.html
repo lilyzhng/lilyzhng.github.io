@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
   <title>Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal. | Lily Zhang</title>
   <meta name="description" content="Cheap delegation should be a byproduct of good decomposition, not the thing you optimize for. A reading of Devin Fusion and where the real leverage in agent harnesses lives." />
   <meta property="og:title" content="Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal." />
@@ -12,7 +13,16 @@
   <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/blog-header.css">
+<style>
+  @font-face { font-family: 'ET Book'; font-style: normal; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-roman.woff') format('woff'); }
+  @font-face { font-family: 'ET Book'; font-style: normal; font-weight: 700; font-display: swap; src: url('../../assets/fonts/et-book-bold.woff') format('woff'); }
+  @font-face { font-family: 'ET Book'; font-style: italic; font-weight: 400; font-display: swap; src: url('../../assets/fonts/et-book-italic.woff') format('woff'); }
+  
+    /* align TOC left edge with the site-name (cancel the 2rem layout padding on desktop) */
+    @media (min-width: 941px) { .layout { position: relative; left: -24px; } }
+</style>
   <style>
     :root {
       --bg: #F9F9F9;
@@ -25,7 +35,7 @@
       --line-strong: rgba(0,0,0,0.20);
       --code-bg: rgba(0,0,0,0.055);
       --block-bg: rgba(0,0,0,0.035);
-      --serif: Georgia, "Times New Roman", "Noto Serif", serif;
+      --serif: 'ET Book', 'Iowan Old Style', Palatino, Georgia, serif;
       --sans: Inter, system-ui, -apple-system, sans-serif;
       --mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
     }
@@ -61,7 +71,7 @@
 
     .toc { position: sticky; top: 3rem; align-self: start; }
     .toc-title {
-      font: 500 0.6875rem/1 var(--sans);
+      font: 500 0.6875rem/1 var(--serif);
       text-transform: uppercase; letter-spacing: 0.12em;
       color: var(--faint); margin-bottom: 1.4rem;
     }
@@ -69,7 +79,7 @@
     .toc li { margin-bottom: 0.85rem; }
     .toc a {
       display: block;
-      font: 500 0.875rem/1.35 var(--sans);
+      font: 500 0.875rem/1.35 var(--serif);
       color: rgba(0,0,0,0.42);
       padding-left: 0.85rem;
       border-left: 2px solid transparent;
@@ -78,9 +88,11 @@
     }
     .toc a:hover { color: rgba(0,0,0,0.72); }
     .toc a.active { color: #000; font-weight: 600; border-left-color: #000; }
-    .toc .sub a { font-size: 0.8125rem; padding-left: 1.65rem; }
+    .toc .sub a { font-size: 0.75rem; padding-left: 1.5rem; }
+    .toc li.sub { margin-left: 0.45rem; margin-bottom: 0; padding-bottom: 0.45rem; }
+    .toc li.sub:has(+ li:not(.sub)) { padding-bottom: 0.85rem; } /* larger gap after the last sub */
 
-    .meta { font: 500 0.8125rem/1 var(--sans); color: var(--muted); margin-bottom: 1.25rem; }
+    .meta { font: 500 0.8125rem/1 var(--serif); color: var(--muted); margin-bottom: 1.25rem; }
     h1 {
       font-family: var(--serif);
       font-size: clamp(2rem, 4.5vw, 2.55rem);
@@ -89,16 +101,23 @@
     }
     .authors {
       display: flex; align-items: center; gap: 0.6rem;
-      font: 500 0.9375rem/1.3 var(--sans); color: var(--text);
+      font: 500 0.9375rem/1.3 var(--serif); color: var(--text);
       margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line);
     }
     .avatar {
       width: 32px; height: 32px; border-radius: 50%;
       background: #111; color: #fff;
       display: inline-flex; align-items: center; justify-content: center;
-      font: 600 0.75rem/1 var(--sans); letter-spacing: 0.02em; flex: none;
+      font: 600 0.75rem/1 var(--serif); letter-spacing: 0.02em; flex: none;
     }
     .authors .role { color: var(--muted); font-weight: 400; }
+
+    /* distill-style byline strip: authors | affiliations | published */
+    .authors { gap: 4rem; padding-top: 1rem; padding-bottom: 1rem; border-top: 1px solid var(--line); }
+    .byline-col { display: flex; flex-direction: column; gap: 0.1rem; }
+    .byline-col .byline-label { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+    .byline-col .byline-value { font-weight: 600; color: var(--ink); }
+    .byline-col .byline-value.light { font-weight: 400; }
     .lede { font-size: 1.2rem; line-height: 1.55; color: var(--ink); margin-bottom: 2.5rem; }
     h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); margin: 3.25rem 0 1rem; }
     h3 { font-family: var(--serif); font-size: 1.22rem; font-weight: 700; color: var(--ink); margin: 2.25rem 0 0.75rem; }
@@ -115,7 +134,7 @@
     blockquote p:last-child { margin-bottom: 0; }
 
     .table-wrap { overflow-x: auto; margin: 1.5rem 0 2rem; }
-    table { width: 100%; border-collapse: collapse; font: 400 0.9375rem/1.5 var(--sans); }
+    table { width: 100%; border-collapse: collapse; font: 400 0.9375rem/1.5 var(--serif); }
     th, td { padding: 0.6rem 1.25rem 0.6rem 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
     th { font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--line-strong); font-size: 0.875rem; letter-spacing: 0.01em; }
     tbody tr:last-child td { border-bottom: 1px solid var(--line-strong); }
@@ -123,9 +142,22 @@
 
     figure { margin: 2.5rem 0; text-align: center; }
     figure svg { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
-    figcaption { font: 400 0.8125rem/1.55 var(--sans); color: var(--muted); margin-top: 0.7rem; text-align: left; }
+    figcaption { font: 400 0.8125rem/1.55 var(--serif); color: var(--muted); margin-top: 0.7rem; text-align: left; }
 
-    code { font-family: var(--mono); font-size: 0.85em; background: var(--code-bg); color: var(--ink); padding: 0.12em 0.36em; border-radius: 4px; }
+    code { font-family: var(--mono); font-size: 0.78em; background: var(--code-bg); color: var(--ink); padding: 0.12em 0.36em; border-radius: 4px; }
+
+    /* BibTeX citation block with copy button */
+    .bibtex-block { position: relative; }
+    .bibtex-block pre { margin: 1rem 0 2rem; background: #12291d; color: #d7e8dd; border: none; border-radius: 8px; }
+    .bibtex-copy {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      font: 500 0.75rem/1 var(--serif); color: #a9c4b2;
+      min-width: 3.9rem; text-align: center;
+      background: transparent; border: 1px solid rgba(215,232,221,0.35);
+      border-radius: 6px; padding: 0.35rem 0.7rem; cursor: pointer;
+    }
+    .bibtex-copy:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
+    .bibtex-copy.copied { color: #7fd6a4; border-color: #7fd6a4; }
 
     .callout {
       background: var(--block-bg); border: 1px solid var(--line);
@@ -137,36 +169,9 @@
     .refs { font-size: 0.9375rem; color: var(--text); }
     .refs li { margin-bottom: 0.75rem; }
 
-    footer { max-width: 1240px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; border-top: 1px solid var(--line); font: 400 0.8125rem/1.6 var(--sans); color: var(--muted); }
+    footer { max-width: 1240px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; border-top: 1px solid var(--line); font: 400 0.8125rem/1.6 var(--serif); color: var(--muted); }
     footer p { margin-bottom: 0.5rem; }
 
-      /* Site header, mirrors the theme header exactly (custom.scss .header-container).
-       Sizes are px equivalents of 2.5rem/1.5rem under the theme's root scaling
-       (16px base, 18px >=768, 20px >=1024; custom.scss caps x-large at 20px),
-       so the post body (rem on a fixed 16px root) stays untouched. */
-    .site-header { max-width: 1220px; margin: 0 auto; padding: 0 15px; }
-    @media (min-width: 768px) and (max-width: 1024px) { .site-header { max-width: 900px; padding: 0 2rem; } }
-    .site-header-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 32px 0; border-bottom: 1px solid #f2f2f2;
-    }
-    .site-name { font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 400; line-height: 1.2; color: rgba(0,0,0,0.88); text-decoration: none; }
-    .site-header-nav { display: flex; gap: 24px; }
-    .site-header-nav a { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; color: rgba(0,0,0,0.88); text-decoration: none; }
-    .site-header-nav a:hover { text-decoration: underline; }
-    @media (min-width: 768px) {
-      .site-header-inner { padding: 36px 0; }
-      .site-name { font-size: 45px; }
-      .site-header-nav { gap: 27px; }
-      .site-header-nav a { font-size: 27px; }
-    }
-    @media (min-width: 1024px) {
-      .site-header-inner { padding: 40px 0; }
-      .site-name { font-size: 50px; }
-      .site-header-nav { gap: 30px; }
-      .site-header-nav a { font-size: 30px; }
-    }
-    @media (max-width: 640px) { .site-name { font-size: 28px; } .site-header-nav a { font-size: 16px; } }
   </style>
 </head>
 <body>
@@ -177,8 +182,8 @@
     <nav class="site-header-nav">
       <a href="/">Home</a>
       <a href="/writing/">Writing</a>
-      <a href="/talks/">Talks</a>
       <a href="/projects/">Projects</a>
+      <a href="/talks/">Talks</a>
     </nav>
   </div>
 </header>
@@ -196,15 +201,25 @@
       <li><a href="#moat">7. The actual moat</a></li>
       <li><a href="#measure">8. What I would measure</a></li>
       <li><a href="#references">References</a></li>
+      <li><a href="#citation">Citation</a></li>
     </ul>
   </aside>
 
   <article>
     <h1>Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.</h1>
     <div class="authors">
-      <span class="avatar">LZ</span>
-      <span class="who">Lily Zhang</span>
-      <span class="role">Jul 14, 2026</span>
+      <span class="byline-col">
+        <span class="byline-label">Authors</span>
+        <span class="byline-value">Lily Zhang</span>
+      </span>
+      <span class="byline-col">
+        <span class="byline-label">Affiliations</span>
+        <span class="byline-value light">Independent</span>
+      </span>
+      <span class="byline-col">
+        <span class="byline-label">Published</span>
+        <span class="byline-value light">Jul 14, 2026</span>
+      </span>
     </div>
 
     <p class="lede">
@@ -451,6 +466,20 @@
         <li>Ong et al. "RouteLLM: Learning to Route LLMs with Preference Data." LMSYS, <a href="https://www.lmsys.org/blog/2024-07-01-routellm/" target="_blank" rel="noopener">lmsys.org</a>, 2024.</li>
       </ol>
     </section>
+
+    <section id="citation">
+      <h2>Citation</h2>
+      <div class="bibtex-block">
+        <button class="bibtex-copy" type="button">Copy</button>
+        <pre><code>@article{zhang2026decomposition,
+  title   = "Devin Fusion Is Only Half Right. Why Cost Is the Wrong Optimization Goal.",
+  author  = "Zhang, Lily",
+  year    = "2026",
+  month   = "July",
+  url     = "https://lilyzh.ng/writing/decomposition-is-the-moat/"
+}</code></pre>
+      </div>
+    </section>
   </article>
 </div>
 
@@ -460,6 +489,18 @@
 </footer>
 
 <script>
+  // BibTeX copy buttons
+  document.querySelectorAll('.bibtex-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var code = btn.parentElement.querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(function () {
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      });
+    });
+  });
+
   // TOC scrollspy
   (function () {
     var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
