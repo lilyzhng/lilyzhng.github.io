@@ -9,3 +9,5 @@ _site
 Gemfile.lock
 vendor
 CLAUDE.md
+# generated from posts/*/article.md by bin/md2post.py (in CI at deploy time)
+writing/

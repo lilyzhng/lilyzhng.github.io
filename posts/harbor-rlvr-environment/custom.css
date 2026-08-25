@@ -1,0 +1,148 @@
+:root {
+      /* warm cream palette */
+      --bg: #F9F9F9;            /* site gray, matches home */
+      --surface: #fffffb;
+      --ink: rgba(0,0,0,0.86);  /* near-black headings */
+      --text: rgba(0,0,0,0.80); /* prose */
+      --muted: rgba(0,0,0,0.55);
+      --faint: rgba(0,0,0,0.40);
+      --line: rgba(0,0,0,0.12);
+      --line-strong: rgba(0,0,0,0.20);
+      --code-bg: rgba(0,0,0,0.055);
+      --block-bg: rgba(0,0,0,0.035);
+      --serif: 'ET Book', 'Iowan Old Style', Palatino, Georgia, serif;
+      --sans: Inter, system-ui, -apple-system, sans-serif;
+      --mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+/* two-column layout: sticky sidebar TOC + article */
+    .layout {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 3.5rem;
+      align-items: start;
+    }
+article {
+      min-width: 0;
+      max-width: 920px; /* prose column; figures use slightly less width for side padding */
+    }
+.toc .sub a { font-size: 0.75rem; padding-left: 1.5rem; }
+/* larger gap after the last sub */
+    .toc .sub2 a { font-size: 0.75rem; padding-left: 2.45rem; }
+.toc .sub.active-parent a,
+    .toc .sub a { /* keep subs subdued */ }
+.meta {
+      font: 500 0.8125rem/1 var(--serif);
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+.meta span + span::before { content: "·"; margin: 0 0.45rem; color: var(--faint); }
+.table-caption {
+      font-family: var(--serif);
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 0.4rem; color: var(--ink);
+    }
+details.code-fold { margin: 0.75rem 0 1.5rem; }
+details.code-fold summary {
+      font: 500 0.8125rem/1 var(--serif); color: var(--muted); cursor: pointer;
+      padding: 0.35rem 0; user-select: none;
+    }
+details.code-fold summary:hover { color: var(--ink); }
+details.code-fold pre { margin-top: 0.5rem; }
+/* Paired taxonomy figures: centered band, capped width (not full-bleed, not cramped) */
+    .fig-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem 2rem;
+      width: min(100%, 860px);
+      margin: 2.5rem auto;
+      padding: 0 0.5rem;
+    }
+.fig-row figure { margin: 0; min-width: 0; }
+/* Fig 1 (donut) vs Fig 2 (bars): same chart height, narrower left / wider right */
+    .fig-row--l1-funnel {
+      width: min(100%, 920px);
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      align-items: start;
+    }
+.fig-row--l1-funnel figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+.fig-row--l1-funnel img {
+      height: 340px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+/* Fig 3 + 4: full article width, taller charts */
+    .fig-row--modes-steps {
+      width: min(100%, 920px);
+    }
+.fig-row--modes-steps figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+.fig-row--modes-steps img {
+      height: 330px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+@media (max-width: 720px) {
+      .fig-row {
+        grid-template-columns: 1fr;
+        width: min(100%, 520px);
+        gap: 2rem;
+      }
+      .fig-row--l1-funnel img,
+      .fig-row--modes-steps img {
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+figure img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #1e2a1c; /* dark-green plot canvas: fills any letterbox around dark figures seamlessly */
+    }
+pre {
+      background: #1e2a1c; /* dark-green panel: one dark surface for code + figures, matches Lily Solarized Dark */
+      color: #e8e8e3;
+      font-family: var(--mono);
+      font-size: 0.8125rem; line-height: 1.6;
+      padding: 1.1rem 1.25rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 1.5rem 0 2rem;
+    }
+.terminal-label {
+      font: 600 0.75rem/1 var(--serif);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--muted); margin-bottom: 0.4rem;
+    }
+.stack-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0 1.5rem; }
+.pill {
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      padding: 0.3rem 0.75rem; border-radius: 999px;
+      font: 500 0.8125rem/1 var(--serif); color: var(--text);
+    }
+.consideration { margin-bottom: 1.25rem; }
+.consideration > strong {
+      display: block;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+footer p { margin-bottom: 0.5rem; }

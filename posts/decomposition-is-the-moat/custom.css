@@ -1,0 +1,36 @@
+.toc a {
+      display: block;
+      font: 500 0.875rem/1.35 var(--serif);
+      color: rgba(0,0,0,0.42);
+      padding-left: 0.85rem;
+      border-left: 2px solid transparent;
+      text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+    }
+.toc a:hover { color: rgba(0,0,0,0.72); }
+.toc a.active { color: #000; font-weight: 600; border-left-color: #000; }
+.toc .sub a { font-size: 0.75rem; padding-left: 1.5rem; }
+/* larger gap after the last sub */
+
+    .meta { font: 500 0.8125rem/1 var(--serif); color: var(--muted); margin-bottom: 1.25rem; }
+h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.5vw, 2.55rem);
+      font-weight: 400; letter-spacing: -0.012em; line-height: 1.12;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+blockquote {
+      border-left: 2px solid var(--line-strong);
+      padding: 0.25rem 0 0.25rem 1.25rem; margin: 1.5rem 0;
+      font-style: italic; color: var(--muted);
+    }
+.table-caption { font-family: var(--serif); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--ink); }
+figure { margin: 2.5rem 0; text-align: center; }
+figure svg { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.callout {
+      background: var(--block-bg); border: 1px solid var(--line);
+      border-radius: 10px; padding: 1.1rem 1.35rem; margin: 1.75rem 0;
+      font-size: 1.02rem;
+    }
+.callout strong { color: var(--ink); }
+footer p { margin-bottom: 0.5rem; }
