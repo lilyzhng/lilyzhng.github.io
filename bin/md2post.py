@@ -45,12 +45,51 @@ def parse_front_matter(src):
     return yaml.safe_load(m.group(1)), m.group(2)
 
 
+def protect_math(md):
+    """Stash math spans before markdown conversion so the LaTeX survives intact.
+
+    Posts write math wrapped in double backslashes: \\x\\ inline, and a whole
+    paragraph as \\ X \\ for display math. Raw markdown conversion mangles the
+    LaTeX (eats backslash escapes, may italicize underscores), so we swap each
+    span for a placeholder here and restore_math() puts it back as MathJax
+    delimiters (\\(...\\) inline, \\[...\\] display) after rendering.
+    """
+    stash = []
+
+    def unescape(tex):
+        # mirror markdown's backslash-escape processing (\_ -> _, \* -> *, ...),
+        # but keep \\ which is a LaTeX line break, not an escape
+        tex = tex.replace("\\\\", "\x00")
+        tex = re.sub(r"\\([\\`*_{}\[\]()#+\-.!])", r"\1", tex)
+        return tex.replace("\x00", "\\\\")
+
+    def take(m, display):
+        stash.append((unescape(m.group(1)), display))
+        return f"MATHSTASH{len(stash) - 1}Z"
+
+    # display: a line fully wrapped in \\ ... \\  (may contain \\ line breaks)
+    md = re.sub(r"(?m)^\\\\ (.+) \\\\$", lambda m: take(m, True), md)
+    # inline: \\...\\
+    md = re.sub(r"\\\\(.+?)\\\\", lambda m: take(m, False), md)
+    return md, stash
+
+
+def restore_math(html_text, stash):
+    for i, (tex, display) in enumerate(stash):
+        if display:
+            html_text = html_text.replace(f"<p>MATHSTASH{i}Z</p>", f"<p>\\[{tex}\\]</p>")
+        html_text = html_text.replace(f"MATHSTASH{i}Z", f"\\({tex}\\)")
+    return html_text
+
+
 def build_sections(md_body):
     """Render markdown, then wrap each h2 block in <section id>, numbering h2/h3."""
+    md_body, math_stash = protect_math(md_body)
     rendered = markdown.markdown(
         md_body,
         extensions=["tables", "fenced_code", "footnotes", "attr_list", "md_in_html"],
     )
+    rendered = restore_math(rendered, math_stash)
     # split on h2
     parts = re.split(r"(<h2[^>]*>.*?</h2>)", rendered)
     pre = parts[0].strip()

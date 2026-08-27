@@ -384,8 +384,8 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
 <figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 2.</strong> Example twin pairs, one
       per topic.</figcaption>
 
-<p>To read a cell on learnability, we sample the model 8 times on unseen rows at each checkpoint, then score the pass rate against the labels, where every label is fixed by construction and traces to the clause. C-LIM scores the trajectory: for cell \c\ with mean pass rate \r_c^k\ at checkpoint \k\ and field mean \\bar{r}^k\,</p>
-<p>\ s_c = 1 - \frac{\sum_k \left(r_c^k - \bar{r}^k\right)^2}{\sum_k \left(1 - \bar{r}^k\right)^2}. \</p>
+<p>To read a cell on learnability, we sample the model 8 times on unseen rows at each checkpoint, then score the pass rate against the labels, where every label is fixed by construction and traces to the clause. C-LIM scores the trajectory: for cell \(c\) with mean pass rate \(r_c^k\) at checkpoint \(k\) and field mean \(\bar{r}^k\),</p>
+<p>\[s_c = 1 - \frac{\sum_k \left(r_c^k - \bar{r}^k\right)^2}{\sum_k \left(1 - \bar{r}^k\right)^2}.\]</p>
 <p>A cell that tracks the field scores near 1. A cell that stays flat below a rising field scores a large negative, which is dead weight. Unlike LIMR (<a href="https://arxiv.org/abs/2502.11886">Li et al., 2025</a>), which scores training samples to select a subset, C-LIM scores a grid cell on rows the model never trains on, so the score diagnoses a region of the board. Two moves follow the score directly (Figure 3): (1) <strong>Prune</strong> a mastered cell (score near 1): generate nothing more, keep its rows as a retention set. (2) <strong>Densify</strong> a still-learning cell (rising score): add more rows under the same rule.</p>
 <h3 id="attack-amend">2.2 · Attack then amend</h3>
 <figure>
@@ -411,7 +411,7 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
 <p>Two moves grow the board (Figure 5). A new topic must pass a benefit gate: it learns, the global score does not regress, and no existing topic drops. The results below show one rejection from this gate and one from the amendment gate. (1) <strong>Subdivide</strong> handles a stuck cell: when more rows stop helping, decompose the cell along a new local axis. (2) <strong>Expand</strong> adds a new topic row when a coverage gap has no topic to live in, the only move that adds a row.</p>
 <h3 id="rl">2.4 · RL training</h3>
 <p>We start from Nemotron-Content-Safety-Reasoning-4B (<a href="https://arxiv.org/abs/2505.20087">Sreedhar et al., 2025</a>), a safety guard that reasons before it outputs a safe or unsafe label and is trained with SFT only. The goal is to add RL on top of that SFT base to make it reason better, following RSafe and GuardReasoner (<a href="https://arxiv.org/abs/2506.07736">Zheng et al., 2025</a>; <a href="https://arxiv.org/abs/2501.18492">Liu et al., 2025</a>). It is the right SFT base for two reasons. Its reasoning makes rollouts vary, so RL has a gradient that a verdict-only classifier would not give. And its errors are one-sided over-refusal, the side with headroom to fix. The recipe is deliberately plain: vanilla GRPO (<a href="https://arxiv.org/abs/2402.03300">Shao et al., 2024</a>) with a rule reward,</p>
-<p>\ \pi^* = \arg\max_{\pi}\ \mathbb{E}_{x\sim D,\c\sim\pi}\big[R(c,x)\big], \qquad R = \mathbb{1}[\text{answer matches label}] - 0.2\cdot\mathbb{1}[\text{format invalid}]. \</p>
+<p>\[\pi^* = \arg\max_{\pi}\\ \mathbb{E}_{x\sim D,\\c\sim\pi}\big[R(c,x)\big], \qquad R = \mathbb{1}[\text{answer matches label}] - 0.2\cdot\mathbb{1}[\text{format invalid}].\]</p>
 <p>The label is read only from the answer slot after the reasoning trace, so a rollout cannot emit both labels, and a label leaked into the reasoning earns the format penalty. Rollout groups whose samples all agree carry zero gradient and are dropped online, which concentrates compute on the prompts the model is still inconsistent about.</p>
 
     </section>
