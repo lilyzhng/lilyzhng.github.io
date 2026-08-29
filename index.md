@@ -29,13 +29,13 @@ author_profile: true
 
   <div class="intro-text">
     <p>
-      I’m Lily Zhang, a Tech Lead and Research Scientist in the Bay Area, California. My research focus: agentic post-training and AI training data, including RL environments. I’ve published at CVPR, ICCV, NeurIPS, RAL
+      I’m Lily Zhang, a Tech Lead and Research Scientist in the Bay Area, California. I have 8 years of experience building AI products allows me to make people productive with AI. This includes generating AI training data, RL environments, designing evaluations, agentic post-training pipelines. Papers at CVPR, ICCV, NeurIPS, RAL
       <a href="https://arxiv.org/abs/2412.15447">[1]</a>
       <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_SIMBAR_Single_Image-Based_Scene_Relighting_for_Effective_Data_Augmentation_for_CVPR_2022_paper.pdf">[2]</a>
       <a href="https://openaccess.thecvf.com/content/ICCV2023W/OODCV/papers/Shrivastava_DatasetEquity_Are_All_Samples_Created_Equal_In_The_Quest_For_ICCVW_2023_paper.pdf">[3]</a>
       <a href="https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Jaipuria_deepPIC_Deep_Perceptual_Image_Clustering_for_Identifying_Bias_in_Vision_CVPRW_2022_paper.pdf">[4]</a>
-      <a href="https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf">[5]</a>,
-      and gave keynotes at <a href="https://www.linkedin.com/feed/update/urn:li:activity:7043634213106974720/" target="_blank" rel="noopener">NVIDIA GTC</a> and <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D" target="_blank" rel="noopener">IEEE IROS</a>.
+      <a href="https://openaccess.thecvf.com/content_CVPRW_2020/papers/w45/Jaipuria_Deflating_Dataset_Bias_Using_Synthetic_Data_Augmentation_CVPRW_2020_paper.pdf">[5]</a>.
+      Keynotes at <a href="https://www.linkedin.com/feed/update/urn:li:activity:7043634213106974720/" target="_blank" rel="noopener">NVIDIA GTC</a> and <a href="https://www.linkedin.com/pulse/from-lab-road-turning-self-driving-research-production-zhang/?trackingId=eV%2FKTo9HTx6STl2nFehbLA%3D%3D" target="_blank" rel="noopener">IEEE IROS</a>.
     </p>
     <p>
       I like turning research into products people use, open-sourced: <a href="https://sofagenius.ai/" target="_blank" rel="noopener">SofaGenius</a> (Anthropic hackathon finalist, top 15/13k), <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">Frontend Slides</a> (25K+ GitHub stars), and the <a href="https://github.com/dzhng/deep-seek" target="_blank" rel="noopener">Deep-Seek</a> research agent (500+ GitHub stars).
