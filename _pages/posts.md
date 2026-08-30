@@ -25,6 +25,11 @@ permalink: /writing/
 
   <div class="blog-list" data-section="01">
   <div class="blog-entry" data-type="blog">
+    <a href="https://neurips2026-speculative-decoding.vercel.app/" class="blog-title" target="_blank">Speculative Decoding: What Lossless Means, What It Doesn't, and How to Test It</a>
+    <span class="blog-date">08.29.26</span>
+  </div>
+
+  <div class="blog-entry" data-type="blog">
     <a href="/writing/losslessbench/" class="blog-title">Introducing LosslessBench</a>
     <span class="blog-date">07.28.26</span>
   </div>
