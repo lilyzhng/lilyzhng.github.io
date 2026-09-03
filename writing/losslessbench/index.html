@@ -70,10 +70,19 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       align-items: start;
     }
     article { min-width: 0; max-width: 920px; }
+    /* !important: per-post custom.css re-declares .layout/article at desktop
+       values after this sheet; these mobile rules must survive that. */
     @media (max-width: 940px) {
-      .layout { grid-template-columns: 1fr; gap: 0; padding-inline: 1.25rem; }
-      article { max-width: none; }
-      .toc { display: none; }
+      .layout { grid-template-columns: 1fr !important; gap: 0 !important; padding-inline: 1.25rem !important; }
+      article { max-width: none !important; }
+      .toc { display: none !important; }
+      /* bare (markdown-generated) tables have no .table-wrap; scroll them in place */
+      table { display: block; width: 100%; overflow-x: auto; }
+    }
+    @media (max-width: 640px) {
+      .layout { padding-top: 2.5rem !important; }
+      h1 { font-size: clamp(1.55rem, 7vw, 2rem); }
+      .authors { flex-wrap: wrap; gap: 1rem 2.25rem !important; }
     }
 
     .toc { position: sticky; top: 3rem; align-self: start; }
@@ -185,7 +194,9 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     code {
       font-family: var(--mono); font-size: 0.78em;
       background: var(--code-bg); color: var(--ink); padding: 0.12em 0.36em; border-radius: 4px;
+      overflow-wrap: anywhere; /* long paths/identifiers must not widen the page on phones */
     }
+    p, li, figcaption, h1, h2, h3, h4 { overflow-wrap: break-word; }
     pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
 
     /* BibTeX citation block with copy button */

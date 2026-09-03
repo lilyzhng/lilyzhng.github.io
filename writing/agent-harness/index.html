@@ -617,6 +617,17 @@ footer p { max-width: 500px; margin: 0 auto; line-height: 1.7; }
   nav .links { gap: 14px; }
   nav .links a { font-size: 12px; }
 }
+@media (max-width: 640px) {
+  /* the anchor-link row is wider than a phone screen; scroll it in place
+     instead of letting it force the whole page wider than the viewport */
+  nav .links { min-width: 0; flex: 1; margin-left: 16px; justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  nav .links a { white-space: nowrap; }
+  nav .links::-webkit-scrollbar { display: none; }
+  nav .inner { padding: 0 16px; }
+  /* table min-content width otherwise forces the whole page wider than the
+     phone screen; scroll each table in place instead */
+  .compare-table, .deploy-summary-table { display: block; overflow-x: auto; }
+}
 @media (max-width: 480px) {
   .glossary-grid { grid-template-columns: 1fr; }
 }
