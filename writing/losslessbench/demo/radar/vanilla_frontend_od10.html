@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whimsical Animation Studio</title>
+  <style>
+    :root {
+      --primary: #a8d8b9;
+      --secondary: #f0f8ff;
+      --accent: #87ceeb;
+      --text: #333;
+      --shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .about {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .work {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .work-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .work-card h3 {
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .contact {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact input, .contact textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.2);
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .contact button {
+      padding: 12px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact button:hover {
+      background: #6495ed;
+    }
+
+    .floating-clouds {
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 100px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      animation: float 15s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(1000px, 500px); }
+    }
+
+    @media (max-width: 600px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero-content">
+      <h1>Welcome to Whimsical Animation Studio</h1>
+      <p>Where dreams take flight and stories come to life</p>
+      <a href="#contact" class="cta-button">Explore Our Work</a>
+    </div>
+    <div class="floating-clouds"></div>
+  </header>
+
+  <section id="about">
+    <div class="section-title">About Us</div>
+    <div class="about">
+      <p>At Whimsical Animation Studio, we believe in the magic of storytelling through animation. Inspired by the enchanting worlds of Studio Ghibli, our team creates immersive experiences that transport viewers to fantastical realms. With a passion for creativity and a dedication to quality, we bring your visions to life, one frame at a time.</p>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-title">Our Work</div>
+    <div class="work">
+      <div class="work-card">
+        <h3>Forest Whispers</h3>
+        <p>A magical tale of friendship between a curious boy and a talking tree.</p>
+      </div>
+      <div class="work-card">
+        <h3>Starlit Dreams</h3>
+        <p>A whimsical journey through the cosmos with a young stargazer.</p>
+      </div>
+      <div class="work-card">
+        <h3>Underwater Symphony</h3>
+        <p>An underwater adventure with a group of aquatic creatures.</p>
+      </div>
+      <div class="work-card">
+        <h3>Timeless Tales</h3>
+        <p>A collection of animated short films inspired by classic folklore.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-title">Contact Us</div>
+    <div class="contact">
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+</body>
+</html>

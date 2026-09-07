@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group Adventure Airbnb</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(to right, #4a90e2, #357abd);
+      padding: 20px 40px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 100"><rect width="100" height="100" fill="#4a90e2" rx="15" ry="15"/><circle cx="50" cy="50" r="40" fill="white" opacity="0.2"/><text x="50%" y="50%" text-anchor="middle" fill="white" font-size="36" font-weight="bold" opacity="0.8">Group Adventures</text></svg>') no-repeat center center/cover;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    .hero button {
+      background: #fff;
+      color: #4a90e2;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .hero button:hover {
+      background: #f0f8ff;
+    }
+
+    /* Booking Tools */
+    .booking-section {
+      padding: 60px 20px;
+      background: #fff;
+      text-align: center;
+    }
+    .booking-section h3 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .booking-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .booking-form input, .booking-form select {
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .booking-form button {
+      background: #4a90e2;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .booking-form button:hover {
+      background: #357abd;
+    }
+
+    /* Personalized Suggestions */
+    .suggestions {
+      padding: 60px 20px;
+      background: #f0f8ff;
+      text-align: center;
+    }
+    .suggestions h3 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .suggestion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .suggestion-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    .suggestion-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .suggestion-card .card-content {
+      padding: 15px;
+    }
+    .suggestion-card h4 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .suggestion-card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Group Activities */
+    .group-activities {
+      padding: 60px 20px;
+      background: #fff;
+      text-align: center;
+    }
+    .group-activities h3 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .activity-card {
+      background: #f0f8ff;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .activity-card i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #4a90e2;
+    }
+    .activity-card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .booking-form {
+        width: 100%;
+      }
+      .suggestion-grid, .activity-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Group Adventure Airbnb</h1>
+    <nav>
+      <a href="#booking">Book Now</a>
+      <a href="#suggestions">Suggestions</a>
+      <a href="#activities">Activities</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Explore the World with Your Group</h2>
+    <p>Find the perfect place to stay, plan your adventure, and make unforgettable memories with friends and family.</p>
+    <button onclick="window.location.href='#booking'">Start Your Adventure</button>
+  </section>
+
+  <section class="booking-section" id="booking">
+    <h3>Streamlined Booking Tools</h3>
+    <form class="booking-form" onsubmit="event.preventDefault(); alert('Booking submitted!');">
+      <input type="text" placeholder="Check-in Date" />
+      <input type="text" placeholder="Check-out Date" />
+      <select>
+        <option>1 Guest</option>
+        <option>2 Guests</option>
+        <option>3 Guests</option>
+        <option>4 Guests</option>
+        <option>5+ Guests</option>
+      </select>
+      <button type="submit">Find Your Stay</button>
+    </form>
+  </section>
+
+  <section class="suggestions" id="suggestions">
+    <h3>Personalized Travel Suggestions</h3>
+    <div class="suggestion-grid">
+      <div class="suggestion-card">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 100 100'><rect width='100' height='100' fill='#e0f7fa'/><text x='50%' y='50%' text-anchor='middle' fill='#00695c' font-size='24' font-weight='bold'>Coastal Getaway</text></svg>" alt="Coastal Getaway">
+        <div class="card-content">
+          <h4>Beachfront Villa</h4>
+          <p>Relax in a spacious villa with private beach access and family-friendly amenities.</p>
+        </div>
+      </div>
+      <div class="suggestion-card">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 100 100'><rect width='100' height='100' fill='#ffe0b2'/><text x='50%' y='50%' text-anchor='middle' fill='#f57c00' font-size='24' font-weight='bold'>Mountain Escape</text></svg>" alt="Mountain Escape">
+        <div class="card-content">
+          <h4>Alpine Cabin</h4>
+          <p>Enjoy hiking trails, cozy fireplaces, and panoramic mountain views with your group.</p>
+        </div>
+      </div>
+      <div class="suggestion-card">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 100 100'><rect width='100' height='100' fill='#f8bbd0'/><text x='50%' y='50%' text-anchor='middle' fill='#d81b60' font-size='24' font-weight='bold'>Urban Adventure</text></svg>" alt="Urban Adventure">
+        <div class="card-content">
+          <h4>City Apartment</h4>
+          <p>Explore vibrant cities, enjoy rooftop bars, and experience local culture with your friends.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="group-activities" id="activities">
+    <h3>Group-Friendly Features</h3>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <i class="fas fa-users"></i>
+        <p>Private Spaces for Groups</p>
+      </div>
+      <div class="activity-card">
+        <i class="fas fa-map-marked-alt"></i>
+        <p>Adventure-Ready Locations</p>
+      </div>
+      <div class="activity-card">
+        <i class="fas fa-hotel"></i>
+        <p>Family-Friendly Amenities</p>
+      </div>
+      <div class="activity-card">
+        <i class="fas fa-shield-alt"></i>
+        <p>Secure Booking System</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 Group Adventure Airbnb. All rights reserved.</p>
+  </footer>
+</body>
+</html>

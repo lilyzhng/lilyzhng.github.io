@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 250" role="img" aria-label="Bar chart of DFlash acceptance length by domain: GSM8K 5.32, HumanEval 5.96, frontend design 5.24, agentic coding 3.18, agentic workflow 2.57, safety guardrail 2.00, creative writing 1.84 tokens per cycle. Whiskers show min to max over 5 tasks.">
+  <style>
+    .tick { font: 500 10px "Fragment Mono", ui-monospace, Menlo, monospace; fill: rgba(255,255,255,0.5); }
+    .lbl  { font: 500 10px "Fragment Mono", ui-monospace, Menlo, monospace; fill: rgba(255,255,255,0.75); }
+    .val  { font: 600 11px "Fragment Mono", ui-monospace, Menlo, monospace; fill: #FFFFFF; }
+    .leg  { font: 500 10px "Fragment Mono", ui-monospace, Menlo, monospace; fill: rgba(255,255,255,0.75); }
+    .grid { stroke: rgba(255,255,255,0.08); stroke-width: 1; }
+    .axis { stroke: rgba(255,255,255,0.35); stroke-width: 1; }
+    .err  { stroke: rgba(255,255,255,0.9); stroke-width: 1.5; }
+  </style>
+
+  <rect x="0" y="0" width="1300" height="250" fill="#1e2a1c"/>
+
+  <!-- legend -->
+  <rect x="480" y="14" width="12" height="12" fill="#93a888"/>
+  <text class="leg" x="498" y="24">paper benchmarks</text>
+  <rect x="680" y="14" width="12" height="12" fill="#8cc07a"/>
+  <text class="leg" x="698" y="24">LosslessBench axes</text>
+
+  <!-- y-axis 0..8 tau: baseline y=204, top y=44, 20 px per unit -->
+  <g class="grid">
+    <line x1="70" y1="164" x2="620" y2="164"/>
+    <line x1="70" y1="124" x2="620" y2="124"/>
+    <line x1="70" y1="84"  x2="620" y2="84"/>
+    <line x1="70" y1="44"  x2="620" y2="44"/>
+  </g>
+  <line class="axis" x1="70" y1="44" x2="70" y2="204"/>
+  <line class="axis" x1="70" y1="204" x2="620" y2="204"/>
+
+  <g class="tick" text-anchor="end">
+    <text x="62" y="208">0</text>
+    <text x="62" y="168">2</text>
+    <text x="62" y="128">4</text>
+    <text x="62" y="88">6</text>
+    <text x="62" y="48">8</text>
+  </g>
+  <text class="tick" x="18" y="124" transform="rotate(-90 18 124)" text-anchor="middle">&#964; (tok/cycle)</text>
+
+  <!-- bars: width 48, centers at 106,181,256,331,406,481,556 ; y = 204 - 20*tau -->
+  <!-- GSM8K 5.32 (min 4.93 max 5.86) -->
+  <rect x="82"  y="97.6" width="48" height="106.4" fill="#93a888"/>
+  <g class="err"><line x1="106" y1="86.8" x2="106" y2="105.4"/><line x1="99" y1="86.8" x2="113" y2="86.8"/><line x1="99" y1="105.4" x2="113" y2="105.4"/></g>
+  <text class="val" x="106" y="78" text-anchor="middle">5.32</text>
+  <text class="lbl" x="106" y="219" text-anchor="middle">GSM8K</text>
+  <text class="lbl" x="106" y="231" text-anchor="middle">(math)</text>
+
+  <!-- HumanEval 5.96 (min 4.95 max 7.02) -->
+  <rect x="157" y="84.8" width="48" height="119.2" fill="#93a888"/>
+  <g class="err"><line x1="181" y1="63.6" x2="181" y2="105"/><line x1="174" y1="63.6" x2="188" y2="63.6"/><line x1="174" y1="105" x2="188" y2="105"/></g>
+  <text class="val" x="181" y="55" text-anchor="middle">5.96</text>
+  <text class="lbl" x="181" y="219" text-anchor="middle">HumanEval</text>
+  <text class="lbl" x="181" y="231" text-anchor="middle">(coding)</text>
+
+  <!-- Frontend 5.24 (min 4.31 max 6.02) -->
+  <rect x="232" y="99.2" width="48" height="104.8" fill="#8cc07a"/>
+  <g class="err"><line x1="256" y1="83.6" x2="256" y2="117.8"/><line x1="249" y1="83.6" x2="263" y2="83.6"/><line x1="249" y1="117.8" x2="263" y2="117.8"/></g>
+  <text class="val" x="256" y="75" text-anchor="middle">5.24</text>
+  <text class="lbl" x="256" y="219" text-anchor="middle">frontend</text>
+  <text class="lbl" x="256" y="231" text-anchor="middle">design</text>
+
+  <!-- Agentic coding 3.18 (min 2.66 max 3.75) -->
+  <rect x="307" y="140.4" width="48" height="63.6" fill="#8cc07a"/>
+  <g class="err"><line x1="331" y1="129" x2="331" y2="150.8"/><line x1="324" y1="129" x2="338" y2="129"/><line x1="324" y1="150.8" x2="338" y2="150.8"/></g>
+  <text class="val" x="331" y="121" text-anchor="middle">3.18</text>
+  <text class="lbl" x="331" y="219" text-anchor="middle">agentic</text>
+  <text class="lbl" x="331" y="231" text-anchor="middle">coding</text>
+
+  <!-- Agentic workflow 2.57 (min 2.2 max 2.8) -->
+  <rect x="382" y="152.6" width="48" height="51.4" fill="#8cc07a"/>
+  <g class="err"><line x1="406" y1="148" x2="406" y2="160"/><line x1="399" y1="148" x2="413" y2="148"/><line x1="399" y1="160" x2="413" y2="160"/></g>
+  <text class="val" x="406" y="140" text-anchor="middle">2.57</text>
+  <text class="lbl" x="406" y="219" text-anchor="middle">agentic</text>
+  <text class="lbl" x="406" y="231" text-anchor="middle">workflow</text>
+
+  <!-- Safety guardrail 2.00 (min 1.96 max 2.05) -->
+  <rect x="457" y="164" width="48" height="40" fill="#8cc07a"/>
+  <g class="err"><line x1="481" y1="163" x2="481" y2="164.8"/><line x1="474" y1="163" x2="488" y2="163"/><line x1="474" y1="164.8" x2="488" y2="164.8"/></g>
+  <text class="val" x="481" y="154" text-anchor="middle">2.00</text>
+  <text class="lbl" x="481" y="219" text-anchor="middle">safety</text>
+  <text class="lbl" x="481" y="231" text-anchor="middle">guardrail</text>
+
+  <!-- Creative writing 1.84 (min 1.78 max 1.92) -->
+  <rect x="532" y="167.2" width="48" height="36.8" fill="#8cc07a"/>
+  <g class="err"><line x1="556" y1="165.6" x2="556" y2="168.4"/><line x1="549" y1="165.6" x2="563" y2="165.6"/><line x1="549" y1="168.4" x2="563" y2="168.4"/></g>
+  <text class="val" x="556" y="157" text-anchor="middle">1.84</text>
+  <text class="lbl" x="556" y="219" text-anchor="middle">creative</text>
+  <text class="lbl" x="556" y="231" text-anchor="middle">writing</text>
+
+  <!-- right panel: divergence D_LK = 1 - alpha -->
+  <g class="grid">
+    <line x1="730" y1="164" x2="1280" y2="164"/>
+    <line x1="730" y1="124" x2="1280" y2="124"/>
+    <line x1="730" y1="84"  x2="1280" y2="84"/>
+    <line x1="730" y1="44"  x2="1280" y2="44"/>
+  </g>
+  <line class="axis" x1="730" y1="44" x2="730" y2="204"/>
+  <line class="axis" x1="730" y1="204" x2="1280" y2="204"/>
+  <g class="tick" text-anchor="end">
+    <text x="722" y="208">0</text>
+    <text x="722" y="168">0.25</text>
+    <text x="722" y="128">0.5</text>
+    <text x="722" y="88">0.75</text>
+    <text x="722" y="48">1.0</text>
+  </g>
+  <text class="tick" x="676" y="124" transform="rotate(-90 676 124)" text-anchor="middle">D_LK = 1 &#8722; &#945;</text>
+  <rect x="742" y="87.2" width="48" height="116.8" fill="#93a888"/>
+  <text class="val" x="766" y="79.2" text-anchor="middle">0.73</text>
+  <text class="lbl" x="766" y="219" text-anchor="middle">GSM8K</text>
+  <text class="lbl" x="766" y="231" text-anchor="middle">(math)</text>
+  <rect x="817" y="93.6" width="48" height="110.4" fill="#93a888"/>
+  <text class="val" x="841" y="85.6" text-anchor="middle">0.69</text>
+  <text class="lbl" x="841" y="219" text-anchor="middle">HumanEval</text>
+  <text class="lbl" x="841" y="231" text-anchor="middle">(coding)</text>
+  <rect x="892" y="85.6" width="48" height="118.4" fill="#8cc07a"/>
+  <text class="val" x="916" y="77.6" text-anchor="middle">0.74</text>
+  <text class="lbl" x="916" y="219" text-anchor="middle">frontend</text>
+  <text class="lbl" x="916" y="231" text-anchor="middle">design</text>
+  <rect x="967" y="66.4" width="48" height="137.6" fill="#8cc07a"/>
+  <text class="val" x="991" y="58.4" text-anchor="middle">0.86</text>
+  <text class="lbl" x="991" y="219" text-anchor="middle">agentic</text>
+  <text class="lbl" x="991" y="231" text-anchor="middle">coding</text>
+  <rect x="1042" y="60.0" width="48" height="144.0" fill="#8cc07a"/>
+  <text class="val" x="1066" y="52.0" text-anchor="middle">0.90</text>
+  <text class="lbl" x="1066" y="219" text-anchor="middle">agentic</text>
+  <text class="lbl" x="1066" y="231" text-anchor="middle">workflow</text>
+  <rect x="1117" y="53.6" width="48" height="150.4" fill="#8cc07a"/>
+  <text class="val" x="1141" y="45.6" text-anchor="middle">0.94</text>
+  <text class="lbl" x="1141" y="219" text-anchor="middle">safety</text>
+  <text class="lbl" x="1141" y="231" text-anchor="middle">guardrail</text>
+  <rect x="1192" y="52.0" width="48" height="152.0" fill="#8cc07a"/>
+  <text class="val" x="1216" y="44.0" text-anchor="middle">0.95</text>
+  <text class="lbl" x="1216" y="219" text-anchor="middle">creative</text>
+  <text class="lbl" x="1216" y="231" text-anchor="middle">writing</text>
+</svg>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Clone</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #fff;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #121212;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h2 {
+      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .sidebar nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 10px 0;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .sidebar nav a:hover {
+      color: #1db954;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .main-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .main-header input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+
+    .playlist-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .playlist-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .playlist-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .playlist-card {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .playlist-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .playlist-card .info {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .playlist-card .info h3 {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .playlist-card .info p {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .playlist-card button {
+      background-color: #1db954;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .playlist-card button:hover {
+      background-color: #16a34a;
+    }
+
+    .playlist-form {
+      margin-top: 20px;
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .playlist-form input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+
+    .playlist-form button {
+      background-color: #1db954;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    .playlist-form button:hover {
+      background-color: #16a34a;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Spotify</h2>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Search</a>
+      <a href="#">Library</a>
+      <a href="#">Your Music</a>
+    </nav>
+  </div>
+  <div class="main">
+    <div class="main-header">
+      <input type="text" placeholder="Search music, podcasts, or artists" />
+    </div>
+    <div class="playlist-section">
+      <h2>Top Playlists</h2>
+      <div class="playlist-cards">
+        <div class="playlist-card">
+          <img src="https://via.placeholder.com/200x120" alt="Playlist 1" />
+          <div class="info">
+            <h3>Chill Vibes</h3>
+            <p>Relaxing tracks for your downtime</p>
+          </div>
+          <button>Play</button>
+        </div>
+        <div class="playlist-card">
+          <img src="https://via.placeholder.com/200x120" alt="Playlist 2" />
+          <div class="info">
+            <h3>Workout Beats</h3>
+            <p>High-energy tracks to keep you motivated</p>
+          </div>
+          <button>Play</button>
+        </div>
+        <div class="playlist-card">
+          <img src="https://via.placeholder.com/200x120" alt="Playlist 3" />
+          <div class="info">
+            <h3>Study Sessions</h3>
+            <p>Focus tracks for your learning time</p>
+          </div>
+          <button>Play</button>
+        </div>
+      </div>
+    </div>
+    <div class="playlist-form">
+      <h3>Create New Playlist</h3>
+      <input type="text" placeholder="Enter playlist name" />
+      <button>Create Playlist</button>
+    </div>
+  </div>
+  <footer>
+    &copy; 2023 Spotify Clone. All rights reserved.
+  </footer>
+</body>
+</html>
+```

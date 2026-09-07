@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle Loan App</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background-color: #007aff;
+      color: white;
+      padding: 16px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      margin-bottom: 8px;
+      font-size: 24px;
+    }
+
+    header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #007aff, #00c6ff);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    .hero button {
+      background-color: white;
+      color: #007aff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .hero button:hover {
+      background-color: #e0f0ff;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .feature {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      flex: 1 1 300px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .feature h3 {
+      margin-bottom: 10px;
+      color: #007aff;
+    }
+
+    .feature p {
+      font-size: 14px;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 40px 20px;
+      background-color: #fff;
+    }
+
+    .testimonial {
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px;
+      max-width: 600px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .testimonial cite {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #007aff;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 24px;
+      }
+
+      .feature {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Drive Your Dream</h1>
+    <p>Fast, easy vehicle financing for iOS users</p>
+  </header>
+
+  <section class="hero">
+    <h2>Get a Vehicle Loan in Minutes</h2>
+    <p>Apply for instant approval and start driving your dream car today.</p>
+    <button>Get Started</button>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <h3>Quick Approval</h3>
+      <p>Get instant loan approval with just a few taps. No waiting for days.</p>
+    </div>
+    <div class="feature">
+      <h3>Low Rates</h3>
+      <p>Competitive interest rates tailored to your credit profile.</p>
+    </div>
+    <div class="feature">
+      <h3>Flexible Terms</h3>
+      <p>Choose from a variety of repayment plans to fit your budget.</p>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="testimonial">
+      <p>"I got my loan approved in under 5 minutes! The process was seamless."</p>
+      <cite>- Sarah T., New York</cite>
+    </div>
+    <div class="testimonial">
+      <p>"The app is intuitive and made the entire financing process stress-free."</p>
+      <cite>- James L., Los Angeles</cite>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 Vehicle Loan App. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </footer>
+</body>
+</html>

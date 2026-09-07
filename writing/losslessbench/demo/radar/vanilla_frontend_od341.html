@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletter Signup</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Popup container */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .popup.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Modal content */
+    .modal-content {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 320px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      text-align: center;
+    }
+
+    .modal-content::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 20px;
+      height: 20px;
+      background: #e0f7fa;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #00796b;
+      cursor: pointer;
+    }
+
+    .modal-content::before:hover {
+      background: #b2ebf2;
+    }
+
+    /* Heading and message */
+    .modal-content h2 {
+      color: #00796b;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-content p {
+      color: #333;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Form */
+    .modal-content form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-content input[type="email"] {
+      padding: 0.75rem;
+      border: 2px solid #e0f7fa;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #333;
+      outline: none;
+    }
+
+    .modal-content input[type="email"]::placeholder {
+      color: #999;
+    }
+
+    .modal-content button {
+      padding: 0.75rem;
+      background-color: #00796b;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background-color: #00695c;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .modal-content {
+        padding: 1.5rem;
+      }
+
+      .modal-content h2 {
+        font-size: 1.25rem;
+      }
+
+      .modal-content p {
+        font-size: 0.85rem;
+      }
+
+      .modal-content input[type="email"] {
+        font-size: 0.95rem;
+      }
+
+      .modal-content button {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="popup" id="popup">
+    <div class="modal-content">
+      <div class="close-btn" onclick="document.getElementById('popup').classList.remove('show')">&times;</div>
+      <h2>Subscribe to Our Newsletter</h2>
+      <p>Stay updated with the latest news and offers.</p>
+      <form onsubmit="document.getElementById('popup').classList.remove('show'); return false;">
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Show popup on page load
+    document.getElementById('popup').classList.add('show');
+  </script>
+</body>
+</html>
