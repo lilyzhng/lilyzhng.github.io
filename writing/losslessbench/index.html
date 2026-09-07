@@ -57,8 +57,8 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
-    a { color: rgba(0,0,0,0.70); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(0,0,0,0.25); }
-    a:hover { text-decoration-color: rgba(0,0,0,0.7); }
+    a { color: #2437e7; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #2437e7; }
+    a:hover { color: #1a28b8; text-decoration-color: #1a28b8; }
 
     .layout {
       max-width: 1240px;
@@ -478,7 +478,7 @@ article p, article li, article figcaption { font-family: var(--serif); }
       </span>
     </div>
 
-    <p class="lede">Speculative decoding is lossless in theory: the verified output follows the target model's distribution. The papers, including <a href="https://arxiv.org/abs/2503.01840" style="color:#2a5a8a;text-decoration:underline;text-decoration-color:#2a5a8a;">EAGLE-3</a>, <a href="https://arxiv.org/abs/2602.06036" style="color:#2a5a8a;text-decoration:underline;text-decoration-color:#2a5a8a;">DFlash</a>, <a href="https://arxiv.org/abs/2607.05147" style="color:#2a5a8a;text-decoration:underline;text-decoration-color:#2a5a8a;">DeepSeek DSpark</a>, and <a href="https://inco.ai/blog/dflash2/" style="color:#2a5a8a;text-decoration:underline;text-decoration-color:#2a5a8a;">DFlash 2</a>, only validate on easy-to-measure domains such as math and function-level coding, a narrow slice of what models are asked to do in practice. To measure speculative decoding and inference acceleration on domains beyond coding and math, we built LosslessBench.</p>
+    <p class="lede">Speculative decoding is lossless in theory: the verified output follows the target model's distribution. The papers, including <a href="https://arxiv.org/abs/2503.01840">EAGLE-3</a>, <a href="https://arxiv.org/abs/2602.06036">DFlash</a>, <a href="https://arxiv.org/abs/2607.05147">DeepSeek DSpark</a>, and <a href="https://inco.ai/blog/dflash2/">DFlash 2</a>, only validate on easy-to-measure domains such as math and function-level coding, a narrow slice of what models are asked to do in practice. To measure speculative decoding and inference acceleration on domains beyond coding and math, we built LosslessBench.</p>
 
 <figure class="diagram bare"><div style="max-width:560px;margin:0 auto;"><img src="radar-spec-v1.svg" alt="Radar chart of Qwen3-8B with vs without speculative decoding across five domains on LosslessBench" style="width:100%;display:block;"></div><figcaption>Figure 1. Qwen3-8B with vs without speculative decoding on LosslessBench. Axes are independently scaled, so each domain's relative gap is visible.</figcaption></figure>
 
