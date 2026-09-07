@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle Loans & Financing - iOS App</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #007aff, #00c6ff);
+      color: white;
+      padding: 20px 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: #ffffff;
+      padding: 40px 15px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 25px;
+    }
+
+    .hero button {
+      background-color: #007aff;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .hero button:hover {
+      background-color: #00c6ff;
+    }
+
+    /* Features Section */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 40px 15px;
+      background: #f5f7fa;
+    }
+
+    .feature {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      margin: 15px;
+    }
+
+    .feature i {
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: #007aff;
+    }
+
+    .feature h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Benefits Section */
+    .benefits {
+      background: #ffffff;
+      padding: 40px 15px;
+      text-align: center;
+    }
+
+    .benefits h2 {
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .benefits ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .benefits li {
+      background: #f0f4f8;
+      padding: 15px 20px;
+      border-radius: 10px;
+      flex: 1 1 200px;
+      min-width: 150px;
+      font-size: 14px;
+    }
+
+    /* Footer */
+    footer {
+      background: #007aff;
+      color: white;
+      padding: 25px 15px;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 24px;
+      }
+
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .feature {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .benefits ul {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Drive Your Dream</h1>
+    <p>Get instant vehicle loans and financing on your iOS device</p>
+  </header>
+
+  <section class="hero">
+    <h2>Get Approved in Minutes</h2>
+    <p>Apply for vehicle financing quickly and securely with our iOS app. No hidden fees, fast approvals, and flexible payment options.</p>
+    <button onclick="alert('App download coming soon!')">Download on App Store</button>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <i>⚡</i>
+      <h3>Instant Approval</h3>
+      <p>Get pre-approved in seconds with our AI-powered system.</p>
+    </div>
+    <div class="feature">
+      <i>💰</i>
+      <h3>Low Rates</h3>
+      <p>Competitive interest rates tailored to your credit profile.</p>
+    </div>
+    <div class="feature">
+      <i>📱</i>
+      <h3>Mobile-First</h3>
+      <p>Manage your loan application and payments directly from your iOS device.</p>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <h2>Why Choose Us?</h2>
+    <ul>
+      <li>24/7 Loan Access</li>
+      <li>Transparent Pricing</li>
+      <li>Fast Funding</li>
+      <li>Flexible Repayment</li>
+      <li>24/7 Customer Support</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>
+      &copy; 2023 Vehicle Finance Co. | 
+      <a href="#">Privacy Policy</a> | 
+      <a href="#">Terms of Service</a> | 
+      <a href="#">Contact Us</a>
+    </p>
+  </footer>
+</body>
+</html>

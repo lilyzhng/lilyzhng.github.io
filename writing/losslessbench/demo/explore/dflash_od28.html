@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* CSS here */
+    </style>
+</head>
+<body>
+    <h1>Trading Trends and Accident Statistics in New York</h1>
+    <div id="chart-container">
+        <div id="trading-chart"></div>
+        <div id="accident-chart"></div>
+    </div>
+    <div id="tooltip" style="position: absolute; background: #fff; border: 1px solid #000; padding: 5px; display: none;"></div>
+    <script>
+        // JavaScript here
+    </script>
+</body>
+</html>
+
+Then, in the CSS, style the charts and tooltip.
+
+In the JavaScript, generate the data, create the SVG elements, and add interactivity.
+
+But how to create the SVG elements dynamically. For example, for the trading chart:
+
+const tradingChart = document.getElementById('trading-chart');
+const svgTrading = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+svgTrading.setAttribute("width", "600");
+svgTrading.setAttribute("height", "400");
+tradingChart.appendChild(svgTrading);
+
+Similarly for the accident chart.
+
+Then, generate the data points and draw the line and bars.
+
+But this is going to be a lot of code. Let me think of sample data.
+
+For trading trends, maybe:
+
+const tradingData = [
+    { date: '2023-01', value: 120 },
+    { date: '2023-02', value: 130 },
+    // ... up to 12 months
+];
+
+For accident stats:
+
+const accidentData = [
+    { month: 'Jan', count: 15 },
+    { month: 'Feb', count: 20 },
+    // ... up to 12 months
+];
+
+Then, for each data point, calculate the x and y positions.
+
+For the line chart:
+
+The x positions can be calculated as (index / (data.length - 1)) * width.
+
+The y positions are (1 - (value / maxVal)) * height.
+
+Similarly for the bar chart.
+
+But need to find the max value for scaling.
+
+Once the SVG elements are created, add the path for the line and the bars.
+
+For interactivity, add event listeners to each data point. For example, when hovering over a circle (data point), show the tooltip.
+
+But how to create the circles and attach events.
+
+This is going to be a bit involved, but manageable.
+
+Now, putting all this into code.
+
+But since the user wants a complete single-file HTML, I need to make sure all the code is included.
+
+Let me proceed to write the code step by step, making sure to include all parts.
+
+Also, need to handle the tooltip positioning and content.
+
+This is going to be a lengthy code, but I'll try to make it as efficient as possible.
+
+Another thing: the user might not have specific data, so I'll generate sample data.
+
+Now, writing the code.
+
+First, the CSS:
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f4f4f4;
+    }
+    h1 {
+        text-align: center;
+    }
+    #chart-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+    }
+    #trading-chart, #accident-chart {
+        width: 48%;
+        background: #fff;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #tooltip {
+        position: absolute;
+        background: #fff;
+        border: 1px solid #000;
+        padding: 5px;
+        display: none;
+        z-index: 10;
+    }
+</style>
+
+Then, the JavaScript:
+
+<script>
+    // Sample data for trading trends
+    const tradingData = [
+        { date: 'Jan', value: 120 },
+        { date: 'Feb', value: 130 },
+        { date: 'Mar', value: 110 },
+        { date: 'Apr', value: 140 },
+        { date: 'May', value: 150 },
+        { date: 'Jun', value: 135 },
+        { date: 'Jul', value: 160 },
+        { date: 'Aug', value: 145 },
+        { date: 'Sep', value: 170 },
+        { date: 'Oct', value: 155 },
+        { date: 'Nov', value: 165 },
+        { date: 'Dec', value: 180 }
+    ];
+
+    // Sample data for accident statistics
+    const accidentData = [
+        { month: 'Jan', count: 15 },
+        { month: 'Feb', count: 20 },
+        { month: 'Mar', count: 18 },
+        { month: 'Apr', count: 22 },
+        { month: 'May', count: 25 },
+        { month: 'Jun', count: 23 },
+        { month: 'Jul', count: 27 },
+        { month: 'Aug', count: 24 },
+        { month: 'Sep', count: 30 },
+        { month: 'Oct', count: 28 },
+        { month: 'Nov', count: 32 },
+        { month: 'Dec', count: 35 }
+    ];
+
+    // Function to create SVG line chart
+    function createLineChart(containerId, data, title) {
+        const container = document.getElementById(containerId);
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", "600");
+        svg.setAttribute("height", "400");
+        container.appendChild(svg);
+
+        const width = 600;
+        const height = 400;
+        const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+
+        const xScale = d3.scaleLinear().domain([0, data.length - 1]).range([0, chartWidth]);
+        const yScale = d3.scaleLinear().domain([0, d3.max(data, d => d.value)]).range([chartHeight, 0]);
+
+        const line = d3.line()
+            .x(d => xScale(d.index))
+            .y(d => yScale(d.value))
+            .curve(d3.curveLinear);
+
+        const path = svg.append("path")
+            .datum(data.map((d, i) => ({ ...d, index: i })))
+            .attr("d", line)
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 2)
+            .attr("fill", "none");
+
+        // Add axes
+        const xAxis = d3.axisBottom(xScale).ticks(data.length);
+        const yAxis = d3.axisLeft(yScale).ticks(5);
+
+        svg.append("g")
+            .attr("transform", `translate(${margin.left}, ${height - margin.bottom})`)
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`)
+            .call(yAxis);
+
+        // Add data points
+        data.forEach((d, i) => {
+            const circle = svg.append("circle")
+                .attr("cx", xScale(i))
+                .attr("cy", yScale(d.value))
+                .attr("r", 4)
+                .attr("fill", "steelblue")
+                .on("mouseover", (event) => {
+                    document.getElementById("tooltip").style.display = "block";
+                    document.getElementById("tooltip").style.left = (event.pageX + 10) + "px";
+                    document.getElementById("tooltip").style.top = (event.pageY - 20) + "px";
+                    document.getElementById("tooltip").textContent = `${d.date}: $${d.value}`;
+                })
+                .on("mouseout", () => {
+                    document.getElementById("tooltip").style.display = "none";
+                });
+        });
+
+        // Add title
+        const titleText = svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", 20)
+            .attr("text-anchor", "middle")
+            .text(title);
+    }
+
+    // Function to create SVG bar chart
+    function createBarChart(containerId, data, title) {
+        const container = document.getElementById(containerId);
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", "600");
+        svg.setAttribute("height", "400");
+        container.appendChild(svg);
+
+        const width = 600;
+        const height = 400;
+        const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+
+        const xScale = d3.scaleBand().domain(data.map(d => d.month)).range([0, chartWidth]).padding(0.2);
+        const yScale = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([chartHeight, 0]);
+
+        const bars = svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", d => xScale(d.month))
+            .attr("y", d => yScale(d.count))
+            .attr("width", xScale.bandwidth())
+            .attr("height", d => chartHeight - yScale(d.count))
+            .attr("fill", "steelblue")
+            .on("mouseover", (event, d) => {
+                document.getElementById("tooltip").style.display = "block";
+                document.getElementById("tooltip").style.left = (event.pageX + 10) + "px";
+                document.getElementById("tooltip").style.top = (event.pageY - 20) + "px";
+                document.getElementById("tooltip").textContent = `${d.month}: ${d.count} accidents`;
+            })
+            .on("mouseout", () => {
+                document.getElementById("tooltip").style.display = "none";
+            });
+
+        // Add axes
+        const xAxis = d3.axisBottom(xScale).tickFormat(d => d);
+        const yAxis = d3.axisLeft(yScale).ticks(5);
+
+        svg.append("g")
+            .attr("transform", `translate(${margin.left}, ${height - margin.bottom})`)
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`)
+            .call(yAxis);
+
+        // Add title
+        const titleText = svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", 20)
+            .attr("text-anchor", "middle")
+            .text(title);
+    }
+
+    // Initialize charts
+    createLineChart("trading-chart", tradingData, "Trading Trends (USD)");
+    createBarChart("accident-chart", accidentData, "Accident Statistics (Monthly)");
+</script>
+
+Wait, but this code uses D3.js, which is an external library. However, the user's brief says no external assets. Oh no, this is a problem. The code above includes D3.js, which is an external library. But the user wants no external assets. So this approach won't work.
+
+Hmm, this is a critical mistake. The user specified no external assets, so I can't use D3.js. Therefore, I need to remove all D3.js dependencies and create the charts manually.
+
+So, I need to rewrite the code without using D3.js. That means I have to manually calculate the positions, draw the lines and bars, and handle the interactivity.
+
+This is going to be more complex, but let's proceed.
+
+Let me start by removing the D3.js references and rewriting the functions.
+
+First, for the line chart:
+
+Instead of using D3's scale and line functions, I'll calculate the positions manually.
+
+For the tradingData array, I'll need to determine the maximum value to scale the y-axis.
+
+Similarly for the bar chart.
+
+Let me rewrite the createLineChart function without D3.
+
+Function createLineChart(containerId, data, title) {
+    const container = document.getElementById(containerId);
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "600");
+    svg.setAttribute("height", "400");
+    container.appendChild(svg);
+
+    const width = 600;
+    const height = 400;
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+
+    // Calculate max value for y-axis
+    const maxValue = Math.max(...data.map(d => d.value));
+    const yScale = (value) => chartHeight - (value / maxValue) * chartHeight;
+
+    // Draw line
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "steelblue");
+    path.setAttribute("stroke-width", "2");
+
+    const points = data.map((d, i) => {
+        const x = margin.left + i * (chartWidth / (data.length - 1));
+        const y = yScale(d.value);
+        return `${x},${y}`;
+    });
+
+    path.setAttribute("d", `M ${points[0]} ${points.slice(1).join(" L ")}`);
+    svg.appendChild(path);
+
+    // Draw data points
+    data.forEach((d, i) => {
+        const x = margin.left + i * (chartWidth / (data.length - 1));
+        const y = yScale(d.value);
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", x);
+        circle.setAttribute("cy", y);
+        circle.setAttribute("r", 4);
+        circle.setAttribute("fill", "steelblue");
+        circle.addEventListener("mouseover", (event) => {
+            document.getElementById("tooltip").style.display = "block";
+            document.getElementById("tooltip").style.left = (event.pageX + 10) + "px";
+            document.getElementById("tooltip").style.top = (event.pageY - 20) + "px";
+            document.getElementById("tooltip").textContent = `${d.date}: $${d.value}`;
+        });
+        circle.addEventListener("mouseout", () => {
+            document.getElementById("tooltip").style.display = "none";
+        });
+        svg.appendChild(circle);
+    });
+
+    // Draw axes
+    const xAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    xAxis.setAttribute("x1", margin.left);
+    xAxis.setAttribute("y1", chartHeight);
+    xAxis.setAttribute("x2", width - margin.right);
+    xAxis.setAttribute("y2", chartHeight);
+    xAxis.setAttribute("stroke", "black");
+    svg.appendChild(xAxis);
+
+    const yAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    yAxis.setAttribute("x1", margin.left);
+    yAxis.setAttribute("y1", margin.top);
+    yAxis.setAttribute("x2", margin.left);
+    yAxis.setAttribute("y2", chartHeight);
+    yAxis.setAttribute("stroke", "black");
+    svg.appendChild(yAxis);
+
+    // Draw x-axis labels
+    data.forEach((d, i) => {
+        const x = margin.left + i * (chartWidth / (data.length - 1));
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", x);
+        label.setAttribute("y", chartHeight + 20);
+        label.setAttribute("text-anchor", "middle");
+        label.textContent = d.date;
+        svg.appendChild(label);
+    });
+
+    // Draw y-axis labels
+    const yTicks = [0, maxValue / 4, maxValue / 2, 3 * maxValue / 4, maxValue];
+    yTicks.forEach((tick, i) => {
+        const y = yScale(tick);
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", margin.left - 10);
+        label.setAttribute("y", y);
+        label.setAttribute("text-anchor", "end");
+        label.textContent = tick;
+        svg.appendChild(label);
+    });
+
+    // Add title
+    const titleText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    titleText.setAttribute("x", width / 2);
+    titleText.setAttribute("y", 20);
+    titleText.setAttribute("text-anchor", "middle");
+    titleText.textContent = title;
+    svg.appendChild(titleText);
+}
+
+Similarly for the bar chart, but without D3.
+
+Function createBarChart(containerId, data, title) {
+    const container = document.getElementById(containerId);
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "600");
+    svg.setAttribute("height", "400");
+    container.appendChild(svg);
+
+    const width = 600;
+    const height = 400;
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+
+    // Calculate max value for y-axis
+    const maxValue = Math.max(...data.map(d => d.count));
+    const yScale = (value) => chartHeight - (value / maxValue) * chartHeight;
+
+    // Draw bars
+    data.forEach((d, i) => {
+        const barWidth = chartWidth / data.length;
+        const x = margin.left + i * barWidth;
+        const y = yScale(d.count);
+        const bar = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        bar.setAttribute("x", x);
+        bar.setAttribute("y", y);
+        bar.setAttribute("width", barWidth - 2);
+        bar.setAttribute("height", chartHeight - y);
+        bar.setAttribute("fill", "steelblue");
+        bar.addEventListener("mouseover", (event) => {
+            document.getElementById("tooltip").style.display = "block";
+            document.getElementById("tooltip").style.left = (event.pageX + 10) + "px";
+            document.getElementById("tooltip").style.top = (event.pageY - 20) + "px";
+            document.getElementById("tooltip").textContent = `${d.month}: ${d.count} accidents`;
+        });
+        bar.addEventListener("mouseout", () => {
+            document.getElementById("tooltip").style.display = "none";
+        });
+        svg.appendChild(bar);
+    });
+
+    // Draw axes
+    const xAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    xAxis.setAttribute("x1", margin.left);
+    xAxis.setAttribute("y1", chartHeight);
+    xAxis.setAttribute("x2", width - margin.right);
+    xAxis.setAttribute("y2", chartHeight);
+    xAxis.setAttribute("stroke", "black");
+    svg.appendChild(xAxis);
+
+    const yAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    yAxis.setAttribute("x1", margin.left);
+    yAxis.setAttribute("y1", margin.top);
+    yAxis.setAttribute("x2", margin.left);
+    yAxis.setAttribute("y2", chartHeight);
+    yAxis.setAttribute("stroke", "black");
+    svg.appendChild(yAxis);
+
+    // Draw x-axis labels
+    data.forEach((d, i) => {
+        const barWidth = chartWidth / data.length;
+        const x = margin.left + i * barWidth + barWidth / 2;
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", x);
+        label.setAttribute("y", chartHeight + 20);
+        label.setAttribute("text-anchor", "middle");
+        label.textContent = d.month;
+        svg.appendChild(label);
+    });
+
+    // Draw y-axis labels
+    const yTicks = [0, maxValue / 4, maxValue / 2, 3 * maxValue / 4, maxValue];
+    yTicks.forEach((tick, i) => {
+        const y = yScale(tick);
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", margin.left - 10);
+        label.setAttribute("y", y);
+        label.setAttribute("text-anchor", "end");
+        label.textContent = tick;
+        svg.appendChild(label);
+    });
+
+    // Add title
+    const titleText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    titleText.setAttribute("x", width / 2);
+    titleText.setAttribute("y", 20);
+    titleText.setAttribute("text-anchor", "middle");
+    title

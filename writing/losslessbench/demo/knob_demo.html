@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjust acceptance rate yourself</title>
+<style>
+  :root { --bg:#1e2a1c; --ink:#fff; --muted:rgba(255,255,255,0.6);
+          --accent:#8cc07a; --warn:#e0b064; --line:rgba(255,255,255,0.15); }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font: 500 14px "Fragment Mono", ui-monospace, Menlo, monospace; padding: 24px; }
+  h2 { font-size: 15px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 20px; }
+  .knob-row { display:flex; align-items:center; gap:16px; margin-bottom:26px; }
+  .track { flex:1; position:relative; height:36px; cursor:pointer; margin:0 14px; }
+  .rail { position:absolute; left:0; right:0; top:16px; height:4px; border-radius:2px;
+          background:rgba(255,255,255,0.18); }
+  .dot { position:absolute; top:11px; width:14px; height:14px; border-radius:50%;
+         transform:translateX(-50%); background:rgba(255,255,255,0.35);
+         border:2px solid var(--bg); transition: background .15s, transform .15s; }
+  .dot:hover { background:rgba(255,255,255,0.6); }
+  .dot.on { background:var(--accent); transform:translateX(-50%) scale(1.35); }
+  .dotlabel { position:absolute; top:34px; transform:translateX(-50%); font-size:12px;
+              color:var(--muted); cursor:pointer; }
+  .dotlabel.end { cursor:default; }
+  .dotlabel.on { color:var(--accent); font-weight:700; }
+  .cards { display:flex; gap:14px; margin-bottom:14px; }
+  .card { flex:1; border:1px solid var(--line); border-radius:10px; padding:12px 16px; }
+  .card .k { color:var(--muted); font-size:11px; margin-bottom:6px; }
+  .card .v { font-size:22px; font-weight:700; }
+  .bar { height:8px; border-radius:4px; background:rgba(255,255,255,0.1);
+         margin-top:8px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); transition: width .3s; }
+  .panels { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
+  .panel { border:2px solid var(--line); border-radius:10px; padding:8px; cursor:pointer;
+           transition: border-color .2s; min-width:0; }
+  .panel.on { border-color:var(--accent); }
+  .panel .hd { display:flex; justify-content:space-between; font-size:11px;
+               color:var(--ink); margin-bottom:6px; }
+  .panel .shot { position:relative; overflow:hidden; height:190px; border:1px solid var(--line);
+                 border-radius:6px; background:#fff; }
+  .panel .shot iframe { position:absolute; top:0; left:0; width:410px; border:none;
+                        transform-origin:0 0; pointer-events:none; }
+  .panel.on .shot iframe { pointer-events:auto; }
+  .panel .ft { text-align:right; font-size:11px; color:var(--muted); margin-top:6px; }
+  .panel.on .ft { color:var(--accent); }
+</style>
+</head>
+<body>
+<h2>Adjust acceptance rate yourself</h2>
+<div class="knob-row">
+  <div class="track" id="track"><div class="rail"></div>
+    <div class="dotlabel end" style="left:100%">0</div>
+  </div>
+</div>
+
+<div class="cards">
+  <div class="card"><div class="k">threshold</div><div class="v" id="thval">1.0</div>
+    <div id="verdict" style="font-size:11px;margin-top:8px;color:var(--accent)"></div></div>
+  <div class="card"><div class="k">acceptance length τ (tokens/cycle)</div>
+    <div class="v" id="tau">–</div><div class="bar"><i id="taubar"></i></div></div>
+  <div class="card"><div class="k">decode speed (tok/s)</div>
+    <div class="v" id="tps">–</div><div class="bar"><i id="tpsbar"></i></div></div>
+</div>
+
+<div class="panels" id="panels"></div>
+
+<script>
+const DATA = {
+  "1.0": {tau: 4.875, tps: 470},
+  "0.8": {tau: 5.85,  tps: 552},
+  "0.6": {tau: 6.675, tps: 546},
+  "0.4": {tau: 7.225, tps: 560}
+};
+const ORDER = ["1.0", "0.8", "0.6", "0.4"];
+const maxTau = Math.max(...ORDER.map(t=>DATA[t].tau));
+const maxTps = Math.max(...ORDER.map(t=>DATA[t].tps));
+const track = document.getElementById('track');
+const panels = document.getElementById('panels');
+const pos = t => (1 - parseFloat(t)) * 100;  // 1.0 -> 0%, 0 -> 100%
+const dots = [], labels = [];
+ORDER.forEach((t,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.style.left = pos(t) + '%';
+  d.addEventListener('click', e=>{ e.stopPropagation(); render(i); });
+  track.appendChild(d); dots.push(d);
+  const l = document.createElement('div');
+  l.className = 'dotlabel';
+  l.style.left = pos(t) + '%';
+  l.textContent = t;
+  l.addEventListener('click', e=>{ e.stopPropagation(); render(i); });
+  track.appendChild(l); labels.push(l);
+  const p = document.createElement('div');
+  p.className = 'panel';
+  p.innerHTML = `<div class="hd"><span>threshold ${t}</span></div>
+    <div class="shot"><iframe src="knob_pages/th_${t}.html" loading="lazy" title="page generated at threshold ${t}"></iframe></div>
+    <div class="ft">τ ${DATA[t].tau.toFixed(2)} · ${DATA[t].tps} tok/s</div>`;
+  p.addEventListener('click', ()=>render(i));
+  panels.appendChild(p);
+});
+track.addEventListener('click', e=>{  // click anywhere on the bar: snap to nearest node
+  const r = track.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width * 100;
+  let best = 0, bd = 1e9;
+  ORDER.forEach((t,i)=>{ const d = Math.abs(pos(t) - x); if (d < bd) { bd = d; best = i; } });
+  render(best);
+});
+function render(i){
+  const t = ORDER[i], d = DATA[t];
+  dots.forEach((el,j)=>el.classList.toggle('on', j===i));
+  labels.forEach((el,j)=>el.classList.toggle('on', j===i));
+  [...panels.children].forEach((p,j)=>p.classList.toggle('on', j===i));
+  document.getElementById('thval').textContent = t;
+  document.getElementById('tau').textContent = d.tau.toFixed(2);
+  document.getElementById('tps').textContent = d.tps.toFixed(0);
+  document.getElementById('taubar').style.width = (d.tau/maxTau*100)+'%';
+  document.getElementById('tpsbar').style.width = (d.tps/maxTps*100)+'%';
+  const verdict = document.getElementById('verdict');
+  if (t === '1.0') { verdict.textContent='strict: lossless guarantee holds'; verdict.style.color='var(--accent)'; }
+  else { verdict.textContent='guarantee gone: output distribution shifts toward the draft'; verdict.style.color='var(--warn)'; }
+}
+render(0);
+function fitShots(){  // render each page at desktop width, scale to fit its panel
+  document.querySelectorAll('.shot').forEach(s=>{
+    const f = s.querySelector('iframe');
+    const scale = s.clientWidth / 410;
+    f.style.transform = 'scale(' + scale + ')';
+    f.style.height = (s.clientHeight / scale) + 'px';
+  });
+}
+window.addEventListener('resize', fitShots);
+fitShots();
+</script>
+</body>
+</html>

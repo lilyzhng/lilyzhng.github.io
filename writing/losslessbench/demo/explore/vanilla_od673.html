@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Translucent Calendar Popup</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .calendar-button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .calendar-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .calendar-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 24px;
+      width: 300px;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .calendar-header {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .calendar-day {
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .calendar-day:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .calendar-day.today {
+      background: rgba(255, 255, 255, 0.8);
+      font-weight: bold;
+    }
+
+    .calendar-day.selected {
+      background: #007bff;
+      color: white;
+      border-radius: 50%;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #888;
+      transition: color 0.2s ease;
+    }
+
+    .close-btn:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <button class="calendar-button" onclick="toggleCalendar()">Open Calendar</button>
+
+  <div class="modal-overlay" id="calendarModal">
+    <div class="calendar-container">
+      <div class="calendar-header" id="calendarHeader">April 2024</div>
+      <button class="close-btn" onclick="toggleCalendar()">×</button>
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- Days of the week -->
+        <div>Su</div>
+        <div>Mo</div>
+        <div>Tu</div>
+        <div>We</div>
+        <div>Th</div>
+        <div>Fr</div>
+        <div>Sa</div>
+        <!-- Dates will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleCalendar() {
+      const modal = document.getElementById('calendarModal');
+      modal.classList.toggle('show');
+    }
+
+    // Sample calendar data for April 2024
+    const daysInMonth = 30;
+    const firstDay = 3; // April 1, 2024 is a Monday (0 = Sunday)
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarHeader = document.getElementById('calendarHeader');
+
+    // Update calendar header
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    calendarHeader.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+    // Clear existing dates
+    calendarGrid.innerHTML = `
+      <div>Su</div>
+      <div>Mo</div>
+      <div>Tu</div>
+      <div>We</div>
+      <div>Th</div>
+      <div>Fr</div>
+      <div>Sa</div>
+    `;
+
+    let date = 1;
+    for (let i = 0; i < firstDay; i++) {
+      calendarGrid.appendChild(document.createElement('div'));
+    }
+
+    while (date <= daysInMonth) {
+      const dayDiv = document.createElement('div');
+      dayDiv.textContent = date;
+      dayDiv.classList.add('calendar-day');
+      
+      // Highlight today's date
+      if (date === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+        dayDiv.classList.add('today');
+      }
+      
+      // Add click handler for selection
+      dayDiv.addEventListener('click', () => {
+        // Remove selected class from all days
+        document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+        dayDiv.classList.add('selected');
+      });
+      
+      calendarGrid.appendChild(dayDiv);
+      date++;
+    }
+  </script>
+</body>
+</html>

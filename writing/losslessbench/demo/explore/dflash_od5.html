@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Insurance</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header */
+    header {
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #e67e22;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: #fff;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero .btn {
+      background-color: #fff;
+      color: #2c3e50;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .hero .btn:hover {
+      background-color: #e67e22;
+      color: #fff;
+    }
+
+    /* Benefits Section */
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .benefit {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .benefit i {
+      font-size: 2rem;
+      color: #3498db;
+      margin-bottom: 1rem;
+    }
+
+    .benefit h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      background-color: #ecf0f1;
+      padding: 3rem 2rem;
+    }
+
+    .how-it-works .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .step h3 {
+      margin-bottom: 1rem;
+    }
+
+    .step p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Our Plans */
+    .plans {
+      background-color: #fff;
+      padding: 4rem 2rem;
+    }
+
+    .plans h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .plan {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .plan h3 {
+      margin-bottom: 1rem;
+    }
+
+    .plan .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .plan .features {
+      margin-top: 1rem;
+    }
+
+    .plan .features li {
+      margin: 0.5rem 0;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background-color: #ecf0f1;
+      padding: 4rem 2rem;
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .testimonial .quote {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial .author {
+      font-weight: bold;
+    }
+
+    /* Contact Form */
+    .contact {
+      padding: 4rem 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .contact h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .contact .btn {
+      display: block;
+      margin: 0 auto;
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact .btn:hover {
+      background-color: #1abc9c;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2c3e50;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section h2 {
+        font-size: 1.5rem;
+      }
+
+      .plans h2 {
+        font-size: 1.5rem;
+      }
+
+      .testimonials h2 {
+        font-size: 1.5rem;
+      }
+
+      .contact h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">LifeGuard</div>
+    <nav>
+      <ul>
+        <li><a href="#benefits">Why Choose Us</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#plans">Our Plans</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Secure Your Family's Future</h1>
+    <p>Life insurance that adapts to your changing needs. Get the protection you deserve.</p>
+    <button class="btn" onclick="window.location.href='#contact'">Get a Quote</button>
+  </section>
+
+  <section class="section" id="benefits">
+    <h2>Why Choose LifeGuard?</h2>
+    <div class="benefits-grid">
+      <div class="benefit">
+        <i>✅</i>
+        <h3>Flexible Coverage</h3>
+        <p>Customize your plan to match your lifestyle and family needs.</p>
+      </div>
+      <div class="benefit">
+        <i>🛡️</i>
+        <h3>Competitive Rates</h3>
+        <p>Get affordable premiums without compromising on coverage.</p>
+      </div>
+      <div class="benefit">
+        <i>💼</i>
+        <h3>Expert Guidance</h3>
+        <p>Our advisors help you make informed decisions every step of the way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works" id="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>1. Get a Quote</h3>
+        <p>Answer a few questions to get a personalized quote in minutes.</p>
+      </div>
+      <div class="step">
+        <h3>2. Choose Your Plan</h3>
+        <p>Select the coverage and benefits that best fit your needs.</p>
+      </div>
+      <div class="step">
+        <h3>3. Get Covered</h3>
+        <p>Complete the application and start protecting your loved ones today.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans" id="plans">
+    <h2>Our Plans</h2>
+    <div class="plans-grid">
+      <div class="plan">
+        <h3>Basic Plan</h3>
+        <div class="price">$150/month</div>
+        <div class="features">
+          <ul>
+            <li>Basic coverage</li>
+            <li>Up to $500,000 benefit</li>
+            <li>Simple application</li>
+          </ul>
+        </div>
+      </div>
+      <div class="plan">
+        <h3>Standard Plan</h3>
+        <div class="price">$250/month</div>
+        <div class="features">
+          <ul>
+            <li>Comprehensive coverage</li>
+            <li>Up to $1,000,000 benefit</li>
+            <li>Additional benefits</li>
+          </ul>
+        </div>
+      </div>
+      <div class="plan">
+        <h3>Premium Plan</h3>
+        <div class="price">$400/month</div>
+        <div class="features">
+          <ul>
+            <li>Customizable coverage</li>
+            <li>Up to $2,000,000 benefit</li>
+            <li>24/7 support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <div class="quote">"LifeGuard made the process so easy. I felt confident in my decision."</div>
+        <div class="author">- Sarah M.</div>
+      </div>
+      <div class="testimonial">
+        <div class="quote">"The best insurance I've ever worked with. Highly recommend!"</div>
+        <div class="author">- James T.</div>
+      </div>
+      <div class="testimonial">
+        <div class="quote">"Professional and trustworthy. My family is now protected."</div>
+        <div class="author">- Emily R.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="event.preventDefault(); alert('Thank you for contacting us!');">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 LifeGuard Insurance. All rights reserved.</p>
+  </footer>
+</body>
+</html>

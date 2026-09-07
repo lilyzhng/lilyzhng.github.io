@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        canvas {
+            width: 100%;
+            height: 300px;
+            display: block;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Data Dashboard</h1>
+    <div class="chart-container">
+        <h2>Hourly Traffic</h2>
+        <canvas id="lineChart" width="800" height="300"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>Regional Traffic</h2>
+        <canvas id="barChart" width="800" height="300"></canvas>
+    </div>
+    <script>
+        // Line Chart
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        const lineData = Array.from({length: 24}, () => Math.floor(Math.random() * 100) + 50);
+        const width = lineCtx.canvas.width;
+        const height = lineCtx.canvas.height;
+
+        const maxLine = Math.max(...lineData);
+        const minLine = Math.min(...lineData);
+        const scaleLine = height / (maxLine - minLine);
+
+        // Draw axes
+        lineCtx.beginPath();
+        lineCtx.moveTo(0, height);
+        lineCtx.lineTo(width, height);
+        lineCtx.strokeStyle = '#ccc';
+        lineCtx.stroke();
+
+        // Draw line
+        lineCtx.beginPath();
+        lineCtx.moveTo(0, height);
+        for (let i = 0; i < lineData.length; i++) {
+            const x = (i / (lineData.length - 1)) * width;
+            const y = height - (lineData[i] - minLine) * scaleLine;
+            lineCtx.lineTo(x, y);
+        }
+        lineCtx.strokeStyle = 'blue';
+        lineCtx.stroke();
+
+        // Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const barData = Array.from({length: 5}, () => Math.floor(Math.random() * 100) + 50);
+        const barWidth = 40;
+        const barSpacing = 20;
+        const barCount = barData.length;
+        const barWidthTotal = barWidth + barSpacing;
+        const barStartX = (width - (barCount * barWidthTotal - barSpacing)) / 2;
+
+        const maxBar = Math.max(...barData);
+        const minBar = Math.min(...barData);
+        const scaleBar = height / (maxBar - minBar);
+
+        // Draw axes
+        barCtx.beginPath();
+        barCtx.moveTo(0, height);
+        barCtx.lineTo(width, height);
+        barCtx.strokeStyle = '#ccc';
+        barCtx.stroke();
+
+        // Draw bars
+        barCtx.fillStyle = 'green';
+        for (let i = 0; i < barData.length; i++) {
+            const x = barStartX + i * barWidthTotal;
+            const y = height - (barData[i] - minBar) * scaleBar;
+            const barHeight = height - y;
+            barCtx.fillRect(x, y, barWidth, barHeight);
+        }
+    </script>
+</body>
+</html>
+```

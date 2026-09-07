@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Studio Ghibli Inspired Animation Studio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(to bottom, #a8d8b9, #f0f8ff);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, #a8d8b9, #f0f8ff);
+            color: white;
+        }
+
+        .hero .cloud {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50%) translateY(0); }
+            100% { transform: translateX(-50%) translateY(-100px); }
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin: 20px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 1em;
+            background: linear-gradient(to right, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        }
+
+        .about {
+            padding: 60px 20px;
+            text-align: center;
+            background: #f0f8ff;
+        }
+
+        .about h2 {
+            margin-bottom: 20px;
+        }
+
+        .work {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 20px;
+        }
+
+        .work .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .work .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact {
+            padding: 60px 20px;
+            text-align: center;
+            background: #a8d8b9;
+        }
+
+        .contact form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact input, .contact textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .contact button {
+            padding: 15px 30px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .work {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="cloud"></div>
+        <div class="cloud" style="left: 30%; animation-delay: 5s;"></div>
+        <h1>Welcome to Ghibli Dreams</h1>
+        <p>Creating magical stories that come to life through animation.</p>
+        <button class="button">Explore Our Work</button>
+    </section>
+
+    <section class="about">
+        <h2>About Us</h2>
+        <p>At Ghibli Dreams, we blend imagination with artistry to bring your stories to life. Our team of passionate animators and storytellers craft worlds that inspire wonder and joy.</p>
+    </section>
+
+    <section class="work">
+        <div class="card">
+            <h3>Project One</h3>
+            <p>A whimsical tale of a young girl and her magical forest friends.</p>
+        </div>
+        <div class="card">
+            <h3>Project Two</h3>
+            <p>An adventure through the skies with a brave young pilot and his dragon companion.</p>
+        </div>
+        <div class="card">
+            <h3>Project Three</h3>
+            <p>A heartwarming story about a lonely cat and the magical creatures that live in the mountains.</p>
+        </div>
+    </section>
+
+    <section class="contact">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2023 Ghibli Dreams. All rights reserved.</p>
+    </footer>
+</body>
+</html>

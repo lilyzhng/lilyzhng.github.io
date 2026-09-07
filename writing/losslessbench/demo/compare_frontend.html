@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>vanilla Qwen3-8B vs + DFlash draft</title>
+<style>
+  body { margin:0; padding:24px; font-family:-apple-system,'Inter',sans-serif; background:#faf9f7; color:#222; }
+  h1 { font-size:20px; } .sub { color:#666; font-size:13px; margin-bottom:8px; }
+  .brief { margin:28px 0 8px; font-size:14px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .cell { border:1px solid #ddd; border-radius:10px; overflow:hidden; background:#fff; }
+  .cell .head { display:flex; gap:10px; align-items:center; padding:6px 10px; font-size:13px;
+                 background:#1e2a1c; color:#fff; white-space:nowrap; overflow:hidden; }
+  .cell .sc { font-size:12px; color:#b9c7b2; }
+  .tgl { margin-left:auto; font-size:11px; padding:2px 10px; border-radius:8px; border:1px solid #667;
+          background:#2b3a28; color:#fff; cursor:pointer; }
+  .cell iframe { width:100%; height:480px; border:0; display:block; background:#fff; }
+  .detail { padding:8px 12px; font-size:12px; border-top:1px solid #eee;
+              height:128px; overflow-y:auto; }
+  .detail .fb { color:#2c5f2d; margin-bottom:4px; }
+  .detail ul { margin:0; padding-left:2px; list-style:none; }
+  .detail li.bad { color:#a33; margin:2px 0; cursor:help; }
+  .wbadge { background:#c9a227; color:#1e2a1c; padding:1px 8px; border-radius:8px; font-size:11px; font-weight:700; }
+  .cell pre { height:480px; overflow:auto; margin:0; padding:10px 12px; background:#1e2a1c;
+               color:#e8e8e3; font-size:10.5px; line-height:1.45; white-space:pre-wrap;
+               word-break:break-word; }
+</style></head><body>
+<h1>vanilla Qwen3-8B (left) vs + DFlash draft (right)</h1>
+<div class="sub"><b>Win count (interactive judge): vanilla 6/11, DFlash 5/11</b>. A tie scores one point for each side.</div>
+<div class="brief"><b>od673</b> &middot; Stunning translucent calendar popup that smoothly blends into the interface.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 87 &middot; interactive 95</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(0)" id="t0">Code</button></div>
+  <iframe id="f0" src="vanilla_raw.html" loading="lazy"></iframe>
+  <pre id="p0" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 35/40 &middot; functionality 60/60 &mdash; Complete single-file page, no external assets, no console errors. Modal opens/closes smoothly, translucent blur styling, day selection works with clear selected state, hover feedback present. Only flaw: hardcoded April 2024 day layout mismatched with the dynamic month header.</div><ul><li class="bad">&#10007; Hardcoded April 2024 grid (daysInMonth=30, firstDay=3) while header is dynamically set to current month ('September 2026'): dates are misaligned (Sep 1 2026 is a Tuesday, grid shows it under Wednesday) (-4)</li><li class="bad">&#10007; Minor dead CSS: .modal-overlay transitions transform with no base transform set; .close-btn:hover color #fff is invisible on the light modal (-1)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 87 &middot; interactive 68</span>
+    <button class="tgl" onclick="toggle(1)" id="t1">Code</button></div>
+  <iframe id="f1" src="dflash_raw.html" loading="lazy"></iframe>
+  <pre id="p1" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 32/40 &middot; functionality 36/60 &mdash; Opens/closes via button and backdrop with translucent styling and correct current-month dates, but the calendar grid is structurally broken (tds without trs render as one overflowing row) and the brief-required date selection is entirely missing — no handler, no selected style.</div><ul><li class="bad" title="clicked day cell '1': class stayed '' before and after, no .selected element in DOM (anySelectedCount=0), no selection style defined in CSS; only background change was the :hover style from the mouse resting on the cell">&#10007; date selection (brief, x2)</li><li class="bad">&#10007; Invalid table structure: <td> cells appended directly to <tbody> with no <tr> rows, so the browser collapses all 32 cells into one anonymous row — calendar renders as a single horizontal strip overflowing the 368x128px modal (evidence: gridRows=0, screenshot od673_dflash_1_open.png) (-8)</li></ul></div>
+</div></div><div class="brief"><b>od5</b> &middot; Create a user interface for a life insurance website.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 87 &middot; interactive 40</span>
+    <button class="tgl" onclick="toggle(2)" id="t2">Code</button></div>
+  <iframe id="f2" src="radar/vanilla_frontend_od5.html" loading="lazy"></iframe>
+  <pre id="p2" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 40/40 &middot; functionality 0/60 &mdash; Clean, well-formed single-file page with no external assets and zero console errors, but entirely static: nav/social links are href="#" placeholders, the CTA button has no handler, and the form submit gives no feedback. Visual shell only, nothing interactive.</div><ul><li class="bad" title="clicked nav 'About' (href=&quot;#&quot;): URL only changed ...od5.html -> ...od5.html#, scrollY stayed 0, no DOM/content change">&#10007; nav links</li><li class="bad" title="button has no event handler in source; clicked it, URL and scrollY unchanged, zero page feedback">&#10007; hero 'Get a Quote' CTA button</li><li class="bad" title="filled name='Jane Doe', email, clicked 'Get Started': browser-default GET reload appended '?' to URL and cleared fields; no confirmation message or designed feedback">&#10007; CTA form submit</li><li class="bad" title="clicked 'Facebook' (href=&quot;#&quot;): URL ...od5.html -> ...od5.html#, no navigation or feedback">&#10007; footer social links</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 87 &middot; interactive 100</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(3)" id="t3">Code</button></div>
+  <iframe id="f3" src="radar/dflash_frontend_od5.html" loading="lazy"></iframe>
+  <pre id="p3" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 40/40 &middot; functionality 60/60 &mdash; Complete single-file page, no external assets, no console errors. Every interactive component works: nav anchors scroll to the correct sections, Get a Quote jumps to #contact, and the contact form prevents default and shows a 'Thank you for contacting us!' confirmation alert.</div><ul></ul></div>
+</div></div><div class="brief"><b>od6</b> &middot; Landing page selling dog-related products.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 87 &middot; interactive 68</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(4)" id="t4">Code</button></div>
+  <iframe id="f4" src="radar/vanilla_frontend_od6.html" loading="lazy"></iframe>
+  <pre id="p4" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 35/40 &middot; functionality 33/60 &mdash; Clean, valid single-file page with data-URI images and zero console errors, but a layering bug kills the hero CTA and commerce/subscribe buttons are fake anchor jumps. Nav anchors and hover lift work.</div><ul><li class="bad" title="Playwright real click timed out: '.hero::after' overlay (position:absolute, full-size, z-index:0 over non-positioned button) intercepts pointer events; button is physically unclickable">&#10007; hero Shop Now button</li><li class="bad" title="onclick is window.location.href='#products'; from top of page click only scrolled to #products (scrollY 0->415), no cart element/counter/confirmation exists (cartEls=0) - wrong feedback for add-to-cart">&#10007; Add to Cart buttons</li><li class="bad" title="no input/form in DOM (inputs=0, forms=0); click just sets hash to #products and scrolls (scrollY 0->415) - wrong feedback for subscribe">&#10007; Subscribe Now button</li><li class="bad" title="href='#' placeholder; clicking 'Privacy Policy' only cleared hash and scrolled to top (scrollY 495->0), no logical content/target">&#10007; footer links</li><li class="bad">&#10007; .hero::after full-size overlay (z-index:0) paints above the non-positioned hero button and intercepts pointer events, making Shop Now unclickable (-5); hero h1/p set z-index:1 without position so it has no effect</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 87 &middot; interactive 61</span>
+    <button class="tgl" onclick="toggle(5)" id="t5">Code</button></div>
+  <iframe id="f5" src="radar/dflash_frontend_od6.html" loading="lazy"></iframe>
+  <pre id="p5" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 28/40 &middot; functionality 33/60 &mdash; Functional nav (except broken #about anchor), working hero CTA and hover lift, but violates the single-file constraint with external placeholder images, and cart/subscribe buttons are fake anchor jumps.</div><ul><li class="bad" title="href='#about' but no element with id='about' exists (cta section uses id='cta'); click changed hash to #about but scrollY stayed 525 - no scroll, no target">&#10007; nav About link</li><li class="bad" title="onclick is window.location.href='#products'; from top of page click only scrolled to #products (scrollY 0->525), no cart element/counter/confirmation (cartEls=0) - wrong feedback">&#10007; Add to Cart buttons</li><li class="bad" title="no input/form in DOM (inputs=0, forms=0); click just sets hash to #products and scrolls - wrong feedback for subscribe">&#10007; Subscribe Now button</li><li class="bad" title="href='#' placeholders; clicking 'Privacy Policy' only cleared hash and scrolled to top, no logical target">&#10007; footer links</li><li class="bad">&#10007; 3 external image URLs https://via.placeholder.com/300x200?text=... violate the no-external-assets constraint; requests were issued and failed offline (-9)</li><li class="bad">&#10007; nav About anchor href='#about' has no matching element id (section uses id='cta') - dead anchor (-3)</li></ul></div>
+</div></div><div class="brief"><b>od8</b> &middot; Revamped Airbnb homepage for group adventures.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 66 &middot; interactive 96</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(6)" id="t6">Code</button></div>
+  <iframe id="f6" src="radar/vanilla_frontend_od8.html" loading="lazy"></iframe>
+  <pre id="p6" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 36/40 &middot; functionality 60/60 &mdash; Complete, well-formed single-file page with zero external assets and no console errors. All five interactive components work: three nav anchors scroll correctly (scrollY 0->986), hero button scrolls to booking, and booking form submits with 'Booking submitted!' alert. Only flaw: four invisible Font Awesome icons with no stylesheet.</div><ul><li class="bad">&#10007; Font Awesome icon classes (fas fa-users/map-marked-alt/hotel/shield-alt) used on 4 <i> elements but no Font Awesome CSS included anywhere: computed ::before content is 'none', icons render at 0 width (dead markup, -4)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 87 &middot; interactive 78</span>
+    <button class="tgl" onclick="toggle(7)" id="t7">Code</button></div>
+  <iframe id="f7" src="radar/dflash_frontend_od8.html" loading="lazy"></iframe>
+  <pre id="p7" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 27/40 &middot; functionality 51/60 &mdash; Clean markup and no console errors, nav/hero scrolling and both hover lifts all work. But three external picsum.photos images violate the single-file constraint, and the booking form is a div whose submit button has no handler at all — clicking after filling all fields produces zero feedback.</div><ul><li class="bad" title="booking section is a <div>, not a <form>; button has no onclick/handler. Filled check-in, check-out, guests=4, selected 'Beach', clicked button: no dialog, no DOM change (body innerHTML length identical), no navigation. Total silence.">&#10007; booking submit 'Find Accommodations'</li><li class="bad">&#10007; 3 external image URLs https://picsum.photos/seed/{1,2,3}/400/300 in suggestion cards violate the no-external-assets constraint (-10)</li><li class="bad">&#10007; 'Find Accommodations' button is dead code: no event handler attached and the container is a div, not a form (-3)</li></ul></div>
+</div></div><div class="brief"><b>od9</b> &middot; Mobile application for vehicle loans and financing on iOS devices.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 87 &middot; interactive 55</span>
+    <button class="tgl" onclick="toggle(8)" id="t8">Code</button></div>
+  <iframe id="f8" src="radar/vanilla_frontend_od9.html" loading="lazy"></iframe>
+  <pre id="p8" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 40/40 &middot; functionality 15/60 &mdash; Clean single-file page with no console errors, no external assets, all CSS selectors live. But the primary CTA button has zero click handler and footer links are bare '#' placeholders; only hover feedback works.</div><ul><li class="bad" title="clicked; no onclick attribute, no dialog, no DOM/hash/scroll change (bodyHTMLlen unchanged at 1300)">&#10007; hero 'Get Started' button</li><li class="bad" title="href='#' placeholder; clicked from scrollY=248, only scrolled to top, no content/navigation">&#10007; footer 'Privacy Policy' link</li><li class="bad" title="href='#' placeholder; clicked from scrollY=248, only scrolled to top, no content/navigation">&#10007; footer 'Terms of Service' link</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 87 &middot; interactive 64</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(9)" id="t9">Code</button></div>
+  <iframe id="f9" src="radar/dflash_frontend_od9.html" loading="lazy"></iframe>
+  <pre id="p9" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 40/40 &middot; functionality 24/60 &mdash; Clean single-file page, no console errors, no external assets. CTA button correctly fires an 'App download coming soon!' alert and hover changes background; all three footer links are dead '#' placeholders.</div><ul><li class="bad" title="href='#' placeholder; clicked from scrollY=281, only scrolled to top, no content/navigation">&#10007; footer 'Privacy Policy' link</li><li class="bad" title="href='#' placeholder; clicked from scrollY=281, only scrolled to top, no content/navigation">&#10007; footer 'Terms of Service' link</li><li class="bad" title="href='#' placeholder; clicked from scrollY=281, only scrolled to top, no content/navigation">&#10007; footer 'Contact Us' link</li></ul></div>
+</div></div><div class="brief"><b>od10</b> &middot; Homepage for an animation studio, Studio Ghibli inspired.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 70 &middot; interactive 83</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(10)" id="t10">Code</button></div>
+  <iframe id="f10" src="radar/vanilla_frontend_od10.html" loading="lazy"></iframe>
+  <pre id="p10" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 38/40 &middot; functionality 45/60 &mdash; Clean single-file page, no external assets, no JS errors. CTA anchor scrolls correctly, hover effects fire. Only the contact form fails: default submit reloads the page with zero user-facing feedback.</div><ul><li class="bad" title="Filled name/email/message, clicked 'Send Message'; page did a bare reload (window marker gone, fields cleared, url gained '?'), no confirmation text or new DOM feedback.">&#10007; Contact form submit</li><li class="bad">&#10007; CTA labeled 'Explore Our Work' links to #contact instead of #work section (label/target mismatch, -2)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 63 &middot; interactive 67</span>
+    <button class="tgl" onclick="toggle(11)" id="t11">Code</button></div>
+  <iframe id="f11" src="radar/dflash_frontend_od10.html" loading="lazy"></iframe>
+  <pre id="p11" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 37/40 &middot; functionality 30/60 &mdash; Complete valid HTML, no external assets, no JS errors, hover effects work. But the main CTA button is completely inert and the contact form submits into a silent reload with no feedback.</div><ul><li class="bad" title="Clicked the <button class='button'> (no href, no handler): scrollY stayed 0, no hash change, no DOM change; run twice, reproducible.">&#10007; CTA 'Explore Our Work' button click</li><li class="bad" title="Filled all fields, clicked 'Send Message'; bare reload (window marker gone, fields cleared, url gained '?'), no confirmation text or new DOM feedback.">&#10007; Contact form submit</li><li class="bad">&#10007; Primary CTA is a <button> with no event handler and no anchor target — inert interactive element (-3)</li></ul></div>
+</div></div><div class="brief"><b>od340</b> &middot; Photo card interface, hover triggers a gentle 3D flip effect.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 30 &middot; interactive 27</span>
+    <button class="tgl" onclick="toggle(12)" id="t12">Code</button></div>
+  <iframe id="f12" src="radar/vanilla_frontend_od340.html" loading="lazy"></iframe>
+  <pre id="p12" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 27/40 &middot; functionality 0/60 &mdash; External placeholder images that fail to load even online, a stray code fence rendered on the page, and a structurally broken flip: the back face is never pre-rotated, so hovering makes the card disappear entirely. Only the transform changes; the effect itself is wrong.</div><ul><li class="bad" title="page.hover('.card') does change computed transform (none -> matrix3d(-1,0,0,0,0,1,0,0,0,0,-1,0,0,0,0,1)), but neither .face is pre-rotated rotateY(180deg), so after the 180deg flip both faces are backface-hidden and the card vanishes completely (screenshot vanilla_hover.png: empty page). Wrong feedback: flip reveals a blank card, not a back face. Also the back .face is stacked on top initially, so the card shows the 'Back' broken-image alt text instead of the front photo.">&#10007; card hover 3D flip (brief, x2)</li><li class="bad">&#10007; External asset violation: two <img src="https://via.placeholder.com/300x200"> (offline-hostile external URLs) (-8, incl. host being dead)</li><li class="bad">&#10007; via.placeholder.com fails even with network: console error 'Failed to load resource: net::ERR_CONNECTION_CLOSED', requestfailed ERR_CONNECTION_CLOSED, img naturalWidth=0 -> no photo ever renders (-2)</li><li class="bad">&#10007; Stray markdown fence '```' after </html> renders as visible text on the page (-3)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 63 &middot; interactive 87</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(13)" id="t13">Code</button></div>
+  <iframe id="f13" src="radar/dflash_frontend_od340.html" loading="lazy"></iframe>
+  <pre id="p13" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 27/40 &middot; functionality 60/60 &mdash; Correct, gentle 180deg flip: hover changes computed transform through mid-transition matrix to full rotateY(180deg), front photo swaps to a properly pre-rotated back photo, unhover restores. No console errors. Docked for external picsum URLs, a rendered stray fence, and flat (perspective-less) rotation.</div><ul><li class="bad">&#10007; External asset violation: background images url('https://picsum.photos/300/200') and url('https://picsum.photos/301/201') (-8)</li><li class="bad">&#10007; Stray markdown fence '```' after </html> renders as visible text on the page (-3)</li><li class="bad">&#10007; perspective: 1000px is set on the rotating .card itself (not a wrapper) and overflow:hidden negates transform-style: preserve-3d, so the flip renders flat with no 3D depth (-2)</li></ul></div>
+</div></div><div class="brief"><b>od341</b> &middot; Newsletter registration pop-up, soothing hues, smartphone optimized.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 87 &middot; interactive 85</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(14)" id="t14">Code</button></div>
+  <iframe id="f14" src="radar/vanilla_frontend_od341.html" loading="lazy"></iframe>
+  <pre id="p14" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 37/40 &middot; functionality 48/60 &mdash; Clean single-file page, zero console errors, soothing teal palette, mobile viewport + media query. Popup shows on load, close button works, invalid email blocked. Submit dismisses the popup but shows no confirmation message, costing half the double-weighted subscribe flow. Decorative pseudo-element circle looks like a close button but is inert.</div><ul><li class="bad" title="Typed test@example.com, clicked Subscribe: popup hides (class 'show' removed, computed visibility hidden), but no confirmation message anywhere — body.innerText is empty after submit. Brief explicitly requires confirmation; only partial credit.">&#10007; newsletter subscribe flow — confirmation step (partial)</li><li class="bad">&#10007; .modal-content::before renders a circle at top-right styled/hovered like a close button but has no click handler — misleading non-functional affordance; the real .close-btn div has no CSS at all and renders as unstyled inline text (-3)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 87 &middot; interactive 76</span>
+    <button class="tgl" onclick="toggle(15)" id="t15">Code</button></div>
+  <iframe id="f15" src="radar/dflash_frontend_od341.html" loading="lazy"></iframe>
+  <pre id="p15" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 40/40 &middot; functionality 36/60 &mdash; Well-formed single-file page, no console errors, no external assets, calm blue palette, responsive. Popup renders on load and close button works (display:none). But the subscribe button is functionally dead for valid emails — onsubmit returns false with no confirmation or state change — failing the brief's double-weighted core flow.</div><ul><li class="bad" title="Typed test@example.com, clicked Subscribe: form onsubmit is just 'return false' — popup stays fully visible (display flex, opacity 1), DOM and text unchanged, no confirmation, no dismissal. Zero feedback for valid submission.">&#10007; newsletter subscribe flow (brief, x2)</li></ul></div>
+</div></div><div class="brief"><b>od11</b> &middot; Create a user interface that resembles Spotify, focusing on music navigation and playlist </div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 87 &middot; interactive 48</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(16)" id="t16">Code</button></div>
+  <iframe id="f16" src="radar/vanilla_frontend_od11.html" loading="lazy"></iframe>
+  <pre id="p16" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 38/40 &middot; functionality 10/60 &mdash; Clean constraint-compliant page (data-URI images, zero console errors), but a pure visual shell: nav links are '#' placeholders, search/play/create-playlist all lack handlers. Only sidebar hover works. Playlist creation is the brief's core ask and is entirely dead.</div><ul><li class="bad" title="clicked all 4 (href='#'): no hash/body/DOM change (bodyChanged=false for each)">&#10007; sidebar nav links</li><li class="bad" title="typed 'workout', pressed Enter: playlist cards unchanged ['Midnight Vibes','Sunset Rhythms','Urban Beats'], no filtering, no dialog">&#10007; search input</li><li class="bad" title="clicked all 3: bodyChanged=false, no dialogs, no audio/state change">&#10007; Play buttons (x3)</li><li class="bad" title="typed 'My Test Playlist', clicked 'Create Playlist': card count 3->3, body text delta 0, no confirmation; button has no handler in source">&#10007; create playlist flow (brief, x2)</li><li class="bad">&#10007; Dead CSS: '.search-bar input' selector matches nothing (header div is class='main-header'), so the search input renders unstyled browser-default (-2)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 87 &middot; interactive 37</span>
+    <button class="tgl" onclick="toggle(17)" id="t17">Code</button></div>
+  <iframe id="f17" src="radar/dflash_frontend_od11.html" loading="lazy"></iframe>
+  <pre id="p17" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 27/40 &middot; functionality 10/60 &mdash; Same dead shell as vanilla (nav '#', inert search/play/create) but with working hovers on links and buttons. Additionally violates single-file constraint with three external placeholder images that fail to load, and renders a stray code fence.</div><ul><li class="bad" title="clicked all 4 (href='#'): no hash/body/DOM change">&#10007; sidebar nav links</li><li class="bad" title="typed 'workout', pressed Enter: cards unchanged ['Chill Vibes','Workout Beats','Study Sessions'], no response">&#10007; search input</li><li class="bad" title="clicked all 3: bodyChanged=false, no dialogs">&#10007; Play buttons (x3)</li><li class="bad" title="typed 'My Test Playlist', clicked 'Create Playlist': card count 3->3, body text delta 0, no confirmation; no handler in source">&#10007; create playlist flow (brief, x2)</li><li class="bad">&#10007; External asset violation: 3x <img src='https://via.placeholder.com/200x120'> (-8)</li><li class="bad">&#10007; via.placeholder.com fails even with network: console error 'net::ERR_CONNECTION_CLOSED', all 3 imgs naturalWidth=0 -> broken-image icons in every card (-2)</li><li class="bad">&#10007; Stray markdown fence '```' after </html> renders as visible text at page bottom (-3)</li></ul></div>
+</div></div><div class="brief"><b>od20</b> &middot; Create a template to display traffic data using interactive charts and graphs.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 63 &middot; interactive 20</span>
+    <button class="tgl" onclick="toggle(18)" id="t18">Code</button></div>
+  <iframe id="f18" src="radar/vanilla_frontend_od20.html" loading="lazy"></iframe>
+  <pre id="p18" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 20/40 &middot; functionality 0/60 &mdash; Truncated mid-statement; the whole script block is discarded by the HTML parser, leaving two empty bordered canvases. The tooltip logic that would have satisfied the brief never executes. Headers render; nothing else works or even draws.</div><ul><li class="bad" title="mouse sweep over #lineChart (9 points): #lineTooltip stays display:none with empty text; listener never attached because script never ran">&#10007; line chart hover tooltip (brief, x2)</li><li class="bad" title="mouse sweep over #barChart: #barTooltip stays display:none; canvas has 0 painted pixels">&#10007; bar chart hover tooltip (brief, x2)</li><li class="bad">&#10007; File truncated mid-expression: source ends at 'const barWidth = chartWidth / (data.length -' with no closing </script></body></html>; the unterminated script block is never executed, so both canvases render blank (0 painted pixels, screenshot vanilla_od20_0_initial.png) (-18)</li><li class="bad">&#10007; Latent contrast bug in dead code: canvas filled #333 then axis labels drawn fillStyle '#000' (black on dark gray) (-2)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 82 &middot; interactive 37</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(19)" id="t19">Code</button></div>
+  <iframe id="f19" src="radar/dflash_frontend_od20.html" loading="lazy"></iframe>
+  <pre id="p19" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 37/40 &middot; functionality 0/60 &mdash; Both canvas charts actually render (line 5804 painted px, bars 27000 painted px), zero console errors, self-contained. But the brief explicitly demands interactive charts and the page has literally zero event listeners: no tooltips, no click response. Static image of a dashboard.</div><ul><li class="bad" title="mouse sweep over #lineChart (9 points): no tooltip element exists in DOM, no popup/highlight; script contains 0 addEventListener calls">&#10007; line chart hover tooltip (brief, x2)</li><li class="bad" title="mouse sweep over #barChart: no tooltip or any change; 0 listeners in source">&#10007; bar chart hover tooltip (brief, x2)</li><li class="bad" title="clicked center of both canvases: bodyChanged=false, nothing happens">&#10007; chart click interaction</li><li class="bad">&#10007; Stray markdown fence '```' after </html> renders as visible text bottom-left (screenshot dflash_od20_0_initial.png) (-3)</li></ul></div>
+</div></div><div class="brief"><b>od28</b> &middot; Create interactive charts showcasing trading trends and accident statistics in New York.</div><div class="pair"><div class="cell">
+  <div class="head"><b>vanilla</b><span class="sc">static 20 &middot; interactive 5</span>
+    <button class="tgl" onclick="toggle(20)" id="t20">Code</button></div>
+  <iframe id="f20" src="radar/vanilla_frontend_od28.html" loading="lazy"></iframe>
+  <pre id="p20" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 5/40 &middot; functionality 0/60 &mdash; Generation was cut off inside the <title> tag. The browser renders a blank page; there is nothing to interact with and no code to evaluate beyond the truncation itself.</div><ul><li class="bad" title="file is 79 bytes ending mid-tag ('<title>Trading Trends & Accident Statistics</'); bodyTextLen=0, no chart containers, no SVG/canvas in DOM, page renders completely blank">&#10007; entire page</li><li class="bad">&#10007; Severely truncated file (79 bytes, 4 lines, ends mid-<title> tag): no body, no charts, no script ever emitted (-35)</li></ul></div>
+</div><div class="cell">
+  <div class="head"><b>DFlash</b><span class="sc">static 35 &middot; interactive 17</span><span class="wbadge">&#127942; winner</span>
+    <button class="tgl" onclick="toggle(21)" id="t21">Code</button></div>
+  <iframe id="f21" src="radar/dflash_frontend_od28.html" loading="lazy"></iframe>
+  <pre id="p21" style="display:none"></pre>
+  <div class="detail"><div class="fb">&#10003; code 17/40 &middot; functionality 0/60 &mdash; The model's reasoning stream was saved as the deliverable: title, two empty chart boxes, then ~10k chars of visible self-talk including a half-written D3 attempt that throws ReferenceError on load (D3 would have violated the no-external-assets rule anyway). No chart renders, no tooltip exists.</div><ul><li class="bad" title="#trading-chart contains one empty <svg> (appended before the crash); hover at center: #tooltip stays display:none, empty text">&#10007; trading chart hover tooltip (brief, x2)</li><li class="bad" title="#accident-chart has 0 children (script aborted before createBarChart); hover: tooltip stays display:none">&#10007; accident chart hover tooltip (brief, x2)</li><li class="bad" title="clicked both containers: bodyChanged=false">&#10007; chart click interaction</li><li class="bad">&#10007; Model chain-of-thought leaked into the artifact: ~9.9k chars of reasoning prose ('Then, in the CSS...', 'But how to create the SVG elements...') rendered as visible page text after </html> (screenshot dflash_od28_0_initial.png) (-10)</li><li class="bad">&#10007; Leaked prose includes a live <script> that calls d3.scaleLinear with no D3 imported: pageerror 'ReferenceError: d3 is not defined', aborting chart creation after one empty <svg> (-6)</li><li class="bad">&#10007; Skeleton stubs left as dead code: <style>/* CSS here */</style> and <script>// JavaScript here</script> (-3)</li></ul></div>
+</div></div>
+<script>
+async function toggle(i) {
+  const f = document.getElementById('f'+i), p = document.getElementById('p'+i),
+        t = document.getElementById('t'+i);
+  const showCode = p.style.display === 'none';
+  if (showCode && !p.textContent) p.textContent = await (await fetch(f.src)).text();
+  f.style.display = showCode ? 'none' : 'block';
+  p.style.display = showCode ? 'block' : 'none';
+  t.textContent = showCode ? 'Render' : 'Code';
+}
+</script>
+</body></html>

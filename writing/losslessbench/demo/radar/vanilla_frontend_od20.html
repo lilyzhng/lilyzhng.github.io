@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Traffic Data Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .chart-container {
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        canvas {
+            display: block;
+            background: #fff;
+            border: 1px solid #ccc;
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Data Dashboard</h1>
+    <div class="chart-container">
+        <h2>Daily Traffic (Line Chart)</h2>
+        <canvas id="lineChart" width="600" height="300"></canvas>
+        <div class="tooltip" id="lineTooltip"></div>
+    </div>
+    <div class="chart-container">
+        <h2>Traffic by Region (Bar Chart)</h2>
+        <canvas id="barChart" width="600" height="300"></canvas>
+        <div class="tooltip" id="barTooltip"></div>
+    </div>
+
+    <script>
+        // Sample data
+        const dailyTraffic = [120, 150, 130, 170, 160, 180, 200];
+        const regions = ['North', 'South', 'East', 'West', 'Central'];
+        const regionTraffic = [150, 200, 180, 160, 190];
+
+        // Line Chart
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        drawLineChart(lineCtx, dailyTraffic, 'Daily Traffic', 'Days', 'Traffic (units)');
+
+        // Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        drawBarChart(barCtx, regionTraffic, regions, 'Traffic by Region', 'Region', 'Traffic (units)');
+
+        function drawLineChart(ctx, data, title, xLabel, yLabel) {
+            const width = ctx.canvas.width;
+            const height = ctx.canvas.height;
+            const margin = { top: 20, right: 30, bottom: 40, left: 50 };
+            const chartWidth = width - margin.left - margin.right;
+            const chartHeight = height - margin.top - margin.bottom;
+
+            const maxValue = Math.max(...data);
+            const scale = chartHeight / maxValue;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#333';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw axes
+            ctx.beginPath();
+            ctx.moveTo(margin.left, margin.top);
+            ctx.lineTo(margin.left, chartHeight + margin.top);
+            ctx.lineTo(width - margin.right, chartHeight + margin.top);
+            ctx.stroke();
+
+            // Draw grid lines
+            for (let i = 1; i < 5; i++) {
+                const y = chartHeight - (i * chartHeight / 4);
+                ctx.beginPath();
+                ctx.moveTo(margin.left, y);
+                ctx.lineTo(width - margin.right, y);
+                ctx.strokeStyle = '#ddd';
+                ctx.stroke();
+            }
+
+            // Draw labels
+            ctx.fillStyle = '#000';
+            ctx.font = '12px Arial';
+            ctx.fillText(xLabel, margin.left + chartWidth / 2, height - 10);
+            ctx.save();
+            ctx.translate(0, height - 20);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 10);
+            ctx.restore();
+
+            // Draw data points and line
+            ctx.strokeStyle = '#4CAF50';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = 0; i < data.length; i++) {
+                const x = margin.left + (i / (data.length - 1)) * chartWidth;
+                const y = chartHeight - (data[i] * scale);
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+
+            // Draw data points
+            ctx.fillStyle = '#4CAF50';
+            for (let i = 0; i < data.length; i++) {
+                const x = margin.left + (i / (data.length - 1)) * chartWidth;
+                const y = chartHeight - (data[i] * scale);
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Tooltip
+            const tooltip = document.getElementById('lineTooltip');
+            ctx.canvas.addEventListener('mousemove', (e) => {
+                const rect = ctx.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                let closest = 0;
+                let minDist = Infinity;
+                for (let i = 0; i < data.length; i++) {
+                    const px = margin.left + (i / (data.length - 1)) * chartWidth;
+                    const py = chartHeight - (data[i] * scale);
+                    const dist = Math.sqrt((x - px) ** 2 + (y - py) ** 2);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closest = i;
+                    }
+                }
+                tooltip.style.display = 'block';
+                tooltip.style.left = `${x + 10}px`;
+                tooltip.style.top = `${y - 20}px`;
+                tooltip.textContent = `Day ${closest + 1}: ${data[closest]} units`;
+            });
+
+            ctx.canvas.addEventListener('mouseout', () => {
+                tooltip.style.display = 'none';
+            });
+        }
+
+        function drawBarChart(ctx, data, labels, title, xLabel, yLabel) {
+            const width = ctx.canvas.width;
+            const height = ctx.canvas.height;
+            const margin = { top: 20, right: 30, bottom: 40, left: 50 };
+            const chartWidth = width - margin.left - margin.right;
+            const chartHeight = height - margin.top - margin.bottom;
+
+            const maxValue = Math.max(...data);
+            const scale = chartHeight / maxValue;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#333';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw axes
+            ctx.beginPath();
+            ctx.moveTo(margin.left, margin.top);
+            ctx.lineTo(margin.left, chartHeight + margin.top);
+            ctx.lineTo(width - margin.right, chartHeight + margin.top);
+            ctx.stroke();
+
+            // Draw grid lines
+            for (let i = 1; i < 5; i++) {
+                const y = chartHeight - (i * chartHeight / 4);
+                ctx.beginPath();
+                ctx.moveTo(margin.left, y);
+                ctx.lineTo(width - margin.right, y);
+                ctx.strokeStyle = '#ddd';
+                ctx.stroke();
+            }
+
+            // Draw labels
+            ctx.fillStyle = '#000';
+            ctx.font = '12px Arial';
+            ctx.fillText(xLabel, margin.left + chartWidth / 2, height - 10);
+            ctx.save();
+            ctx.translate(0, height - 20);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 10);
+            ctx.restore();
+
+            // Draw bars
+            ctx.fillStyle = '#2196F3';
+            for (let i = 0; i < data.length; i++) {
+                const x = margin.left + i * (chartWidth / (data.length - 1));
+                const y = chartHeight - (data[i] * scale);
+                ctx.fillRect(x, y, chartWidth / (data.length - 1) - 2, data[i] * scale);
+            }
+
+            // Draw labels on bars
+            for (let i = 0; i < data.length; i++) {
+                const x = margin.left + i * (chartWidth / (data.length - 1)) + (chartWidth / (data.length - 1)) / 2;
+                const y = chartHeight - (data[i] * scale) - 5;
+                ctx.fillStyle = '#000';
+                ctx.font = '10px Arial';
+                ctx.fillText(data[i], x, y);
+            }
+
+            // Draw x-axis labels
+            ctx.fillStyle = '#000';
+            ctx.font = '10px Arial';
+            for (let i = 0; i < labels.length; i++) {
+                const x = margin.left + i * (chartWidth / (data.length - 1)) + (chartWidth / (data.length - 1)) / 2;
+                const y = height - 10;
+                ctx.fillText(labels[i], x, y);
+            }
+
+            // Tooltip
+            const tooltip = document.getElementById('barTooltip');
+            ctx.canvas.addEventListener('mousemove', (e) => {
+                const rect = ctx.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                let closest = 0;
+                let minDist = Infinity;
+                for (let i = 0; i < data.length; i++) {
+                    const px = margin.left + i * (chartWidth / (data.length - 1));
+                    const py = chartHeight - (data[i] * scale);
+                    const barWidth = chartWidth / (data.length -

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Translucent Calendar Popup</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      width: 300px;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.4s ease-out;
+      z-index: 1000;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .popup h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 2px;
+      margin-top: 15px;
+    }
+
+    .calendar div {
+      text-align: center;
+      font-size: 14px;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .calendar div:hover {
+      background: #e0e0e0;
+    }
+
+    .selected {
+      background: #4caf50;
+      color: white;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .close-btn:hover {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="popup" id="calendarPopup">
+    <button class="close-btn" onclick="closePopup()">&times;</button>
+    <h2>Calendar</h2>
+    <div class="calendar" id="calendarGrid">
+      <!-- Days of the week -->
+      <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+      <!-- Date cells will be filled dynamically -->
+    </div>
+  </div>
+
+  <script>
+    const popup = document.getElementById('calendarPopup');
+    const calendarGrid = document.getElementById('calendarGrid');
+
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+
+    function renderCalendar(month, year) {
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDay = new Date(year, month + 1, 0).getDate();
+
+      calendarGrid.innerHTML = '';
+      // Days of the week
+      ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].forEach(day => {
+        const cell = document.createElement('div');
+        cell.textContent = day;
+        calendarGrid.appendChild(cell);
+      });
+
+      // Empty cells before first day
+      for (let i = 0; i < firstDay; i++) {
+        const cell = document.createElement('div');
+        calendarGrid.appendChild(cell);
+      }
+
+      // Days of the month
+      for (let day = 1; day <= lastDay; day++) {
+        const cell = document.createElement('div');
+        cell.textContent = day;
+        if (day === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
+          cell.classList.add('selected');
+        }
+        cell.addEventListener('click', () => selectDate(day, month, year));
+        calendarGrid.appendChild(cell);
+      }
+
+      // Empty cells after last day
+      const lastDayOfWeek = new Date(year, month + 1, 0).getDay();
+      for (let i = lastDayOfWeek; i < 6; i++) {
+        const cell = document.createElement('div');
+        calendarGrid.appendChild(cell);
+      }
+    }
+
+    function selectDate(day, month, year) {
+      alert(`Selected date: ${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+      closePopup();
+    }
+
+    function closePopup() {
+      popup.style.display = 'none';
+    }
+
+    function openCalendar() {
+      popup.style.display = 'block';
+      renderCalendar(currentMonth, currentYear);
+    }
+
+    // Show calendar when page loads
+    window.onload = openCalendar;
+  </script>
+
+</body>
+</html>
