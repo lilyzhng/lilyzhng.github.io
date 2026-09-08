@@ -1,6 +1,6 @@
 ---
 published: false   # source for bin/md2post.py; Jekyll must not render it
-title: "Thoughts on Thinking Machine's Interaction Model"
+title: "Built dual-model voice agent and tested it against Thinking Machine's Interaction Model"
 slug: interaction-model
 description: "I built a dual-model voice agent and tested it against every Thinking Machines demo. Here's what I found."
 date: "May 20, 2026"
