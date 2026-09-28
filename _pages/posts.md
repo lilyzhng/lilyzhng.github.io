@@ -25,7 +25,7 @@ permalink: /writing/
 
   <div class="blog-list" data-section="01">
   <div class="blog-entry" data-type="blog">
-    <a href="https://neurips2026-speculative-decoding.vercel.app/" class="blog-title" target="_blank">Speculative Decoding: How It Evolved, When It Stays Lossless, and What's Next</a>
+    <a href="https://x.com/lily_gpupoor/status/2096663433068556361" class="blog-title" target="_blank">Speculative Decoding: How It Evolved, When It Stays Lossless, and What's Next</a>
     <span class="blog-date">08.15.26</span>
   </div>
 
@@ -60,7 +60,7 @@ permalink: /writing/
   </div>
 
   <div class="blog-entry" data-type="blog">
-    <a href="https://x.com/lily_gpupoor/status/2070401977251659794" class="blog-title" target="_blank">Build a Dense Reward for Your Writing</a>
+    <a href="https://x.com/lily_gpupoor/status/2070576232744546636" class="blog-title" target="_blank">Build a Dense Reward for Your Writing</a>
     <span class="blog-date">06.26.26</span>
   </div>
 
