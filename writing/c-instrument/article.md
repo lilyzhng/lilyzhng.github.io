@@ -5,6 +5,7 @@ slug: c-instrument
 description: "Training a safety guard with RL means optimizing two objectives that pull against each other. C-Instrument turns data generation into measured moves on a constitution grid."
 date: "July 21, 2026"
 affiliation: Independent
+conference: "Conference on Language Modeling (COLM 2026) Efficient Reasoning"
 bibkey: zhang2026cinstrument
 ---
 
