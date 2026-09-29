@@ -137,12 +137,15 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
     }
     .authors .role { color: var(--muted); font-weight: 400; }
 
-    /* distill-style byline strip: authors | affiliations | published */
-    .authors { gap: 4rem; padding-top: 1rem; padding-bottom: 1rem; border-top: 1px solid var(--line); }
+    /* distill-style byline strip: authors | affiliations | published | conference */
+    .authors { gap: 4rem; padding-top: 1rem; padding-bottom: 1rem; border-top: 1px solid var(--line); align-items: flex-start; }
     .byline-col { display: flex; flex-direction: column; gap: 0.1rem; }
     .byline-col .byline-label { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
     .byline-col .byline-value { font-weight: 600; color: var(--ink); }
     .byline-col .byline-value.light { font-weight: 400; }
+    .byline-col .byline-value { white-space: nowrap; }
+    .byline-col.wide { flex: 1 1 14rem; }
+    .byline-col.wide .byline-value { white-space: normal; }
 
     .lede { font-size: 1.2rem; line-height: 1.55; color: var(--ink); margin-bottom: 2.5rem; }
     h2 {
@@ -302,6 +305,10 @@ MathJax = {tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]}};
       <span class="byline-col">
         <span class="byline-label">Published</span>
         <span class="byline-value light">July 21, 2026</span>
+      </span>
+      <span class="byline-col wide">
+        <span class="byline-label">Conference</span>
+        <span class="byline-value light">Conference on Language Modeling (COLM 2026) Efficient Reasoning</span>
       </span>
     </div>
 

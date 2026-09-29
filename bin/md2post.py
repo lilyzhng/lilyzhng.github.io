@@ -16,6 +16,7 @@ Front matter (YAML, required keys marked *):
     affiliation:   defaults "Independent"
     author:        defaults "Lily Zhang"
     bibkey:        defaults zhang<year><slug-word>
+    conference:    optional, adds a "Conference" column after "Published"
 
 Body conventions:
     ## Heading        -> numbered section (1 · Heading) + TOC entry
@@ -168,6 +169,9 @@ def main():
     month = date.split()[0]
     author = meta.get("author", "Lily Zhang")
     affiliation = meta.get("affiliation", "Independent")
+    conference = meta.get("conference")
+    conference_col = ('      <span class="byline-col wide">\n        <span class="byline-label">Conference</span>\n'
+                      + f'        <span class="byline-value light">{html.escape(conference)}</span>\n      </span>\n') if conference else ""
     bibkey = meta.get("bibkey", f"zhang{year}{meta['slug'].split('-')[0]}")
 
     lede, preamble, sections, toc = build_sections(body)
@@ -221,7 +225,8 @@ def main():
         + '      <span class="byline-col">\n        <span class="byline-label">Affiliations</span>\n'
         + f'        <span class="byline-value light">{affiliation}</span>\n      </span>\n'
         + '      <span class="byline-col">\n        <span class="byline-label">Published</span>\n'
-        + f'        <span class="byline-value light">{date}</span>\n      </span>\n    </div>\n'
+        + f'        <span class="byline-value light">{date}</span>\n      </span>\n'
+        + conference_col + '    </div>\n'
         + lede_block + (("\n" + preamble + "\n") if preamble else "") + "\n"
         + "\n\n".join(sections)
         + "\n  </article>\n"
