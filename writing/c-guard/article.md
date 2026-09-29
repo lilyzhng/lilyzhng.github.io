@@ -5,7 +5,7 @@ slug: c-guard
 description: "Training a safety guard with RL means optimizing two objectives that pull against each other. C-Instrument turns data generation into measured moves on a constitution grid."
 date: "July 21, 2026"
 affiliation: Independent
-bibkey: zhang2026cguard
+bibkey: zhang2026cinstrument
 ---
 
 *Previously titled C-Guard.*
