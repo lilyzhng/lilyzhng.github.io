@@ -1,14 +1,16 @@
 ---
 published: false   # source for bin/md2post.py; Jekyll must not render it
-title: "A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)"
+title: "C-Instrument: A Constitution-Grid Data Instrument for Efficient RL Alignment"
 slug: c-guard
-description: "Training a safety guard with RL means optimizing two objectives that pull against each other. C-Guard turns data generation into measured moves on a constitution grid."
+description: "Training a safety guard with RL means optimizing two objectives that pull against each other. C-Instrument turns data generation into measured moves on a constitution grid."
 date: "July 21, 2026"
 affiliation: Independent
 bibkey: zhang2026cguard
 ---
 
-Conflicting objectives are general in RL alignment, and training on them data-efficiently is hard. Training a safety guard with RL means optimizing two objectives that conflict: catch real harm, and do not refuse benign prompts. Our finding is that over-refusal improves 22.4% to 12.8%, while under-refusal on adversarial attacks silently worsens 0.27 to 0.33. We present **C-Guard**, a constitution-grid instrument that generates the RL training data, and **C-LIM**, a per-cell learnability score that decides each cell's move: prune, densify, amend, expand. C-LIM flags the dead-weight data region before any training budget is spent: 187 untargeted rows had bought zero gain, and our method lifts the same region's learning impact 0.733 to 0.80.
+*Previously titled C-Guard.*
+
+Conflicting objectives are general in RL alignment, and training on them data-efficiently is hard. Training a safety guard with RL means optimizing two objectives that conflict: catch real harm, and do not refuse benign prompts. Our finding is that over-refusal improves 22.4% to 12.8%, while under-refusal on adversarial attacks silently worsens 0.27 to 0.33. We present **C-Instrument**, a constitution-grid data instrument that generates the RL training data, and **C-LIM**, a per-cell learnability score that decides each cell's move: prune, densify, amend, expand. C-LIM flags the dead-weight data region before any training budget is spent: 187 untargeted rows had bought zero gain, and our method lifts the same region's learning impact 0.733 to 0.80.
 
 ## Introduction {#intro}
 
@@ -48,16 +50,16 @@ No prior guard combines constitution policy data, per-cell probe aiming, a live 
         <tr><td>HaloGuard (<a href="https://arxiv.org/abs/2607.02079">Sangameswaran et al., 2026</a>)</td><td><span class="good">✓</span></td><td>✗</td><td>∼</td><td>✗</td></tr>
         <tr><td>Const. Classifiers (<a href="https://arxiv.org/abs/2501.18837">Sharma et al., 2025</a>)</td><td><span class="good">✓</span></td><td>✗</td><td>∼</td><td>✗</td></tr>
         <tr><td>Calibrated Reasoning (<a href="https://arxiv.org/abs/2509.19681">Garg et al., 2025</a>)</td><td>✗</td><td>✗</td><td>✗</td><td><span class="good">✓</span></td></tr>
-        <tr><td><strong>C-Guard (ours)</strong></td><td><span class="good">✓</span></td><td><span class="good">✓</span></td><td><span class="good">✓</span></td><td><span class="good">✓</span></td></tr>
+        <tr><td><strong>C-Instrument (ours)</strong></td><td><span class="good">✓</span></td><td><span class="good">✓</span></td><td><span class="good">✓</span></td><td><span class="good">✓</span></td></tr>
         </tbody>
       </table>
       </div>
 
-<figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 1.</strong> Where C-Guard sits,
+<figcaption style="margin:-1.2rem 0 2rem;"><strong>Table 1.</strong> Where C-Instrument sits,
       ∼ marks a partial mechanism. GuardReasoner aims by hard-sample mining and tunes with DPO (<a href="https://arxiv.org/abs/2305.18290">Rafailov et al., 2023</a>).
       HaloGuard's attack side is static augmentation. Constitutional Classifiers red-team once.
       Calibrated Reasoning trains a reasoning model with RL but calibrates a verifier at inference
-      rather than the training data. C-Guard aims per-cell and re-measures attacks every
+      rather than the training data. C-Instrument aims per-cell and re-measures attacks every
       checkpoint.</figcaption>
 
 ## Method {#method}

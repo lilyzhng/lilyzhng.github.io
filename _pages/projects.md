@@ -29,8 +29,8 @@ permalink: /projects/
 
     <div class="proj-card" data-topics="post-training">
       <a href="https://lily-safety-guard.vercel.app/" target="_blank" rel="noopener">
-        <img src="/assets/img/projects/cguard-grid-probe.svg" alt="C-Guard constitution grid probe" loading="lazy" class="fit-contain" style="background: #F4F4F4">
-        <span class="proj-title">C-Guard: A Constitution-Grid Instrument for Data-Efficient RL Alignment</span>
+        <img src="/assets/img/projects/cguard-grid-probe.svg" alt="C-Instrument constitution grid probe" loading="lazy" class="fit-contain" style="background: #F4F4F4">
+        <span class="proj-title">C-Instrument: A Constitution-Grid Data Instrument for Efficient RL Alignment</span>
       </a>
       <div class="proj-desc">Post-trained safety guard model with RL · COLM 2026 ER</div>
     </div>

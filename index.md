@@ -42,7 +42,7 @@ author_profile: true
       At <a href="https://lat.ai/" target="_blank" rel="noopener">Latitude AI</a>, I build LLMs, multimodal LLMs, and AI agents for physical AI (<a href="https://x.com/lily_gpupoor/status/2032687023832838450" target="_blank" rel="noopener">Modal GTC</a> panel on agentic post-training).
     </p>
     <p>
-      Recent work: <a href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">C-Guard</a>, constitution-grid data-efficient RL alignment (COLM 2026 ER); <a href="/writing/harbor-rlvr-environment/">AURA</a>, RLVR reward shaping from a hierarchical failure taxonomy; <a href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">Eureka</a>: feature engineering as agentic code generation w Alibaba Cloud, SFT + RL post-trained AI-infra agent deployed in production (<a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">NeurIPS-W 2025</a>, <a href="https://doi.org/10.1007/978-981-92-0378-9_33" target="_blank" rel="noopener">DASFAA 2026</a>). Publishing as Xianling Zhang.
+      Recent work: <a href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">C-Instrument</a>, constitution-grid data instrument for RL alignment (COLM 2026 ER); <a href="/writing/harbor-rlvr-environment/">AURA</a>, RLVR reward shaping from a hierarchical failure taxonomy; <a href="https://arxiv.org/abs/2605.25297" target="_blank" rel="noopener">Eureka</a>: feature engineering as agentic code generation w Alibaba Cloud, SFT + RL post-trained AI-infra agent deployed in production (<a href="https://neurips.cc/virtual/2025/loc/mexico-city/129981">NeurIPS-W 2025</a>, <a href="https://doi.org/10.1007/978-981-92-0378-9_33" target="_blank" rel="noopener">DASFAA 2026</a>). Publishing as Xianling Zhang.
     </p>
     <p class="social-links"><a href="https://x.com/lily_gpupoor" target="_blank" rel="noopener">X</a> / <a href="/assets/pdf/lily_cv.pdf" class="cv-link" target="_blank" rel="noopener">CV</a> / <a href="https://www.linkedin.com/in/lilyzhng/" target="_blank" rel="noopener">In</a> / <a href="mailto:lilyzhng.ai@gmail.com">Email</a> / <a href="https://scholar.google.com/citations?user=la-Mx-UAAAAJ" target="_blank" rel="noopener">Scholar</a> / <a href="https://github.com/lilyzhng" target="_blank" rel="noopener">GitHub</a></p>
   </div>
@@ -58,7 +58,7 @@ author_profile: true
 <p class="research-more">Find all published research <a href="https://scholar.google.com/citations?user=la-Mx-UAAAAJ" target="_blank" rel="noopener">here</a>.</p>
 
 <div class="research-entry">
-  <a class="research-title" href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">A Constitution-Grid Instrument for Data-Efficient RL Alignment (C-Guard)</a>
+  <a class="research-title" href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">C-Instrument: A Constitution-Grid Data Instrument for Efficient RL Alignment</a>
   <div class="research-authors"><strong>X Zhang</strong> · COLM 2026 ER</div>
   <div class="research-desc">Post-trained safety guard model with RL, automatic synthetic data generation for safety alignment</div>
   <div class="research-links"><a href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">Paper</a> <a href="/writing/c-guard/">Blogpost</a> <a href="https://github.com/genius-researcher/c-guard" target="_blank" rel="noopener">Code</a> <a href="https://huggingface.co/datasets/lilyzhng/c-guard" target="_blank" rel="noopener">Dataset</a></div>
