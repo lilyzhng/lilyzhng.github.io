@@ -1,6 +1,6 @@
 ---
 published: false   # source for bin/md2post.py; Jekyll must not render it
-title: "C-Instrument: Automating RL Data Generation and Hill-Climbing with a Constitution-Grid Instrument"
+title: "C-Instrument: Automating RL Data Generation and Hillclimbing with a Constitution-Grid Instrument"
 slug: c-instrument
 description: "Training a safety guard with RL means optimizing two objectives that pull against each other. C-Instrument turns data generation into measured moves on a constitution grid."
 date: "July 21, 2026"

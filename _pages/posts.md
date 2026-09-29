@@ -35,7 +35,7 @@ permalink: /writing/
   </div>
 
   <div class="blog-entry" data-type="blog">
-    <a href="/writing/c-instrument/" class="blog-title">C-Instrument: Automating RL Data Generation and Hill-Climbing with a Constitution-Grid Instrument</a>
+    <a href="/writing/c-instrument/" class="blog-title">C-Instrument: Automating RL Data Generation and Hillclimbing with a Constitution-Grid Instrument</a>
     <span class="blog-date">07.21.26</span>
   </div>
 

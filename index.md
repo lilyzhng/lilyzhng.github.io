@@ -58,7 +58,7 @@ author_profile: true
 <p class="research-more">Find all published research <a href="https://scholar.google.com/citations?user=la-Mx-UAAAAJ" target="_blank" rel="noopener">here</a>.</p>
 
 <div class="research-entry">
-  <a class="research-title" href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">C-Instrument: Automating RL Data Generation and Hill-Climbing with a Constitution-Grid Instrument</a>
+  <a class="research-title" href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">C-Instrument: Automating RL Data Generation and Hillclimbing with a Constitution-Grid Instrument</a>
   <div class="research-authors"><strong>X Zhang</strong> · COLM 2026 ER</div>
   <div class="research-desc">Post-trained safety guard model with RL, automatic synthetic data generation for safety alignment</div>
   <div class="research-links"><a href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">Paper</a> <a href="/writing/c-instrument/">Blogpost</a> <a href="https://github.com/lilyzhng/c-instrument" target="_blank" rel="noopener">Code</a> <a href="https://huggingface.co/datasets/lilyzhng/c-guard" target="_blank" rel="noopener">Dataset</a></div>
