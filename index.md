@@ -61,7 +61,7 @@ author_profile: true
   <a class="research-title" href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">C-Instrument: A Constitution-Grid Data Instrument for Efficient RL Alignment</a>
   <div class="research-authors"><strong>X Zhang</strong> · COLM 2026 ER</div>
   <div class="research-desc">Post-trained safety guard model with RL, automatic synthetic data generation for safety alignment</div>
-  <div class="research-links"><a href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">Paper</a> <a href="/writing/c-instrument/">Blogpost</a> <a href="https://github.com/genius-researcher/c-guard" target="_blank" rel="noopener">Code</a> <a href="https://huggingface.co/datasets/lilyzhng/c-guard" target="_blank" rel="noopener">Dataset</a></div>
+  <div class="research-links"><a href="https://arxiv.org/html/2608.00180v3" target="_blank" rel="noopener">Paper</a> <a href="/writing/c-instrument/">Blogpost</a> <a href="https://github.com/lilyzhng/c-instrument" target="_blank" rel="noopener">Code</a> <a href="https://huggingface.co/datasets/lilyzhng/c-guard" target="_blank" rel="noopener">Dataset</a></div>
 </div>
 
 <div class="research-entry">
