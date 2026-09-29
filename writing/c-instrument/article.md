@@ -1,7 +1,7 @@
 ---
 published: false   # source for bin/md2post.py; Jekyll must not render it
 title: "C-Instrument: A Constitution-Grid Data Instrument for Efficient RL Alignment"
-slug: c-guard
+slug: c-instrument
 description: "Training a safety guard with RL means optimizing two objectives that pull against each other. C-Instrument turns data generation into measured moves on a constitution grid."
 date: "July 21, 2026"
 affiliation: Independent

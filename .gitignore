@@ -13,3 +13,5 @@ CLAUDE.md
 writing/*/index.html
 !writing/agent-harness/index.html
 !writing/sofagenius/index.html
+# c-guard is a redirect to /writing/c-instrument/
+!writing/c-guard/index.html

@@ -1,6 +1,6 @@
 # Blog post template
 
-Derived from `writing/c-guard/index.html` (2026-08-25). To start a new post:
+Derived from `writing/c-instrument/index.html` (formerly c-guard) (2026-08-25). To start a new post:
 
 1. Create `writing/<slug>/article.md` (see the front matter spec in `bin/md2post.py`), images beside it.
 2. Replace the placeholders: `POST_TITLE`, `POST_SLUG`, `POST_DESCRIPTION`, `MONTH DAY, YEAR`, `YEAR`, `zhangYEARslug`.
