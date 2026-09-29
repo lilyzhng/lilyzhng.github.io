@@ -8,7 +8,7 @@ affiliation: Independent
 bibkey: zhang2026cinstrument
 ---
 
-Conflicting objectives are general in RL alignment, and training on them data-efficiently is hard. A safety guard trained with RL has to catch real harm without refusing benign prompts, and those two goals pull against each other. Our finding is that over-refusal improves 22.4% to 12.8%, while under-refusal on adversarial attacks silently worsens 0.27 to 0.33. We present **C-Instrument**, a constitution-grid data instrument that generates the RL training data, and **C-LIM**, a per-cell learnability score that decides each cell's move: prune, densify, amend, expand. C-LIM flags the dead-weight data region before any training budget is spent: 187 untargeted rows had bought zero gain, and our method lifts the same region's learning impact 0.733 to 0.80.
+Conflicting objectives are general in RL alignment, and training on them data-efficiently is hard. A safety guard trained with RL has to catch real harm without refusing harmless prompts, and those two goals pull against each other. Our finding is that over-refusal improves 22.4% to 12.8%, while under-refusal on adversarial attacks silently worsens 0.27 to 0.33. We present **C-Instrument**, a constitution-grid data instrument that generates the RL training data, and **C-LIM**, a per-cell learnability score that decides each cell's move: prune, densify, amend, expand. C-LIM flags the dead-weight data region before any training budget is spent: 187 untargeted rows had bought zero gain, and our method lifts the same region's learning impact 0.733 to 0.80.
 
 ## Introduction {#intro}
 
